@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Contact — Let's reach students together",
   description:
     "Tell us what you're launching and we'll build a plan to put it in front of the right campuses through events, brand ambassadors, and influencers.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
@@ -62,6 +63,32 @@ export default function ContactPage() {
               </div>
             </div>
           </dl>
+
+          {/* Offices — click-to-call */}
+          <div className="mt-10">
+            <h2 className="text-xs uppercase tracking-wide text-[color:var(--muted-on-light)]">
+              Offices
+            </h2>
+            <div className="mt-3 grid gap-4 sm:grid-cols-2">
+              {siteConfig.offices.map((office) => (
+                <div
+                  key={office.name}
+                  className="rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-4 shadow-soft"
+                >
+                  <p className="font-display text-base font-bold text-ink">{office.name}</p>
+                  <p className="mt-1 text-sm text-[color:var(--muted-on-light)]">
+                    {office.address}
+                  </p>
+                  <a
+                    href={`tel:${office.phone.replace(/[^\d+]/g, "")}`}
+                    className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+                  >
+                    <Phone className="h-4 w-4" aria-hidden /> {office.phone}
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
 
           {siteConfig.showCredibility && (
             <p className="mt-10 max-w-sm text-sm text-[color:var(--muted-on-light)]">

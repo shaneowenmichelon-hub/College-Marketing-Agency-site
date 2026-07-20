@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
+import { siteConfig } from "@/site.config";
 import { ageFromDOB, isEduEmail } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
+import { useAttribution, useElapsed } from "@/lib/client-forms";
 import {
   FormField,
   Input,
@@ -46,8 +49,19 @@ export function ApplyForm() {
   const [agreements, setAgreements] = useState({ age: false, terms: false, ftc: false });
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [followers, setFollowers] = useState({ ig: "", tt: "" });
+  const attribution = useAttribution();
+  const getElapsed = useElapsed();
 
   const age = ageFromDOB(dob);
+
+  // Soft eligibility check: warn (don't block) if neither platform meets the min.
+  const igCount = parseInt(followers.ig.replace(/[^\d]/g, ""), 10) || 0;
+  const ttCount = parseInt(followers.tt.replace(/[^\d]/g, ""), 10) || 0;
+  const enteredFollowers = followers.ig !== "" || followers.tt !== "";
+  const meetsFollowerMin =
+    Math.max(igCount, ttCount) >= siteConfig.influencerMinFollowers;
+  const showFollowerWarning = enteredFollowers && !meetsFollowerMin;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -55,6 +69,9 @@ export function ApplyForm() {
     const data = new FormData(form);
 
     const payload = {
+      kind: "student_application" as const,
+      elapsedMs: getElapsed(),
+      attribution,
       fullName: String(data.get("fullName") ?? "").trim(),
       dob,
       phone: String(data.get("phone") ?? ""),
@@ -108,6 +125,7 @@ export function ApplyForm() {
         setStatus("error");
         return;
       }
+      trackEvent("student_application", { form: "ambassador" });
       setStatus("success");
     } catch {
       setStatus("error");
@@ -229,6 +247,14 @@ export function ApplyForm() {
       {/* Socials */}
       <section>
         <SectionTitle n={3} title="Your socials" />
+        <p className="mb-4 text-sm text-[color:var(--muted-on-light)]">
+          Our influencer program looks for{" "}
+          <strong className="text-ink">
+            {siteConfig.influencerMinFollowers.toLocaleString()}+ followers
+          </strong>{" "}
+          on Instagram or TikTok — but ambassadors don&apos;t need a big following, so
+          apply either way.
+        </p>
         <div className="grid gap-5 sm:grid-cols-2">
           <FormField label="Instagram handle" htmlFor="instagram">
             <Input id="instagram" name="instagram" placeholder="@handle" />
@@ -237,10 +263,24 @@ export function ApplyForm() {
             <Input id="tiktok" name="tiktok" placeholder="@handle" />
           </FormField>
           <FormField label="Instagram followers" htmlFor="igFollowers">
-            <Input id="igFollowers" name="igFollowers" inputMode="numeric" placeholder="e.g. 1200" />
+            <Input
+              id="igFollowers"
+              name="igFollowers"
+              inputMode="numeric"
+              placeholder="e.g. 1200"
+              value={followers.ig}
+              onChange={(e) => setFollowers((f) => ({ ...f, ig: e.target.value }))}
+            />
           </FormField>
           <FormField label="TikTok followers" htmlFor="ttFollowers">
-            <Input id="ttFollowers" name="ttFollowers" inputMode="numeric" placeholder="e.g. 3400" />
+            <Input
+              id="ttFollowers"
+              name="ttFollowers"
+              inputMode="numeric"
+              placeholder="e.g. 3400"
+              value={followers.tt}
+              onChange={(e) => setFollowers((f) => ({ ...f, tt: e.target.value }))}
+            />
           </FormField>
           <FormField label="Content niche" htmlFor="niche" className="sm:col-span-2">
             <Select id="niche" name="niche" defaultValue="">
@@ -255,6 +295,13 @@ export function ApplyForm() {
             </Select>
           </FormField>
         </div>
+        {showFollowerWarning && (
+          <p className="mt-3 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-700" role="status">
+            Heads up — that&apos;s below our {siteConfig.influencerMinFollowers.toLocaleString()}+
+            follower guideline for paid influencer work. You can still apply to be a
+            brand ambassador, which has no follower minimum.
+          </p>
+        )}
       </section>
 
       {/* More */}

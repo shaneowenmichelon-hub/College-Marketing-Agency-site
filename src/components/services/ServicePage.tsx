@@ -9,12 +9,16 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProcessStep } from "@/components/ProcessStep";
 import { PlaceholderImage } from "@/components/Placeholders";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { RelatedInsights } from "@/components/RelatedInsights";
+import { postsForService } from "@/lib/content";
 
 export type Tactic = { title: string; body: string };
 export type Step = { title: string; body: string };
 export type ProofStat = { value: string; label: string };
 
 export type ServicePageProps = {
+  slug: "events" | "brand-ambassadors" | "influencers";
   eyebrow: string;
   title: string;
   intro: string;
@@ -29,6 +33,7 @@ export type ServicePageProps = {
 };
 
 export function ServicePage({
+  slug,
   eyebrow,
   title,
   intro,
@@ -41,8 +46,15 @@ export function ServicePage({
   icon: Icon,
   secondaryCta,
 }: ServicePageProps) {
+  const related = postsForService(slug);
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: eyebrow, path: `/services/${slug}` },
+        ]}
+      />
       {/* Hero */}
       <section className="grain relative overflow-hidden bg-ink text-white">
         <div aria-hidden className="mesh pointer-events-none absolute inset-0" />
@@ -163,6 +175,20 @@ export function ServicePage({
           </Reveal>
         </div>
       </Section>
+
+      {/* Related insights */}
+      {related.length > 0 && (
+        <Section tone="light">
+          <SectionHeading
+            eyebrow="Related insights"
+            title="Go deeper."
+            intro="Perspective relevant to this service."
+          />
+          <div className="mt-12">
+            <RelatedInsights posts={related} />
+          </div>
+        </Section>
+      )}
 
       {/* CTA */}
       <Section tone="dark" mesh grain containerClassName="text-center">

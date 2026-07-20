@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: "About — Built by people who run campus culture",
   description:
     "A modern college-marketing agency built by people who actually run campus and nightlife culture — the fresh alternative to legacy campus-media shops.",
+  alternates: { canonical: "/about" },
 };
 
 const values = [

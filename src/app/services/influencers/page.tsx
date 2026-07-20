@@ -6,11 +6,13 @@ export const metadata: Metadata = {
   title: "Influencers — Real students, real reach",
   description:
     "Real students posting to real friends — authentic peer-to-peer content with high engagement because the audience is their actual social circle. Recruit, screen, train, manage, boost.",
+  alternates: { canonical: "/services/influencers" },
 };
 
 export default function InfluencersPage() {
   return (
     <ServicePage
+      slug="influencers"
       icon={Megaphone}
       eyebrow="Influencers"
       title="Real students posting to real friends."
@@ -18,6 +20,7 @@ export default function InfluencersPage() {
       overview={[
         "The most persuasive post about your brand isn't from a mega-influencer — it's from someone's friend. We build rosters of student creators whose audiences are their real classmates, teammates, and roommates, so your brand shows up inside genuine social circles.",
         "We handle the whole roster: finding the right creators, screening them, briefing and training them, and managing the content so it stays authentic and on-brand. When it makes sense, we add paid boosting to extend the best-performing posts beyond their organic reach.",
+        "Our creators meet a baseline of 1,500+ followers on Instagram or TikTok — enough to matter, small enough to stay authentic. Students below that threshold are a great fit for our brand ambassador program instead.",
       ]}
       tacticsHeading="Content that fits the feed."
       tactics={[

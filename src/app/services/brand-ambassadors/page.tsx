@@ -6,11 +6,13 @@ export const metadata: Metadata = {
   title: "Brand Ambassadors — Your voice on campus",
   description:
     "A vetted student rep network that becomes your brand's voice on campus — peer-to-peer, customized by school and audience. Sampling, dorm drops, tabling, pop-ups, and more.",
+  alternates: { canonical: "/services/brand-ambassadors" },
 };
 
 export default function BrandAmbassadorsPage() {
   return (
     <ServicePage
+      slug="brand-ambassadors"
       icon={Users}
       eyebrow="Brand Ambassadors"
       title="A student rep network that becomes your voice on campus."

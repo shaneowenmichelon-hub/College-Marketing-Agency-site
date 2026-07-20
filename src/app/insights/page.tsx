@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "Insights — Notes on campus marketing & culture",
   description:
     "Perspective on campus marketing, culture, and creators. Placeholder posts for now — replace with real articles before launch.",
+  alternates: { canonical: "/insights" },
 };
 
 export default function InsightsPage() {

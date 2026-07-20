@@ -4,6 +4,8 @@ import { useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { siteConfig } from "@/site.config";
 import { isValidEmail, cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
+import { useAttribution, usePrefill, useElapsed } from "@/lib/client-forms";
 import { FormField, Input, Select, Textarea } from "@/components/form/Fields";
 import { Button } from "@/components/ui/Button";
 
@@ -15,6 +17,9 @@ export function ContactForm() {
   const [interests, setInterests] = useState<string[]>([]);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const attribution = useAttribution();
+  const prefill = usePrefill();
+  const getElapsed = useElapsed();
 
   function toggleInterest(label: string) {
     setInterests((prev) =>
@@ -28,6 +33,7 @@ export function ContactForm() {
     const data = new FormData(form);
 
     const payload = {
+      kind: "brand_inquiry" as const,
       firstName: String(data.get("firstName") ?? ""),
       lastName: String(data.get("lastName") ?? ""),
       company: String(data.get("company") ?? "").trim(),
@@ -37,6 +43,8 @@ export function ContactForm() {
       budget: String(data.get("budget") ?? ""),
       message: String(data.get("message") ?? ""),
       company_website: String(data.get("company_website") ?? ""), // honeypot
+      elapsedMs: getElapsed(),
+      attribution,
     };
 
     const nextErrors: Errors = {};
@@ -59,6 +67,7 @@ export function ContactForm() {
         setStatus("error");
         return;
       }
+      trackEvent("generate_lead", { form: "contact", interests });
       setStatus("success");
       form.reset();
       setInterests([]);
@@ -97,16 +106,43 @@ export function ContactForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <FormField label="First name" htmlFor="firstName">
-          <Input id="firstName" name="firstName" autoComplete="given-name" />
+          <Input
+            id="firstName"
+            name="firstName"
+            autoComplete="given-name"
+            defaultValue={prefill.fname}
+            key={`fn-${prefill.fname ?? ""}`}
+          />
         </FormField>
         <FormField label="Last name" htmlFor="lastName">
-          <Input id="lastName" name="lastName" autoComplete="family-name" />
+          <Input
+            id="lastName"
+            name="lastName"
+            autoComplete="family-name"
+            defaultValue={prefill.lname}
+            key={`ln-${prefill.lname ?? ""}`}
+          />
         </FormField>
         <FormField label="Company" htmlFor="company" required error={errors.company}>
-          <Input id="company" name="company" autoComplete="organization" error={errors.company} />
+          <Input
+            id="company"
+            name="company"
+            autoComplete="organization"
+            error={errors.company}
+            defaultValue={prefill.company}
+            key={`co-${prefill.company ?? ""}`}
+          />
         </FormField>
         <FormField label="Work email" htmlFor="email" required error={errors.email}>
-          <Input id="email" name="email" type="email" autoComplete="email" error={errors.email} />
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            error={errors.email}
+            defaultValue={prefill.email}
+            key={`em-${prefill.email ?? ""}`}
+          />
         </FormField>
         <FormField label="Phone" htmlFor="phone" className="sm:col-span-2">
           <Input id="phone" name="phone" type="tel" autoComplete="tel" />

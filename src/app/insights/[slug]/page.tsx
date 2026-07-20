@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { PlaceholderImage } from "@/components/Placeholders";
 import { CTASection } from "@/components/CTASection";
+import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { getPost, posts, formatDate } from "@/lib/content";
 
 type Params = Promise<{ slug: string }>;
@@ -26,6 +27,7 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `/insights/${slug}` },
     openGraph: { title: post.title, description: post.excerpt, type: "article" },
   };
 }
@@ -37,6 +39,19 @@ export default async function InsightArticle({ params }: { params: Params }) {
 
   return (
     <>
+      <ArticleJsonLd
+        title={post.title}
+        description={post.excerpt}
+        slug={post.slug}
+        date={post.date}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Insights", path: "/insights" },
+          { name: post.title, path: `/insights/${post.slug}` },
+        ]}
+      />
       <article>
         <Section tone="light" className="pb-0">
           <Container className="max-w-3xl px-0">

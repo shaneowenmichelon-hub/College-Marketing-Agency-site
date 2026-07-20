@@ -1,10 +1,11 @@
 /**
  * SINGLE SOURCE OF TRUTH
  * ----------------------
- * Company name, contact info, stat tokens, campus list, nav, socials and feature
- * flags all live here. Editing this file re-brands and re-configures the whole site.
+ * Company name, contact info, stat tokens, campus list, nav, socials, offices and
+ * feature flags all live here. Editing this file re-brands and re-configures the
+ * whole site. Nothing is hard-coded in components.
  *
- * See README → "Customize before launch" for the fill-in checklist.
+ * See README → "Launch runbook" for the fill-in checklist.
  */
 
 export type NavItem = {
@@ -19,13 +20,28 @@ export type StatToken = {
   label: string;
 };
 
+export type Office = {
+  name: string;
+  address: string;
+  phone: string;
+};
+
 export const siteConfig = {
   /**
-   * The company has no name yet. This is a swappable token referenced everywhere.
-   * Change it once and the entire site (nav, hero, footer, meta, forms) updates.
-   * Later: replace <Logo /> internals with an SVG wordmark.
+   * The agency brand name — a single swappable token referenced everywhere.
+   * Change it once and the entire site (nav, hero, footer, meta, forms, emails)
+   * updates. Later: replace <Logo /> internals with an SVG wordmark.
    */
-  companyName: "[ insert company name ]",
+  companyName: "Collegiate Hospitality",
+
+  // Alt name: "Unreasonable Hospitality" — note trademark/brand-confusion risk
+  // (existing NYT book/brand by Will Guidara); confirm availability before using.
+
+  /** Legal entity name — used in emails, legal pages, and copyright. */
+  companyLegalName: "Collegiate Hospitality LLC",
+
+  /** Root domain (no protocol) — used to build email addresses and canonical URLs. */
+  companyDomain: "collegiatehospitality.com", // PLACEHOLDER — confirm + register.
 
   /** Used for <title> templates, OG, and general voice. */
   tagline: "Where brands meet campus culture.",
@@ -33,7 +49,7 @@ export const siteConfig = {
     "A college marketing & events agency connecting brands with students through events, brand ambassadors, and influencers — on the campuses where they live, study, and go out.",
 
   /** Canonical URL for SEO/sitemap. Update to your production domain before launch. */
-  url: "https://example.com",
+  url: "https://collegiatehospitality.com",
 
   /**
    * Real credibility line. Toggle off with `showCredibility: false` if you'd rather
@@ -44,20 +60,43 @@ export const siteConfig = {
     "Backed by the team behind ZMM Events and the Night School college tour.",
 
   /**
-   * Contact info — PLACEHOLDER tokens. Fill in real values before launch.
+   * Primary contact info. Email/phone are derived defaults you can override.
+   * PLACEHOLDER values — confirm before launch.
    */
   contact: {
-    email: "[hello@yourdomain.com]",
-    phone: "[(000) 000-0000]",
-    location: "[City, ST]",
+    email: "hello@collegiatehospitality.com",
+    phone: "(000) 000-0000",
+    location: "New York, NY",
   },
 
-  /** Social links — PLACEHOLDER. Empty href renders as a labeled placeholder. */
+  /**
+   * Office locations — rendered on /contact with click-to-call links.
+   * PLACEHOLDER offices; edit freely.
+   */
+  offices: [
+    {
+      name: "New York",
+      address: "[123 Example Ave, New York, NY 10001]",
+      phone: "(000) 000-0000",
+    },
+    {
+      name: "Chicago",
+      address: "[456 Example St, Chicago, IL 60601]",
+      phone: "(000) 000-0000",
+    },
+  ] as Office[],
+
+  /**
+   * Social links — PLACEHOLDER. Empty href renders as a labeled placeholder.
+   */
   socials: [
     { label: "Instagram", href: "" },
     { label: "TikTok", href: "" },
     { label: "LinkedIn", href: "" },
   ] as { label: string; href: string }[],
+
+  /** Minimum follower count for the influencer program (IG or TikTok). */
+  influencerMinFollowers: 1500,
 
   /**
    * PLACEHOLDER stat tokens. Rendered literally so they read as an intentional
@@ -161,3 +200,9 @@ export const siteConfig = {
 } as const;
 
 export type SiteConfig = typeof siteConfig;
+
+/** Derived email defaults (env vars override these — see src/lib/email.ts). */
+export const emailDefaults = {
+  from: `${siteConfig.companyName} <hello@${siteConfig.companyDomain}>`,
+  inbox: `hello@${siteConfig.companyDomain}`,
+};

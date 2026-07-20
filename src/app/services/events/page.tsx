@@ -6,11 +6,13 @@ export const metadata: Metadata = {
   title: "Events — Campus activations, planned & executed",
   description:
     "Custom campus activations planned, staffed, and executed end to end — Welcome Week takeovers, tailgates, sampling, and experiential moments students actually show up for.",
+  alternates: { canonical: "/services/events" },
 };
 
 export default function EventsPage() {
   return (
     <ServicePage
+      slug="events"
       icon={CalendarHeart}
       eyebrow="Events"
       title="Campus activations students actually show up for."

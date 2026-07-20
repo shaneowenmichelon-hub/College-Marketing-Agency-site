@@ -23,9 +23,15 @@ import { ProcessStep } from "@/components/ProcessStep";
 import { StatCounter } from "@/components/StatCounter";
 import { CampusGrid } from "@/components/CampusGrid";
 import { LogoMarquee } from "@/components/LogoMarquee";
+import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
 import { PlaceholderImage } from "@/components/Placeholders";
 import { caseStudies, posts, formatDate } from "@/lib/content";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 const serviceIcons = {
   events: CalendarHeart,
@@ -206,7 +212,7 @@ export default function HomePage() {
           {caseStudies.map((c, i) => (
             <Reveal key={c.slug} delay={i * 0.08}>
               <Link
-                href={`/work#${c.slug}`}
+                href={`/work/${c.slug}`}
                 className="group block h-full overflow-hidden rounded-2xl border border-[color:var(--border-on-light)] bg-surface shadow-soft transition-all hover:-translate-y-1 hover:shadow-soft-lg"
               >
                 <PlaceholderImage
@@ -221,7 +227,10 @@ export default function HomePage() {
                     {c.headline}
                   </h3>
                   <p className="mt-2 text-sm text-[color:var(--muted-on-light)]">
-                    {c.brand} · <span className="font-semibold text-accent">{c.result}</span>
+                    {c.brand} ·{" "}
+                    <span className="font-semibold text-accent">
+                      {c.stat} {c.statLabel}
+                    </span>
                   </p>
                 </div>
               </Link>
@@ -323,6 +332,42 @@ export default function HomePage() {
           ))}
         </div>
       </Section>
+
+      {/* Social / Instagram placeholder */}
+      <Section tone="light">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <SectionHeading
+            eyebrow="Follow along"
+            title="Campus, in real time."
+            intro="Behind the scenes from activations and creators across the network."
+          />
+          {(() => {
+            const ig = siteConfig.socials.find((s) => s.label === "Instagram");
+            return ig?.href ? (
+              <Reveal>
+                <a
+                  href={ig.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent"
+                >
+                  Follow on Instagram <ArrowRight className="h-4 w-4" />
+                </a>
+              </Reveal>
+            ) : null;
+          })()}
+        </div>
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {[0, 1, 2, 3].map((i) => (
+            <Reveal key={i} delay={i * 0.06}>
+              <PlaceholderImage label="@handle post" index={i} aspect="aspect-square" />
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Lead magnet */}
+      <LeadMagnet />
 
       {/* Final CTA */}
       <CTASection

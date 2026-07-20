@@ -4,6 +4,9 @@ import "@/styles/globals.css";
 import { siteConfig } from "@/site.config";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Analytics } from "@/components/analytics/Analytics";
+import { CookieConsent } from "@/components/analytics/CookieConsent";
+import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -54,11 +57,14 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <OrganizationJsonLd />
         <Navbar />
         <main id="main" className="flex-1">
           {children}
         </main>
         <Footer />
+        <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );

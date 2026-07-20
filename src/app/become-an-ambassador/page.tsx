@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   Banknote,
   CalendarClock,
+  Check,
   Gift,
   Rocket,
   Send,
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
   title: "Become an Ambassador — Get paid to rep brands you love",
   description:
     "Join the student ambassador network. Apply, get matched with brands, post and activate on campus, and get paid — cash, free product, and real resume experience.",
+  alternates: { canonical: "/become-an-ambassador" },
 };
 
 const steps = [
@@ -107,6 +109,37 @@ export default function BecomeAnAmbassadorPage() {
               </div>
             </Reveal>
           ))}
+        </div>
+      </Section>
+
+      {/* What you'll actually do */}
+      <Section tone="light">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-start">
+          <SectionHeading
+            eyebrow="The work"
+            title="What you'll actually do."
+            intro="Real, concrete tasks — so you know exactly what you're signing up for. Some are on-campus, some are online, most are flexible around your schedule."
+          />
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {[
+              "Flyering & handing out samples around campus",
+              "Door hangers in residence areas",
+              "Classroom & message-board shout-outs",
+              "Staffing tables and brand events",
+              "Posting to your own social accounts",
+              "Submitting photos of your activations as proof",
+            ].map((task) => (
+              <li
+                key={task}
+                className="flex items-start gap-3 rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-4 shadow-soft"
+              >
+                <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                  <Check className="h-3.5 w-3.5" aria-hidden />
+                </span>
+                <span className="text-sm text-ink">{task}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
 
