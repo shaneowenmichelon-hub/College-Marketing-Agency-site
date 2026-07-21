@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Compass, Flame, HeartHandshake, Zap } from "lucide-react";
-import { siteConfig } from "@/site.config";
+import { siteConfig, team } from "@/site.config";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
-import { PlaceholderImage } from "@/components/Placeholders";
+import { EventImage } from "@/components/EventImage";
+import { TeamAvatar } from "@/components/TeamAvatar";
 import { CTASection } from "@/components/CTASection";
 
 export const metadata: Metadata = {
@@ -48,7 +49,7 @@ export default function AboutPage() {
             intro="We're not a legacy campus-media shop dusting off the same posters and email lists. We're the team that plans the events, knows the promoters, and understands why students show up — building the modern, culturally-native way for brands to reach campus."
           />
           <Reveal delay={0.1}>
-            <PlaceholderImage label="Team / culture photo" index={2} aspect="aspect-[5/4]" />
+            <EventImage index={13} aspect="aspect-[5/4]" />
           </Reveal>
         </div>
       </Section>
@@ -107,23 +108,39 @@ export default function AboutPage() {
       <Section tone="muted">
         <SectionHeading
           eyebrow="Team"
-          title="The people behind it."
-          intro="Team bios and photos go here. Placeholder cards for now — no fabricated names."
+          title="The operators behind the network."
+          intro="A team that actually runs campus and nightlife culture — not a legacy media shop."
         />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <Reveal key={i} delay={i * 0.06}>
-              <div className="rounded-2xl border border-dashed border-[color:var(--border-on-light)] bg-surface p-5 text-center">
-                <div className="mx-auto h-24 w-24 rounded-full bg-surface-muted" aria-hidden />
+          {team.map((member, i) => {
+            const card = (
+              <div className="flex h-full flex-col items-center rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-6 text-center shadow-soft transition-all group-hover:-translate-y-1 group-hover:shadow-soft-lg">
+                <TeamAvatar name={member.name} photo={member.photo} className="mx-auto" />
                 <p className="mt-4 font-display text-base font-bold text-ink">
-                  Team member
+                  {member.name}
                 </p>
-                <p className="text-xs text-[color:var(--muted-on-light)]">
-                  Role — to be added
+                <p className="mt-1 text-xs leading-relaxed text-[color:var(--muted-on-light)]">
+                  {member.title}
                 </p>
               </div>
-            </Reveal>
-          ))}
+            );
+            return (
+              <Reveal key={member.name} delay={i * 0.06} className="h-full">
+                {member.linkedin ? (
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block h-full"
+                  >
+                    {card}
+                  </a>
+                ) : (
+                  <div className="group h-full">{card}</div>
+                )}
+              </Reveal>
+            );
+          })}
         </div>
       </Section>
 

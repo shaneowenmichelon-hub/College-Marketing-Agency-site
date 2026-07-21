@@ -267,6 +267,41 @@ export const clients: Client[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// TEAM — rendered on /about. Drop a headshot at the `photo` path (e.g.
+// public/team/shane-michelon.jpg) to show it; until then a clean initials avatar
+// is shown. Optionally add a `linkedin` URL to link the card.
+// ─────────────────────────────────────────────────────────────────────────────
+export type TeamMember = {
+  name: string;
+  title: string;
+  photo?: string;
+  linkedin?: string;
+};
+
+export const team: TeamMember[] = [
+  {
+    name: "Shane Michelon",
+    title: "Partner, ZMM Events · Co-founder, Night School Tour · Founder, SOS Consultants",
+    photo: "/team/shane-michelon.jpg",
+  },
+  {
+    name: "Zach Maitlin",
+    title: "Founder, ZMM Events",
+    photo: "/team/zach-maitlin.jpg",
+  },
+  {
+    name: "Ronan Rolstan",
+    title: "Head of Partnerships, ZMM & Night School Tour",
+    photo: "/team/ronan-rolstan.jpg",
+  },
+  {
+    name: "Elizabeth",
+    title: "Trade & Activations — formerly Head of Trade & Activations, Anheuser-Busch",
+    photo: "/team/elizabeth.jpg",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
 // EVENT PHOTOS — real ZMM event imagery, self-hosted at /public/images/events/
 // (populated by scripts/fetch-assets.mjs). A curated spread of the t1–t54 set.
 // Swap in higher-res originals later by replacing the files.
