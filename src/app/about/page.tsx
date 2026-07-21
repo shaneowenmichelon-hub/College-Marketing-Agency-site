@@ -111,7 +111,7 @@ export default function AboutPage() {
           title="The operators behind the network."
           intro="A team that actually runs campus and nightlife culture — not a legacy media shop."
         />
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {team.map((member, i) => {
             const card = (
               <div className="flex h-full flex-col items-center rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-6 text-center shadow-soft transition-all group-hover:-translate-y-1 group-hover:shadow-soft-lg">

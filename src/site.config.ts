@@ -282,22 +282,27 @@ export const team: TeamMember[] = [
   {
     name: "Shane Michelon",
     title: "Partner, ZMM Events · Co-founder, Night School Tour · Founder, SOS Consultants",
-    photo: "/team/shane-michelon.jpg",
+    photo: "/team/shane-michelon.png",
   },
   {
     name: "Zach Maitlin",
     title: "Founder, ZMM Events",
-    photo: "/team/zach-maitlin.jpg",
+    photo: "/team/zach-maitlin.png",
+  },
+  {
+    name: "AJ Deaugustine",
+    title: "Chief Operating Officer",
+    photo: "/team/aj-deaugustine.webp",
   },
   {
     name: "Ronan Rolstan",
     title: "Head of Partnerships, ZMM & Night School Tour",
-    photo: "/team/ronan-rolstan.jpg",
+    photo: "/team/ronan-rolstan.png",
   },
   {
+    // Photo intentionally left blank for now — shows a clean initials avatar.
     name: "Elizabeth",
     title: "Trade & Activations — formerly Head of Trade & Activations, Anheuser-Busch",
-    photo: "/team/elizabeth.jpg",
   },
 ];
 
