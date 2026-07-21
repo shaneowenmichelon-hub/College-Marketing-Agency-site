@@ -10,27 +10,21 @@ import type { Client } from "@/site.config";
  * This guarantees a real logo shows on the live site even if the self-hosted
  * file hasn't been fetched yet, and never renders a broken image.
  */
-function ClientLogo({ client, onDark }: { client: Client; onDark: boolean }) {
+function ClientLogo({ client }: { client: Client }) {
   const local = `/logos/${client.file}`;
   const [src, setSrc] = useState(local);
   const [failed, setFailed] = useState(false);
 
-  const tile = cn(
-    "flex h-16 w-40 items-center justify-center rounded-xl border px-4",
-    onDark
-      ? "border-[color:var(--border-on-dark)] bg-white/[0.04]"
-      : "border-[color:var(--border-on-light)] bg-white",
-  );
+  // Dark chip so light/white brand logos (the norm for these sponsor assets) are
+  // visible. Logos are normalized to a clean white silhouette so every logo shows
+  // regardless of its original color — a consistent monochrome logo wall.
+  const tile =
+    "flex h-16 w-40 items-center justify-center rounded-xl border border-white/10 bg-ink px-5";
 
   if (failed) {
     return (
       <div className={tile}>
-        <span
-          className={cn(
-            "text-center text-sm font-semibold tracking-tight",
-            onDark ? "text-white" : "text-ink",
-          )}
-        >
+        <span className="text-center text-sm font-semibold tracking-tight text-white">
           {client.name}
         </span>
       </div>
@@ -43,7 +37,7 @@ function ClientLogo({ client, onDark }: { client: Client; onDark: boolean }) {
       src={src}
       alt={client.name}
       loading="lazy"
-      className="max-h-10 max-w-[8.5rem] object-contain"
+      className="max-h-8 w-auto max-w-[8rem] object-contain opacity-90 transition-opacity duration-200 [filter:brightness(0)_invert(1)] hover:opacity-100"
       onError={() => {
         // fall back to the remote source once, then to the wordmark.
         if (client.remote && src !== client.remote) setSrc(client.remote);
@@ -93,7 +87,7 @@ export function ClientMarquee({
       <ul className="marquee-track flex w-max animate-marquee items-center gap-4 group-hover:[animation-play-state:paused]">
         {doubled.map((client, i) => (
           <li key={`${client.file}-${i}`} aria-hidden={i >= clients.length}>
-            <ClientLogo client={client} onDark={onDark} />
+            <ClientLogo client={client} />
           </li>
         ))}
       </ul>
