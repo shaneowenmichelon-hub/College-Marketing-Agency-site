@@ -3,8 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [
-      // Optional: demo placeholder imagery. Swap/remove before launch.
+      // Online photo sources used across the site (see src/site.config.ts sitePhotos).
       { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "picsum.photos" },
+      { protocol: "https", hostname: "fastly.picsum.photos" },
     ],
   },
 };

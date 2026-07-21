@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Rocket,
 } from "lucide-react";
-import { siteConfig, pricing, clients } from "@/site.config";
+import { siteConfig, pricing } from "@/site.config";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
@@ -22,7 +22,7 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { ProcessStep } from "@/components/ProcessStep";
 import { StatCounter } from "@/components/StatCounter";
 import { CampusGrid } from "@/components/CampusGrid";
-import { ClientMarquee } from "@/components/ClientMarquee";
+import { PhotoMarquee } from "@/components/PhotoMarquee";
 import { EventImage } from "@/components/EventImage";
 import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
@@ -99,11 +99,11 @@ export default function HomePage() {
             </p>
           )}
           <p className="mt-2 text-xs uppercase tracking-widest text-[color:var(--muted-on-light)]/70">
-            Brands the team has partnered with
+            Real moments from across the network
           </p>
         </Reveal>
         <div className="mt-8">
-          <ClientMarquee clients={clients} />
+          <PhotoMarquee />
         </div>
       </Section>
 

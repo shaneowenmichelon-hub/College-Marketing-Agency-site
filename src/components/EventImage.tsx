@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { eventPhotos, eventPhotoRemote } from "@/site.config";
+import { sitePhotos, photoFallback } from "@/site.config";
 
 const gradients = [
   "from-[#5A4BFF] to-[#8B7BFF]",
@@ -12,29 +12,32 @@ const gradients = [
 ];
 
 /**
- * Real ZMM event photo with staged fallback:
- *   1. self-hosted /images/events/<file>  →  2. live remote  →  3. gradient block
- * `index` selects a photo from the curated set (and the fallback gradient), so
- * callers can just pass an index like the old PlaceholderImage did.
+ * A real photo with staged fallback:
+ *   1. topical online photo (Unsplash)  →  2. guaranteed real photo (Picsum, seeded)
+ *   →  3. brand gradient (only if the network is unreachable entirely)
+ * `index` picks from the curated `sitePhotos` set; pass `src` to override.
  */
 export function EventImage({
   index = 0,
-  file,
+  src: srcOverride,
   label,
   className,
   aspect = "aspect-[4/3]",
   priority = false,
 }: {
   index?: number;
-  file?: string;
+  src?: string;
   label?: string;
   className?: string;
   aspect?: string;
   priority?: boolean;
 }) {
-  const chosen = file ?? eventPhotos[index % eventPhotos.length];
-  const [src, setSrc] = useState(`/images/events/${chosen}`);
-  const [failed, setFailed] = useState(false);
+  const photo = sitePhotos[index % sitePhotos.length];
+  const primary = srcOverride ?? photo.src;
+  const [stage, setStage] = useState<0 | 1 | 2>(0);
+
+  const src = stage === 0 ? primary : photoFallback(photo.seed);
+  const failed = stage === 2;
 
   return (
     <div className={cn("relative overflow-hidden rounded-2xl", aspect, className)}>
@@ -57,14 +60,10 @@ export function EventImage({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={src}
-            alt={label || "Event photo"}
+            alt={label || photo.alt}
             loading={priority ? "eager" : "lazy"}
             className="h-full w-full object-cover"
-            onError={() => {
-              const remote = eventPhotoRemote(chosen);
-              if (src !== remote) setSrc(remote);
-              else setFailed(true);
-            }}
+            onError={() => setStage((s) => (s < 2 ? ((s + 1) as 0 | 1 | 2) : s))}
           />
           {label && (
             <span className="absolute bottom-3 left-3 z-10 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">

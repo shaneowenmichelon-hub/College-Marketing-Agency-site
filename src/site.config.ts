@@ -283,6 +283,46 @@ export function eventPhotoRemote(file: string): string {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// SITE PHOTOS — online imagery used across the site and in the homepage photo
+// carousel. Rights-safe (Unsplash). `src` is the topical photo; if it ever fails
+// to load, the component falls back to a guaranteed real photo via `photoFallback`
+// (Picsum, seeded so it's stable), then a gradient. Swap any `src` here anytime —
+// drop in your own /images/events/*.jpg and point `src` at "/images/events/x.jpg".
+// NOTE: these load on the live site / browser; this build sandbox blocks image
+// hosts, so they won't render inside CI — verify on the Vercel deploy.
+// ─────────────────────────────────────────────────────────────────────────────
+export type SitePhoto = { src: string; alt: string; seed: string };
+
+const unsplash = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1200&q=70`;
+
+export const sitePhotos: SitePhoto[] = [
+  { src: unsplash("1516450360452-9312f5e86fc7"), alt: "Crowd at a live campus event", seed: "crowd-1" },
+  { src: unsplash("1459749411175-04bf5292ceea"), alt: "Concert lights and crowd", seed: "concert-1" },
+  { src: unsplash("1470229722913-7c0e2dbbafd3"), alt: "Live music crowd", seed: "concert-2" },
+  { src: unsplash("1492684223066-81342ee5ff30"), alt: "Celebration with confetti", seed: "party-1" },
+  { src: unsplash("1533174072545-7a4b6ad7a6c3"), alt: "Festival crowd", seed: "festival-1" },
+  { src: unsplash("1524368535928-5b5e00ddc76b"), alt: "DJ performing at an event", seed: "dj-1" },
+  { src: unsplash("1506157786151-b8491531f063"), alt: "Cheering crowd", seed: "crowd-2" },
+  { src: unsplash("1540575467063-178a50c2df87"), alt: "Audience at an event", seed: "audience-1" },
+  { src: unsplash("1511578314322-379afb476865"), alt: "Event audience seated", seed: "audience-2" },
+  { src: unsplash("1523240795612-9a054b0db644"), alt: "Students collaborating", seed: "students-1" },
+  { src: unsplash("1517457373958-b7bdd4587205"), alt: "Students studying together", seed: "students-2" },
+  { src: unsplash("1523050854058-8df90110c9f1"), alt: "College graduates", seed: "students-3" },
+  { src: unsplash("1541339907198-e08756dedf3f"), alt: "University campus", seed: "campus-1" },
+  { src: unsplash("1470753937643-efeb931202a9"), alt: "Friends at a party", seed: "friends-1" },
+  { src: unsplash("1543007630-9710e4a00a20"), alt: "Festival hands in the air", seed: "festival-2" },
+  { src: unsplash("1493225457124-a3eb161ffa5f"), alt: "Nightlife crowd", seed: "nightlife-1" },
+  { src: unsplash("1414235077428-338989a2e8c0"), alt: "Social gathering", seed: "social-1" },
+  { src: unsplash("1533105079780-92b9be482077"), alt: "Hands up at a concert", seed: "concert-3" },
+];
+
+/** Guaranteed real-photo fallback (rights-safe, always resolves). */
+export function photoFallback(seed: string, w = 1200, h = 900): string {
+  return `https://picsum.photos/seed/ch-${seed}/${w}/${h}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // EVENT & TRIP SPONSORSHIP DIRECTORY — Events page. Grouped by category.
 // Fill valuePerEvent / basePackage / presentingSponsor; use "[$ —]" for unknowns.
 // ─────────────────────────────────────────────────────────────────────────────

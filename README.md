@@ -119,16 +119,20 @@ component changes needed:
 | --- | --- |
 | `pricing` | Per-service price ranges shown on service pages + homepage cards. |
 | `stats` | The five homepage counters (`1,200` ambassadors, `20` campuses, `20+` brands, `1.44M+` social reach, `100K+` students). `getStat("campuses")` reuses them in service proof strips. |
-| `clients` | Revolving logo marquee. `{ name, file, remote?, url? }` — reorder/remove freely. |
-| `eventPhotos` | Curated filenames wired into image slots (hero-adjacent, work gallery, service photos, "Follow along"). |
+| `sitePhotos` | Online photos (Unsplash) used across every image slot **and** the homepage photo carousel. Each is `{ src, alt, seed }`; if `src` fails it falls back to a guaranteed real photo (`photoFallback`, Picsum), then a gradient. Swap any `src` for your own `/images/events/x.jpg` anytime. |
+| `clients` | Logo marquee data `{ name, file, remote?, url? }`. Not rendered on the homepage right now (the top strip is a photo carousel) but kept available — see note below. |
+| `eventPhotos` | ZMM photo filenames for the optional self-hosting path (see `fetch-assets`). Superseded by `sitePhotos` for on-page rendering. |
 | `eventSponsorships` | The "Sponsor an event or trip" directory on `/services/events`, grouped by category with `valuePerEvent` / `basePackage` / `presentingSponsor` (use `"[$ —]"` for unknowns). |
 
-**Real assets (logos + photos):** these come from `zmm.events` and are downloaded into
-`/public` by `scripts/fetch-assets.mjs`, which runs automatically as a **`prebuild`** step
-(so Vercel self-hosts them on every deploy). It's non-fatal — any missing asset is skipped,
-and the components fall back to the live URL, then a wordmark/gradient, so nothing ever
-looks broken. To populate them locally: `npm run fetch-assets`. **Polymarket** ships as a
-committed SVG wordmark at `public/logos/polymarket.svg` (swap for an official logo anytime).
+**Photos** render from online URLs in `sitePhotos` (rights-safe Unsplash), so they appear on
+the live site with nothing to download. To self-host instead, drop files in
+`/public/images/events/` and point each `src` at them.
+
+**Logos:** the homepage top strip is currently a **photo carousel**. To show the brand-logo
+strip instead, swap `<PhotoMarquee />` back to `<ClientMarquee clients={clients} />` in
+`src/app/page.tsx` (both components exist). `scripts/fetch-assets.mjs` still self-hosts the
+ZMM sponsor logos into `/public/logos` at build (non-fatal `prebuild` step). **Polymarket**
+ships as a committed SVG wordmark at `public/logos/polymarket.svg`.
 
 ---
 
