@@ -26,16 +26,27 @@ export function StatCounter({
   const reduce = useReducedMotion();
   const [display, setDisplay] = useState(value);
 
-  // Parse a leading integer if the token has one (e.g. "250M+" -> 250, "M+").
-  const match = value.match(/^(\d+)(.*)$/);
+  // Parse a leading number (commas + decimals ok) plus a suffix, e.g.
+  //   "1,200" -> 1200 ""        "1.44M+" -> 1.44 "M+"
+  //   "100K+" -> 100 "K+"       "20+"    -> 20 "+"
+  // Tokens like "[X]+" have no leading number and render statically.
+  const match = value.match(/^([\d.,]+)(.*)$/);
+  const numericStr = match ? match[1].replace(/,/g, "") : "";
+  const target = match ? parseFloat(numericStr) : 0;
+  const decimals = numericStr.includes(".") ? numericStr.split(".")[1].length : 0;
+  const suffix = match ? match[2] : "";
+
+  const fmt = (n: number) =>
+    n.toLocaleString("en-US", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
 
   useEffect(() => {
-    if (!match || reduce || !inView) {
+    if (!match || Number.isNaN(target) || reduce || !inView) {
       setDisplay(value);
       return;
     }
-    const target = parseInt(match[1], 10);
-    const suffix = match[2];
     const duration = 1200;
     const start = performance.now();
     let raf = 0;
@@ -43,12 +54,13 @@ export function StatCounter({
     const tick = (now: number) => {
       const t = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - t, 3);
-      setDisplay(`${Math.round(eased * target)}${suffix}`);
+      setDisplay(`${fmt(eased * target)}${suffix}`);
       if (t < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, reduce, value, match]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, reduce, value]);
 
   return (
     <div ref={ref} className={cn("text-center sm:text-left", className)}>

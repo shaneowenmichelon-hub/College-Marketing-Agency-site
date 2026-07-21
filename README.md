@@ -102,8 +102,33 @@ src/
     rate-limit.ts, analytics.ts, client-forms.ts, content.ts, utils.ts
   site.config.ts                   # ⭐ SINGLE SOURCE OF TRUTH
   styles/globals.css
-public/                            # og.svg + place for real assets
+public/
+  logos/                           # client marquee logos (polymarket.svg committed;
+                                   #   ZMM sponsors fetched at build) + og.svg
+  images/events/                   # real ZMM event photos (fetched at build)
 ```
+
+---
+
+## Editing pricing, stats, logos & sponsorships (all in `site.config.ts`)
+
+Everything added for pricing/proof/logos/events is data-driven — edit the config, no
+component changes needed:
+
+| Export | What it controls |
+| --- | --- |
+| `pricing` | Per-service price ranges shown on service pages + homepage cards. |
+| `stats` | The five homepage counters (`1,200` ambassadors, `20` campuses, `20+` brands, `1.44M+` social reach, `100K+` students). `getStat("campuses")` reuses them in service proof strips. |
+| `clients` | Revolving logo marquee. `{ name, file, remote?, url? }` — reorder/remove freely. |
+| `eventPhotos` | Curated filenames wired into image slots (hero-adjacent, work gallery, service photos, "Follow along"). |
+| `eventSponsorships` | The "Sponsor an event or trip" directory on `/services/events`, grouped by category with `valuePerEvent` / `basePackage` / `presentingSponsor` (use `"[$ —]"` for unknowns). |
+
+**Real assets (logos + photos):** these come from `zmm.events` and are downloaded into
+`/public` by `scripts/fetch-assets.mjs`, which runs automatically as a **`prebuild`** step
+(so Vercel self-hosts them on every deploy). It's non-fatal — any missing asset is skipped,
+and the components fall back to the live URL, then a wordmark/gradient, so nothing ever
+looks broken. To populate them locally: `npm run fetch-assets`. **Polymarket** ships as a
+committed SVG wordmark at `public/logos/polymarket.svg` (swap for an official logo anytime).
 
 ---
 

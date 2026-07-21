@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { CalendarHeart } from "lucide-react";
 import { ServicePage } from "@/components/services/ServicePage";
+import { EventSponsorships } from "@/components/EventSponsorships";
+import { getStat } from "@/site.config";
 
 export const metadata: Metadata = {
   title: "Events — Campus activations, planned & executed",
@@ -57,9 +59,10 @@ export default function EventsPage() {
       ]}
       proof={[
         { value: "[X]+", label: "activations run" },
-        { value: "[X]K+", label: "students engaged" },
-        { value: "[X]+", label: "campuses" },
+        { value: getStat("studentsReached"), label: "students reached" },
+        { value: getStat("campuses"), label: "campuses" },
       ]}
+      afterTactics={<EventSponsorships />}
     />
   );
 }

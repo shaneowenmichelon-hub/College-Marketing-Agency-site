@@ -5,7 +5,7 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/SectionHeading";
-import { PlaceholderImage } from "@/components/Placeholders";
+import { EventImage } from "@/components/EventImage";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { caseStudies } from "@/lib/content";
@@ -42,9 +42,9 @@ export default function WorkPage() {
                 href={`/work/${c.slug}`}
                 className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[color:var(--border-on-light)] bg-surface shadow-soft transition-all hover:-translate-y-1 hover:shadow-soft-lg"
               >
-                <PlaceholderImage
+                <EventImage
                   label={c.type}
-                  index={i}
+                  index={i + 2}
                   aspect="aspect-[16/10]"
                   className="rounded-none"
                 />

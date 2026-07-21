@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Rocket,
 } from "lucide-react";
-import { siteConfig } from "@/site.config";
+import { siteConfig, pricing, clients } from "@/site.config";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
@@ -22,10 +22,10 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { ProcessStep } from "@/components/ProcessStep";
 import { StatCounter } from "@/components/StatCounter";
 import { CampusGrid } from "@/components/CampusGrid";
-import { LogoMarquee } from "@/components/LogoMarquee";
+import { ClientMarquee } from "@/components/ClientMarquee";
+import { EventImage } from "@/components/EventImage";
 import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
-import { PlaceholderImage } from "@/components/Placeholders";
 import { caseStudies, posts, formatDate } from "@/lib/content";
 import type { Metadata } from "next";
 
@@ -85,8 +85,6 @@ const whyUs = [
   },
 ];
 
-const clientSlots = Array.from({ length: 8 });
-
 export default function HomePage() {
   return (
     <>
@@ -101,11 +99,11 @@ export default function HomePage() {
             </p>
           )}
           <p className="mt-2 text-xs uppercase tracking-widest text-[color:var(--muted-on-light)]/70">
-            Trusted by brands reaching the next generation
+            Brands the team has partnered with
           </p>
         </Reveal>
         <div className="mt-8">
-          <LogoMarquee items={clientSlots.map(() => "Client logo")} variant="logo" />
+          <ClientMarquee clients={clients} />
         </div>
       </Section>
 
@@ -118,7 +116,7 @@ export default function HomePage() {
             intro="Legacy campus-media shops sell you posters and email blasts. We connect your brand to students through the things they show up for — the events they go to, the friends they trust, and the feeds they scroll. It's marketing that feels native to campus, because it is."
           />
           <Reveal delay={0.1}>
-            <PlaceholderImage label="Brand moment on campus" index={2} aspect="aspect-[5/4]" />
+            <EventImage index={1} aspect="aspect-[5/4]" />
           </Reveal>
         </div>
       </Section>
@@ -129,9 +127,8 @@ export default function HomePage() {
           eyebrow="The reach"
           onDark
           title="Built to scale across campus."
-          intro="Fill these in as the network grows — every figure below is a placeholder until it's real."
         />
-        <div className="mt-12 grid grid-cols-2 gap-8 sm:gap-10 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-8 sm:gap-10 sm:grid-cols-3 lg:grid-cols-5">
           {siteConfig.stats.map((s) => (
             <StatCounter key={s.label} value={s.value} label={s.label} />
           ))}
@@ -153,6 +150,7 @@ export default function HomePage() {
               title={s.label}
               blurb={s.blurb}
               href={s.href}
+              price={`${pricing[s.slug].range} ${pricing[s.slug].unit}`}
               index={i}
             />
           ))}
@@ -215,9 +213,9 @@ export default function HomePage() {
                 href={`/work/${c.slug}`}
                 className="group block h-full overflow-hidden rounded-2xl border border-[color:var(--border-on-light)] bg-surface shadow-soft transition-all hover:-translate-y-1 hover:shadow-soft-lg"
               >
-                <PlaceholderImage
+                <EventImage
                   label={c.type}
-                  index={i}
+                  index={i + 2}
                   aspect="aspect-[16/10]"
                   className="rounded-none"
                 />
@@ -358,9 +356,9 @@ export default function HomePage() {
           })()}
         </div>
         <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {[0, 1, 2, 3].map((i) => (
-            <Reveal key={i} delay={i * 0.06}>
-              <PlaceholderImage label="@handle post" index={i} aspect="aspect-square" />
+          {[8, 9, 10, 11].map((idx, i) => (
+            <Reveal key={idx} delay={i * 0.06}>
+              <EventImage index={idx} aspect="aspect-square" />
             </Reveal>
           ))}
         </div>

@@ -15,6 +15,8 @@ export type NavItem = {
 };
 
 export type StatToken = {
+  /** Stable key so other pages can pull the same figure (e.g. proof strips). */
+  key?: string;
   /** The value to render literally. Keep as an [X] token until you have a real number. */
   value: string;
   label: string;
@@ -99,14 +101,15 @@ export const siteConfig = {
   influencerMinFollowers: 1500,
 
   /**
-   * PLACEHOLDER stat tokens. Rendered literally so they read as an intentional
-   * template, never as fabricated precise figures. Replace the [X] values only.
+   * REAL headline stats. Animated as counters on the homepage. `key` lets other
+   * sections (e.g. service-page proof strips) pull the same number from one place.
    */
   stats: [
-    { value: "[X]M+", label: "students in reach" },
-    { value: "[X]+", label: "campuses reached" },
-    { value: "[X]+", label: "student ambassadors" },
-    { value: "[X]+", label: "brands served" },
+    { key: "ambassadors", value: "1,200", label: "student ambassadors" },
+    { key: "campuses", value: "20", label: "campuses" },
+    { key: "brands", value: "20+", label: "brands served" },
+    { key: "socialReach", value: "1.44M+", label: "social reach" },
+    { key: "studentsReached", value: "100K+", label: "students reached" },
   ] as StatToken[],
 
   /**
@@ -205,4 +208,184 @@ export type SiteConfig = typeof siteConfig;
 export const emailDefaults = {
   from: `${siteConfig.companyName} <hello@${siteConfig.companyDomain}>`,
   inbox: `hello@${siteConfig.companyDomain}`,
+};
+
+/** Look up a headline stat value by key; falls back to a token if missing. */
+export function getStat(key: string): string {
+  return siteConfig.stats.find((s) => s.key === key)?.value ?? "[X]";
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PRICING — per service slug. Edit ranges/copy here; pages read from this.
+// ─────────────────────────────────────────────────────────────────────────────
+export type ServicePricing = {
+  range: string;
+  unit: string;
+  included: string;
+  note: string;
+};
+
+export const pricing: Record<string, ServicePricing> = {
+  events: {
+    range: "$1,500–$10,000",
+    unit: "per event",
+    included: "Product placement & event sponsorship.",
+    note: "Packages are customizable — let's talk.",
+  },
+  "brand-ambassadors": {
+    range: "$50–$200",
+    unit: "per student",
+    included: "Vetted student reps activating your brand on campus.",
+    note: "Packages are customizable — let's talk.",
+  },
+  influencers: {
+    range: "$200–$250",
+    unit: "per influencer",
+    included: "Product donation + user-generated content (UGC).",
+    note: "Packages are customizable — let's talk.",
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CLIENTS — revolving marquee logos. `file` is self-hosted at /public/logos/
+// (populated by scripts/fetch-assets.mjs at build). `remote` is the live source
+// used as a fallback if the self-hosted file is missing. Reorder/remove freely.
+// ─────────────────────────────────────────────────────────────────────────────
+export type Client = { name: string; file: string; remote?: string; url?: string };
+
+export const clients: Client[] = [
+  ...Array.from({ length: 22 }, (_, i) => {
+    const n = i + 1;
+    return {
+      name: `ZMM sponsor ${n}`,
+      file: `sponsor${n}.png`,
+      remote: `https://www.zmm.events/assets/sponsors/sponsor${n}.png`,
+    };
+  }),
+  // Polymarket — self-hosted SVG wordmark (see /public/logos/polymarket.svg).
+  { name: "Polymarket", file: "polymarket.svg", url: "https://polymarket.com" },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EVENT PHOTOS — real ZMM event imagery, self-hosted at /public/images/events/
+// (populated by scripts/fetch-assets.mjs). A curated spread of the t1–t54 set.
+// Swap in higher-res originals later by replacing the files.
+// ─────────────────────────────────────────────────────────────────────────────
+export const eventPhotos: string[] = [
+  "t1.jpg", "t4.jpg", "t7.jpg", "t10.jpg", "t13.jpg", "t16.jpg", "t20.jpg",
+  "t24.jpg", "t28.jpg", "t32.jpg", "t37.jpg", "t42.jpg", "t47.jpg", "t51.jpg",
+  "t53.jpg", "t54.jpg",
+];
+
+/** Live source for an event photo, used as a fallback before the gradient. */
+export function eventPhotoRemote(file: string): string {
+  return `https://www.zmm.events/assets/ticker/${file}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EVENT & TRIP SPONSORSHIP DIRECTORY — Events page. Grouped by category.
+// Fill valuePerEvent / basePackage / presentingSponsor; use "[$ —]" for unknowns.
+// ─────────────────────────────────────────────────────────────────────────────
+export type SponsorshipItem = {
+  name: string;
+  description: string;
+  valuePerEvent: string;
+  basePackage?: string;
+  presentingSponsor?: string;
+};
+
+export type SponsorshipGroup = {
+  id: string;
+  title: string;
+  intro: string;
+  /** Group-level annual pricing (used by portfolio groups like the trips). */
+  groupPricing?: { base: string; presenting: string };
+  items: SponsorshipItem[];
+  comingSoon?: boolean;
+};
+
+export const eventSponsorships: {
+  intro: string;
+  groups: SponsorshipGroup[];
+} = {
+  intro:
+    "Put your brand at the center of the moments students plan their whole year around.",
+  groups: [
+    {
+      id: "zmm-events",
+      title: "ZMM Events",
+      intro: "Flagship national events — base $2,500, presenting $10,000 each.",
+      items: [
+        {
+          name: "Night School Tour",
+          description: "The national college nightlife tour.",
+          valuePerEvent: "[$ —]",
+          basePackage: "$2,500",
+          presentingSponsor: "$10,000",
+        },
+        {
+          name: "HOMETURF (Super Bowl weekend)",
+          description: "The Super Bowl weekend flagship.",
+          valuePerEvent: "[$ —]",
+          basePackage: "$2,500",
+          presentingSponsor: "$10,000",
+        },
+        {
+          name: "Hells Gala",
+          description: "A signature themed gala event.",
+          valuePerEvent: "[$ —]",
+          basePackage: "$2,500",
+          presentingSponsor: "$10,000",
+        },
+        {
+          name: "Boot Block Party",
+          description: "An outdoor block-party activation.",
+          valuePerEvent: "[$ —]",
+          basePackage: "$2,500",
+          presentingSponsor: "$10,000",
+        },
+      ],
+    },
+    {
+      id: "juscollege-trips",
+      title: "JusCollege Trips",
+      intro: "Annual, portfolio-level sponsorship across every trip.",
+      groupPricing: {
+        base: "$50,000/year to sponsor any or all trips",
+        presenting: "$500,000/year to be presenting sponsor of all trips that year",
+      },
+      items: [
+        { name: "Puerto Vallarta — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "[$ —]" },
+        { name: "Cancún — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "[$ —]" },
+        { name: "Cabo — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "[$ —]" },
+        { name: "Punta Cana — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "[$ —]" },
+        { name: "Miami — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "[$ —]" },
+        { name: "Florida — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "[$ —]" },
+        { name: "Las Vegas — Senior Trip", description: "Senior-year celebration trip.", valuePerEvent: "[$ —]" },
+        { name: "Montreal — Oktoberfest", description: "Oktoberfest destination trip.", valuePerEvent: "[$ —]" },
+        { name: "Custom Destination", description: "Choose your own destination.", valuePerEvent: "[$ —]" },
+      ],
+    },
+    {
+      id: "venues",
+      title: "Venues",
+      intro: "Sponsor an ongoing venue partnership.",
+      items: [
+        {
+          name: "The Village — North Carolina",
+          description: "A North Carolina venue partnership.",
+          valuePerEvent: "[$ —]",
+          basePackage: "[$ —]",
+          presentingSponsor: "[$ —]",
+        },
+      ],
+    },
+    {
+      id: "more-to-come",
+      title: "More to come",
+      intro: "New events and venues are being added to the roster.",
+      comingSoon: true,
+      items: [],
+    },
+  ],
 };

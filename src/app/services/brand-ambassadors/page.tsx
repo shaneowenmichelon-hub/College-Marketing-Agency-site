@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Users } from "lucide-react";
 import { ServicePage } from "@/components/services/ServicePage";
+import { getStat } from "@/site.config";
 
 export const metadata: Metadata = {
   title: "Brand Ambassadors — Your voice on campus",
@@ -19,7 +20,7 @@ export default function BrandAmbassadorsPage() {
       intro="Our vetted ambassadors are real students who represent your brand where they live, study, and hang out. It's peer-to-peer marketing — customized by school and audience — that reaches students through people they already trust."
       overview={[
         "Nobody sells a brand to students better than another student. Our ambassador program puts a screened, trained network of reps on the ground for you — handing out product, running tables, hosting drops, and talking about your brand like the insiders they are.",
-        "We recruit and vet the network, match reps to your brand and campuses, and manage them so the program actually runs. You set the goal; we put the right students behind it. Every program is customized by school and audience — [X]+ ambassadors across the network and growing.",
+        "We recruit and vet the network, match reps to your brand and campuses, and manage them so the program actually runs. You set the goal; we put the right students behind it. Every program is customized by school and audience — 1,200 ambassadors across the network and growing.",
       ]}
       tacticsHeading="What ambassadors do on the ground."
       tactics={[
@@ -56,9 +57,9 @@ export default function BrandAmbassadorsPage() {
         { title: "Report", body: "We track activity and results and report back on what landed." },
       ]}
       proof={[
-        { value: "[X]+", label: "ambassadors" },
-        { value: "[X]+", label: "campuses" },
-        { value: "[X]K+", label: "students reached" },
+        { value: getStat("ambassadors"), label: "ambassadors" },
+        { value: getStat("campuses"), label: "campuses" },
+        { value: getStat("studentsReached"), label: "students reached" },
       ]}
       secondaryCta={{ label: "Become an Ambassador", href: "/become-an-ambassador" }}
     />

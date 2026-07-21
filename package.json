@@ -6,6 +6,8 @@
     "node": "22.x"
   },
   "scripts": {
+    "fetch-assets": "node scripts/fetch-assets.mjs",
+    "prebuild": "node scripts/fetch-assets.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

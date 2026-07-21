@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="48" viewBox="0 0 220 48" role="img" aria-label="Polymarket">
+  <g fill="#0B0B0F">
+    <!-- simple mark -->
+    <rect x="6" y="14" width="7" height="20" rx="2"/>
+    <rect x="16" y="8" width="7" height="32" rx="2" fill="#5A4BFF"/>
+    <rect x="26" y="18" width="7" height="16" rx="2"/>
+  </g>
+  <text x="44" y="31" font-family="'Space Grotesk', Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.5" fill="#0B0B0F">Polymarket</text>
+</svg>

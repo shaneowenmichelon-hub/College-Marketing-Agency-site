@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Megaphone } from "lucide-react";
 import { ServicePage } from "@/components/services/ServicePage";
+import { getStat } from "@/site.config";
 
 export const metadata: Metadata = {
   title: "Influencers — Real students, real reach",
@@ -58,7 +59,7 @@ export default function InfluencersPage() {
       ]}
       proof={[
         { value: "[X]+", label: "student creators" },
-        { value: "[X]M+", label: "combined reach" },
+        { value: getStat("socialReach"), label: "combined social reach" },
         { value: "[X]%", label: "avg. engagement" },
       ]}
     />

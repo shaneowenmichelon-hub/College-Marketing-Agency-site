@@ -6,7 +6,7 @@ import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Reveal } from "@/components/motion/Reveal";
-import { PlaceholderImage } from "@/components/Placeholders";
+import { EventImage } from "@/components/EventImage";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { caseStudies, getCaseStudy } from "@/lib/content";
@@ -113,9 +113,9 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
 
         {/* Gallery placeholder */}
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          {[0, 2, 3].map((idx, i) => (
+          {[12, 13, 14].map((idx, i) => (
             <Reveal key={idx} delay={i * 0.06}>
-              <PlaceholderImage label="Campaign photo" index={idx} aspect="aspect-square" />
+              <EventImage index={idx} aspect="aspect-square" />
             </Reveal>
           ))}
         </div>

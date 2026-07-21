@@ -1,6 +1,7 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { ArrowRight, Check, type LucideIcon } from "lucide-react";
-import { siteConfig } from "@/site.config";
+import { siteConfig, pricing } from "@/site.config";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/motion/Reveal";
@@ -8,7 +9,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProcessStep } from "@/components/ProcessStep";
-import { PlaceholderImage } from "@/components/Placeholders";
+import { EventImage } from "@/components/EventImage";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { RelatedInsights } from "@/components/RelatedInsights";
 import { postsForService } from "@/lib/content";
@@ -30,6 +31,8 @@ export type ServicePageProps = {
   proof: ProofStat[];
   icon: LucideIcon;
   secondaryCta?: { label: string; href: string };
+  /** Rendered right after the pricing block (used for the Events sponsorship directory). */
+  afterTactics?: ReactNode;
 };
 
 export function ServicePage({
@@ -45,8 +48,10 @@ export function ServicePage({
   proof,
   icon: Icon,
   secondaryCta,
+  afterTactics,
 }: ServicePageProps) {
   const related = postsForService(slug);
+  const price = pricing[slug];
   return (
     <>
       <BreadcrumbJsonLd
@@ -125,6 +130,38 @@ export function ServicePage({
         </div>
       </Section>
 
+      {/* Pricing */}
+      <Section tone="light">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <SectionHeading
+            eyebrow="Pricing"
+            title="Simple, flexible pricing."
+            intro="Straightforward rates to start from — we scope the exact package around your goals."
+          />
+          <Reveal delay={0.1}>
+            <div className="rounded-3xl border border-[color:var(--border-on-light)] bg-surface p-8 shadow-soft">
+              <p className="text-sm font-medium text-[color:var(--muted-on-light)]">
+                {price.included}
+              </p>
+              <div className="mt-4 flex flex-wrap items-baseline gap-x-3">
+                <span className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+                  {price.range}
+                </span>
+                <span className="text-base text-[color:var(--muted-on-light)]">
+                  {price.unit}
+                </span>
+              </div>
+              <p className="mt-4 text-sm text-[color:var(--muted-on-light)]">{price.note}</p>
+              <Button href="/contact" variant="primary" size="md" className="mt-6">
+                Get a custom quote <ArrowRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {afterTactics}
+
       {/* Process */}
       <Section tone="light">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start">
@@ -143,8 +180,8 @@ export function ServicePage({
           <SectionHeading
             eyebrow="Proof"
             onDark
-            title="The numbers, once they're real."
-            intro="Placeholder tokens for now — swap in verified figures before launch."
+            title="The numbers behind the network."
+            intro="Figures marked [X] are still being finalized — the rest reflect the network today."
           />
           <div className="grid grid-cols-3 gap-6">
             {proof.map((p) => (
@@ -165,13 +202,13 @@ export function ServicePage({
       <Section tone="muted">
         <div className="grid gap-4 sm:grid-cols-3">
           <Reveal>
-            <PlaceholderImage label="Activation photo" index={0} aspect="aspect-square" />
+            <EventImage index={4} aspect="aspect-square" />
           </Reveal>
           <Reveal delay={0.08}>
-            <PlaceholderImage label="On-campus moment" index={2} aspect="aspect-square" />
+            <EventImage index={5} aspect="aspect-square" />
           </Reveal>
           <Reveal delay={0.16}>
-            <PlaceholderImage label="Student content" index={3} aspect="aspect-square" />
+            <EventImage index={6} aspect="aspect-square" />
           </Reveal>
         </div>
       </Section>

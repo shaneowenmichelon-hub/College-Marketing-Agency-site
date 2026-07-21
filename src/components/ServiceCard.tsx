@@ -8,12 +8,14 @@ export function ServiceCard({
   title,
   blurb,
   href,
+  price,
   index = 0,
 }: {
   icon: LucideIcon;
   title: string;
   blurb: string;
   href: string;
+  price?: string;
   index?: number;
 }) {
   return (
@@ -32,6 +34,11 @@ export function ServiceCard({
         <p className="mt-2 flex-1 text-sm leading-relaxed text-[color:var(--muted-on-light)]">
           {blurb}
         </p>
+        {price && (
+          <p className="mt-4 text-sm font-semibold text-ink">
+            {price}
+          </p>
+        )}
         <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
           Learn more
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
