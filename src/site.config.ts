@@ -301,8 +301,9 @@ export const team: TeamMember[] = [
   },
   {
     // Photo intentionally left blank for now — shows a clean initials avatar.
+    // Title intentionally blank — show name only.
     name: "Elizabeth",
-    title: "Trade & Activations — formerly Head of Trade & Activations, Anheuser-Busch",
+    title: "",
   },
 ];
 

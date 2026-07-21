@@ -119,9 +119,11 @@ export default function AboutPage() {
                 <p className="mt-4 font-display text-base font-bold text-ink">
                   {member.name}
                 </p>
-                <p className="mt-1 text-xs leading-relaxed text-[color:var(--muted-on-light)]">
-                  {member.title}
-                </p>
+                {member.title && (
+                  <p className="mt-1 text-xs leading-relaxed text-[color:var(--muted-on-light)]">
+                    {member.title}
+                  </p>
+                )}
               </div>
             );
             return (
