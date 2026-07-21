@@ -42,10 +42,10 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b transition-all duration-300",
+        "sticky top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-[color:var(--border-on-light)] bg-white/80 backdrop-blur-xl"
-          : "border-transparent bg-white/40 backdrop-blur-md",
+          ? "border-b-2 border-ink bg-white/90 backdrop-blur-xl"
+          : "border-b-2 border-transparent bg-white/40 backdrop-blur-md",
       )}
     >
       <nav

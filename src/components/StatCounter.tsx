@@ -63,11 +63,17 @@ export function StatCounter({
   }, [inView, reduce, value]);
 
   return (
-    <div ref={ref} className={cn("text-center sm:text-left", className)}>
-      <div className="font-display text-4xl font-bold tracking-tight text-[color:var(--accent-2)] sm:text-5xl lg:text-6xl">
+    <div
+      ref={ref}
+      className={cn(
+        "rounded-[3px] border-2 border-white/80 bg-white/[0.03] p-4 text-left shadow-[5px_5px_0_var(--accent)]",
+        className,
+      )}
+    >
+      <div className="font-display text-4xl font-bold leading-none tracking-tight text-[color:var(--accent-2)] sm:text-5xl lg:text-6xl">
         {display}
       </div>
-      <div className="mt-2 text-sm text-[color:var(--muted-on-dark)] sm:text-base">
+      <div className="mono-label mt-3 text-[11px] text-[color:var(--muted-on-dark)]">
         {label}
       </div>
     </div>

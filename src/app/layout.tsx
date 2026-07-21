@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { siteConfig } from "@/site.config";
 import { Navbar } from "@/components/Navbar";
@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { Analytics } from "@/components/analytics/Analytics";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,6 +18,13 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -49,7 +57,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}>
       <body className="flex min-h-screen flex-col">
         <a
           href="#main"
@@ -58,11 +66,13 @@ export default function RootLayout({
           Skip to content
         </a>
         <OrganizationJsonLd />
-        <Navbar />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <SmoothScroll>
+          <Navbar />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </SmoothScroll>
         <CookieConsent />
         <Analytics />
       </body>

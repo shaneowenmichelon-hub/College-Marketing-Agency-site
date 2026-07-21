@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Check, Loader2 } from "lucide-react";
 import { siteConfig } from "@/site.config";
 import { ageFromDOB, isEduEmail } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 import { useAttribution, useElapsed } from "@/lib/client-forms";
+import { celebrate } from "@/lib/confetti";
+import { cn } from "@/lib/utils";
 import {
   FormField,
   Input,
@@ -15,6 +17,7 @@ import {
   FileDrop,
 } from "@/components/form/Fields";
 import { Button } from "@/components/ui/Button";
+import { AmbassadorQuestPanel, AmbassadorCard, type Badge } from "./AmbassadorQuestPanel";
 
 type Errors = Partial<Record<string, string>>;
 
@@ -32,11 +35,16 @@ const NICHES = [
 const currentYear = 2026;
 const gradYears = Array.from({ length: 8 }, (_, i) => currentYear + i - 1);
 
-function SectionTitle({ n, title }: { n: number; title: string }) {
+function SectionTitle({ n, title, done = false }: { n: number; title: string; done?: boolean }) {
   return (
     <div className="mb-5 flex items-center gap-3">
-      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent text-xs font-bold text-white">
-        {n}
+      <span
+        className={cn(
+          "inline-flex h-8 w-8 items-center justify-center rounded-[3px] border-2 border-ink text-xs font-bold shadow-[3px_3px_0_var(--ink)]",
+          done ? "bg-[color:var(--accent-2)] text-ink" : "bg-ink text-white",
+        )}
+      >
+        {done ? <Check className="h-4 w-4" aria-hidden /> : String(n).padStart(2, "0")}
       </span>
       <h2 className="font-display text-lg font-bold text-ink">{title}</h2>
     </div>
@@ -50,10 +58,53 @@ export function ApplyForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [followers, setFollowers] = useState({ ig: "", tt: "" });
+  // Live snapshot of uncontrolled fields — for the XP meter / card / badges only.
+  // Never used for validation or submission (that stays on FormData).
+  const [watch, setWatch] = useState<Record<string, string>>({});
   const attribution = useAttribution();
   const getElapsed = useElapsed();
 
   const age = ageFromDOB(dob);
+
+  // ── Gamification (a presentation layer over the real form) ──────────────────
+  const w = (k: string) => (watch[k] ?? "").trim();
+  const eduVerified = isEduEmail(w("schoolEmail"));
+  const socialsLinked = !!(w("instagram") || w("tiktok"));
+  const trustEarned = agreements.age && agreements.terms && agreements.ftc;
+  const age21 = age !== null && age >= 21;
+
+  const questFlags = {
+    you: !!w("fullName") && age !== null && age >= 18,
+    school: !!w("school") && eduVerified,
+    socials: socialsLinked,
+    more: !!w("why"),
+    agreements: trustEarned,
+  };
+  const questsDone = Object.values(questFlags).filter(Boolean).length;
+  // Endowed progress: start ~14% ("Level 1 started") so it never reads as 0%.
+  const percent = 14 + (questsDone / 5) * 86;
+  const level = 1 + questsDone;
+
+  const badges: Badge[] = [
+    { key: "edu", label: ".edu Verified", earned: eduVerified },
+    { key: "age21", label: "21+ Unlocked", earned: age21 },
+    { key: "socials", label: "Socials Linked", earned: socialsLinked },
+    { key: "trust", label: "Trust Badge", earned: trustEarned },
+  ];
+
+  const card = {
+    name: w("fullName"),
+    school: w("school"),
+    niche: w("niche"),
+    ig: w("instagram"),
+    tt: w("tiktok"),
+    eduVerified,
+  };
+
+  // Confetti celebration when the (unchanged) success state fires.
+  useEffect(() => {
+    if (status === "success") celebrate();
+  }, [status]);
 
   // Soft eligibility check: warn (don't block) if neither platform meets the min.
   const igCount = parseInt(followers.ig.replace(/[^\d]/g, ""), 10) || 0;
@@ -134,26 +185,41 @@ export function ApplyForm() {
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-10 text-center shadow-soft">
-        <CheckCircle2 className="h-12 w-12 text-accent" aria-hidden />
-        <h3 className="mt-4 font-display text-2xl font-bold text-ink">
-          You&apos;re in the pipeline! 🎉
+      <div className="rounded-[4px] border-2 border-ink bg-surface p-8 text-center shadow-[8px_8px_0_var(--accent)] sm:p-10">
+        <span className="mono-label inline-block rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)] px-3 py-1 text-[11px] font-bold text-ink shadow-[3px_3px_0_var(--ink)]">
+          ⚡ Level {level} · You&apos;re in the game
+        </span>
+        <h3 className="mt-5 font-display text-display-sm font-bold text-ink">
+          You&apos;re in the game! 🎉
         </h3>
-        <p className="mt-2 max-w-md text-sm text-[color:var(--muted-on-light)]">
+        <p className="mx-auto mt-2 max-w-md text-sm text-[color:var(--muted-on-light)]">
           Thanks for applying to the ambassador network. We review applications on a
           rolling basis and reach out when there&apos;s a brand match on your campus.
           Keep an eye on your inbox.
         </p>
+        <div className="mx-auto mt-8 max-w-xs">
+          <AmbassadorCard card={card} level={level} flipped />
+        </div>
       </div>
     );
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      noValidate
-      className="space-y-8 rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-6 shadow-soft sm:p-8"
-    >
+    <div className="grid gap-8 lg:grid-cols-[1fr_20rem]">
+      <aside className="lg:col-start-2 lg:row-start-1">
+        <AmbassadorQuestPanel percent={percent} level={level} badges={badges} card={card} />
+      </aside>
+      <form
+        onSubmit={handleSubmit}
+        onChange={(e) => {
+          const fd = new FormData(e.currentTarget);
+          const obj: Record<string, string> = {};
+          for (const [k, v] of fd.entries()) obj[k] = typeof v === "string" ? v : "";
+          setWatch(obj);
+        }}
+        noValidate
+        className="space-y-8 rounded-[4px] border-2 border-ink bg-surface p-6 shadow-[8px_8px_0_var(--ink)] sm:p-8 lg:col-start-1 lg:row-start-1"
+      >
       {/* Honeypot */}
       <div className="hidden" aria-hidden>
         <label htmlFor="nickname">Nickname</label>
@@ -162,7 +228,7 @@ export function ApplyForm() {
 
       {/* You */}
       <section>
-        <SectionTitle n={1} title="You" />
+        <SectionTitle n={1} title="Who are you?" done={questFlags.you} />
         <div className="grid gap-5 sm:grid-cols-2">
           <FormField label="Full name" htmlFor="fullName" required error={errors.fullName} className="sm:col-span-2">
             <Input id="fullName" name="fullName" autoComplete="name" error={errors.fullName} />
@@ -206,7 +272,7 @@ export function ApplyForm() {
 
       {/* School */}
       <section>
-        <SectionTitle n={2} title="Your school" />
+        <SectionTitle n={2} title="Your campus" done={questFlags.school} />
         <div className="grid gap-5 sm:grid-cols-2">
           <FormField label="School" htmlFor="school" required error={errors.school} className="sm:col-span-2">
             <Input id="school" name="school" placeholder="e.g. Ohio State" error={errors.school} />
@@ -246,7 +312,7 @@ export function ApplyForm() {
 
       {/* Socials */}
       <section>
-        <SectionTitle n={3} title="Your socials" />
+        <SectionTitle n={3} title="Your socials" done={questFlags.socials} />
         <p className="mb-4 text-sm text-[color:var(--muted-on-light)]">
           Our influencer program looks for{" "}
           <strong className="text-ink">
@@ -306,7 +372,7 @@ export function ApplyForm() {
 
       {/* More */}
       <section>
-        <SectionTitle n={4} title="A little more" />
+        <SectionTitle n={4} title="A little more" done={questFlags.more} />
         <div className="grid gap-5">
           <FormField label="Why do you want to join?" htmlFor="why" required error={errors.why}>
             <Textarea
@@ -329,7 +395,7 @@ export function ApplyForm() {
 
       {/* Agreements */}
       <section>
-        <SectionTitle n={5} title="Agreements" />
+        <SectionTitle n={5} title="Final boss: the agreements" done={questFlags.agreements} />
         <div className="space-y-4">
           <Checkbox
             checked={agreements.age}
@@ -383,6 +449,7 @@ export function ApplyForm() {
         {/* TODO: connect to the student portal / marketplace for onboarding hand-off. */}
         We review on a rolling basis and reach out when there&apos;s a brand match.
       </p>
-    </form>
+      </form>
+    </div>
   );
 }

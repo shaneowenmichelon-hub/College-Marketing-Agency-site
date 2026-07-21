@@ -13,12 +13,10 @@ import { Check, UploadCloud, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const controlBase =
-  "w-full rounded-xl border bg-white px-4 py-3 text-sm text-ink placeholder:text-[color:var(--muted-on-light)]/70 transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20";
+  "w-full rounded-[3px] border-2 bg-white px-4 py-3 text-sm text-ink placeholder:text-[color:var(--muted-on-light)]/70 transition-shadow focus:outline-none focus:shadow-[3px_3px_0_var(--accent)]";
 
 function borderClass(error?: string) {
-  return error
-    ? "border-red-400 focus:border-red-400 focus:ring-red-200"
-    : "border-[color:var(--border-on-light)]";
+  return error ? "border-red-500 focus:border-red-500" : "border-ink";
 }
 
 /** Label + error wrapper shared by all fields. */

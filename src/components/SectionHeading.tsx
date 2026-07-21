@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./motion/Reveal";
-import { Badge } from "./ui/Badge";
 
 export function SectionHeading({
   eyebrow,
@@ -27,13 +26,19 @@ export function SectionHeading({
       )}
     >
       {eyebrow && (
-        <Badge variant={onDark ? "outline-dark" : "default"} className="mb-4">
+        <p
+          className={cn(
+            "mono-label mb-4 flex items-center gap-2 text-xs font-bold",
+            onDark ? "text-[color:var(--accent-2)]" : "text-accent",
+          )}
+        >
+          <span aria-hidden className="inline-block h-2.5 w-2.5 bg-current" />
           {eyebrow}
-        </Badge>
+        </p>
       )}
       <h2
         className={cn(
-          "text-balance font-display text-3xl font-bold leading-[1.05] sm:text-4xl lg:text-5xl",
+          "text-balance font-display text-display-sm font-bold",
           onDark ? "text-white" : "text-ink",
         )}
       >

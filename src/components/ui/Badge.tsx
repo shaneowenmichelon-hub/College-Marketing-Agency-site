@@ -4,10 +4,10 @@ import { cn } from "@/lib/utils";
 type Variant = "default" | "lime" | "outline" | "outline-dark";
 
 const variants: Record<Variant, string> = {
-  default: "bg-accent/10 text-accent border border-accent/20",
-  lime: "bg-[color:var(--accent-2)] text-ink border border-transparent",
-  outline: "border border-[color:var(--border-on-light)] text-[color:var(--muted-on-light)]",
-  "outline-dark": "border border-[color:var(--border-on-dark)] text-[color:var(--muted-on-dark)]",
+  default: "bg-[color:var(--accent-2)] text-ink border-2 border-ink",
+  lime: "bg-[color:var(--accent-2)] text-ink border-2 border-ink",
+  outline: "border-2 border-ink bg-white text-ink",
+  "outline-dark": "border-2 border-white bg-transparent text-white",
 };
 
 export function Badge({
@@ -22,7 +22,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium tracking-wide",
+        "mono-label inline-flex items-center gap-1.5 rounded-[3px] px-3 py-1 text-[11px] font-bold",
         variants[variant],
         className,
       )}

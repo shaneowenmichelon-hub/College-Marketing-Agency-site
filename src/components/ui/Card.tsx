@@ -17,11 +17,11 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-2xl border p-6 transition-all duration-200",
+        "rounded-[3px] border-2 p-6 transition-all duration-150",
         tone === "light"
-          ? "border-[color:var(--border-on-light)] bg-surface shadow-soft"
-          : "border-[color:var(--border-on-dark)] bg-white/[0.04]",
-        interactive && "hover:-translate-y-1 hover:shadow-soft-lg",
+          ? "border-ink bg-surface shadow-[6px_6px_0_var(--ink)]"
+          : "border-white bg-white/[0.04] shadow-[6px_6px_0_var(--accent)]",
+        interactive && "hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[9px_9px_0_var(--ink)]",
         className,
       )}
     >

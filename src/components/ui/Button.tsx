@@ -5,27 +5,29 @@ import { cn } from "@/lib/utils";
 type Variant = "primary" | "secondary" | "ghost-dark" | "lime";
 type Size = "sm" | "md" | "lg";
 
+// Elevated-Brutalism buttons: sharp, hard ink border, stamped offset shadow that
+// presses in on click. Labels are uppercase for a chunky, confident feel.
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60 disabled:pointer-events-none";
+  "inline-flex items-center justify-center gap-2 rounded-[3px] border-2 border-ink font-bold uppercase tracking-wide transition-all duration-150 brutal-press focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60 disabled:pointer-events-none";
 
 const variants: Record<Variant, string> = {
-  // indigo fill
+  // electric-blue fill
   primary:
-    "bg-accent text-white shadow-soft hover:brightness-110 hover:-translate-y-0.5 active:translate-y-0",
-  // ink outline (on light)
+    "bg-accent text-white shadow-[4px_4px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--ink)]",
+  // white fill, ink border (on light)
   secondary:
-    "border border-[color:var(--border-on-light)] bg-transparent text-ink hover:bg-ink hover:text-white hover:-translate-y-0.5",
-  // ghost on dark bands
+    "bg-white text-ink shadow-[4px_4px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--ink)]",
+  // on dark bands — white border, offset shadow uses accent
   "ghost-dark":
-    "border border-[color:var(--border-on-dark)] bg-white/5 text-white hover:bg-white/15 hover:-translate-y-0.5",
+    "border-white bg-transparent text-white shadow-[4px_4px_0_var(--accent)] hover:-translate-x-0.5 hover:-translate-y-0.5",
   // acid lime accent
-  lime: "bg-[color:var(--accent-2)] text-ink shadow-soft hover:brightness-105 hover:-translate-y-0.5",
+  lime: "bg-[color:var(--accent-2)] text-ink shadow-[4px_4px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--ink)]",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-4 text-sm",
+  sm: "h-9 px-4 text-xs",
   md: "h-11 px-6 text-sm",
-  lg: "h-13 px-8 text-base py-3.5",
+  lg: "h-14 px-8 text-sm py-4",
 };
 
 type CommonProps = {
