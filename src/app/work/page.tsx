@@ -29,8 +29,8 @@ export default function WorkPage() {
       <Section tone="light">
         <SectionHeading
           eyebrow="Work"
-          title="Campaigns built for campus, measured by outcomes."
-          intro="A look at the kind of work we run across events, brand ambassadors, and influencers — shown here as illustrative NUTRL Vodka Seltzer campaigns while our client-approved case studies are added."
+          title="The three tactics, proven on campus."
+          intro="How events, brand ambassadors, and influencers actually move brands — shown through well-known industry programs. These are public reference examples, not Collegiate Hospitality campaigns, and the figures are illustrative; our own client-approved case studies are on the way."
         />
       </Section>
 
@@ -53,10 +53,11 @@ export default function WorkPage() {
                     <Badge>{c.type}</Badge>
                     {c.sample && (
                       <span className="mono-label rounded-[2px] border-2 border-ink px-2 py-0.5 text-[9px] font-bold text-[color:var(--muted-on-light)]">
-                        Sample
+                        Industry example
                       </span>
                     )}
                   </div>
+                  <p className="mono-label mt-3 text-[11px] font-bold text-ink">{c.brand}</p>
                   {/* Metric-forward headline stat */}
                   <div className="mt-4">
                     <div className="font-display text-4xl font-bold tracking-tight text-accent">

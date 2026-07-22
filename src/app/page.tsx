@@ -194,8 +194,8 @@ export default function HomePage() {
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <SectionHeading
             eyebrow="Work"
-            title="Campaigns in the making."
-            intro="A snapshot of the work we run — shown as illustrative NUTRL Vodka Seltzer campaigns until client-approved studies are added."
+            title="The playbook, proven."
+            intro="How events, ambassadors, and influencers move brands — shown through well-known industry examples (illustrative figures) until our own case studies land."
           />
           <Reveal>
             <Link

@@ -64,7 +64,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
               <Badge variant="lime">{c.type}</Badge>
               {c.sample && (
                 <span className="mono-label rounded-[2px] border-2 border-white/70 px-2 py-0.5 text-[10px] font-bold text-white/80">
-                  Illustrative example
+                  Industry example
                 </span>
               )}
             </div>
@@ -72,6 +72,11 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
               {c.headline}
             </h1>
             <p className="mt-3 text-[color:var(--muted-on-dark)]">{c.brand}</p>
+            {c.sample && (
+              <p className="mono-label mt-4 max-w-xl text-[10px] leading-relaxed text-[color:var(--muted-on-dark)]/80">
+                Public industry reference — not a Collegiate Hospitality campaign. Figures are illustrative.
+              </p>
+            )}
           </div>
         </Container>
       </section>

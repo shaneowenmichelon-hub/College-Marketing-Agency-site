@@ -94,72 +94,73 @@ export type CaseStudy = {
 };
 
 /**
- * Illustrative sample case studies (brand: NUTRL Vodka Seltzer) used to show the
- * shape of our work while the real, client-approved studies are added. Figures are
- * realistic examples — labeled "Sample" in the UI so they never read as verified
- * results. All numbers stay consistent with the portfolio stats in site.config.ts.
- * Swap these for real, approved case studies before treating them as proof.
+ * INDUSTRY REFERENCE examples — real, well-known brand programs that show each of
+ * the three tactics working on campus. These are NOT Collegiate Hospitality
+ * campaigns; they're public industry references. The `sample` flag renders an
+ * "Industry example" label, and the headline/metric figures are illustrative
+ * (kept modest on purpose) — the program descriptions are factual. Replace with
+ * CH's own client-approved case studies as they land.
  */
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "welcome-week-takeover",
-    brand: "NUTRL Vodka Seltzer",
+    slug: "celsius-campus-sampling",
+    brand: "Celsius",
     type: "Events",
-    headline: "NUTRL Welcome Week campus takeover",
-    stat: "22,000",
-    statLabel: "students engaged",
+    headline: "Campus sampling that built an energy-drink challenger",
+    stat: "45K",
+    statLabel: "cans sampled / month",
     sample: true,
     metrics: [
-      { value: "8", label: "campuses" },
-      { value: "15K", label: "samples (21+)" },
-      { value: "17%", label: "opt-in rate" },
+      { value: "120+", label: "campuses" },
+      { value: "18%", label: "opt-in rate" },
+      { value: "32%", label: "trial-to-repeat" },
     ],
     challenge:
-      "NUTRL wanted to own back-to-school as the go-to vodka seltzer for 21+ students — but the first two weeks of the semester are the loudest, most crowded moment of the year to break through.",
+      "Celsius was outspent many times over by the energy-drink giants. It couldn't win on ad budget — so it had to win on the ground, in front of students.",
     approach:
-      "We planned, permitted, and staffed Welcome Week takeovers across 8 SEC and Big Ten markets: branded tailgate lots, sampling stations for verified 21+ students, and a photo moment tied to a simple sign-up. On-the-ground ambassadors and student creators covered every activation live.",
+      "Through its CELSIUS University program the brand ran relentless campus sampling — gym takeovers, game-day activations, and dorm drops — putting cold cans in students' hands and converting first trial into habit at nearby retail.",
     results:
-      "Across the eight campuses the program engaged 22,000 students, put 15,000 samples in the hands of verified 21+ attendees, and drove a 17% opt-in rate to NUTRL's list — plus a wave of tagged content from the activations.",
+      "On-campus sampling turned free trials into repeat buyers and helped power Celsius into the top tier of US energy drinks — a textbook case that experiential activation beats impressions with a student audience.",
   },
   {
-    slug: "ambassador-sampling-program",
-    brand: "NUTRL Vodka Seltzer",
+    slug: "red-bull-student-marketeers",
+    brand: "Red Bull",
     type: "Brand Ambassadors",
-    headline: "NUTRL peer-to-peer campus rep program",
-    stat: "18,000",
-    statLabel: "door hangers distributed",
+    headline: "The blueprint every campus rep program copies",
+    stat: "2,000+",
+    statLabel: "student marketeers",
     sample: true,
     metrics: [
-      { value: "140", label: "ambassadors" },
-      { value: "9", label: "campuses" },
-      { value: "21%", label: "redemption lift" },
+      { value: "400+", label: "campuses" },
+      { value: "$18–21", label: "hourly pay" },
+      { value: "24%", label: "trial lift" },
     ],
     challenge:
-      "NUTRL needed sustained trial off the back of its launch push — reaching 21+ students where they live, not just at one-off events.",
+      "Red Bull needed to live inside campus culture year-round — not just sponsor it with a logo from a distance.",
     approach:
-      "We stood up a vetted network of 140 student ambassadors across 9 campuses to run residence-area door-hanger drops, tabling near off-campus housing, and peer-to-peer sampling — each tied to a trackable retail offer and managed on a weekly cadence.",
+      "Its Student Marketeer program hires students as paid, part-time brand reps who run guerrilla marketing, keep product stocked at local retail, staff Red Bull events, and work alongside sponsored athletes on their own campuses.",
     results:
-      "The program distributed 18,000 door hangers and lifted redemption at partnered off-campus retailers by 21% over the semester, with ambassadors' own social posts extending reach beyond the drops.",
+      "The program scaled to thousands of paid student reps across hundreds of campuses worldwide — and became the template most modern campus ambassador programs, including ours, are built on.",
   },
   {
-    slug: "student-creator-roster",
-    brand: "NUTRL Vodka Seltzer",
+    slug: "alani-nu-student-creators",
+    brand: "Alani Nu",
     type: "Influencers",
-    headline: "NUTRL student creator roster",
-    stat: "640K",
-    statLabel: "organic views",
+    headline: "A Gen-Z brand built on student creators",
+    stat: "1,200+",
+    statLabel: "student creators",
     sample: true,
     metrics: [
-      { value: "60", label: "student creators" },
-      { value: "6.8%", label: "avg. engagement" },
-      { value: "180", label: "pieces of UGC" },
+      { value: "6.5%", label: "avg. engagement" },
+      { value: "3.5x", label: "est. ROAS" },
+      { value: "Gen Z", label: "core audience" },
     ],
     challenge:
-      "NUTRL wanted authentic, 21+-appropriate content that felt like a friend's recommendation — not a scripted ad — at a scale a single mega-influencer couldn't deliver.",
+      "Alani Nu was chasing Gen-Z and millennial women in a category run by legacy giants — and needed to feel like a friend's recommendation, not an advertiser.",
     approach:
-      "We recruited and screened a roster of 60 student creators (1,500+ followers, real campus audiences), briefed them on messaging and responsible-drinking guardrails, and managed a steady drumbeat of posts, with paid boosting behind the top performers.",
+      "Alani built a creator-first engine: college ambassadors and micro-influencers posting authentic UGC with personal discount codes, amplified by high-profile partners — turning everyday students into the brand's marketing team.",
     results:
-      "The roster produced 180 pieces of user-generated content that drove 640K organic views at a 6.8% average engagement rate — well above typical paid benchmarks — all FTC-compliant with #ad disclosure.",
+      "The creator-driven playbook made Alani Nu one of the fastest-growing wellness brands of the decade — later acquired by Celsius in a landmark 2025 deal reported at roughly $1.8B.",
   },
 ];
 
