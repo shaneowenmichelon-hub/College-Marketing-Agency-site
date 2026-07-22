@@ -163,6 +163,16 @@ function Chapter({ group, index }: { group: SponsorshipGroup; index: number }) {
                 <Stat label="Presenting" value={priceFor(item, group, "presenting")} active={tier === "presenting"} accent={accent} />
               </div>
 
+              {/* What's included at the selected tier */}
+              {(tier === "presenting" ? item.presentingDetail : item.baseDetail) && (
+                <p className="mt-3 rounded-[2px] border-l-4 border-ink bg-surface-muted px-3 py-2 text-xs leading-relaxed text-ink">
+                  <span className="mono-label mr-1 font-bold text-accent">
+                    {tier === "presenting" ? "Presenting:" : "Base:"}
+                  </span>
+                  {tier === "presenting" ? item.presentingDetail : item.baseDetail}
+                </p>
+              )}
+
               <Link
                 href={inquireHref(group.id, tier, item.name)}
                 className="mono-label mt-4 inline-flex items-center gap-1.5 text-[11px] font-bold text-accent hover:underline"

@@ -373,6 +373,9 @@ export type SponsorshipItem = {
   valuePerEvent: string;
   basePackage?: string;
   presentingSponsor?: string;
+  /** What's included at each tier (shown when that tier is selected). */
+  baseDetail?: string;
+  presentingDetail?: string;
 };
 
 export type SponsorshipGroup = {
@@ -456,8 +459,12 @@ export const eventSponsorships: {
           name: "The Village — North Carolina",
           description: "A North Carolina venue partnership.",
           valuePerEvent: "[$ —]",
-          basePackage: "[$ —]",
-          presentingSponsor: "[$ —]",
+          basePackage: "$10,000",
+          presentingSponsor: "Custom",
+          baseDetail:
+            "Packages start at $10k: product placement and logo placement on flyers for one year, plus activations at 3 shows per year.",
+          presentingDetail:
+            "Activations all year at every event, social-media insight guarantees, content deliverables, logo placement at the venue entrance or above artists while they perform, and more.",
         },
       ],
     },
