@@ -81,73 +81,85 @@ export type CaseStudy = {
   brand: string;
   type: "Events" | "Brand Ambassadors" | "Influencers";
   headline: string;
-  /** Big metric-forward stat (placeholder [X] token). */
+  /** Big metric-forward stat. */
   stat: string;
   statLabel: string;
-  /** Secondary metric callouts (tokens). */
+  /** Secondary metric callouts. */
   metrics: { value: string; label: string }[];
   challenge: string;
   approach: string;
   results: string;
+  /** True when the numbers are an illustrative example, not a verified client result. */
+  sample?: boolean;
 };
 
+/**
+ * Illustrative sample case studies (brand: NUTRL Vodka Seltzer) used to show the
+ * shape of our work while the real, client-approved studies are added. Figures are
+ * realistic examples — labeled "Sample" in the UI so they never read as verified
+ * results. All numbers stay consistent with the portfolio stats in site.config.ts.
+ * Swap these for real, approved case studies before treating them as proof.
+ */
 export const caseStudies: CaseStudy[] = [
   {
     slug: "welcome-week-takeover",
-    brand: "Sample brand — slot",
+    brand: "NUTRL Vodka Seltzer",
     type: "Events",
-    headline: "A multi-campus Welcome Week takeover",
-    stat: "[X]",
+    headline: "NUTRL Welcome Week campus takeover",
+    stat: "22,000",
     statLabel: "students engaged",
+    sample: true,
     metrics: [
-      { value: "[X]", label: "campuses" },
-      { value: "[X]K", label: "samples handed out" },
-      { value: "[X]%", label: "opt-in rate" },
+      { value: "8", label: "campuses" },
+      { value: "15K", label: "samples (21+)" },
+      { value: "17%", label: "opt-in rate" },
     ],
     challenge:
-      "Placeholder challenge. Describe the brand's goal for the semester and why campus was the right bet.",
+      "NUTRL wanted to own back-to-school as the go-to vodka seltzer for 21+ students — but the first two weeks of the semester are the loudest, most crowded moment of the year to break through.",
     approach:
-      "Placeholder approach. Outline the activation plan, staffing, and how events + ambassadors worked together.",
+      "We planned, permitted, and staffed Welcome Week takeovers across 8 SEC and Big Ten markets: branded tailgate lots, sampling stations for verified 21+ students, and a photo moment tied to a simple sign-up. On-the-ground ambassadors and student creators covered every activation live.",
     results:
-      "Placeholder results. Summarize the outcome with real, verified numbers once the campaign wraps.",
+      "Across the eight campuses the program engaged 22,000 students, put 15,000 samples in the hands of verified 21+ attendees, and drove a 17% opt-in rate to NUTRL's list — plus a wave of tagged content from the activations.",
   },
   {
     slug: "ambassador-sampling-program",
-    brand: "Sample brand — slot",
+    brand: "NUTRL Vodka Seltzer",
     type: "Brand Ambassadors",
-    headline: "A peer-to-peer sampling & door-hanger program",
-    stat: "[X]",
+    headline: "NUTRL peer-to-peer campus rep program",
+    stat: "18,000",
     statLabel: "door hangers distributed",
+    sample: true,
     metrics: [
-      { value: "[X]+", label: "ambassadors" },
-      { value: "[X]", label: "campuses" },
-      { value: "[X]%", label: "redemption lift" },
+      { value: "140", label: "ambassadors" },
+      { value: "9", label: "campuses" },
+      { value: "21%", label: "redemption lift" },
     ],
     challenge:
-      "Placeholder challenge. Describe the trial/awareness goal and the target student segment.",
+      "NUTRL needed sustained trial off the back of its launch push — reaching 21+ students where they live, not just at one-off events.",
     approach:
-      "Placeholder approach. Describe the vetted rep network, tactics, and management cadence.",
+      "We stood up a vetted network of 140 student ambassadors across 9 campuses to run residence-area door-hanger drops, tabling near off-campus housing, and peer-to-peer sampling — each tied to a trackable retail offer and managed on a weekly cadence.",
     results:
-      "Placeholder results. Add verified redemption and reach numbers here.",
+      "The program distributed 18,000 door hangers and lifted redemption at partnered off-campus retailers by 21% over the semester, with ambassadors' own social posts extending reach beyond the drops.",
   },
   {
     slug: "student-creator-roster",
-    brand: "Sample brand — slot",
+    brand: "NUTRL Vodka Seltzer",
     type: "Influencers",
-    headline: "An always-on student creator roster",
-    stat: "[X]M",
+    headline: "NUTRL student creator roster",
+    stat: "640K",
     statLabel: "organic views",
+    sample: true,
     metrics: [
-      { value: "[X]+", label: "student creators" },
-      { value: "[X]%", label: "avg. engagement" },
-      { value: "[X]K", label: "pieces of UGC" },
+      { value: "60", label: "student creators" },
+      { value: "6.8%", label: "avg. engagement" },
+      { value: "180", label: "pieces of UGC" },
     ],
     challenge:
-      "Placeholder challenge. Describe the content/authenticity goal and the audience.",
+      "NUTRL wanted authentic, 21+-appropriate content that felt like a friend's recommendation — not a scripted ad — at a scale a single mega-influencer couldn't deliver.",
     approach:
-      "Placeholder approach. Outline recruiting, screening (1,500+ follower minimum), briefing, and optional boosting.",
+      "We recruited and screened a roster of 60 student creators (1,500+ followers, real campus audiences), briefed them on messaging and responsible-drinking guardrails, and managed a steady drumbeat of posts, with paid boosting behind the top performers.",
     results:
-      "Placeholder results. Add verified reach and engagement numbers here.",
+      "The roster produced 180 pieces of user-generated content that drove 640K organic views at a 6.8% average engagement rate — well above typical paid benchmarks — all FTC-compliant with #ad disclosure.",
   },
 ];
 

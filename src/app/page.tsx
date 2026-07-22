@@ -195,7 +195,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Work"
             title="Campaigns in the making."
-            intro="Real case studies land here as they're approved. For now, these are the template slots."
+            intro="A snapshot of the work we run — shown as illustrative NUTRL Vodka Seltzer campaigns until client-approved studies are added."
           />
           <Reveal>
             <Link

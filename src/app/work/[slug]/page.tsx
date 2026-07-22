@@ -60,8 +60,13 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             >
               <ArrowLeft className="h-4 w-4" /> All work
             </Link>
-            <div className="mt-6">
+            <div className="mt-6 flex flex-wrap items-center gap-2">
               <Badge variant="lime">{c.type}</Badge>
+              {c.sample && (
+                <span className="mono-label rounded-[2px] border-2 border-white/70 px-2 py-0.5 text-[10px] font-bold text-white/80">
+                  Illustrative example
+                </span>
+              )}
             </div>
             <h1 className="mt-4 text-balance font-display text-4xl font-bold leading-[1.05] sm:text-5xl">
               {c.headline}

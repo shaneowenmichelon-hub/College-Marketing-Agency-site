@@ -30,7 +30,7 @@ export default function WorkPage() {
         <SectionHeading
           eyebrow="Work"
           title="Campaigns built for campus, measured by outcomes."
-          intro="These are sample slots showing the shape of our case studies — real campaigns land here as clients approve them. Every figure is a placeholder token, not fabricated proof."
+          intro="A look at the kind of work we run across events, brand ambassadors, and influencers — shown here as illustrative NUTRL Vodka Seltzer campaigns while our client-approved case studies are added."
         />
       </Section>
 
@@ -49,7 +49,14 @@ export default function WorkPage() {
                   className="rounded-none"
                 />
                 <div className="flex flex-1 flex-col p-6">
-                  <Badge>{c.type}</Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge>{c.type}</Badge>
+                    {c.sample && (
+                      <span className="mono-label rounded-[2px] border-2 border-ink px-2 py-0.5 text-[9px] font-bold text-[color:var(--muted-on-light)]">
+                        Sample
+                      </span>
+                    )}
+                  </div>
                   {/* Metric-forward headline stat */}
                   <div className="mt-4">
                     <div className="font-display text-4xl font-bold tracking-tight text-accent">
