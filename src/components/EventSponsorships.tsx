@@ -158,7 +158,7 @@ function Chapter({ group, index }: { group: SponsorshipGroup; index: number }) {
 
               {/* All three tiers stay visible + readable; selected tier highlighted */}
               <div className="mt-4 grid grid-cols-3 gap-2 border-t-2 border-ink/10 pt-3">
-                <Stat label="Value / event" value={item.valuePerEvent} />
+                <Stat label="Reach / event" value={item.valuePerEvent} />
                 <Stat label="Base" value={priceFor(item, group, "base")} active={tier === "base"} accent={accent} />
                 <Stat label="Presenting" value={priceFor(item, group, "presenting")} active={tier === "presenting"} accent={accent} />
               </div>

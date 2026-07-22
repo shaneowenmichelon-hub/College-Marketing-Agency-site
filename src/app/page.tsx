@@ -128,7 +128,7 @@ export default function HomePage() {
           onDark
           title="Built to scale across campus."
         />
-        <div className="mt-12 grid grid-cols-2 gap-8 sm:gap-10 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-6">
           {siteConfig.stats.map((s) => (
             <StatCounter key={s.label} value={s.value} label={s.label} />
           ))}

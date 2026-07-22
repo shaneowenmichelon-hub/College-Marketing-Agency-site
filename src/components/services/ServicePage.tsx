@@ -181,7 +181,7 @@ export function ServicePage({
             eyebrow="Proof"
             onDark
             title="The numbers behind the network."
-            intro="Figures marked [X] are still being finalized — the rest reflect the network today."
+            intro="The scale behind every campaign as the network stands today."
           />
           <div className="grid grid-cols-3 gap-6">
             {proof.map((p) => (

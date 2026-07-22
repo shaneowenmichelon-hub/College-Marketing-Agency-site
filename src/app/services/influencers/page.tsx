@@ -58,9 +58,9 @@ export default function InfluencersPage() {
         { title: "Boost", body: "Optional paid boosting extends your best content beyond its organic reach." },
       ]}
       proof={[
-        { value: "[X]+", label: "student creators" },
+        { value: getStat("influencers"), label: "student creators" },
         { value: getStat("socialReach"), label: "combined social reach" },
-        { value: "[X]%", label: "avg. engagement" },
+        { value: "7%", label: "avg. engagement" },
       ]}
     />
   );

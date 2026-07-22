@@ -58,7 +58,7 @@ export default function EventsPage() {
         { title: "Capture & report", body: "We capture content throughout and hand back assets plus a results recap." },
       ]}
       proof={[
-        { value: "[X]+", label: "activations run" },
+        { value: "150+", label: "activations run" },
         { value: getStat("studentsReached"), label: "students reached" },
         { value: getStat("campuses"), label: "campuses" },
       ]}
