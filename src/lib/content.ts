@@ -91,6 +91,8 @@ export type CaseStudy = {
   results: string;
   /** True when the numbers are an illustrative example, not a verified client result. */
   sample?: boolean;
+  /** Public sources for the factual program description (industry references). */
+  sources?: { label: string; url: string }[];
 };
 
 /**
@@ -121,6 +123,10 @@ export const caseStudies: CaseStudy[] = [
       "Through its CELSIUS University program the brand ran relentless campus sampling — gym takeovers, game-day activations, and dorm drops — putting cold cans in students' hands and converting first trial into habit at nearby retail.",
     results:
       "On-campus sampling turned free trials into repeat buyers and helped power Celsius into the top tier of US energy drinks — a textbook case that experiential activation beats impressions with a student audience.",
+    sources: [
+      { label: "Celsius Marketing Strategy — Latterly", url: "https://www.latterly.org/celsius-marketing-strategy/" },
+      { label: "CELSIUS campus roster — Learfield", url: "https://www.learfield.com/2023/08/celsius-adds-5-new-colleges-to-its-roster-fueling-students-and-athletes-with-essential-energy/" },
+    ],
   },
   {
     slug: "red-bull-student-marketeers",
@@ -141,6 +147,10 @@ export const caseStudies: CaseStudy[] = [
       "Its Student Marketeer program hires students as paid, part-time brand reps who run guerrilla marketing, keep product stocked at local retail, staff Red Bull events, and work alongside sponsored athletes on their own campuses.",
     results:
       "The program scaled to thousands of paid student reps across hundreds of campuses worldwide — and became the template most modern campus ambassador programs, including ours, are built on.",
+    sources: [
+      { label: "Red Bull Student Marketeer (official)", url: "https://studentmarketeer.redbull.com/" },
+      { label: "Red Bull Ambassador Program — BrandChamp", url: "https://brandchamp.io/blog/red-bull-ambassador-program/" },
+    ],
   },
   {
     slug: "alani-nu-student-creators",
@@ -161,6 +171,10 @@ export const caseStudies: CaseStudy[] = [
       "Alani built a creator-first engine: college ambassadors and micro-influencers posting authentic UGC with personal discount codes, amplified by high-profile partners — turning everyday students into the brand's marketing team.",
     results:
       "The creator-driven playbook made Alani Nu one of the fastest-growing wellness brands of the decade — later acquired by Celsius in a landmark 2025 deal reported at roughly $1.8B.",
+    sources: [
+      { label: "Alani Nu Marketing Playbook — OptiMonk", url: "https://www.optimonk.com/alani-nu-marketing-playbook" },
+      { label: "Fitness brands winning influencer marketing — Aspire", url: "https://www.aspire.io/blog/fitness-brands-influencer-marketing" },
+    ],
   },
 ];
 

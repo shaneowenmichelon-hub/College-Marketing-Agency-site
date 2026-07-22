@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Target, Lightbulb, TrendingUp } from "lucide-react";
+import { ArrowLeft, Target, Lightbulb, TrendingUp, ExternalLink } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
@@ -129,6 +129,30 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             </Reveal>
           ))}
         </div>
+
+        {/* Sources (industry references) */}
+        {c.sources && c.sources.length > 0 && (
+          <Reveal className="mt-10">
+            <div className="rounded-[3px] border-2 border-ink bg-white p-5 shadow-[6px_6px_0_var(--ink)]">
+              <p className="mono-label text-[11px] font-bold text-ink">Sources &amp; further reading</p>
+              <ul className="mt-3 space-y-2">
+                {c.sources.map((src) => (
+                  <li key={src.url}>
+                    <a
+                      href={src.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                      {src.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        )}
       </Section>
 
       <CTASection
