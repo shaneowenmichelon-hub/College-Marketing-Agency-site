@@ -86,73 +86,135 @@ ${siteConfig.companyDomain}`;
   };
 }
 
+/** A secure link surfaced in the internal email (ID images, proof files). */
+export type SecureLink = { label: string; url: string | null; note?: string };
+
 /* ── Internal notification (to the agency inbox) ─────────────────────────── */
 export function internalNotification(
   kind: "student_application" | "brand_inquiry" | "lead_magnet",
   data: BrandLead | StudentLead,
+  secureLinks: SecureLink[] = [],
 ): RenderedEmail {
   const label =
     kind === "student_application"
-      ? "Student Application"
+      ? "ambassador application"
       : kind === "lead_magnet"
-        ? "Lead Magnet"
-        : "Brand Inquiry";
+        ? "lead magnet"
+        : "brand inquiry";
 
-  const who =
-    kind === "student_application"
-      ? (data as StudentLead).fullName
-      : `${(data as BrandLead).firstName ?? ""} ${(data as BrandLead).lastName ?? ""}`.trim() ||
-        (data as BrandLead).company ||
-        (data as BrandLead).email;
-
-  const subject = `New ${label} — ${who || "unknown"}`;
+  // Subjects per spec.
+  let subject: string;
+  if (kind === "student_application") {
+    const s = data as StudentLead;
+    subject = `New ambassador application — ${s.fullName || "unknown"}, ${s.school || "school n/a"}`;
+  } else if (kind === "brand_inquiry") {
+    const b = data as BrandLead;
+    subject = `New brand inquiry — ${b.company || b.email || "unknown"}`;
+  } else {
+    subject = `New lead magnet — ${(data as BrandLead).email || "unknown"}`;
+  }
 
   const skip = new Set(["kind", "attribution"]);
-  const rows: string[] = [];
+  const fieldRows: [string, string][] = [];
   for (const [k, v] of Object.entries(data)) {
     if (skip.has(k) || v == null || v === "") continue;
-    const value = Array.isArray(v) ? v.join(", ") : String(v);
-    rows.push(fieldRow(k, value));
+    fieldRows.push([prettyKey(k), Array.isArray(v) ? v.join(", ") : String(v)]);
   }
 
   const attr = (data as { attribution?: Attribution }).attribution;
-  const attrRows =
+  const attrRows: [string, string][] =
     attr && Object.values(attr).some(Boolean)
-      ? `<h2 style="font-size:13px;text-transform:uppercase;letter-spacing:0.05em;color:${colors.MUTED};margin:20px 0 8px;">Attribution</h2>` +
-        Object.entries(attr)
-          .filter(([, val]) => val)
-          .map(([k, val]) => fieldRow(k, String(val)))
-          .join("")
-      : "";
+      ? Object.entries(attr).filter(([, val]) => val).map(([k, val]) => [prettyKey(k), String(val)])
+      : [];
 
   const body =
-    h1(`New ${label.toLowerCase()}`) +
-    `<h2 style="font-size:13px;text-transform:uppercase;letter-spacing:0.05em;color:${colors.MUTED};margin:20px 0 8px;">Submission</h2>` +
-    rows.join("") +
-    attrRows;
+    h1(`New ${label}`) +
+    sectionLabel("Submission") +
+    table(fieldRows) +
+    secureLinksBlock(secureLinks) +
+    (attrRows.length ? sectionLabel("Attribution / UTM") + table(attrRows) : "");
 
-  const textLines = [`New ${label}`, ""];
-  for (const [k, v] of Object.entries(data)) {
-    if (skip.has(k) || v == null || v === "") continue;
-    textLines.push(`${k}: ${Array.isArray(v) ? v.join(", ") : v}`);
+  // Plaintext fallback.
+  const t: string[] = [`New ${label}`, ""];
+  for (const [k, v] of fieldRows) t.push(`${k}: ${v}`);
+  if (secureLinks.length) {
+    t.push("", "Secure files:");
+    for (const l of secureLinks) t.push(`${l.label}: ${l.url ?? l.note ?? "n/a"}`);
   }
-  if (attr) {
-    textLines.push("", "Attribution:");
-    for (const [k, v] of Object.entries(attr)) if (v) textLines.push(`${k}: ${v}`);
+  if (attrRows.length) {
+    t.push("", "Attribution / UTM:");
+    for (const [k, v] of attrRows) t.push(`${k}: ${v}`);
   }
 
-  return { subject, html: wrap(body, subject), text: textLines.join("\n") };
+  return { subject, html: wrap(body, subject), text: t.join("\n") };
 }
 
-function fieldRow(key: string, value: string): string {
-  const pretty = key
+/** Generic internal notification for portal emails (signups / job submissions). */
+export function genericNotification(
+  subject: string,
+  rows: [string, string][],
+  secureLinks: SecureLink[] = [],
+): RenderedEmail {
+  const body =
+    h1(subject) + sectionLabel("Details") + table(rows) + secureLinksBlock(secureLinks);
+  const t = [subject, ""];
+  for (const [k, v] of rows) t.push(`${k}: ${v}`);
+  if (secureLinks.length) {
+    t.push("", "Secure files:");
+    for (const l of secureLinks) t.push(`${l.label}: ${l.url ?? l.note ?? "n/a"}`);
+  }
+  return { subject, html: wrap(body, subject), text: t.join("\n") };
+}
+
+function prettyKey(key: string): string {
+  return key
     .replace(/([A-Z])/g, " $1")
     .replace(/_/g, " ")
     .replace(/^./, (c) => c.toUpperCase());
-  return `<div style="display:block;padding:7px 0;border-bottom:1px solid ${colors.BORDER};font-size:14px;">
-    <span style="color:${colors.MUTED};display:inline-block;min-width:150px;">${escapeHtml(
-      pretty,
-    )}</span>
-    <span style="color:${colors.INK};font-weight:500;">${escapeHtml(value)}</span>
-  </div>`;
+}
+
+function sectionLabel(text: string): string {
+  return `<h2 style="font-size:13px;text-transform:uppercase;letter-spacing:0.05em;color:${colors.MUTED};margin:22px 0 8px;">${escapeHtml(
+    text,
+  )}</h2>`;
+}
+
+/** Clean, email-client-safe two-column table. */
+function table(rows: [string, string][]): string {
+  if (!rows.length) return "";
+  const body = rows
+    .map(
+      ([k, v], i) => `<tr style="background:${i % 2 ? "#fafafa" : "#ffffff"};">
+      <td style="padding:8px 10px;border:1px solid ${colors.BORDER};color:${colors.MUTED};font-size:13px;width:170px;vertical-align:top;">${escapeHtml(
+        k,
+      )}</td>
+      <td style="padding:8px 10px;border:1px solid ${colors.BORDER};color:${colors.INK};font-size:14px;font-weight:500;">${escapeHtml(
+        v,
+      )}</td>
+    </tr>`,
+    )
+    .join("");
+  return `<table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;">${body}</table>`;
+}
+
+/** Secure links block (ID images / proof files). Never contains raw attachments. */
+function secureLinksBlock(links: SecureLink[]): string {
+  if (!links.length) return "";
+  const items = links
+    .map((l) => {
+      if (l.url) {
+        return `<li style="margin-bottom:6px;"><a href="${l.url}" style="color:${colors.ACCENT};font-weight:600;">${escapeHtml(
+          l.label,
+        )}</a></li>`;
+      }
+      return `<li style="margin-bottom:6px;color:${colors.MUTED};">${escapeHtml(l.label)}: <em>${escapeHtml(
+        l.note || "not available",
+      )}</em></li>`;
+    })
+    .join("");
+  return (
+    sectionLabel("Secure files") +
+    `<p style="font-size:12px;color:${colors.MUTED};margin:0 0 8px;">Access-restricted links — do not forward. Delete once verification is complete.</p>` +
+    `<ul style="padding-left:18px;margin:0;">${items}</ul>`
+  );
 }

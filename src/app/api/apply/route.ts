@@ -1,18 +1,34 @@
 import { NextResponse } from "next/server";
+import { randomUUID } from "node:crypto";
 import { ageFromDOB, isEduEmail } from "@/lib/utils";
 import { sendEmail, AGENCY_INBOX } from "@/lib/email";
-import { studentConfirmation, internalNotification } from "@/lib/email-templates";
+import { studentConfirmation, internalNotification, type SecureLink } from "@/lib/email-templates";
 import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
 import { ATTRIBUTION_KEYS, type Attribution, type StudentLead } from "@/lib/leads";
+import { uploadPrivate } from "@/lib/storage";
+import { ALLOWED_UPLOAD_TYPES, MAX_UPLOAD_BYTES } from "@/lib/uploads";
 
-// Email SDK needs the Node runtime (not edge).
+// Email SDK + Blob storage need the Node runtime (not edge).
 export const runtime = "nodejs";
 
+function validateIdFile(file: File | null, which: string, errors: Record<string, string>) {
+  if (!file || file.size === 0) {
+    errors[which] = "This ID photo is required.";
+    return;
+  }
+  if (file.size > MAX_UPLOAD_BYTES) errors[which] = "File is larger than 10MB.";
+  else if (file.type && !ALLOWED_UPLOAD_TYPES.includes(file.type))
+    errors[which] = "Use a JPG, PNG, HEIC, WEBP, or PDF.";
+}
+
 /**
- * Student ambassador applications.
- * Validate (18+ gate, .edu check) → send applicant confirmation + internal
- * notification (parallel, non-blocking on failure) → return success. Always logs
- * a structured submission record so no application is lost before email is live.
+ * Student ambassador applications (multipart/form-data — includes ID photos).
+ * Validate (18+ gate, .edu, ID files) → upload IDs to PRIVATE storage → email a
+ * confirmation to the applicant + an internal notification with SECURE LINKS to
+ * the IDs (never the raw files). Graceful when email/storage env vars are unset.
+ *
+ * ID URLs are only ever placed in the internal email — never returned to the
+ * browser, logged in plaintext, or added to analytics / query strings.
  *
  * TODO (optional): also persist to Google Sheet / CRM / DB.
  * TODO: hand student applications off to the ambassador portal.
@@ -28,84 +44,110 @@ export async function POST(request: Request) {
     );
   }
 
-  let body: Record<string, unknown>;
+  let form: FormData;
   try {
-    body = await request.json();
+    form = await request.formData();
   } catch {
-    return NextResponse.json({ ok: false, error: "Invalid JSON." }, { status: 400 });
+    return NextResponse.json({ ok: false, error: "Invalid form data." }, { status: 400 });
+  }
+  const str = (k: string) => String(form.get(k) ?? "").trim();
+
+  // Honeypot + time-to-submit bot checks.
+  if (str("nickname") !== "") return NextResponse.json({ ok: true });
+  const elapsed = Number(form.get("elapsedMs") ?? 0);
+  if (elapsed > 0 && elapsed < 1500) return NextResponse.json({ ok: true });
+
+  const fullName = str("fullName");
+  const dob = str("dob");
+  const school = str("school");
+  const schoolEmail = str("schoolEmail");
+  const why = str("why");
+
+  let agreements: Record<string, unknown> = {};
+  try {
+    agreements = JSON.parse(str("agreements") || "{}");
+  } catch {
+    /* ignore */
   }
 
-  // Honeypot.
-  if (typeof body.nickname === "string" && body.nickname.trim() !== "") {
-    return NextResponse.json({ ok: true });
-  }
-
-  // Time-to-submit bot check.
-  const elapsed = Number(body.elapsedMs ?? 0);
-  if (elapsed > 0 && elapsed < 1500) {
-    return NextResponse.json({ ok: true });
-  }
-
-  const fullName = String(body.fullName ?? "").trim();
-  const dob = String(body.dob ?? "").trim();
-  const school = String(body.school ?? "").trim();
-  const schoolEmail = String(body.schoolEmail ?? "").trim();
-  const why = String(body.why ?? "").trim();
+  const idFront = form.get("idFront") as File | null;
+  const idBack = form.get("idBack") as File | null;
 
   const errors: Record<string, string> = {};
   if (!fullName) errors.fullName = "Your name is required.";
-
   const age = ageFromDOB(dob);
   if (age === null) errors.dob = "Enter your date of birth.";
   else if (age < 18) errors.dob = "You must be 18 or older to apply.";
-
   if (!school) errors.school = "Your school is required.";
   if (!schoolEmail) errors.schoolEmail = "School email is required.";
   else if (!isEduEmail(schoolEmail)) errors.schoolEmail = "Use a valid .edu email.";
   if (!why) errors.why = "Tell us a little about why you want to join.";
-
-  const agreements = (body.agreements ?? {}) as Record<string, unknown>;
   if (!agreements.age) errors.age = "You must confirm you're 18+.";
   if (!agreements.terms) errors.terms = "You must accept the terms.";
   if (!agreements.ftc) errors.ftc = "Please acknowledge the disclosure requirement.";
+  validateIdFile(idFront, "idFront", errors);
+  validateIdFile(idBack, "idBack", errors);
 
   if (Object.keys(errors).length > 0) {
     return NextResponse.json({ ok: false, errors }, { status: 422 });
   }
 
+  // Attribution.
   const attribution: Attribution = {};
-  const rawAttr = (body.attribution ?? {}) as Record<string, unknown>;
-  for (const k of ATTRIBUTION_KEYS) {
-    const v = rawAttr[k];
-    if (typeof v === "string" && v) attribution[k] = v;
+  try {
+    const raw = JSON.parse(str("attribution") || "{}") as Record<string, unknown>;
+    for (const k of ATTRIBUTION_KEYS) {
+      const v = raw[k];
+      if (typeof v === "string" && v) attribution[k] = v;
+    }
+  } catch {
+    /* ignore */
   }
+
+  // Upload IDs to private storage (unguessable paths). Never blocks submission.
+  const submissionId = randomUUID();
+  const [frontUp, backUp] = await Promise.all([
+    uploadPrivate(`ambassador-ids/${submissionId}/front-${safeName(idFront!.name)}`, idFront!),
+    uploadPrivate(`ambassador-ids/${submissionId}/back-${safeName(idBack!.name)}`, idBack!),
+  ]);
+  const secureLinks: SecureLink[] = [
+    { label: "Government ID — front", url: frontUp.url, note: frontUp.note },
+    { label: "Government ID — back", url: backUp.url, note: backUp.note },
+  ];
 
   const lead: StudentLead = {
     kind: "student_application",
     fullName,
     dob,
-    phone: String(body.phone ?? ""),
-    city: String(body.city ?? ""),
-    state: String(body.state ?? ""),
+    phone: str("phone"),
+    city: str("city"),
+    state: str("state"),
     school,
     schoolEmail,
-    gradYear: String(body.gradYear ?? ""),
-    major: String(body.major ?? ""),
-    instagram: String(body.instagram ?? ""),
-    tiktok: String(body.tiktok ?? ""),
-    igFollowers: String(body.igFollowers ?? ""),
-    ttFollowers: String(body.ttFollowers ?? ""),
-    niche: String(body.niche ?? ""),
+    gradYear: str("gradYear"),
+    major: str("major"),
+    instagram: str("instagram"),
+    tiktok: str("tiktok"),
+    igFollowers: str("igFollowers"),
+    ttFollowers: str("ttFollowers"),
+    niche: str("niche"),
     why,
-    resumeName: String(body.resumeName ?? ""),
     attribution,
   };
 
-  // Structured submission record — capture fallback (never lose an application).
-  console.log("[lead]", JSON.stringify({ at: new Date().toISOString(), ...lead }));
+  // Structured record — NO ID URLs in logs, just whether they were stored.
+  console.log(
+    "[lead]",
+    JSON.stringify({
+      at: new Date().toISOString(),
+      ...lead,
+      idFrontStored: !!frontUp.url,
+      idBackStored: !!backUp.url,
+    }),
+  );
 
   const confirmation = studentConfirmation(lead);
-  const internal = internalNotification("student_application", lead);
+  const internal = internalNotification("student_application", lead, secureLinks);
   await Promise.allSettled([
     sendEmail({
       to: schoolEmail,
@@ -119,9 +161,13 @@ export async function POST(request: Request) {
       subject: internal.subject,
       html: internal.html,
       text: internal.text,
-      replyTo: schoolEmail,
+      replyTo: schoolEmail, // reply goes straight to the applicant
     }),
   ]);
 
   return NextResponse.json({ ok: true });
+}
+
+function safeName(name: string): string {
+  return name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 60) || "file";
 }

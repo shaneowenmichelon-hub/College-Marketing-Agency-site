@@ -57,6 +57,5 @@ export type StudentLead = {
   ttFollowers?: string;
   niche?: string;
   why?: string;
-  resumeName?: string;
   attribution?: Attribution;
 };

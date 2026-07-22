@@ -208,8 +208,19 @@ export type SiteConfig = typeof siteConfig;
 /** Derived email defaults (env vars override these — see src/lib/email.ts). */
 export const emailDefaults = {
   from: `${siteConfig.companyName} <hello@${siteConfig.companyDomain}>`,
-  inbox: `hello@${siteConfig.companyDomain}`,
+  // Destination for ALL internal notifications (brand + ambassador + portal).
+  // Override with AGENCY_INBOX env var.
+  inbox: "shane@zmmevents.com",
 };
+
+/** How long ambassador ID images should be retained before deletion. */
+// TODO: implement a scheduled cleanup routine (cron / Vercel Cron) that deletes
+// ambassador-ids/* older than this once verification is complete.
+export const ID_RETENTION_DAYS = Number(process.env.ID_RETENTION_DAYS) || 90;
+
+/** Portal: enforce a single active job per ambassador at a time. */
+export const ONE_JOB_AT_A_TIME =
+  (process.env.ONE_JOB_AT_A_TIME ?? "true").toLowerCase() !== "false";
 
 /** Look up a headline stat value by key; falls back to a token if missing. */
 export function getStat(key: string): string {
@@ -478,3 +489,94 @@ export const eventSponsorships: {
     },
   ],
 };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// AMBASSADOR JOB PORTAL — editable job board. Edit comp/slots/copy here; the
+// portal renders from this. Slot counts, signups and submissions are held in
+// local state for the prototype (see src/lib/portal.ts).
+// ─────────────────────────────────────────────────────────────────────────────
+export type Job = {
+  slug: string;
+  brand: string;
+  title: string;
+  category: "Events" | "Brand Ambassadors" | "Influencers";
+  compensation: { cash: string; product: string };
+  slotsTotal: number;
+  slotsFilled: number;
+  description: string;
+  requirements: string[];
+  deliverables: string[];
+  deadline: string;
+  status: "open" | "closed";
+};
+
+export const jobs: Job[] = [
+  {
+    slug: "whoosh-campus-tabling",
+    brand: "Whoosh",
+    title: "Campus tabling & flyer drop",
+    category: "Events",
+    compensation: { cash: "$30/hour", product: "One month of product free" },
+    slotsTotal: 2,
+    slotsFilled: 0,
+    description:
+      "Run a table on campus for Whoosh (peptide / wellness) and hand out flyers to wellness-focused students. Great for students who love health, fitness, and meeting people.",
+    requirements: [
+      "Wellness-focused students preferred",
+      "Set up and staff a table in a high-traffic campus spot",
+      "Hand out Whoosh flyers and talk up the product",
+      "Drive 70 QR code scans per person",
+    ],
+    deliverables: [
+      "Photos and/or video of your table setup and activity",
+      "Screenshot of your QR scan count (70+ per person)",
+    ],
+    deadline: "Rolling",
+    status: "open",
+  },
+  {
+    slug: "whoosh-ugc-creator",
+    brand: "Whoosh",
+    title: "UGC creator (Instagram + TikTok)",
+    category: "Influencers",
+    compensation: { cash: "$100", product: "One month of product free" },
+    slotsTotal: 10,
+    slotsFilled: 0,
+    description:
+      "Create and post an original UGC video promoting Whoosh on both Instagram and TikTok. Authentic, on-brand, and disclosed as #ad.",
+    requirements: [
+      "Create an original UGC video promoting Whoosh",
+      "Post it on BOTH Instagram and TikTok",
+      "Tag as #ad / #sponsored per FTC guidelines",
+    ],
+    deliverables: [
+      "Live link to your Instagram post",
+      "Live link to your TikTok post",
+    ],
+    deadline: "Rolling",
+    status: "open",
+  },
+  {
+    // Sample job (placeholder brand) — partially filled to demo the slot-counter state.
+    slug: "sample-campus-sampling",
+    brand: "Sample Brand",
+    title: "Product sampling at a campus event",
+    category: "Brand Ambassadors",
+    compensation: { cash: "$25/hour", product: "Free samples" },
+    slotsTotal: 2,
+    slotsFilled: 1,
+    description:
+      "Sample job (placeholder) shown to demonstrate a partially-filled slot state. Hand out product samples at a campus event and collect sign-ups.",
+    requirements: [
+      "Hand out product samples at a campus event",
+      "Collect sign-ups at the table",
+    ],
+    deliverables: ["Photos of the sampling activation"],
+    deadline: "Rolling",
+    status: "open",
+  },
+];
+
+export function getJob(slug: string): Job | undefined {
+  return jobs.find((j) => j.slug === slug);
+}

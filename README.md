@@ -65,7 +65,11 @@ are optional to run** — set them to turn features on.
 | --- | --- | --- |
 | `RESEND_API_KEY` | Resend API key. Unset = email disabled (forms still work, sends logged). | **Yes** to send email |
 | `EMAIL_FROM` | Verified sending identity, e.g. `Collegiate Hospitality <hello@collegiatehospitality.com>`. | **Yes** to send email |
-| `AGENCY_INBOX` | Where internal new-lead notifications go. | **Yes** to send email |
+| `AGENCY_INBOX` | Where ALL internal notifications go (brand + ambassador + portal). Defaults to `shane@zmmevents.com`. | **Yes** to send email |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob token for private ID / proof-file storage. Unset = files skipped, flagged in the email. | **Yes** to store IDs |
+| `ID_RETENTION_DAYS` | Days to retain ID images before deletion (default 90). | Optional |
+| `PORTAL_ACCESS_CODE` | Shared code approved ambassadors enter at `/portal` (default `collegiate2026`). | **Yes** for the portal |
+| `ONE_JOB_AT_A_TIME` | `"false"` lets ambassadors hold multiple active jobs (default `true`). | Optional |
 | `NEXT_PUBLIC_GA_ID` | GA4 Measurement ID (`G-XXXXXXXXXX`). Loads only after cookie consent. | Optional |
 | `NEXT_PUBLIC_GTM_ID` | Google Tag Manager ID (`GTM-XXXXXXX`). Loads only after consent. | Optional |
 | `NEXT_PUBLIC_LINKEDIN_PARTNER_ID` | LinkedIn Insight Tag id. | Optional |
@@ -73,6 +77,39 @@ are optional to run** — set them to turn features on.
 
 `NEXT_PUBLIC_*` vars are exposed to the browser (that's required for analytics) — never
 put secrets in them. `RESEND_API_KEY` is server-only.
+
+---
+
+## Ambassador ID verification & the job portal
+
+**Photo ID upload (ambassador application).** The application collects a front and back
+photo of a government ID (for identity + age/21+ verification). Files are uploaded to
+**private storage** (`src/lib/storage.ts`, Vercel Blob with unguessable random-suffixed
+paths); the internal email to `AGENCY_INBOX` contains **secure links**, never raw
+attachments. ID URLs are never returned to the browser, logged in plaintext, put in
+analytics, or placed in query strings. If `BLOB_READ_WRITE_TOKEN` is unset, the form
+still submits and the email flags the ID as `not uploaded — storage not configured`.
+
+> ⚠️ **True private storage:** Vercel Blob serves unguessable-but-public URLs. For real
+> private/expiring access to ID images (the correct production choice), swap the single
+> `deliver()` function in `src/lib/storage.ts` for **S3 / Cloudflare R2 with time-limited
+> signed URLs** — nothing else changes. Delete IDs once verification is done
+> (`ID_RETENTION_DAYS`, cleanup routine is a TODO).
+
+**Job portal (`/portal`).** A gated area (kept `noindex`) where approved ambassadors log
+in with their `.edu` email + the shared `PORTAL_ACCESS_CODE`, browse jobs
+(`/portal/jobs`), sign up (one active job at a time), and submit proof of completion
+(`/portal/submit/[slug]`). Signups and submissions email `AGENCY_INBOX`. Jobs are edited
+in `site.config.ts` (`jobs` array).
+
+> ⚠️ **Prototype gaps (before production):**
+> - **Auth** is a *shared secret*, not per-user login — replace with Clerk / NextAuth /
+>   Supabase (`// TODO` in `src/lib/portal.ts`). The `/portal` link is meant to be shared
+>   with approved ambassadors only.
+> - **State** (slot counts, signups, submissions) is held in **browser localStorage** — it
+>   doesn't sync across users/devices, and slot counts only reflect each student's own
+>   signup. Move to a database (Supabase / Vercel Postgres). Email is the reliable record
+>   until then (`// TODO` at the state layer).
 
 ---
 

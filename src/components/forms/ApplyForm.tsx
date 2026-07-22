@@ -8,14 +8,16 @@ import { trackEvent } from "@/lib/analytics";
 import { useAttribution, useElapsed } from "@/lib/client-forms";
 import { celebrate } from "@/lib/confetti";
 import { cn } from "@/lib/utils";
+import { validateUpload } from "@/lib/uploads";
 import {
   FormField,
   Input,
   Select,
   Textarea,
   Checkbox,
-  FileDrop,
 } from "@/components/form/Fields";
+import { IdUpload } from "@/components/forms/IdUpload";
+import { ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { AmbassadorQuestPanel, AmbassadorCard, type Badge } from "./AmbassadorQuestPanel";
 
@@ -53,7 +55,8 @@ function SectionTitle({ n, title, done = false }: { n: number; title: string; do
 
 export function ApplyForm() {
   const [dob, setDob] = useState("");
-  const [file, setFile] = useState<File | null>(null);
+  const [idFront, setIdFront] = useState<File | null>(null);
+  const [idBack, setIdBack] = useState<File | null>(null);
   const [agreements, setAgreements] = useState({ age: false, terms: false, ftc: false });
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -119,57 +122,59 @@ export function ApplyForm() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    const payload = {
-      kind: "student_application" as const,
-      elapsedMs: getElapsed(),
-      attribution,
+    const values = {
       fullName: String(data.get("fullName") ?? "").trim(),
-      dob,
-      phone: String(data.get("phone") ?? ""),
-      city: String(data.get("city") ?? ""),
-      state: String(data.get("state") ?? ""),
       school: String(data.get("school") ?? "").trim(),
       schoolEmail: String(data.get("schoolEmail") ?? "").trim(),
-      gradYear: String(data.get("gradYear") ?? ""),
-      major: String(data.get("major") ?? ""),
-      instagram: String(data.get("instagram") ?? ""),
-      tiktok: String(data.get("tiktok") ?? ""),
-      igFollowers: String(data.get("igFollowers") ?? ""),
-      ttFollowers: String(data.get("ttFollowers") ?? ""),
-      niche: String(data.get("niche") ?? ""),
-      why: String(data.get("why") ?? ""),
-      resumeName: file?.name ?? "",
-      agreements,
-      nickname: String(data.get("nickname") ?? ""), // honeypot
+      why: String(data.get("why") ?? "").trim(),
     };
 
     const next: Errors = {};
-    if (!payload.fullName) next.fullName = "Your name is required.";
+    if (!values.fullName) next.fullName = "Your name is required.";
     if (!dob) next.dob = "Enter your date of birth.";
     else if (age !== null && age < 18) next.dob = "You must be 18 or older to apply.";
-    if (!payload.school) next.school = "Your school is required.";
-    if (!payload.schoolEmail) next.schoolEmail = "School email is required.";
-    else if (!isEduEmail(payload.schoolEmail)) next.schoolEmail = "Use a valid .edu email.";
-    if (!payload.why.trim()) next.why = "Tell us a little about why you want to join.";
+    if (!values.school) next.school = "Your school is required.";
+    if (!values.schoolEmail) next.schoolEmail = "School email is required.";
+    else if (!isEduEmail(values.schoolEmail)) next.schoolEmail = "Use a valid .edu email.";
+    if (!values.why) next.why = "Tell us a little about why you want to join.";
     if (!agreements.age) next.age = "Please confirm you're 18 or older.";
     if (!agreements.terms) next.terms = "You must accept the terms.";
     if (!agreements.ftc) next.ftc = "Please acknowledge the disclosure requirement.";
+    if (!idFront) next.idFront = "Front of your ID is required.";
+    else { const e1 = validateUpload(idFront); if (e1) next.idFront = e1; }
+    if (!idBack) next.idBack = "Back of your ID is required.";
+    else { const e2 = validateUpload(idBack); if (e2) next.idBack = e2; }
 
     setErrors(next);
     if (Object.keys(next).length > 0) {
-      // Scroll to first error for keyboard/mobile users.
       const firstKey = Object.keys(next)[0];
       document.getElementById(firstKey)?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
 
+    // Build multipart body (ID files + fields). Browser sets the Content-Type.
+    const body = new FormData();
+    const fields = [
+      "phone", "city", "state", "gradYear", "major",
+      "instagram", "tiktok", "igFollowers", "ttFollowers", "niche",
+    ];
+    body.set("kind", "student_application");
+    body.set("fullName", values.fullName);
+    body.set("dob", dob);
+    body.set("school", values.school);
+    body.set("schoolEmail", values.schoolEmail);
+    body.set("why", values.why);
+    for (const f of fields) body.set(f, String(data.get(f) ?? ""));
+    body.set("elapsedMs", String(getElapsed()));
+    body.set("nickname", String(data.get("nickname") ?? "")); // honeypot
+    body.set("agreements", JSON.stringify(agreements));
+    body.set("attribution", JSON.stringify(attribution));
+    if (idFront) body.set("idFront", idFront);
+    if (idBack) body.set("idBack", idBack);
+
     setStatus("loading");
     try {
-      const res = await fetch("/api/apply", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch("/api/apply", { method: "POST", body });
       const json = await res.json();
       if (!res.ok || !json.ok) {
         if (json.errors) setErrors(json.errors);
@@ -382,20 +387,48 @@ export function ApplyForm() {
               error={errors.why}
             />
           </FormField>
-          <FormField label="Resume (optional)" htmlFor="resume">
-            <FileDrop
-              label="Drop a PDF or image, or choose a file"
-              accept=".pdf,.doc,.docx,image/*"
-              onFile={setFile}
-              file={file}
-            />
-          </FormField>
         </div>
+      </section>
+
+      {/* Photo ID */}
+      <section>
+        <SectionTitle
+          n={5}
+          title="Verify your ID"
+          done={!!idFront && !!idBack && !errors.idFront && !errors.idBack}
+        />
+        <p className="mb-4 text-sm text-[color:var(--muted-on-light)]">
+          We verify identity and age so you can be matched to brand campaigns — including
+          21+ campaigns. Upload a clear photo of the front and back of a government photo ID.
+        </p>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <IdUpload
+            id="idFront"
+            label="Government photo ID — front"
+            file={idFront}
+            onFile={setIdFront}
+            error={errors.idFront}
+            required
+          />
+          <IdUpload
+            id="idBack"
+            label="Government photo ID — back"
+            file={idBack}
+            onFile={setIdBack}
+            error={errors.idBack}
+            required
+          />
+        </div>
+        <p className="mt-3 flex items-start gap-2 rounded-[3px] border-2 border-ink bg-surface-muted px-3 py-2 text-xs text-ink">
+          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
+          Your ID is encrypted, access-restricted, and used only for verification. It&apos;s
+          never posted or shared, and it&apos;s deleted once you&apos;re verified.
+        </p>
       </section>
 
       {/* Agreements */}
       <section>
-        <SectionTitle n={5} title="Final boss: the agreements" done={questFlags.agreements} />
+        <SectionTitle n={6} title="Final boss: the agreements" done={questFlags.agreements} />
         <div className="space-y-4">
           <Checkbox
             checked={agreements.age}
