@@ -8,6 +8,7 @@ import { getJob } from "@/site.config";
 import { getSession, getPortalState, markSubmitted } from "@/lib/portal";
 import { humanFileSize } from "@/lib/uploads";
 import { compressImage } from "@/lib/image-compress";
+import { uploadToBlob, newSubmissionId, proofPath } from "@/lib/blob-upload";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { FormField, Input, Textarea } from "@/components/form/Fields";
 
@@ -56,15 +57,27 @@ export default function SubmitProofPage() {
     setError(undefined);
     setStatus("loading");
 
-    const body = new FormData();
-    body.set("email", getSession() ?? "");
-    body.set("slug", job.slug);
-    body.set("notes", notes);
-    for (const l of cleanLinks) body.append("links", l);
-    for (const f of files) body.append("files", f);
+    // Upload proof files straight to Blob, then POST JSON with their URLs.
+    const submissionId = newSubmissionId();
+    const uploaded = await Promise.all(
+      files.map(async (f, i) => {
+        const up = await uploadToBlob(proofPath(submissionId, i, f.name), f);
+        return { name: f.name, url: up.url ?? "" };
+      }),
+    );
 
     try {
-      const res = await fetch("/api/portal/submit", { method: "POST", body });
+      const res = await fetch("/api/portal/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: getSession() ?? "",
+          slug: job.slug,
+          notes,
+          links: cleanLinks,
+          files: uploaded,
+        }),
+      });
       const json = await res.json();
       if (!res.ok || !json.ok) {
         setError(json.error || "Submission failed. Please try again.");

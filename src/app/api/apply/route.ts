@@ -1,37 +1,22 @@
 import { NextResponse } from "next/server";
-import { randomUUID } from "node:crypto";
 import { ageFromDOB, isEduEmail } from "@/lib/utils";
 import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { studentConfirmation, internalNotification, type SecureLink } from "@/lib/email-templates";
 import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
 import { ATTRIBUTION_KEYS, type Attribution, type StudentLead } from "@/lib/leads";
-import { uploadPrivate } from "@/lib/storage";
-import { ALLOWED_UPLOAD_TYPES, MAX_UPLOAD_BYTES } from "@/lib/uploads";
 
-// Email SDK + Blob storage need the Node runtime (not edge).
+// Email SDK needs the Node runtime (not edge).
 export const runtime = "nodejs";
 
-function validateIdFile(file: File | null, which: string, errors: Record<string, string>) {
-  if (!file || file.size === 0) {
-    errors[which] = "This ID photo is required.";
-    return;
-  }
-  if (file.size > MAX_UPLOAD_BYTES) errors[which] = "File is larger than 10MB.";
-  else if (file.type && !ALLOWED_UPLOAD_TYPES.includes(file.type))
-    errors[which] = "Use a JPG, PNG, HEIC, WEBP, or PDF.";
-}
-
 /**
- * Student ambassador applications (multipart/form-data — includes ID photos).
- * Validate (18+ gate, .edu, ID files) → upload IDs to PRIVATE storage → email a
- * confirmation to the applicant + an internal notification with SECURE LINKS to
- * the IDs (never the raw files). Graceful when email/storage env vars are unset.
+ * Student ambassador applications (JSON). ID photos are uploaded DIRECTLY from
+ * the browser to Vercel Blob (see /api/blob/upload) before this runs, so we only
+ * receive their secure URLs here — the large files never hit this function (no
+ * 4.5MB limit). Type/size were validated at the token route + client side.
  *
- * ID URLs are only ever placed in the internal email — never returned to the
- * browser, logged in plaintext, or added to analytics / query strings.
- *
- * TODO (optional): also persist to Google Sheet / CRM / DB.
- * TODO: hand student applications off to the ambassador portal.
+ * Validate (18+ gate, .edu) → email a confirmation to the applicant + an internal
+ * notification with SECURE ID LINKS (never raw files). Graceful when email or
+ * storage is unset. ID URLs are only ever placed in the internal email.
  */
 export async function POST(request: Request) {
   sweep();
@@ -44,17 +29,17 @@ export async function POST(request: Request) {
     );
   }
 
-  let form: FormData;
+  let body: Record<string, unknown>;
   try {
-    form = await request.formData();
+    body = await request.json();
   } catch {
-    return NextResponse.json({ ok: false, error: "Invalid form data." }, { status: 400 });
+    return NextResponse.json({ ok: false, error: "Invalid JSON." }, { status: 400 });
   }
-  const str = (k: string) => String(form.get(k) ?? "").trim();
+  const str = (k: string) => String(body[k] ?? "").trim();
 
   // Honeypot + time-to-submit bot checks.
   if (str("nickname") !== "") return NextResponse.json({ ok: true });
-  const elapsed = Number(form.get("elapsedMs") ?? 0);
+  const elapsed = Number(body.elapsedMs ?? 0);
   if (elapsed > 0 && elapsed < 1500) return NextResponse.json({ ok: true });
 
   const fullName = str("fullName");
@@ -62,16 +47,13 @@ export async function POST(request: Request) {
   const school = str("school");
   const schoolEmail = str("schoolEmail");
   const why = str("why");
+  const agreements = (body.agreements ?? {}) as Record<string, unknown>;
 
-  let agreements: Record<string, unknown> = {};
-  try {
-    agreements = JSON.parse(str("agreements") || "{}");
-  } catch {
-    /* ignore */
-  }
-
-  const idFront = form.get("idFront") as File | null;
-  const idBack = form.get("idBack") as File | null;
+  // ID references (Blob URLs uploaded client-side; may be empty if storage unset).
+  const idFrontUrl = str("idFrontUrl");
+  const idBackUrl = str("idBackUrl");
+  const idFrontName = str("idFrontName");
+  const idBackName = str("idBackName");
 
   const errors: Record<string, string> = {};
   if (!fullName) errors.fullName = "Your name is required.";
@@ -85,34 +67,38 @@ export async function POST(request: Request) {
   if (!agreements.age) errors.age = "You must confirm you're 18+.";
   if (!agreements.terms) errors.terms = "You must accept the terms.";
   if (!agreements.ftc) errors.ftc = "Please acknowledge the disclosure requirement.";
-  validateIdFile(idFront, "idFront", errors);
-  validateIdFile(idBack, "idBack", errors);
+  // ID is required at the file-selection level (client sends the filename even if
+  // the upload was skipped because storage isn't configured).
+  if (!idFrontName) errors.idFront = "Front of your ID is required.";
+  if (!idBackName) errors.idBack = "Back of your ID is required.";
+  // Only accept our own Blob URLs.
+  const okUrl = (u: string) => u === "" || /^https:\/\/[a-z0-9.-]*\.?blob\.vercel-storage\.com\//i.test(u);
+  if (!okUrl(idFrontUrl) || !okUrl(idBackUrl)) {
+    errors.idFront = "Invalid ID upload.";
+  }
 
   if (Object.keys(errors).length > 0) {
     return NextResponse.json({ ok: false, errors }, { status: 422 });
   }
 
-  // Attribution.
   const attribution: Attribution = {};
-  try {
-    const raw = JSON.parse(str("attribution") || "{}") as Record<string, unknown>;
-    for (const k of ATTRIBUTION_KEYS) {
-      const v = raw[k];
-      if (typeof v === "string" && v) attribution[k] = v;
-    }
-  } catch {
-    /* ignore */
+  const rawAttr = (body.attribution ?? {}) as Record<string, unknown>;
+  for (const k of ATTRIBUTION_KEYS) {
+    const v = rawAttr[k];
+    if (typeof v === "string" && v) attribution[k] = v;
   }
 
-  // Upload IDs to private storage (unguessable paths). Never blocks submission.
-  const submissionId = randomUUID();
-  const [frontUp, backUp] = await Promise.all([
-    uploadPrivate(`ambassador-ids/${submissionId}/front-${safeName(idFront!.name)}`, idFront!),
-    uploadPrivate(`ambassador-ids/${submissionId}/back-${safeName(idBack!.name)}`, idBack!),
-  ]);
   const secureLinks: SecureLink[] = [
-    { label: "Government ID — front", url: frontUp.url, note: frontUp.note },
-    { label: "Government ID — back", url: backUp.url, note: backUp.note },
+    {
+      label: "Government ID — front",
+      url: idFrontUrl || null,
+      note: idFrontUrl ? undefined : "not uploaded — storage not configured",
+    },
+    {
+      label: "Government ID — back",
+      url: idBackUrl || null,
+      note: idBackUrl ? undefined : "not uploaded — storage not configured",
+    },
   ];
 
   const lead: StudentLead = {
@@ -141,8 +127,8 @@ export async function POST(request: Request) {
     JSON.stringify({
       at: new Date().toISOString(),
       ...lead,
-      idFrontStored: !!frontUp.url,
-      idBackStored: !!backUp.url,
+      idFrontStored: !!idFrontUrl,
+      idBackStored: !!idBackUrl,
     }),
   );
 
@@ -161,13 +147,9 @@ export async function POST(request: Request) {
       subject: internal.subject,
       html: internal.html,
       text: internal.text,
-      replyTo: schoolEmail, // reply goes straight to the applicant
+      replyTo: schoolEmail,
     }),
   ]);
 
   return NextResponse.json({ ok: true });
-}
-
-function safeName(name: string): string {
-  return name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(0, 60) || "file";
 }

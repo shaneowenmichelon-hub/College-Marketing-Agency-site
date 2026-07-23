@@ -9,6 +9,7 @@ import { useAttribution, useElapsed } from "@/lib/client-forms";
 import { celebrate } from "@/lib/confetti";
 import { cn } from "@/lib/utils";
 import { validateUpload } from "@/lib/uploads";
+import { uploadToBlob, newSubmissionId, idPath } from "@/lib/blob-upload";
 import {
   FormField,
   Input,
@@ -152,29 +153,50 @@ export function ApplyForm() {
       return;
     }
 
-    // Build multipart body (ID files + fields). Browser sets the Content-Type.
-    const body = new FormData();
+    setStatus("loading");
+
+    // Upload ID photos straight to Blob (browser -> Blob), then POST JSON with
+    // just the URLs — the large files never hit our serverless function.
+    const submissionId = newSubmissionId();
+    let frontUp = { url: null as string | null };
+    let backUp = { url: null as string | null };
+    try {
+      [frontUp, backUp] = await Promise.all([
+        idFront ? uploadToBlob(idPath(submissionId, "front", idFront.name), idFront) : Promise.resolve({ url: null }),
+        idBack ? uploadToBlob(idPath(submissionId, "back", idBack.name), idBack) : Promise.resolve({ url: null }),
+      ]);
+    } catch {
+      /* uploadToBlob never throws, but guard anyway */
+    }
+
     const fields = [
       "phone", "city", "state", "gradYear", "major",
       "instagram", "tiktok", "igFollowers", "ttFollowers", "niche",
     ];
-    body.set("kind", "student_application");
-    body.set("fullName", values.fullName);
-    body.set("dob", dob);
-    body.set("school", values.school);
-    body.set("schoolEmail", values.schoolEmail);
-    body.set("why", values.why);
-    for (const f of fields) body.set(f, String(data.get(f) ?? ""));
-    body.set("elapsedMs", String(getElapsed()));
-    body.set("nickname", String(data.get("nickname") ?? "")); // honeypot
-    body.set("agreements", JSON.stringify(agreements));
-    body.set("attribution", JSON.stringify(attribution));
-    if (idFront) body.set("idFront", idFront);
-    if (idBack) body.set("idBack", idBack);
+    const payload: Record<string, unknown> = {
+      kind: "student_application",
+      fullName: values.fullName,
+      dob,
+      school: values.school,
+      schoolEmail: values.schoolEmail,
+      why: values.why,
+      elapsedMs: getElapsed(),
+      nickname: String(data.get("nickname") ?? ""),
+      agreements,
+      attribution,
+      idFrontUrl: frontUp.url ?? "",
+      idBackUrl: backUp.url ?? "",
+      idFrontName: idFront?.name ?? "",
+      idBackName: idBack?.name ?? "",
+    };
+    for (const f of fields) payload[f] = String(data.get(f) ?? "");
 
-    setStatus("loading");
     try {
-      const res = await fetch("/api/apply", { method: "POST", body });
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
       const json = await res.json();
       if (!res.ok || !json.ok) {
         if (json.errors) setErrors(json.errors);
