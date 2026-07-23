@@ -709,7 +709,7 @@ export const eventSponsorships: {
             alt: "The Village Raleigh pitch deck with crowd photo and venue stats",
           },
           highlights: [
-            "300,000+ annual guest visits",
+            "Estimated year-long in-person impressions: 300,000+ annual guest visits",
             "21–35 core demographic",
             "12.6K+ Instagram followers @villageraleigh",
             "Weekly unique patrons: Thu 1,000–1,500 · Fri 2,000–2,500 · Sat 3,000–4,000",
