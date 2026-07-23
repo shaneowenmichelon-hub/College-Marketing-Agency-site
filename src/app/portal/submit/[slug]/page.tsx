@@ -7,6 +7,7 @@ import { ArrowLeft, CheckCircle2, Loader2, Plus, UploadCloud, X } from "lucide-r
 import { getJob } from "@/site.config";
 import { getSession, getPortalState, markSubmitted } from "@/lib/portal";
 import { humanFileSize } from "@/lib/uploads";
+import { compressImage } from "@/lib/image-compress";
 import { PortalShell } from "@/components/portal/PortalShell";
 import { FormField, Input, Textarea } from "@/components/form/Fields";
 
@@ -185,7 +186,11 @@ export default function SubmitProofPage() {
             accept="image/*,video/*,application/pdf"
             capture="environment"
             className="sr-only"
-            onChange={(e) => setFiles((prev) => [...prev, ...Array.from(e.target.files ?? [])])}
+            onChange={async (e) => {
+              const picked = Array.from(e.target.files ?? []);
+              const optimized = await Promise.all(picked.map((f) => compressImage(f)));
+              setFiles((prev) => [...prev, ...optimized]);
+            }}
           />
           {files.length > 0 && (
             <ul className="mt-3 space-y-2">

@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Camera, FileText, X } from "lucide-react";
+import { Camera, FileText, Loader2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ACCEPT_ATTR, humanFileSize } from "@/lib/uploads";
+import { compressImage } from "@/lib/image-compress";
 
 /**
  * Single-file ID photo picker with thumbnail preview, remove/replace, and mobile
@@ -27,6 +28,18 @@ export function IdUpload({
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [optimizing, setOptimizing] = useState(false);
+
+  async function handlePick(f: File | null) {
+    if (!f) {
+      onFile(null);
+      return;
+    }
+    setOptimizing(true);
+    const optimized = await compressImage(f);
+    setOptimizing(false);
+    onFile(optimized);
+  }
 
   // Local object URL for image previews; revoked on change/unmount.
   useEffect(() => {
@@ -82,16 +95,26 @@ export function IdUpload({
         <button
           type="button"
           onClick={() => inputRef.current?.click()}
+          disabled={optimizing}
           className={cn(
-            "flex flex-col items-center justify-center gap-2 rounded-[3px] border-2 border-dashed bg-surface-muted/50 px-4 py-7 text-center transition-colors hover:bg-surface-muted",
+            "flex flex-col items-center justify-center gap-2 rounded-[3px] border-2 border-dashed bg-surface-muted/50 px-4 py-7 text-center transition-colors hover:bg-surface-muted disabled:opacity-70",
             error ? "border-red-500" : "border-ink",
           )}
         >
-          <Camera className="h-6 w-6 text-[color:var(--muted-on-light)]" aria-hidden />
-          <span className="text-sm font-medium text-ink">Tap to upload or take a photo</span>
-          <span className="mono-label text-[10px] text-[color:var(--muted-on-light)]">
-            JPG · PNG · HEIC · PDF · max 10MB
-          </span>
+          {optimizing ? (
+            <>
+              <Loader2 className="h-6 w-6 animate-spin text-accent" aria-hidden />
+              <span className="text-sm font-medium text-ink">Optimizing photo…</span>
+            </>
+          ) : (
+            <>
+              <Camera className="h-6 w-6 text-[color:var(--muted-on-light)]" aria-hidden />
+              <span className="text-sm font-medium text-ink">Tap to upload or take a photo</span>
+              <span className="mono-label text-[10px] text-[color:var(--muted-on-light)]">
+                JPG · PNG · HEIC · PDF · max 10MB
+              </span>
+            </>
+          )}
         </button>
       )}
 
@@ -102,7 +125,7 @@ export function IdUpload({
         accept={ACCEPT_ATTR}
         capture="environment"
         className="sr-only"
-        onChange={(e) => onFile(e.target.files?.[0] ?? null)}
+        onChange={(e) => handlePick(e.target.files?.[0] ?? null)}
         aria-invalid={!!error}
       />
 
