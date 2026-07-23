@@ -169,6 +169,25 @@
   100% { transform: translate(3px, -1px); }
 }
 
+/* Hero coin: auto-spin on touch devices (no cursor to drive it). */
+@media (hover: none) and (pointer: coarse) {
+  .coin-idle {
+    animation: coin-spin 7s linear infinite;
+    transform-style: preserve-3d;
+  }
+}
+@keyframes coin-spin {
+  from { transform: rotateX(-8deg) rotateY(0deg); }
+  to { transform: rotateX(-8deg) rotateY(360deg); }
+}
+
+/* Belt-and-suspenders: never allow horizontal scroll on any device.
+   `clip` (not `hidden`) so it doesn't break position: sticky descendants. */
+html,
+body {
+  overflow-x: clip;
+}
+
 /* Marquee + all decorative motion: fully disabled under reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
@@ -178,5 +197,8 @@
   .glitch:hover::after {
     animation: none !important;
     content: none !important;
+  }
+  .coin-idle {
+    animation: none !important;
   }
 }

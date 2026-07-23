@@ -18,7 +18,7 @@ function Coin({ reduce }: { reduce: boolean }) {
 
   return (
     <div
-      className="relative hidden aspect-square w-full max-w-sm items-center justify-center lg:flex"
+      className="relative flex aspect-square w-full max-w-[220px] items-center justify-center justify-self-center sm:max-w-xs lg:max-w-sm"
       style={{ perspective: "900px" }}
       onMouseMove={
         reduce
@@ -45,14 +45,14 @@ function Coin({ reduce }: { reduce: boolean }) {
           className="absolute inset-0 flex items-center justify-center rounded-full border-4 border-ink bg-[color:var(--accent-2)]"
           style={{ transform: "translateZ(22px)", boxShadow: "0 0 0 4px var(--ink)" }}
         >
-          <span className="font-display text-6xl font-bold text-ink">CH</span>
+          <span className="font-display text-5xl font-bold text-ink lg:text-6xl">CH</span>
         </div>
         {/* back face */}
         <div
           className="absolute inset-0 flex items-center justify-center rounded-full border-4 border-ink bg-[color:var(--magenta)]"
           style={{ transform: "translateZ(-22px) rotateY(180deg)" }}
         >
-          <Sparkles className="h-16 w-16 text-white" aria-hidden />
+          <Sparkles className="h-14 w-14 text-white lg:h-16 lg:w-16" aria-hidden />
         </div>
         {/* edge ring */}
         <div className="absolute inset-0 rounded-full border-[10px] border-ink/80" style={{ transform: "translateZ(0px)" }} />
@@ -62,9 +62,12 @@ function Coin({ reduce }: { reduce: boolean }) {
 }
 
 function cnCoin(reduce: boolean) {
-  // The 3D rotation is driven by the cursor via inline transform, so we don't add
-  // a continuous spin (which would override it). A soft float animates the wrapper.
-  return `relative h-64 w-64 rounded-full ${reduce ? "" : "will-change-transform"}`;
+  // On desktop the 3D rotation follows the cursor (inline transform). On touch
+  // devices there's no cursor, so `coin-idle` runs a gentle auto-spin (see
+  // globals.css, disabled under reduced motion) — keeping it gamified on mobile.
+  return `coin-idle relative h-44 w-44 rounded-full sm:h-56 sm:w-56 lg:h-64 lg:w-64 ${
+    reduce ? "" : "will-change-transform"
+  }`;
 }
 
 export function Hero() {

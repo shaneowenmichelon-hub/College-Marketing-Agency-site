@@ -54,7 +54,7 @@ function TierPicker({
             if (t === "presenting") pop(0.5, 0.5);
           }}
           className={cn(
-            "mono-label px-4 py-2 text-[11px] font-bold transition-colors",
+            "mono-label min-h-[44px] px-5 py-2.5 text-[11px] font-bold transition-colors",
             i === 0 && "border-r-2 border-ink",
             tier === t ? "text-ink" : "bg-white text-[color:var(--muted-on-light)]",
           )}
