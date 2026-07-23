@@ -27,6 +27,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# internal-only notes (partner rates, margins — never commit)
+/internal/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw asset bundle (extracted into public/images/thaw-out)
+sponsorphotos.zip

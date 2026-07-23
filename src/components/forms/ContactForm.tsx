@@ -193,6 +193,8 @@ export function ContactForm() {
             id="message"
             name="message"
             placeholder="Tell us what you're launching and which campuses you're after."
+            defaultValue={prefill.message}
+            key={`msg-${prefill.message ?? ""}`}
           />
         </FormField>
       </div>

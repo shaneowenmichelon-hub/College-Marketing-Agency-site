@@ -379,6 +379,17 @@ export function photoFallback(seed: string, w = 1200, h = 900): string {
 // EVENT & TRIP SPONSORSHIP DIRECTORY — Events page. Grouped by category.
 // Fill valuePerEvent / basePackage / presentingSponsor; use "[$ —]" for unknowns.
 // ─────────────────────────────────────────────────────────────────────────────
+/** A single sellable tier (e.g. Thaw Out's Presenting / Title / Founder). */
+export type SponsorshipTier = {
+  name: string;
+  price: string;
+  /** Short line describing what the tier is. */
+  summary?: string;
+  /** True for category-exclusive tiers (only one per category per market). */
+  exclusive?: boolean;
+  benefits: string[];
+};
+
 export type SponsorshipItem = {
   name: string;
   description: string;
@@ -388,17 +399,130 @@ export type SponsorshipItem = {
   /** What's included at each tier (shown when that tier is selected). */
   baseDetail?: string;
   presentingDetail?: string;
+  /**
+   * Three-tier inventory (festival markets). When present, the card renders the
+   * tier layout; when absent it falls back to the two-field base/presenting layout,
+   * keeping existing groups (ZMM, JusCollege, Venues) unchanged.
+   */
+  tiers?: SponsorshipTier[];
+  /** Optional festival-market metadata. */
+  eventDate?: string;
+  venue?: string;
+  capacity?: string;
+  /**
+   * Optional link to a hosted album ("View past activation photos →"). Available on
+   * every item across all groups; leave "" to hide. Editable — point at a Drive folder.
+   */
+  photosUrl?: string;
 };
+
+/** A stat card (value + label) used in proof blocks. */
+export type ProofStat = { value: string; label: string };
+/** One product's on-site volume, for the bar comparison. */
+export type DrinkVolume = { name: string; cases: number };
+/** A text-only past-sponsor case study (no third-party logos). */
+export type SponsorCaseStudy = { brand: string; body: string };
+/** A captioned insight screenshot rendered as evidence (not decoration). */
+export type InsightShot = { src: string; caption: string; alt: string };
+
+/** "Why it works" diligence block for festival groups. */
+export type SponsorshipProof = {
+  heading: string;
+  intro: string;
+  reachStats: ProofStat[];
+  giveawayBenchmark: string;
+  audience: { intro: string; stats: ProofStat[]; notes: string[] };
+  viral: { body: string; label: string };
+  consumption: { intro: string; totalDrinks: string; revenue: string; byProduct: DrinkVolume[] };
+  caseStudies: SponsorCaseStudy[];
+  talent: { intro: string; performers: string[] };
+  athletes: string;
+  insights: InsightShot[];
+};
+
+/** Inline photo gallery (festival groups). Files resolve under `dir`; missing files hide gracefully. */
+export type SponsorshipGallery = { dir: string; files: string[]; alt: string };
 
 export type SponsorshipGroup = {
   id: string;
   title: string;
   intro: string;
+  /** Longer positioning paragraph shown under the header (festival groups). */
+  positioning?: string;
   /** Group-level annual pricing (used by portfolio groups like the trips). */
   groupPricing?: { base: string; presenting: string };
+  /** Season-bundle upsell card (festival groups). */
+  seasonBundle?: { intro: string; tiers: { name: string; price: string }[]; note: string };
+  /** "Why it works" diligence block, rendered above the market cards. */
+  proof?: SponsorshipProof;
+  /** Inline photo gallery (festival groups). */
+  gallery?: SponsorshipGallery;
   items: SponsorshipItem[];
   comingSoon?: boolean;
 };
+
+// Thaw Out sells the same three tiers in every market — defined once, reused per
+// market so the four cards stay in sync. Prices are OUR sell prices (see §4);
+// partner cost is never stored in this repo.
+const thawTiers: SponsorshipTier[] = [
+  {
+    name: "Presenting Sponsor",
+    price: "$25,000",
+    summary: '"Thaw Out Presented By [Brand]" — naming rights at that campus.',
+    benefits: [
+      'Festival named "Thaw Out Presented By [Brand]" at that campus',
+      "Main stage visibility and naming rights",
+      "Product featured with campus influencers and student-athletes",
+      "Logo on all festival marketing — poster, map, digital, wristband",
+      "20 VIP tickets",
+      "Premium activation space (10x20)",
+      "3 dedicated Instagram posts",
+      "Post-event ROI case study",
+    ],
+  },
+  {
+    name: "Title Sponsor",
+    price: "$12,500",
+    summary: '"[Brand] Official [Category]" — exclusive category ownership, one per category per market.',
+    exclusive: true,
+    benefits: [
+      '"[Brand] Official [Category]" designation',
+      "Exclusive category ownership — only one per category per market",
+      "Logo on all festival marketing",
+      "15 VIP tickets",
+      "Activation space (10x20)",
+      "Product placement with campus influencers",
+      "3 dedicated Instagram posts",
+      "On-site sampling and organic visibility",
+    ],
+  },
+  {
+    name: "Founder Sponsor",
+    price: "$6,500",
+    summary: "Entry point for building campus presence or testing a market.",
+    benefits: [
+      "Logo on festival materials and digital assets",
+      "8 VIP tickets",
+      "Activation space (10x20)",
+      "Product placement with campus leaders",
+      "Event mention and social visibility",
+      "3 Instagram post mentions",
+    ],
+  },
+];
+
+function thawMarket(name: string, eventDate: string, venue: string): SponsorshipItem {
+  return {
+    name,
+    description: `${venue} · ${eventDate}`,
+    valuePerEvent: "8,000",
+    eventDate,
+    venue,
+    capacity: "8,000",
+    tiers: thawTiers,
+    photosUrl: "", // editable — point at a Drive album to show "View past activation photos →"
+  };
+}
 
 export const eventSponsorships: {
   intro: string;
@@ -440,6 +564,102 @@ export const eventSponsorships: {
           basePackage: "$2,500",
           presentingSponsor: "$10,000",
         },
+      ],
+    },
+    {
+      id: "thaw-out",
+      title: "Thaw Out Music Festival",
+      intro:
+        "Four campus markets, one spring season — 8,000 students each, 32,000 total. Presenting $25,000 · Title $12,500 · Founder $6,500 per market.",
+      positioning:
+        "An independent, grassroots college festival built around campus culture — artists, top student-athletes in VIP sections, brands, and the student body. It is not a school-sanctioned event and carries no university affiliation; it's a cultural moment embedded in the college town. Brands buy in to become part of the single day students remember from their college years — presence and authenticity, not just impressions.",
+      seasonBundle: {
+        intro: "Own the whole spring season across all four 2027 markets.",
+        tiers: [
+          { name: "Presenting — full season", price: "$90,000" },
+          { name: "Title — full season", price: "$45,000" },
+          { name: "Founder — full season", price: "$24,000" },
+        ],
+        note: "Season pricing sits below 4× the single-market rate — the play is owning the whole spring, not a discount table.",
+      },
+      proof: {
+        heading: "Why Thaw Out works",
+        intro:
+          "The diligence a brand asks for before writing a check — reach, audience, on-site consumption, and repeat sponsors. Every figure traces to Thaw Out's own reporting; estimates are labeled as such.",
+        reachStats: [
+          { value: "15M", label: "Impressions per season" },
+          { value: "15,000", label: "Email subscribers" },
+          { value: "1,000+", label: "Avg. likes per post" },
+          { value: "32,000", label: "Attendees across four 2027 markets" },
+        ],
+        giveawayBenchmark: "Giveaway engagement benchmark: ~10K comments · 300K views · 6K likes.",
+        audience: {
+          intro: "Gen-Z college students are the primary demographic.",
+          stats: [
+            { value: "73%", label: "Ages 21–25" },
+            { value: "53%", label: "Female" },
+          ],
+          notes: [
+            "Parent-backed disposable income",
+            "Peer-to-peer social drivers — campus culture leaders and trendsetters",
+          ],
+        },
+        viral: {
+          body: "Miami XO's first-ever live performance at Thaw Out became a global organic viral moment across Instagram, TikTok, X, and Facebook. Tens of millions of views are documented.",
+          label: "Estimated 100M+ total impressions (unverified estimate)",
+        },
+        consumption: {
+          intro: "Brands don't just get seen here — product moves.",
+          totalDrinks: "16,334",
+          revenue: "≈ $200K",
+          byProduct: [
+            { name: "Michelob Ultra 16oz", cases: 208 },
+            { name: "Happy Dad", cases: 125 },
+            { name: "Lime Rita 16oz", cases: 114 },
+            { name: "Mango Rita 16oz", cases: 103 },
+            { name: "Hoop Tea 16oz", cases: 78 },
+            { name: "SW Hazy IPA", cases: 53 },
+          ],
+        },
+        caseStudies: [
+          {
+            brand: "Red Bull",
+            body: "A major financial commitment and infrastructure partnership — enterprise-level validation of the festival's reach.",
+          },
+          {
+            brand: "Happy Dad",
+            body: "Sponsored, placed product organically with influential campus figures, sold 125 cases in Knoxville alone in 2026, and returned the following year. They came for relationships, not awareness — the repeat buy is the proof.",
+          },
+        ],
+        talent: {
+          intro: "A funded festival booking real talent. Past performers include:",
+          performers: ["DaBaby", "Waka Flocka", "Big X Tha Plug", "Acraze", "Sidepiece", "Bunt", "Xandra"],
+        },
+        athletes:
+          "Every market features that school's most recognizable athletes in dedicated VIP sections — campus icons visible to the whole crowd. For sponsors: product lands organically with the most influential people on campus, athletes can appear on stage during sponsor moments for content capture, and it requires no formal endorsement contracts.",
+        insights: [
+          { src: "/images/thaw-out/insights/views.png", caption: "Social reach", alt: "Screenshot of Thaw Out social views" },
+          { src: "/images/thaw-out/insights/comments.png", caption: "Giveaway engagement", alt: "Screenshot of Thaw Out giveaway comment engagement" },
+        ],
+      },
+      gallery: {
+        dir: "/images/thaw-out",
+        files: [
+          "thaw-out-01.jpg",
+          "thaw-out-02.jpg",
+          "thaw-out-03.jpg",
+          "thaw-out-04.jpg",
+          "thaw-out-05.jpg",
+          "thaw-out-06.jpg",
+          "thaw-out-07.jpg",
+        ],
+        alt: "Sponsor activation at Thaw Out Music Festival",
+      },
+      items: [
+        thawMarket("Morgantown, WV", "April 3, 2027", "Mylan Park"),
+        thawMarket("Iowa City, IA", "April 10, 2027", "Iowa Fairgrounds"),
+        thawMarket("Boone, NC", "April 24, 2027", "High Country Fairgrounds"),
+        thawMarket("Knoxville, TN", "May 1, 2027", "World's Fair Park"),
       ],
     },
     {

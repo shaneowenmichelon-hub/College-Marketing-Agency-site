@@ -58,6 +58,7 @@ export function usePrefill() {
     fname?: string;
     lname?: string;
     company?: string;
+    message?: string;
   }>({});
 
   useEffect(() => {
@@ -67,6 +68,7 @@ export function usePrefill() {
       fname: p.get("fname") ?? undefined,
       lname: p.get("lname") ?? undefined,
       company: p.get("company") ?? undefined,
+      message: p.get("msg") ?? undefined,
     });
   }, []);
 
