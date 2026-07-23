@@ -409,6 +409,12 @@ export type SponsorshipItem = {
   eventDate?: string;
   venue?: string;
   capacity?: string;
+  /** Optional venue proof image shown inline on classic sponsorship cards. */
+  image?: { src: string; alt: string };
+  /** Optional source-backed facts shown under the card stats. */
+  highlights?: string[];
+  /** Optional owner/contact line for venue partnerships. */
+  contact?: { name: string; role: string; email: string; phone?: string };
   /**
    * Optional link to a hosted album ("View past activation photos →"). Available on
    * every item across all groups; leave "" to hide. Editable — point at a Drive folder.
@@ -688,15 +694,33 @@ export const eventSponsorships: {
       intro: "Sponsor an ongoing venue partnership.",
       items: [
         {
-          name: "The Village — North Carolina",
-          description: "A North Carolina venue partnership.",
-          valuePerEvent: "800+",
+          name: "The Village — Raleigh, NC",
+          description:
+            "One of Raleigh's highest-volume nightlife destinations in the Glenwood South Entertainment District — built for concerts, activations, celebrity appearances, and experiential events.",
+          valuePerEvent: "1,000–4,000",
           basePackage: "$10,000",
           presentingSponsor: "Custom",
           baseDetail:
             "Packages start at $10k: product placement and logo placement on flyers for one year, plus activations at 3 shows per year.",
           presentingDetail:
             "Activations all year at every event, social-media insight guarantees, content deliverables, logo placement at the venue entrance or above artists while they perform, and more.",
+          image: {
+            src: "/images/venues/village-pitch-deck.png",
+            alt: "The Village Raleigh pitch deck with crowd photo and venue stats",
+          },
+          highlights: [
+            "300,000+ annual guest visits",
+            "21–35 core demographic",
+            "12.6K+ Instagram followers @villageraleigh",
+            "Weekly unique patrons: Thu 1,000–1,500 · Fri 2,000–2,500 · Sat 3,000–4,000",
+            "Past talent includes Waka Flocka Flame, DaBaby, Riff Raff, Xandra, Shwayze, Sons of Paradise, Beach Fly, and more",
+          ],
+          contact: {
+            name: "John Zimmerman",
+            role: "Operating Partner, The Village · Founder, Milkman Promotions",
+            email: "john@thevillageraleigh.com",
+            phone: "720-202-3873",
+          },
         },
       ],
     },

@@ -691,6 +691,18 @@ function Chapter({ group, index }: { group: SponsorshipGroup; index: number }) {
                 <Stat label="Presenting" value={priceFor(item, group, "presenting")} active={tier === "presenting"} accent={accent} />
               </div>
 
+              {item.image && (
+                <div className="relative mt-4 aspect-[4/5] overflow-hidden rounded-[3px] border-2 border-ink bg-white shadow-[3px_3px_0_var(--ink)]">
+                  <Image
+                    src={item.image.src}
+                    alt={item.image.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-contain"
+                  />
+                </div>
+              )}
+
               {(tier === "presenting" ? item.presentingDetail : item.baseDetail) && (
                 <p className="mt-3 rounded-[2px] border-l-4 border-ink bg-surface-muted px-3 py-2 text-xs leading-relaxed text-ink">
                   <span className="mono-label mr-1 font-bold text-accent">
@@ -698,6 +710,28 @@ function Chapter({ group, index }: { group: SponsorshipGroup; index: number }) {
                   </span>
                   {tier === "presenting" ? item.presentingDetail : item.baseDetail}
                 </p>
+              )}
+
+              {item.highlights && item.highlights.length > 0 && (
+                <ul className="mt-3 space-y-1.5 rounded-[3px] border-2 border-ink/10 bg-surface-muted p-3">
+                  {item.highlights.map((highlight) => (
+                    <li key={highlight} className="flex gap-2 text-xs leading-relaxed text-ink">
+                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {item.contact && (
+                <div className="mt-3 rounded-[3px] border-2 border-ink bg-white p-3 text-xs text-ink">
+                  <div className="mono-label text-[9px] font-bold text-[color:var(--muted-on-light)]">Venue contact</div>
+                  <p className="mt-1 font-bold">{item.contact.name}</p>
+                  <p className="text-[color:var(--muted-on-light)]">{item.contact.role}</p>
+                  <p className="mt-1 text-[color:var(--muted-on-light)]">
+                    {item.contact.email}{item.contact.phone ? ` · ${item.contact.phone}` : ""}
+                  </p>
+                </div>
               )}
 
               <Link
