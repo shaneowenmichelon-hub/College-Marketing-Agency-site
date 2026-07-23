@@ -65,11 +65,26 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
     return { ok: true, skipped: true };
   }
 
+  // Common misconfig: key is set but EMAIL_FROM is still the placeholder domain,
+  // which Resend rejects because the domain isn't verified. Surface it clearly.
+  if (!process.env.EMAIL_FROM) {
+    console.warn(
+      `[email] EMAIL_FROM is not set — using default "${FROM}". Resend will REJECT this ` +
+        `unless that domain is verified. Set EMAIL_FROM to a verified sender (or ` +
+        `"onboarding@resend.dev" to test).`,
+    );
+  }
+
   try {
     const id = await deliver(args);
+    console.log(`[email] sent "${args.subject}" -> ${Array.isArray(args.to) ? args.to.join(", ") : args.to} (id: ${id})`);
     return { ok: true, id };
   } catch (err) {
-    console.error("[email] send failed:", err instanceof Error ? err.message : err);
+    console.error(
+      `[email] send FAILED ("${args.subject}"):`,
+      err instanceof Error ? err.message : err,
+      "— check RESEND_API_KEY and that EMAIL_FROM is a VERIFIED sender.",
+    );
     return { ok: false };
   }
 }
