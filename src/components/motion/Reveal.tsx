@@ -36,7 +36,7 @@ export function Reveal({ children, className, delay = 0, as = "div" }: RevealPro
   return (
     <MotionTag
       className={className}
-      initial="hidden"
+      initial="visible"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={variants}

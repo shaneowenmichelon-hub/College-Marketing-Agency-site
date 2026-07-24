@@ -540,7 +540,7 @@ export const eventSponsorships: {
     {
       id: "zmm-events",
       title: "ZMM Events",
-      intro: "Flagship national events — base $2,500, presenting $10,000 each.",
+      intro: "Flagship event sponsorships with clear reach and pricing.",
       items: [
         {
           name: "Night School Tour",
@@ -548,6 +548,11 @@ export const eventSponsorships: {
           valuePerEvent: "2,500+",
           basePackage: "$2,500",
           presentingSponsor: "$10,000",
+          highlights: [
+            "College nightlife audience",
+            "Tour-style programming across student markets",
+            "Brand presence in event marketing and on-site moments",
+          ],
         },
         {
           name: "HOMETURF (Super Bowl weekend)",
@@ -555,6 +560,11 @@ export const eventSponsorships: {
           valuePerEvent: "5,000+",
           basePackage: "$2,500",
           presentingSponsor: "$10,000",
+          highlights: [
+            "Super Bowl weekend cultural moment",
+            "Large-format event audience",
+            "Premium brand placement opportunity",
+          ],
         },
         {
           name: "Hells Gala",
@@ -562,6 +572,11 @@ export const eventSponsorships: {
           valuePerEvent: "1,500+",
           basePackage: "$2,500",
           presentingSponsor: "$10,000",
+          highlights: [
+            "High-design themed experience",
+            "Curated nightlife audience",
+            "Content-friendly brand integration",
+          ],
         },
         {
           name: "Boot Block Party",
@@ -569,6 +584,11 @@ export const eventSponsorships: {
           valuePerEvent: "2,500+",
           basePackage: "$2,500",
           presentingSponsor: "$10,000",
+          highlights: [
+            "Outdoor block-party format",
+            "Sampling and street-team friendly footprint",
+            "Strong fit for beverage, apparel, and lifestyle brands",
+          ],
         },
       ],
     },
@@ -576,7 +596,7 @@ export const eventSponsorships: {
       id: "thaw-out",
       title: "Thaw Out Music Festival",
       intro:
-        "Four campus markets, one spring season — 8,000 students each, 32,000 total. Presenting $25,000 · Title $12,500 · Founder $6,500 per market.",
+        "Four spring festival markets with the same clean sponsorship structure in every city.",
       positioning:
         "An independent, grassroots college festival built around campus culture — artists, top student-athletes in VIP sections, brands, and the student body. It is not a school-sanctioned event and carries no university affiliation; it's a cultural moment embedded in the college town. Brands buy in to become part of the single day students remember from their college years — presence and authenticity, not just impressions.",
       seasonBundle: {
@@ -668,7 +688,7 @@ export const eventSponsorships: {
     {
       id: "venues",
       title: "Venues",
-      intro: "Sponsor an ongoing venue partnership.",
+      intro: "Year-long venue sponsorships built around repeat in-person traffic.",
       items: [
         {
           name: "The Village — Raleigh, NC",
@@ -681,10 +701,6 @@ export const eventSponsorships: {
             "Packages start at $10k: product placement and logo placement on flyers for one year, plus activations at 3 shows per year.",
           presentingDetail:
             "Activations all year at every event, social-media insight guarantees, content deliverables, logo placement at the venue entrance or above artists while they perform, and more.",
-          image: {
-            src: "/images/venues/village-pitch-deck.png",
-            alt: "The Village Raleigh pitch deck with crowd photo and venue stats",
-          },
           highlights: [
             "Estimated year-long in-person impressions: 300,000+ annual guest visits",
             "21–35 core demographic",
