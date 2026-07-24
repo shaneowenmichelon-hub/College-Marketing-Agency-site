@@ -134,7 +134,7 @@ function MarketCard({
   return (
     <motion.div
       variants={reveal}
-      initial="hidden"
+      initial="show"
       whileInView="show"
       viewport={{ once: true, margin: "-60px" }}
       className="flex h-full flex-col rounded-[3px] border-2 border-ink bg-white p-5 shadow-[5px_5px_0_var(--ink)]"
@@ -349,8 +349,8 @@ function ProofBlock({ proof, accent }: { proof: SponsorshipProof; accent: string
       </div>
       <p className="mono-label mt-3 text-[11px] font-bold text-ink">{proof.giveawayBenchmark}</p>
 
-      {/* Audience + insight screenshots */}
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
+      {/* Audience + optional insight screenshots */}
+      <div className={cn("mt-6 grid gap-4", proof.insights.length > 0 && "lg:grid-cols-2")}>
         <div className="rounded-[3px] border-2 border-ink bg-white p-5 shadow-[5px_5px_0_var(--ink)]">
           <h5 className="font-display text-base font-bold text-ink">Audience profile</h5>
           <p className="mt-1 text-sm text-[color:var(--muted-on-light)]">{proof.audience.intro}</p>
@@ -371,11 +371,13 @@ function ProofBlock({ proof, accent }: { proof: SponsorshipProof; accent: string
             ))}
           </ul>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          {proof.insights.map((shot) => (
-            <InsightFigure key={shot.src} src={shot.src} caption={shot.caption} alt={shot.alt} />
-          ))}
-        </div>
+        {proof.insights.length > 0 && (
+          <div className="grid grid-cols-2 gap-4">
+            {proof.insights.map((shot) => (
+              <InsightFigure key={shot.src} src={shot.src} caption={shot.caption} alt={shot.alt} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Consumption bars */}
@@ -667,7 +669,7 @@ function Chapter({ group, index }: { group: SponsorshipGroup; index: number }) {
               key={item.name}
               custom={i}
               variants={reveal}
-              initial="hidden"
+              initial="show"
               whileInView="show"
               viewport={{ once: true, margin: "-60px" }}
               className="group/card flex h-full flex-col rounded-[3px] border-2 border-ink bg-white p-5 shadow-[5px_5px_0_var(--ink)] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
@@ -753,10 +755,10 @@ function Chapter({ group, index }: { group: SponsorshipGroup; index: number }) {
 export function EventSponsorships() {
   return (
     <Section tone="muted" id="sponsor">
-      <SectionHeading eyebrow="Sponsorships" title="Sponsor an event or trip." intro={eventSponsorships.intro} />
+      <SectionHeading eyebrow="Sponsorships" title="Sponsor a campus moment." intro={eventSponsorships.intro} />
       <div className="mt-4 flex items-center gap-2 text-[color:var(--muted-on-light)]">
         <Lock className="h-4 w-4" aria-hidden />
-        <span className="mono-label text-[11px]">Scroll to unlock each chapter · pick a level to pre-tag your inquiry</span>
+        <span className="mono-label text-[11px]">Choose the event, festival, or venue package that fits the brand.</span>
       </div>
       <div className="mt-12 space-y-14">
         {eventSponsorships.groups.map((group, i) => (

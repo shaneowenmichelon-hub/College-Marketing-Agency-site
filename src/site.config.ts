@@ -643,10 +643,7 @@ export const eventSponsorships: {
         },
         athletes:
           "Every market features that school's most recognizable athletes in dedicated VIP sections — campus icons visible to the whole crowd. For sponsors: product lands organically with the most influential people on campus, athletes can appear on stage during sponsor moments for content capture, and it requires no formal endorsement contracts.",
-        insights: [
-          { src: "/images/thaw-out/insights/views.png", caption: "Social reach", alt: "Screenshot of Thaw Out social views" },
-          { src: "/images/thaw-out/insights/comments.png", caption: "Giveaway engagement", alt: "Screenshot of Thaw Out giveaway comment engagement" },
-        ],
+        insights: [],
       },
       gallery: {
         dir: "/images/thaw-out",
@@ -666,26 +663,6 @@ export const eventSponsorships: {
         thawMarket("Iowa City, IA", "April 10, 2027", "Iowa Fairgrounds"),
         thawMarket("Boone, NC", "April 24, 2027", "High Country Fairgrounds"),
         thawMarket("Knoxville, TN", "May 1, 2027", "World's Fair Park"),
-      ],
-    },
-    {
-      id: "juscollege-trips",
-      title: "JusCollege Trips",
-      intro: "Annual, portfolio-level sponsorship across every trip.",
-      groupPricing: {
-        base: "$50,000/year to sponsor any or all trips",
-        presenting: "$500,000/year to be presenting sponsor of all trips that year",
-      },
-      items: [
-        { name: "Puerto Vallarta — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "2,000+" },
-        { name: "Cancún — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "3,000+" },
-        { name: "Cabo — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "2,500+" },
-        { name: "Punta Cana — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "2,000+" },
-        { name: "Miami — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "3,000+" },
-        { name: "Florida — Spring Break", description: "Spring Break destination trip.", valuePerEvent: "2,500+" },
-        { name: "Las Vegas — Senior Trip", description: "Senior-year celebration trip.", valuePerEvent: "2,500+" },
-        { name: "Montreal — Oktoberfest", description: "Oktoberfest destination trip.", valuePerEvent: "1,500+" },
-        { name: "Custom Destination", description: "Choose your own destination.", valuePerEvent: "Varies" },
       ],
     },
     {
@@ -723,13 +700,6 @@ export const eventSponsorships: {
           },
         },
       ],
-    },
-    {
-      id: "more-to-come",
-      title: "More to come",
-      intro: "New events and venues are being added to the roster.",
-      comingSoon: true,
-      items: [],
     },
   ],
 };
