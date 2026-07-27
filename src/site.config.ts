@@ -61,40 +61,27 @@ export const siteConfig = {
   credibilityLine:
     "Backed by the team behind ZMM Events and the Night School college tour.",
 
-  /**
-   * Primary contact info. Email/phone are derived defaults you can override.
-   * PLACEHOLDER values — confirm before launch.
-   */
+  /** Primary contact info — sourced from Shane's ZMM email signature. */
   contact: {
-    email: "hello@collegiatehospitality.com",
-    phone: "(000) 000-0000",
+    email: "shane@zmmevents.com",
+    phone: "847-420-9553",
     location: "New York, NY",
   },
 
-  /**
-   * Office locations — rendered on /contact with click-to-call links.
-   * PLACEHOLDER offices; edit freely.
-   */
+  /** Office locations — kept intentionally lean until formal office addresses are confirmed. */
   offices: [
     {
       name: "New York",
-      address: "[123 Example Ave, New York, NY 10001]",
-      phone: "(000) 000-0000",
-    },
-    {
-      name: "Chicago",
-      address: "[456 Example St, Chicago, IL 60601]",
-      phone: "(000) 000-0000",
+      address: "Brand partnerships and campus activations",
+      phone: "847-420-9553",
     },
   ] as Office[],
 
-  /**
-   * Social links — PLACEHOLDER. Empty href renders as a labeled placeholder.
-   */
+  /** Public social links. */
   socials: [
-    { label: "Instagram", href: "" },
-    { label: "TikTok", href: "" },
-    { label: "LinkedIn", href: "" },
+    { label: "Instagram", href: "https://www.instagram.com/zmmevents" },
+    { label: "Night School", href: "https://www.instagram.com/nightschooltour" },
+    { label: "ZMM Events", href: "https://www.zmm.events" },
   ] as { label: string; href: string }[],
 
   /** Minimum follower count for the influencer program (IG or TikTok). */
@@ -544,12 +531,12 @@ export const eventSponsorships: {
       items: [
         {
           name: "Night School Tour",
-          description: "The national college nightlife tour.",
-          valuePerEvent: "2,500+",
+          description: "The national college nightlife tour, currently planned around 15,000 attendees across confirmed fall markets.",
+          valuePerEvent: "15,000",
           basePackage: "$2,500",
           presentingSponsor: "$10,000",
           highlights: [
-            "College nightlife audience",
+            "15,000 planned attendees across confirmed fall markets",
             "Tour-style programming across student markets",
             "Brand presence in event marketing and on-site moments",
           ],
