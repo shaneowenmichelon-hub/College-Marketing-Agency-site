@@ -34,16 +34,13 @@ export const siteConfig = {
    * Change it once and the entire site (nav, hero, footer, meta, forms, emails)
    * updates. Later: replace <Logo /> internals with an SVG wordmark.
    */
-  companyName: "Collegiate Hospitality",
-
-  // Alt name: "Unreasonable Hospitality" — note trademark/brand-confusion risk
-  // (existing NYT book/brand by Will Guidara); confirm availability before using.
+  companyName: "Collegiate Agency",
 
   /** Legal entity name — used in emails, legal pages, and copyright. */
-  companyLegalName: "Collegiate Hospitality LLC",
+  companyLegalName: "Collegiate Agency LLC",
 
   /** Root domain (no protocol) — used to build email addresses and canonical URLs. */
-  companyDomain: "collegiatehospitality.com", // PLACEHOLDER — confirm + register.
+  companyDomain: "collegiateagency.com",
 
   /** Used for <title> templates, OG, and general voice. */
   tagline: "Where brands meet campus culture.",
@@ -51,7 +48,7 @@ export const siteConfig = {
     "A college marketing & events agency connecting brands with students through events, brand ambassadors, and influencers — on the campuses where they live, study, and go out.",
 
   /** Canonical URL for SEO/sitemap. Update to your production domain before launch. */
-  url: "https://collegiatehospitality.com",
+  url: "https://collegiateagency.com",
 
   /**
    * Real credibility line. Toggle off with `showCredibility: false` if you'd rather

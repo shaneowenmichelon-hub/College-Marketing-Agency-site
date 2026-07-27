@@ -1,6 +1,6 @@
-# Collegiate Hospitality — Website
+# Collegiate Agency — Website
 
-A modern, production-quality marketing site for **Collegiate Hospitality**, a college
+A modern, production-quality marketing site for **Collegiate Agency**, a college
 marketing & events agency connecting **brands** with **college students** through three
 services — **Events, Brand Ambassadors, and Influencers** — and recruiting **students**
 as paid ambassadors.
@@ -64,7 +64,7 @@ are optional to run** — set them to turn features on.
 | Variable | Purpose | Required for launch? |
 | --- | --- | --- |
 | `RESEND_API_KEY` | Resend API key. Unset = email disabled (forms still work, sends logged). | **Yes** to send email |
-| `EMAIL_FROM` | Verified sending identity, e.g. `Collegiate Hospitality <hello@collegiatehospitality.com>`. | **Yes** to send email |
+| `EMAIL_FROM` | Verified sending identity, e.g. `Collegiate Agency <hello@collegiateagency.com>`. | **Yes** to send email |
 | `AGENCY_INBOX` | Where ALL internal notifications go (brand + ambassador + portal). Defaults to `shane@zmmevents.com`. | **Yes** to send email |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob token for private ID / proof-file storage. Unset = files skipped, flagged in the email. | **Yes** to store IDs |
 | `ID_RETENTION_DAYS` | Days to retain ID images before deletion (default 90). | Optional |
@@ -213,7 +213,7 @@ ships as a committed SVG wordmark at `public/logos/polymarket.svg`.
 4. Pick this branch (or merge it to your default branch first) and **Deploy**.
 
 ### 6. Custom domain
-- Vercel → Project → **Settings → Domains** → add `collegiatehospitality.com`.
+- Vercel → Project → **Settings → Domains** → add `collegiateagency.com`.
 - Add the DNS records Vercel shows at your registrar; wait for verification + HTTPS.
 - Update `url` and `companyDomain` in `site.config.ts` to the live domain and redeploy.
 

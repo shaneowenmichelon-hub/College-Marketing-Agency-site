@@ -30,7 +30,7 @@ export default function WorkPage() {
         <SectionHeading
           eyebrow="Work"
           title="The three tactics, proven on campus."
-          intro="How events, brand ambassadors, and influencers actually move brands — shown through well-known industry programs. These are public reference examples, not Collegiate Hospitality campaigns, and the figures are illustrative; our own client-approved case studies are on the way."
+          intro="How events, brand ambassadors, and influencers actually move brands — shown through well-known industry programs. These are public reference examples, not Collegiate Agency campaigns, and the figures are illustrative; our own client-approved case studies are on the way."
         />
       </Section>
 

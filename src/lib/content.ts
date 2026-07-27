@@ -1,8 +1,8 @@
 /**
  * In-house editorial + industry-reference case studies. Articles are original,
- * long-form Collegiate Hospitality writing. Industry benchmarks (engagement-rate
+ * long-form Collegiate Agency writing. Industry benchmarks (engagement-rate
  * bands, audience-geography thresholds) are phrased as approximate guidance; any
- * Collegiate Hospitality / Night School figure must already exist in site.config.
+ * Collegiate Agency / Night School figure must already exist in site.config.
  * IMPORTANT: never import a competitor's real clients or numbers here.
  */
 import { siteConfig, getStat } from "@/site.config";
@@ -132,7 +132,7 @@ const influencerVettingBody: ArticleBlock[] = [
   { type: "h2", text: "Or let us run the screen for you" },
   {
     type: "p",
-    html: "This is precisely the work Collegiate Hospitality does before a brand ever pays a creator. Every student influencer in our network is vetted for real, engaged, campus-based audiences — we check the engagement math, read the comments, verify audience geography and school fit, and confirm the creator is who they say they are. Brands come to us so they never have to gamble on a follower count again.",
+    html: "This is precisely the work Collegiate Agency does before a brand ever pays a creator. Every student influencer in our network is vetted for real, engaged, campus-based audiences — we check the engagement math, read the comments, verify audience geography and school fit, and confirm the creator is who they say they are. Brands come to us so they never have to gamble on a follower count again.",
   },
   {
     type: "p",
@@ -205,7 +205,7 @@ const ambassadorBody: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: "That's the work Collegiate Hospitality is built to do. We screen for the traits above, verify government ID and school affiliation, and manage ambassadors through the campaign so brands get reliable representation instead of a gamble. The result is a roster of students who genuinely fit, actually show up, and represent the brand the way you'd want to be represented.",
+    html: "That's the work Collegiate Agency is built to do. We screen for the traits above, verify government ID and school affiliation, and manage ambassadors through the campaign so brands get reliable representation instead of a gamble. The result is a roster of students who genuinely fit, actually show up, and represent the brand the way you'd want to be represented.",
   },
   {
     type: "p",
@@ -258,7 +258,7 @@ const welcomeWeekBody: ArticleBlock[] = [
   { type: "h2", text: "The structural advantage: who's behind us" },
   {
     type: "p",
-    html: "There's a reason we can promise owned infrastructure instead of a pitch deck. Collegiate Hospitality is backed by the national Gen-Z events company behind the Night School Tour — the team at ZMM Events — which means real, tested expertise in amplifying brands through live college events. Production, talent booking, and on-the-ground campus relationships are already in place and already running.",
+    html: "There's a reason we can promise owned infrastructure instead of a pitch deck. Collegiate Agency is backed by the national Gen-Z events company behind the Night School Tour — the team at ZMM Events — which means real, tested expertise in amplifying brands through live college events. Production, talent booking, and on-the-ground campus relationships are already in place and already running.",
   },
   {
     type: "p",
@@ -369,7 +369,7 @@ export type CaseStudy = {
 
 /**
  * INDUSTRY REFERENCE examples — real, well-known brand programs that show each of
- * the three tactics working on campus. These are NOT Collegiate Hospitality
+ * the three tactics working on campus. These are NOT Collegiate Agency
  * campaigns; they're public industry references. The `sample` flag renders an
  * "Industry example" label, and the headline/metric figures are illustrative
  * (kept modest on purpose) — the program descriptions are factual. Replace with
