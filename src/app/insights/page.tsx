@@ -12,7 +12,7 @@ import { posts, formatDate } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Insights — Notes on campus marketing & culture",
   description:
-    "Perspective on campus marketing, culture, and creators. Placeholder posts for now — replace with real articles before launch.",
+    "Practical, brand-facing perspective on campus marketing: vetting influencers, selecting ambassadors, and winning welcome week.",
   alternates: { canonical: "/insights" },
 };
 
@@ -25,7 +25,7 @@ export default function InsightsPage() {
         <SectionHeading
           eyebrow="Insights"
           title="Notes from the ground."
-          intro="Ideas on campus marketing, culture, and creators. These are placeholder posts — swap in real articles before launch."
+          intro="Practical, brand-facing perspective on campus marketing — how we vet creators, pick ambassadors, and turn welcome week into mindshare that lasts."
         />
 
         {/* Featured */}

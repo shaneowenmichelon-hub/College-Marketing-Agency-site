@@ -82,12 +82,18 @@ export function ArticleJsonLd({
   description,
   slug,
   date,
+  image = "/og.svg",
+  author,
 }: {
   title: string;
   description: string;
   slug: string;
   date: string;
+  image?: string;
+  author?: string;
 }) {
+  const authorName = author ?? siteConfig.companyName;
+  const imageUrl = image.startsWith("http") ? image : `${siteConfig.url}${image}`;
   return (
     <JsonLd
       data={{
@@ -96,8 +102,9 @@ export function ArticleJsonLd({
         headline: title,
         description,
         datePublished: date,
+        image: [imageUrl],
         url: `${siteConfig.url}/insights/${slug}`,
-        author: { "@type": "Organization", name: siteConfig.companyName },
+        author: { "@type": "Organization", name: authorName },
         publisher: { "@type": "Organization", name: siteConfig.companyName },
       }}
     />
