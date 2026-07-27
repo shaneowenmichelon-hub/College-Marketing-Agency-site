@@ -533,8 +533,8 @@ export const eventSponsorships: {
           name: "Night School Tour",
           description: "The national college nightlife tour, currently planned around 15,000 attendees across confirmed fall markets.",
           valuePerEvent: "15,000",
-          basePackage: "$2,500",
-          presentingSponsor: "$10,000",
+          basePackage: "$10,000",
+          presentingSponsor: "$100,000",
           highlights: [
             "15,000 planned attendees across confirmed fall markets",
             "Tour-style programming across student markets",
