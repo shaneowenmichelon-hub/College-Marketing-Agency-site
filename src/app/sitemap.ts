@@ -4,6 +4,7 @@ import { siteConfig } from "@/site.config";
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
+    "/services",
     "/services/events",
     "/services/brand-ambassadors",
     "/services/influencers",

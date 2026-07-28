@@ -24,9 +24,15 @@ function BrandsPanel() {
         {brands.intro}
       </p>
       <div className="mt-14 space-y-16 lg:space-y-24">
-        {brands.blocks.map((block, i) => (
-          <CapabilityBlock key={block.heading} block={block} imageSide={i % 2 === 0 ? "left" : "right"} />
-        ))}
+        {brands.blocks.map((block, i) => {
+          // Anchor id derived from the detail-page slug (/services/<slug>).
+          const anchor = block.cta?.href.replace("/services/", "");
+          return (
+            <div key={block.heading} id={anchor} className="scroll-mt-24">
+              <CapabilityBlock block={block} imageSide={i % 2 === 0 ? "left" : "right"} />
+            </div>
+          );
+        })}
       </div>
       <div className="mt-16 flex flex-col items-start gap-4 rounded-[4px] border-2 border-ink bg-surface-muted p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
         <p className="font-display text-xl font-bold text-ink">Ready to reach students?</p>
@@ -86,6 +92,11 @@ export default function ServicesPage() {
               { id: "for-students", label: "For Students", panel: <StudentsPanel /> },
             ]}
             defaultId="for-brands"
+            anchorTab={{
+              events: "for-brands",
+              "brand-ambassadors": "for-brands",
+              influencers: "for-brands",
+            }}
           />
         </div>
       </Section>

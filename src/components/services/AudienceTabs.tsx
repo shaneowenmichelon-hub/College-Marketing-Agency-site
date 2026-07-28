@@ -11,21 +11,55 @@ export type AudienceTab = { id: string; label: string; panel: ReactNode };
  * (#for-brands / #for-students) — the hash updates on switch via replaceState
  * so there's no navigation or scroll jump. Reduced motion disables the fade.
  */
-export function AudienceTabs({ tabs, defaultId }: { tabs: AudienceTab[]; defaultId?: string }) {
+// Sticky-nav offset applied when scrolling to a deep-linked block.
+const NAV_OFFSET = 88;
+
+export function AudienceTabs({
+  tabs,
+  defaultId,
+  anchorTab,
+}: {
+  tabs: AudienceTab[];
+  defaultId?: string;
+  /** Maps a block-anchor id (e.g. "events") → the tab id to activate for it. */
+  anchorTab?: Record<string, string>;
+}) {
   const initial = defaultId ?? tabs[0]?.id;
   const [active, setActive] = useState(initial);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  // A block anchor waiting to be scrolled to once its panel is visible.
+  const pendingScroll = useRef<string | null>(null);
 
-  // Activate the tab matching the URL hash on load and on back/forward.
+  // Respond to the URL hash on load and on back/forward / same-page hash links.
   useEffect(() => {
     const fromHash = () => {
       const id = window.location.hash.replace(/^#/, "");
-      if (id && tabs.some((t) => t.id === id)) setActive(id);
+      if (!id) return;
+      if (tabs.some((t) => t.id === id)) {
+        setActive(id);
+      } else if (anchorTab && anchorTab[id]) {
+        setActive(anchorTab[id]);
+        pendingScroll.current = id;
+      }
     };
     fromHash();
     window.addEventListener("hashchange", fromHash);
     return () => window.removeEventListener("hashchange", fromHash);
-  }, [tabs]);
+  }, [tabs, anchorTab]);
+
+  // After the target tab becomes active (panel un-hidden), scroll to the block.
+  useEffect(() => {
+    if (!pendingScroll.current) return;
+    const id = pendingScroll.current;
+    pendingScroll.current = null;
+    requestAnimationFrame(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const y = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+      window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
+    });
+  }, [active]);
 
   function select(id: string, focus = false) {
     setActive(id);

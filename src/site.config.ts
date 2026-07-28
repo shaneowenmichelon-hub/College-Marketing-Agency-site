@@ -124,59 +124,43 @@ export const siteConfig = {
     { school: "San Diego State", city: "San Diego, CA" },
   ] as { school: string; city: string }[],
 
-  /** The three services — the ONLY services in nav, everywhere. */
+  /**
+   * The three services. `href` points into the /services hub (per-block anchor),
+   * which is the sole services entry point; the detail pages are reached from the
+   * hub's "Learn more" CTAs.
+   */
   services: [
     {
       slug: "events",
       label: "Events",
-      href: "/services/events",
+      href: "/services#events",
       blurb: "Campus activations, planned and staffed end to end.",
     },
     {
       slug: "brand-ambassadors",
       label: "Brand Ambassadors",
-      href: "/services/brand-ambassadors",
+      href: "/services#brand-ambassadors",
       blurb: "A vetted student rep network that becomes your voice on campus.",
     },
     {
       slug: "influencers",
       label: "Influencers",
-      href: "/services/influencers",
+      href: "/services#influencers",
       blurb: "Real students posting to real friends — peer-to-peer content that lands.",
     },
   ] as const,
 
   /**
-   * When true, the top-nav "Services" item keeps its dropdown (the three items
-   * still deep-link to their detail pages) while the label links to the /services
-   * hub. Set false to collapse it to a single "Services" link.
+   * The /services hub is the sole services entry point — the top-nav "Services"
+   * item is a single plain link to it (no dropdown). Kept as a flag for clarity;
+   * the dropdown UI has been removed from the Navbar entirely.
    */
-  servicesNavDropdown: true,
+  servicesNavDropdown: false,
 
-  /** Primary nav. Services children are the single source for the dropdown. */
+  /** Primary nav. "Services" links to the hub; the three channels live inside it. */
   nav: [
     { label: "Home", href: "/" },
-    {
-      label: "Services",
-      href: "/services",
-      children: [
-        {
-          label: "Events",
-          href: "/services/events",
-          description: "Activations planned, staffed & executed.",
-        },
-        {
-          label: "Brand Ambassadors",
-          href: "/services/brand-ambassadors",
-          description: "A vetted student rep network.",
-        },
-        {
-          label: "Influencers",
-          href: "/services/influencers",
-          description: "Authentic peer-to-peer content.",
-        },
-      ],
-    },
+    { label: "Services", href: "/services" },
     { label: "Work", href: "/work" },
     { label: "About", href: "/about" },
     { label: "Insights", href: "/insights" },
