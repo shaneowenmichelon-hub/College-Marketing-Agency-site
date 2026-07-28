@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { isValidEmail } from "@/lib/utils";
 import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { brandConfirmation, internalNotification } from "@/lib/email-templates";
@@ -82,26 +82,28 @@ export async function POST(request: Request) {
   // Structured submission record — the capture fallback (never lose a lead).
   console.log("[lead]", JSON.stringify({ at: new Date().toISOString(), ...lead }));
 
-  // Fire both emails in parallel; failures are logged inside sendEmail and never
-  // turn into a user-facing error.
+  // Fire both emails AFTER the response returns so the sender isn't kept waiting
+  // on Resend. Failures are logged inside sendEmail and never surface to the user.
   const confirmation = brandConfirmation(lead);
   const internal = internalNotification(kind, lead);
-  await Promise.allSettled([
-    sendEmail({
-      to: email,
-      subject: confirmation.subject,
-      html: confirmation.html,
-      text: confirmation.text,
-      replyTo: AGENCY_INBOX,
-    }),
-    sendEmail({
-      to: AGENCY_INBOX,
-      subject: internal.subject,
-      html: internal.html,
-      text: internal.text,
-      replyTo: email,
-    }),
-  ]);
+  after(async () => {
+    await Promise.allSettled([
+      sendEmail({
+        to: email,
+        subject: confirmation.subject,
+        html: confirmation.html,
+        text: confirmation.text,
+        replyTo: AGENCY_INBOX,
+      }),
+      sendEmail({
+        to: AGENCY_INBOX,
+        subject: internal.subject,
+        html: internal.html,
+        text: internal.text,
+        replyTo: email,
+      }),
+    ]);
+  });
 
   return NextResponse.json({ ok: true });
 }

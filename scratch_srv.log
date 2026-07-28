@@ -3,8 +3,14 @@
 > next start
 
    ▲ Next.js 15.5.20
-   - Local:        http://localhost:3119
-   - Network:      http://192.0.2.2:3119
+   - Local:        http://localhost:3120
+   - Network:      http://192.0.2.2:3120
 
  ✓ Starting...
- ✓ Ready in 468ms
+ ✓ Ready in 282ms
+[lead] {"at":"2026-07-28T15:48:36.466Z","kind":"brand_inquiry","firstName":"","lastName":"","company":"Acme","email":"test@acme.com","phone":"","interests":[],"budget":"","message":"","resource":"","attribution":{}}
+[email] disabled — no RESEND_API_KEY set. Would have sent: "Thanks for reaching out to Collegiate Agency" to test@acme.com
+[email] disabled — no RESEND_API_KEY set. Would have sent: "New brand inquiry — Acme" to shane@zmmevents.com
+[lead] {"at":"2026-07-28T15:48:36.484Z","kind":"brand_inquiry","firstName":"","lastName":"","company":"Acme","email":"test@acme.com","phone":"","interests":[],"budget":"","message":"","resource":"","attribution":{}}
+[email] disabled — no RESEND_API_KEY set. Would have sent: "Thanks for reaching out to Collegiate Agency" to test@acme.com
+[email] disabled — no RESEND_API_KEY set. Would have sent: "New brand inquiry — Acme" to shane@zmmevents.com

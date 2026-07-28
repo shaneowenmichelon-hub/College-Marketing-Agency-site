@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { ageFromDOB, isEduEmail } from "@/lib/utils";
 import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { studentConfirmation, internalNotification, type SecureLink } from "@/lib/email-templates";
@@ -132,24 +132,28 @@ export async function POST(request: Request) {
     }),
   );
 
+  // Send both emails AFTER the response is returned so the applicant isn't kept
+  // waiting on Resend's round-trip (Vercel keeps the function alive for after()).
   const confirmation = studentConfirmation(lead);
   const internal = internalNotification("student_application", lead, secureLinks);
-  await Promise.allSettled([
-    sendEmail({
-      to: schoolEmail,
-      subject: confirmation.subject,
-      html: confirmation.html,
-      text: confirmation.text,
-      replyTo: AGENCY_INBOX,
-    }),
-    sendEmail({
-      to: AGENCY_INBOX,
-      subject: internal.subject,
-      html: internal.html,
-      text: internal.text,
-      replyTo: schoolEmail,
-    }),
-  ]);
+  after(async () => {
+    await Promise.allSettled([
+      sendEmail({
+        to: schoolEmail,
+        subject: confirmation.subject,
+        html: confirmation.html,
+        text: confirmation.text,
+        replyTo: AGENCY_INBOX,
+      }),
+      sendEmail({
+        to: AGENCY_INBOX,
+        subject: internal.subject,
+        html: internal.html,
+        text: internal.text,
+        replyTo: schoolEmail,
+      }),
+    ]);
+  });
 
   return NextResponse.json({ ok: true });
 }

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { isEduEmail } from "@/lib/utils";
 import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { genericNotification, type SecureLink } from "@/lib/email-templates";
@@ -66,7 +66,9 @@ export async function POST(request: Request) {
     rows,
     secureLinks,
   );
-  await sendEmail({ to: AGENCY_INBOX, subject: mail.subject, html: mail.html, text: mail.text, replyTo: email });
+  after(async () => {
+    await sendEmail({ to: AGENCY_INBOX, subject: mail.subject, html: mail.html, text: mail.text, replyTo: email });
+  });
 
   return NextResponse.json({ ok: true });
 }
