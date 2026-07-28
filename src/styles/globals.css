@@ -188,6 +188,21 @@ body {
   overflow-x: clip;
 }
 
+/* Tab-panel fade/slide when a panel becomes visible (services audience tabs). */
+@keyframes ch-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.ch-fade-in {
+  animation: ch-fade-in 0.25s ease-out;
+}
+
 /* Marquee + all decorative motion: fully disabled under reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
@@ -199,6 +214,9 @@ body {
     content: none !important;
   }
   .coin-idle {
+    animation: none !important;
+  }
+  .ch-fade-in {
     animation: none !important;
   }
 }

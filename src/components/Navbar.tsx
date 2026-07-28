@@ -60,18 +60,17 @@ export function Navbar() {
         {/* Desktop nav */}
         <ul className="hidden items-center gap-1 lg:flex">
           {siteConfig.nav.map((item) =>
-            item.children ? (
+            item.children && siteConfig.servicesNavDropdown ? (
               <li
                 key={item.label}
                 className="relative"
                 onMouseEnter={() => setServicesOpen(true)}
                 onMouseLeave={() => setServicesOpen(false)}
               >
-                <button
-                  type="button"
+                <Link
+                  href={item.href}
                   aria-expanded={servicesOpen}
                   aria-haspopup="true"
-                  onClick={() => setServicesOpen((v) => !v)}
                   className={cn(
                     "flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
                     pathname.startsWith("/services")
@@ -86,7 +85,7 @@ export function Navbar() {
                       servicesOpen && "rotate-180",
                     )}
                   />
-                </button>
+                </Link>
                 {servicesOpen && (
                   <div className="absolute left-0 top-full w-72 pt-2">
                     <div className="overflow-hidden rounded-2xl border border-[color:var(--border-on-light)] bg-white p-2 shadow-soft-lg">
@@ -153,11 +152,14 @@ export function Navbar() {
         <div className="fixed inset-x-0 bottom-0 top-14 z-40 overflow-y-auto bg-white lg:hidden">
           <div className="space-y-1 px-5 py-6 sm:px-6">
             {siteConfig.nav.map((item) =>
-              item.children ? (
+              item.children && siteConfig.servicesNavDropdown ? (
                 <div key={item.label} className="py-1">
-                  <p className="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-[color:var(--muted-on-light)]">
+                  <Link
+                    href={item.href}
+                    className="block px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-[color:var(--muted-on-light)] hover:text-ink"
+                  >
                     {item.label}
-                  </p>
+                  </Link>
                   {item.children.map((child) => (
                     <Link
                       key={child.href}

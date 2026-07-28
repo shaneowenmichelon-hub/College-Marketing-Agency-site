@@ -146,12 +146,19 @@ export const siteConfig = {
     },
   ] as const,
 
+  /**
+   * When true, the top-nav "Services" item keeps its dropdown (the three items
+   * still deep-link to their detail pages) while the label links to the /services
+   * hub. Set false to collapse it to a single "Services" link.
+   */
+  servicesNavDropdown: true,
+
   /** Primary nav. Services children are the single source for the dropdown. */
   nav: [
     { label: "Home", href: "/" },
     {
       label: "Services",
-      href: "/services/events",
+      href: "/services",
       children: [
         {
           label: "Events",
@@ -239,6 +246,145 @@ export const pricing: Record<string, ServicePricing> = {
     unit: "per influencer",
     included: "Product donation + user-generated content (UGC).",
     note: "Packages are customizable — let's talk.",
+  },
+};
+
+/** A short, human price note pulled from the single pricing source (never hardcoded). */
+function priceNote(slug: keyof typeof pricing): string {
+  const p = pricing[slug];
+  return `${p.range} ${p.unit}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SERVICES HUB — the /services page (Brand ↔ Student tabbed layout). All copy is
+// data-driven from here. Price notes reference the pricing config above so they
+// never drift. Images reuse existing /public assets; swap paths freely.
+// ─────────────────────────────────────────────────────────────────────────────
+export type CapabilityBlock = {
+  eyebrow: string;
+  heading: string;
+  /** One or two columns of bullet points. */
+  columns: string[][];
+  image?: string;
+  imageAlt?: string;
+  priceNote?: string;
+  cta?: { label: string; href: string };
+};
+
+export type PerkCard = { icon: string; title: string; body: string };
+
+export type ServicesHub = {
+  intro: string;
+  brands: {
+    intro: string;
+    blocks: CapabilityBlock[];
+    cta: { label: string; href: string };
+  };
+  students: {
+    intro: string;
+    howItWorks: CapabilityBlock;
+    perks: PerkCard[];
+    cta: { label: string; href: string };
+  };
+};
+
+export const servicesHub: ServicesHub = {
+  intro:
+    "One team, three channels onto campus — events, ambassadors, and influencers — run end to end. Pick your side: what we do for brands, and what's in it for students.",
+  brands: {
+    intro:
+      "Brands get real campus presence through three channels — events, ambassadors, and influencers — run end to end by a team that operates Gen-Z events nationally.",
+    blocks: [
+      {
+        eyebrow: "On-campus activations",
+        heading: "Events",
+        columns: [
+          [
+            "Product placement & event sponsorship",
+            "Welcome-week & syllabus-week shows via the Night School Tour",
+            "Tailgates, sampling & experiential activations",
+          ],
+          [
+            "Greek & student-club sponsorships",
+            "Access to our event & trip sponsorship inventory — ZMM Events, JusCollege, and Thaw Out",
+          ],
+        ],
+        priceNote: priceNote("events"),
+        image: "/images/thaw-out/thaw-out-01.jpg",
+        imageAlt: "Brand activation at a campus festival",
+        cta: { label: "Learn more", href: "/services/events" },
+      },
+      {
+        eyebrow: "Boots on the ground",
+        heading: "Brand Ambassadors",
+        columns: [
+          [
+            "A vetted student rep network",
+            "Sampling & flyering",
+            "Dorm & residence-hall drops",
+          ],
+          [
+            "Tabling & event staffing",
+            "Greek & club sponsorships",
+            "Pop-up activations",
+          ],
+        ],
+        priceNote: priceNote("brand-ambassadors"),
+        image: "/images/thaw-out/thaw-out-03.jpg",
+        imageAlt: "Student ambassadors running an on-campus activation",
+        cta: { label: "Learn more", href: "/services/brand-ambassadors" },
+      },
+      {
+        eyebrow: "Peer-to-peer content",
+        heading: "Influencers",
+        columns: [
+          [
+            "Campus creators posting to real peers",
+            "UGC for Instagram + TikTok",
+            "Recruit → screen → train → manage",
+          ],
+          [
+            "Optional paid boosting",
+            `Vetted creators (${siteConfig.influencerMinFollowers.toLocaleString()}+ follower threshold)`,
+          ],
+        ],
+        priceNote: priceNote("influencers"),
+        image: "/images/thaw-out/thaw-out-05.jpg",
+        imageAlt: "Campus creator filming content at an event",
+        cta: { label: "Learn more", href: "/services/influencers" },
+      },
+    ],
+    cta: { label: "Get started", href: "/contact" },
+  },
+  students: {
+    intro:
+      "Get paid to rep the brands you already love — on your own campus, around your class schedule.",
+    howItWorks: {
+      eyebrow: "The path",
+      heading: "How it works",
+      columns: [
+        [
+          "Apply and get verified",
+          "Get matched to a brand job",
+          "Post or activate on campus",
+          "Get paid in cash and/or product",
+        ],
+      ],
+      image: "/images/thaw-out/thaw-out-07.jpg",
+      imageAlt: "Students at a Night School Tour show",
+      cta: { label: "Apply now", href: "/become-an-ambassador" },
+    },
+    perks: [
+      { icon: "DollarSign", title: "Get paid", body: "Cash for every job you complete — no vague \"exposure\" deals." },
+      { icon: "Gift", title: "Free product", body: "Keep the products from the brands you rep." },
+      { icon: "CalendarClock", title: "Flexible", body: "Work around your class schedule, not against it." },
+      { icon: "Briefcase", title: "Real experience", body: "Build a resume and portfolio brands actually recognize." },
+      { icon: "ShieldCheck", title: "One job at a time", body: "No oversaturation — you rep one brand at a time." },
+      { icon: "Zap", title: "Fast payouts", body: "Submit your proof and get paid quickly." },
+      { icon: "Music", title: "Work the events", body: "Staff the Night School Tour and other live shows." },
+      { icon: "Video", title: "Create UGC", body: "Get better on camera and grow your own channels." },
+    ],
+    cta: { label: "Become an ambassador", href: "/become-an-ambassador" },
   },
 };
 

@@ -32,6 +32,22 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-white">Services</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
+              <li>
+                <Link
+                  href="/services#for-brands"
+                  className="text-[color:var(--muted-on-dark)] transition-colors hover:text-white"
+                >
+                  For Brands
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services#for-students"
+                  className="text-[color:var(--muted-on-dark)] transition-colors hover:text-white"
+                >
+                  For Students
+                </Link>
+              </li>
               {siteConfig.services.map((s) => (
                 <li key={s.slug}>
                   <Link
