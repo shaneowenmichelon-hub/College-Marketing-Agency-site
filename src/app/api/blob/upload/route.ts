@@ -18,6 +18,10 @@ const PROOF_TYPES = [...ID_TYPES, "image/gif", "video/mp4", "video/quicktime", "
 
 export async function POST(request: Request): Promise<NextResponse> {
   if (!process.env.BLOB_READ_WRITE_TOKEN?.trim()) {
+    console.warn(
+      "[blob/upload] BLOB_READ_WRITE_TOKEN is not set on this deployment — returning 501. " +
+        "Connect a Vercel Blob store (Storage tab) to this project and redeploy so ID uploads are stored.",
+    );
     return NextResponse.json({ error: "storage not configured" }, { status: 501 });
   }
 
@@ -49,6 +53,9 @@ export async function POST(request: Request): Promise<NextResponse> {
     });
     return NextResponse.json(json);
   } catch (err) {
+    // Token IS present but the upload/token step failed (e.g. invalid token,
+    // disconnected store, or a disallowed content-type/size). Log the real cause.
+    console.error("[blob/upload] token/upload error:", err);
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Upload token error." },
       { status: 400 },

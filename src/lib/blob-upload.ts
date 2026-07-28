@@ -23,7 +23,11 @@ export async function uploadToBlob(pathname: string, file: File): Promise<Client
       contentType: file.type || undefined,
     });
     return { url: res.url };
-  } catch {
+  } catch (err) {
+    // Surface the real reason in the browser console for debugging — the email
+    // note stays generic. Most common cause: BLOB_READ_WRITE_TOKEN is not set on
+    // the deployment, so /api/blob/upload returns 501 ("storage not configured").
+    console.error("[blob-upload] direct upload failed:", err);
     return { url: null, note: "not uploaded — storage not configured" };
   }
 }
