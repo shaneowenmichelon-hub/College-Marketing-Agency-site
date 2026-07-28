@@ -651,161 +651,7 @@ export const eventSponsorships: {
   intro:
     "Put your brand at the center of the moments students plan their whole year around.",
   groups: [
-    {
-      id: "zmm-events",
-      title: "ZMM Events",
-      intro: "Flagship event sponsorships with clear reach and pricing.",
-      items: [
-        {
-          name: "Night School Tour",
-          description: "The national college nightlife tour, currently planned around 15,000 attendees across confirmed fall markets.",
-          valuePerEvent: "15,000",
-          basePackage: "$10,000",
-          presentingSponsor: "$100,000",
-          highlights: [
-            "15,000 planned attendees across confirmed fall markets",
-            "Tour-style programming across student markets",
-            "Brand presence in event marketing and on-site moments",
-          ],
-        },
-        {
-          name: "HOMETURF (Super Bowl weekend)",
-          description: "The Super Bowl weekend flagship.",
-          valuePerEvent: "5,000+",
-          basePackage: "$2,500",
-          presentingSponsor: "$10,000",
-          highlights: [
-            "Super Bowl weekend cultural moment",
-            "Large-format event audience",
-            "Premium brand placement opportunity",
-          ],
-        },
-        {
-          name: "Hells Gala",
-          description: "A signature themed gala event.",
-          valuePerEvent: "1,500+",
-          basePackage: "$2,500",
-          presentingSponsor: "$10,000",
-          highlights: [
-            "High-design themed experience",
-            "Curated nightlife audience",
-            "Content-friendly brand integration",
-          ],
-        },
-        {
-          name: "CRNVL",
-          description: "A two-day Mardi Gras 2027 carnival-themed festival with house DJs on one day, a bass DJ on the other, actors, brand activations, and carnival games.",
-          valuePerEvent: "12,000",
-          basePackage: "$10,000",
-          presentingSponsor: "$50,000",
-          baseDetail:
-            "Base sponsorship includes brand presence inside the CRNVL festival footprint with activation opportunities scoped around the sponsor's goals.",
-          presentingDetail:
-            "Presenting/title sponsorship positions the brand as the lead partner across the full two-day CRNVL Mardi Gras festival experience.",
-          eventDate: "Mardi Gras 2027",
-          highlights: [
-            "12,000 total attendees expected across two days",
-            "Two-day music format: house DJs one day and a bass DJ the other",
-            "Carnival-themed environment with actors, games, and immersive production",
-            "Built for brand activations, sampling, hospitality, and content capture",
-          ],
-        },
-      ],
-    },
-    {
-      id: "thaw-out",
-      title: "Thaw Out Music Festival",
-      intro:
-        "Four spring festival markets with the same clean sponsorship structure in every city.",
-      positioning:
-        "An independent, grassroots college festival built around campus culture — artists, top student-athletes in VIP sections, brands, and the student body. It is not a school-sanctioned event and carries no university affiliation; it's a cultural moment embedded in the college town. Brands buy in to become part of the single day students remember from their college years — presence and authenticity, not just impressions.",
-      seasonBundle: {
-        intro: "Own the whole spring season across all four 2027 markets.",
-        tiers: [
-          { name: "Presenting — full season", price: "$90,000" },
-          { name: "Title — full season", price: "$45,000" },
-          { name: "Founder — full season", price: "$24,000" },
-        ],
-        note: "Season pricing sits below 4× the single-market rate — the play is owning the whole spring, not a discount table.",
-      },
-      proof: {
-        heading: "Why Thaw Out works",
-        intro:
-          "The diligence a brand asks for before writing a check — reach, audience, on-site consumption, and repeat sponsors. Every figure traces to Thaw Out's own reporting; estimates are labeled as such.",
-        reachStats: [
-          { value: "15M", label: "Impressions per season" },
-          { value: "15,000", label: "Email subscribers" },
-          { value: "1,000+", label: "Avg. likes per post" },
-          { value: "32,000", label: "Attendees across four 2027 markets" },
-        ],
-        giveawayBenchmark: "Giveaway engagement benchmark: ~10K comments · 300K views · 6K likes.",
-        audience: {
-          intro: "Gen-Z college students are the primary demographic.",
-          stats: [
-            { value: "73%", label: "Ages 21–25" },
-            { value: "53%", label: "Female" },
-          ],
-          notes: [
-            "Parent-backed disposable income",
-            "Peer-to-peer social drivers — campus culture leaders and trendsetters",
-          ],
-        },
-        viral: {
-          body: "Miami XO's first-ever live performance at Thaw Out became a global organic viral moment across Instagram, TikTok, X, and Facebook. Tens of millions of views are documented.",
-          label: "Estimated 100M+ total impressions (unverified estimate)",
-        },
-        consumption: {
-          intro: "Brands don't just get seen here — product moves.",
-          totalDrinks: "16,334",
-          revenue: "≈ $200K",
-          byProduct: [
-            { name: "Michelob Ultra 16oz", cases: 208 },
-            { name: "Happy Dad", cases: 125 },
-            { name: "Lime Rita 16oz", cases: 114 },
-            { name: "Mango Rita 16oz", cases: 103 },
-            { name: "Hoop Tea 16oz", cases: 78 },
-            { name: "SW Hazy IPA", cases: 53 },
-          ],
-        },
-        caseStudies: [
-          {
-            brand: "Red Bull",
-            body: "A major financial commitment and infrastructure partnership — enterprise-level validation of the festival's reach.",
-          },
-          {
-            brand: "Happy Dad",
-            body: "Sponsored, placed product organically with influential campus figures, sold 125 cases in Knoxville alone in 2026, and returned the following year. They came for relationships, not awareness — the repeat buy is the proof.",
-          },
-        ],
-        talent: {
-          intro: "A funded festival booking real talent. Past performers include:",
-          performers: ["DaBaby", "Waka Flocka", "Big X Tha Plug", "Acraze", "Sidepiece", "Bunt", "Xandra"],
-        },
-        athletes:
-          "Every market features that school's most recognizable athletes in dedicated VIP sections — campus icons visible to the whole crowd. For sponsors: product lands organically with the most influential people on campus, athletes can appear on stage during sponsor moments for content capture, and it requires no formal endorsement contracts.",
-        insights: [],
-      },
-      gallery: {
-        dir: "/images/thaw-out",
-        files: [
-          "thaw-out-01.jpg",
-          "thaw-out-02.jpg",
-          "thaw-out-03.jpg",
-          "thaw-out-04.jpg",
-          "thaw-out-05.jpg",
-          "thaw-out-06.jpg",
-          "thaw-out-07.jpg",
-        ],
-        alt: "Sponsor activation at Thaw Out Music Festival",
-      },
-      items: [
-        thawMarket("Morgantown, WV", "April 3, 2027", "Mylan Park"),
-        thawMarket("Iowa City, IA", "April 10, 2027", "Iowa Fairgrounds"),
-        thawMarket("Boone, NC", "April 24, 2027", "High Country Fairgrounds"),
-        thawMarket("Knoxville, TN", "May 1, 2027", "World's Fair Park"),
-      ],
-    },
-    {
+{
       id: "juscollege-trips",
       title: "JusCollege Trips",
       intro: "Annual destination-trip sponsorships formatted for easy comparison across spring break, senior trips, and custom travel programs.",
@@ -950,8 +796,159 @@ export const eventSponsorships: {
           ],
         },
       ],
-    },
-    {
+    },{
+      id: "zmm-events",
+      title: "ZMM Events",
+      intro: "Flagship event sponsorships with clear reach and pricing.",
+      items: [
+        {
+          name: "Night School Tour",
+          description: "The national college nightlife tour, currently planned around 15,000 attendees across confirmed fall markets.",
+          valuePerEvent: "15,000",
+          basePackage: "$10,000",
+          presentingSponsor: "$100,000",
+          highlights: [
+            "15,000 planned attendees across confirmed fall markets",
+            "Tour-style programming across student markets",
+            "Brand presence in event marketing and on-site moments",
+          ],
+        },
+        {
+          name: "HOMETURF (Super Bowl weekend)",
+          description: "The Super Bowl weekend flagship.",
+          valuePerEvent: "5,000+",
+          basePackage: "$2,500",
+          presentingSponsor: "$10,000",
+          highlights: [
+            "Super Bowl weekend cultural moment",
+            "Large-format event audience",
+            "Premium brand placement opportunity",
+          ],
+        },
+        {
+          name: "Hells Gala",
+          description: "A signature themed gala event.",
+          valuePerEvent: "1,500+",
+          basePackage: "$2,500",
+          presentingSponsor: "$10,000",
+          highlights: [
+            "High-design themed experience",
+            "Curated nightlife audience",
+            "Content-friendly brand integration",
+          ],
+        },
+        {
+          name: "CRNVL",
+          description: "A two-day Mardi Gras 2027 carnival-themed festival with house DJs on one day, a bass DJ on the other, actors, brand activations, and carnival games.",
+          valuePerEvent: "12,000",
+          basePackage: "$10,000",
+          presentingSponsor: "$50,000",
+          baseDetail:
+            "Base sponsorship includes brand presence inside the CRNVL festival footprint with activation opportunities scoped around the sponsor's goals.",
+          presentingDetail:
+            "Presenting/title sponsorship positions the brand as the lead partner across the full two-day CRNVL Mardi Gras festival experience.",
+          eventDate: "Mardi Gras 2027",
+          highlights: [
+            "12,000 total attendees expected across two days",
+            "Two-day music format: house DJs one day and a bass DJ the other",
+            "Carnival-themed environment with actors, games, and immersive production",
+            "Built for brand activations, sampling, hospitality, and content capture",
+          ],
+        },
+      ],
+    },{
+      id: "thaw-out",
+      title: "Thaw Out Music Festival",
+      intro:
+        "Four spring festival markets with the same clean sponsorship structure in every city.",
+      positioning:
+        "An independent, grassroots college festival built around campus culture — artists, top student-athletes in VIP sections, brands, and the student body. It is not a school-sanctioned event and carries no university affiliation; it's a cultural moment embedded in the college town. Brands buy in to become part of the single day students remember from their college years — presence and authenticity, not just impressions.",
+      seasonBundle: {
+        intro: "Own the whole spring season across all four 2027 markets.",
+        tiers: [
+          { name: "Presenting — full season", price: "$90,000" },
+          { name: "Title — full season", price: "$45,000" },
+          { name: "Founder — full season", price: "$24,000" },
+        ],
+        note: "Season pricing sits below 4× the single-market rate — the play is owning the whole spring, not a discount table.",
+      },
+      proof: {
+        heading: "Why Thaw Out works",
+        intro:
+          "The diligence a brand asks for before writing a check — reach, audience, on-site consumption, and repeat sponsors. Every figure traces to Thaw Out's own reporting; estimates are labeled as such.",
+        reachStats: [
+          { value: "15M", label: "Impressions per season" },
+          { value: "15,000", label: "Email subscribers" },
+          { value: "1,000+", label: "Avg. likes per post" },
+          { value: "32,000", label: "Attendees across four 2027 markets" },
+        ],
+        giveawayBenchmark: "Giveaway engagement benchmark: ~10K comments · 300K views · 6K likes.",
+        audience: {
+          intro: "Gen-Z college students are the primary demographic.",
+          stats: [
+            { value: "73%", label: "Ages 21–25" },
+            { value: "53%", label: "Female" },
+          ],
+          notes: [
+            "Parent-backed disposable income",
+            "Peer-to-peer social drivers — campus culture leaders and trendsetters",
+          ],
+        },
+        viral: {
+          body: "Miami XO's first-ever live performance at Thaw Out became a global organic viral moment across Instagram, TikTok, X, and Facebook. Tens of millions of views are documented.",
+          label: "Estimated 100M+ total impressions (unverified estimate)",
+        },
+        consumption: {
+          intro: "Brands don't just get seen here — product moves.",
+          totalDrinks: "16,334",
+          revenue: "≈ $200K",
+          byProduct: [
+            { name: "Michelob Ultra 16oz", cases: 208 },
+            { name: "Happy Dad", cases: 125 },
+            { name: "Lime Rita 16oz", cases: 114 },
+            { name: "Mango Rita 16oz", cases: 103 },
+            { name: "Hoop Tea 16oz", cases: 78 },
+            { name: "SW Hazy IPA", cases: 53 },
+          ],
+        },
+        caseStudies: [
+          {
+            brand: "Red Bull",
+            body: "A major financial commitment and infrastructure partnership — enterprise-level validation of the festival's reach.",
+          },
+          {
+            brand: "Happy Dad",
+            body: "Sponsored, placed product organically with influential campus figures, sold 125 cases in Knoxville alone in 2026, and returned the following year. They came for relationships, not awareness — the repeat buy is the proof.",
+          },
+        ],
+        talent: {
+          intro: "A funded festival booking real talent. Past performers include:",
+          performers: ["DaBaby", "Waka Flocka", "Big X Tha Plug", "Acraze", "Sidepiece", "Bunt", "Xandra"],
+        },
+        athletes:
+          "Every market features that school's most recognizable athletes in dedicated VIP sections — campus icons visible to the whole crowd. For sponsors: product lands organically with the most influential people on campus, athletes can appear on stage during sponsor moments for content capture, and it requires no formal endorsement contracts.",
+        insights: [],
+      },
+      gallery: {
+        dir: "/images/thaw-out",
+        files: [
+          "thaw-out-01.jpg",
+          "thaw-out-02.jpg",
+          "thaw-out-03.jpg",
+          "thaw-out-04.jpg",
+          "thaw-out-05.jpg",
+          "thaw-out-06.jpg",
+          "thaw-out-07.jpg",
+        ],
+        alt: "Sponsor activation at Thaw Out Music Festival",
+      },
+      items: [
+        thawMarket("Morgantown, WV", "April 3, 2027", "Mylan Park"),
+        thawMarket("Iowa City, IA", "April 10, 2027", "Iowa Fairgrounds"),
+        thawMarket("Boone, NC", "April 24, 2027", "High Country Fairgrounds"),
+        thawMarket("Knoxville, TN", "May 1, 2027", "World's Fair Park"),
+      ],
+    },{
       id: "venues",
       title: "Venues",
       intro: "Year-long venue sponsorships built around repeat in-person traffic.",
@@ -982,8 +979,7 @@ export const eventSponsorships: {
           },
         },
       ],
-    },
-  ],
+    },],
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
