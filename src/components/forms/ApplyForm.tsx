@@ -274,6 +274,7 @@ export function ApplyForm() {
               value={dob}
               onChange={(e) => setDob(e.target.value)}
               error={errors.dob}
+              className="min-h-[3.25rem] [color-scheme:light] [&::-webkit-calendar-picker-indicator]:h-5 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-date-and-time-value]:text-left"
             />
           </FormField>
           <FormField label="Phone" htmlFor="phone">

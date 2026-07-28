@@ -12,8 +12,10 @@ import {
 import { Check, UploadCloud, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+// 16px (text-base) keeps controls legible on desktop and stops iOS Safari from
+// auto-zooming when a field is focused.
 const controlBase =
-  "w-full rounded-[3px] border-2 bg-white px-4 py-3 text-sm text-ink placeholder:text-[color:var(--muted-on-light)]/70 transition-shadow focus:outline-none focus:shadow-[3px_3px_0_var(--accent)]";
+  "w-full rounded-[3px] border-2 bg-white px-4 py-3 text-base text-ink placeholder:text-[color:var(--muted-on-light)]/70 transition-shadow focus:outline-none focus:shadow-[3px_3px_0_var(--accent)]";
 
 function borderClass(error?: string) {
   return error ? "border-red-500 focus:border-red-500" : "border-ink";
