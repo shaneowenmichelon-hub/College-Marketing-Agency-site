@@ -91,7 +91,7 @@ export const siteConfig = {
   stats: [
     { key: "ambassadors", value: "1,200", label: "student ambassadors" },
     { key: "influencers", value: "300+", label: "college influencers" },
-    { key: "campuses", value: "20", label: "campuses" },
+    { key: "campuses", value: "21", label: "campuses" },
     { key: "brands", value: "20+", label: "brands served" },
     { key: "socialReach", value: "1.44M+", label: "social reach" },
     { key: "studentsReached", value: "100K+", label: "students reached" },
@@ -111,6 +111,7 @@ export const siteConfig = {
     { school: "Kansas", city: "Lawrence, KS" },
     { school: "Florida", city: "Gainesville, FL" },
     { school: "USF", city: "Tampa, FL" },
+    { school: "Tulane", city: "New Orleans, LA" },
     { school: "LSU", city: "Baton Rouge, LA" },
     { school: "Ole Miss", city: "Oxford, MS" },
     { school: "South Carolina", city: "Columbia, SC" },
