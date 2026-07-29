@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/site.config";
+import { posts } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -20,7 +21,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static lastModified to keep the sitemap deterministic across builds.
   const lastModified = new Date("2026-01-01");
 
-  return routes.map((route) => ({
+  const articleRoutes = posts.map((post) => `/insights/${post.slug}`);
+
+  return [...routes, ...articleRoutes].map((route) => ({
     url: `${siteConfig.url}${route}`,
     lastModified,
     changeFrequency: "monthly",

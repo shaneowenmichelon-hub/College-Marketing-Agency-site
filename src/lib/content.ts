@@ -6,6 +6,7 @@
  * IMPORTANT: never import a competitor's real clients or numbers here.
  */
 import { siteConfig, getStat } from "@/site.config";
+import { loadMdxPosts } from "@/lib/blog-files";
 
 export type PostCategory =
   | "Campus Strategy"
@@ -25,6 +26,13 @@ export type ArticleBlock =
 export type Post = {
   slug: string;
   title: string;
+  /** Optional SEO title; page title falls back to title. */
+  metaTitle?: string;
+  /** Optional SEO description; meta description falls back to excerpt. */
+  metaDescription?: string;
+  /** SEO planning fields used by file-based blog posts. */
+  primaryKeyword?: string;
+  secondaryKeywords?: string[];
   category: PostCategory;
   /** Which service pages should surface this post under "Related insights". */
   services: ServiceSlug[];
@@ -297,7 +305,7 @@ const welcomeWeekBody: ArticleBlock[] = [
   },
 ];
 
-export const posts: Post[] = [
+const legacyPosts: Post[] = [
   {
     slug: "how-to-vet-an-influencer-before-you-pay-them",
     title: "How to vet an influencer before you pay them",
@@ -338,6 +346,13 @@ export const posts: Post[] = [
     readingTime: estimateReadingTime(welcomeWeekBody),
   },
 ];
+
+const filePosts = loadMdxPosts().map((post) => ({
+  ...post,
+  readingTime: post.readingTime || estimateReadingTime(post.body),
+}));
+
+export const posts: Post[] = [...filePosts, ...legacyPosts];
 
 export function getPost(slug: string): Post | undefined {
   return posts.find((p) => p.slug === slug);

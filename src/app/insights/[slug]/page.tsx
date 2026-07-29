@@ -49,12 +49,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!post) return { title: "Article not found" };
   const image = post.ogImage ?? "/og.svg";
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: post.metaTitle ?? post.title,
+    description: post.metaDescription ?? post.excerpt,
     alternates: { canonical: `/insights/${slug}` },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: post.metaTitle ?? post.title,
+      description: post.metaDescription ?? post.excerpt,
       type: "article",
       url: `${siteConfig.url}/insights/${slug}`,
       publishedTime: post.date,
