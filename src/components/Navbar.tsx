@@ -94,9 +94,12 @@ export function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer
+          Keep this absolute under the sticky header instead of fixed. Mobile
+          browsers treat backdrop-filter ancestors as containing blocks for
+          fixed descendants, which can collapse or hide the drawer. */}
       {mobileOpen && (
-        <div className="fixed inset-x-0 bottom-0 top-14 z-40 overflow-y-auto bg-white lg:hidden">
+        <div className="absolute inset-x-0 top-full z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b-2 border-ink bg-white lg:hidden">
           <div className="space-y-1 px-5 py-6 sm:px-6">
             {siteConfig.nav.map((item) => (
               <Link
