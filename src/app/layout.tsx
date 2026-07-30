@@ -8,6 +8,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@/components/analytics/Analytics";
 import { CookieConsent } from "@/components/analytics/CookieConsent";
+import { FirstPartyAnalytics } from "@/components/analytics/FirstPartyAnalytics";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
@@ -77,6 +78,7 @@ export default function RootLayout({
         </SmoothScroll>
         <CookieConsent />
         <Analytics />
+        <FirstPartyAnalytics />
         <VercelAnalytics />
         <SpeedInsights />
       </body>

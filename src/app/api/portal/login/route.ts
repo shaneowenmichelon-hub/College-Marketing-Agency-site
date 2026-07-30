@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { isEduEmail } from "@/lib/utils";
 import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
+import { clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
 
 export const runtime = "nodejs";
 
@@ -36,6 +37,16 @@ export async function POST(request: Request) {
   if (code !== ACCESS_CODE) {
     return NextResponse.json({ ok: false, error: "Invalid access code." }, { status: 401 });
   }
+
+  await recordAdminEvent({
+    type: "portal_login",
+    path: "/portal",
+    source: "Ambassador portal",
+    medium: "portal",
+    userAgent: request.headers.get("user-agent") || undefined,
+    ipHash: hashIp(analyticsClientIp(request)),
+    data: { email },
+  });
 
   // Never return the code; the client only stores the email as a session flag.
   return NextResponse.json({ ok: true });

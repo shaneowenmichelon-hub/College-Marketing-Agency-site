@@ -4,6 +4,7 @@ import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { brandConfirmation, internalNotification } from "@/lib/email-templates";
 import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
 import { ATTRIBUTION_KEYS, type Attribution, type BrandLead } from "@/lib/leads";
+import { classifySource, clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
 
 // Email SDK needs the Node runtime (not edge).
 export const runtime = "nodejs";
@@ -81,6 +82,35 @@ export async function POST(request: Request) {
 
   // Structured submission record — the capture fallback (never lose a lead).
   console.log("[lead]", JSON.stringify({ at: new Date().toISOString(), ...lead }));
+
+  const ipForAnalytics = analyticsClientIp(request);
+  const source = classifySource(attribution.referrer, attribution.utm_source);
+  await recordAdminEvent({
+    type: kind,
+    path: attribution.landing_page || "/contact",
+    referrer: attribution.referrer,
+    source: attribution.utm_source || source.source,
+    medium: attribution.utm_medium || source.medium,
+    campaign: attribution.utm_campaign,
+    term: attribution.utm_term,
+    content: attribution.utm_content,
+    landingPage: attribution.landing_page,
+    llmSource: source.llmSource,
+    userAgent: request.headers.get("user-agent") || undefined,
+    ipHash: hashIp(ipForAnalytics),
+    data: {
+      kind,
+      firstName: lead.firstName,
+      lastName: lead.lastName,
+      company: lead.company,
+      email: lead.email,
+      phone: lead.phone,
+      interests: lead.interests,
+      budget: lead.budget,
+      message: lead.message,
+      resource: lead.resource,
+    },
+  });
 
   // Fire both emails AFTER the response returns so the sender isn't kept waiting
   // on Resend. Failures are logged inside sendEmail and never surface to the user.

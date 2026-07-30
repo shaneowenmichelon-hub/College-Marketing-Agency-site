@@ -4,6 +4,7 @@ import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { genericNotification, type SecureLink } from "@/lib/email-templates";
 import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
 import { getJob } from "@/site.config";
+import { clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
 
 export const runtime = "nodejs";
 
@@ -53,6 +54,24 @@ export async function POST(request: Request) {
     "[portal] submission:",
     JSON.stringify({ at: new Date().toISOString(), email, job: job!.slug, links, files: files.length }),
   );
+
+  await recordAdminEvent({
+    type: "portal_submission",
+    path: `/portal/submit/${job!.slug}`,
+    source: "Ambassador portal",
+    medium: "portal",
+    userAgent: request.headers.get("user-agent") || undefined,
+    ipHash: hashIp(analyticsClientIp(request)),
+    data: {
+      email,
+      job: job!.slug,
+      brand: job!.brand,
+      title: job!.title,
+      links,
+      files: files.length,
+      notes,
+    },
+  });
 
   const rows: [string, string][] = [
     ["Student", email],

@@ -4,6 +4,7 @@ import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { genericNotification } from "@/lib/email-templates";
 import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
 import { getJob } from "@/site.config";
+import { clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
 
 export const runtime = "nodejs";
 
@@ -26,6 +27,23 @@ export async function POST(request: Request) {
   if (!job) return NextResponse.json({ ok: false, error: "Unknown job." }, { status: 404 });
 
   console.log("[portal] signup:", JSON.stringify({ at: new Date().toISOString(), email, job: job.slug }));
+
+  await recordAdminEvent({
+    type: "portal_signup",
+    path: `/portal/jobs/${job.slug}`,
+    source: "Ambassador portal",
+    medium: "portal",
+    userAgent: request.headers.get("user-agent") || undefined,
+    ipHash: hashIp(analyticsClientIp(request)),
+    data: {
+      email,
+      job: job.slug,
+      brand: job.brand,
+      title: job.title,
+      category: job.category,
+      compensation: `${job.compensation.cash} + ${job.compensation.product}`,
+    },
+  });
 
   const mail = genericNotification(`Job signup — ${email} → ${job.brand}: ${job.title}`, [
     ["Student", email],

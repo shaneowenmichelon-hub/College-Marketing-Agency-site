@@ -4,6 +4,7 @@ import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { studentConfirmation, internalNotification, type SecureLink } from "@/lib/email-templates";
 import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
 import { ATTRIBUTION_KEYS, type Attribution, type StudentLead } from "@/lib/leads";
+import { classifySource, clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
 
 // Email SDK needs the Node runtime (not edge).
 export const runtime = "nodejs";
@@ -131,6 +132,41 @@ export async function POST(request: Request) {
       idBackStored: !!idBackUrl,
     }),
   );
+
+  const ipForAnalytics = analyticsClientIp(request);
+  const source = classifySource(attribution.referrer, attribution.utm_source);
+  await recordAdminEvent({
+    type: "student_application",
+    path: attribution.landing_page || "/become-an-ambassador",
+    referrer: attribution.referrer,
+    source: attribution.utm_source || source.source,
+    medium: attribution.utm_medium || source.medium,
+    campaign: attribution.utm_campaign,
+    term: attribution.utm_term,
+    content: attribution.utm_content,
+    landingPage: attribution.landing_page,
+    llmSource: source.llmSource,
+    userAgent: request.headers.get("user-agent") || undefined,
+    ipHash: hashIp(ipForAnalytics),
+    data: {
+      fullName: lead.fullName,
+      phone: lead.phone,
+      city: lead.city,
+      state: lead.state,
+      school: lead.school,
+      schoolEmail: lead.schoolEmail,
+      gradYear: lead.gradYear,
+      major: lead.major,
+      instagram: lead.instagram,
+      tiktok: lead.tiktok,
+      igFollowers: lead.igFollowers,
+      ttFollowers: lead.ttFollowers,
+      niche: lead.niche,
+      why: lead.why,
+      idFrontStored: !!idFrontUrl,
+      idBackStored: !!idBackUrl,
+    },
+  });
 
   // Send both emails AFTER the response is returned so the applicant isn't kept
   // waiting on Resend's round-trip (Vercel keeps the function alive for after()).
