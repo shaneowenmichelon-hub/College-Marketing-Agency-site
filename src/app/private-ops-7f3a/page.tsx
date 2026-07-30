@@ -106,7 +106,7 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">Private Ops</p>
         <h1 className="mt-3 text-3xl font-black tracking-tight">Collegiate admin dashboard</h1>
         <p className="mt-3 text-sm leading-6 text-slate-300">
-          Enter Shane's private code to view submissions, website traffic, referrers, and LLM landings.
+          Enter Shane&apos;s private code to view submissions, website traffic, referrers, and LLM landings.
         </p>
         <form onSubmit={submit} className="mt-8 space-y-4">
           <input
