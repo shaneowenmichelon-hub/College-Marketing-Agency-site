@@ -13,14 +13,15 @@ function sha256(value: string): string {
   return crypto.createHash("sha256").update(value).digest("hex");
 }
 
-function sessionSecret(): string | null {
-  return process.env.ADMIN_SESSION_SECRET || null;
+function sessionSecret(): string {
+  // Production should override this with ADMIN_SESSION_SECRET in Vercel.
+  // Until Shane can access Vercel, this fallback lets the private portal open
+  // with the starter code while encrypted cross-session storage remains gated.
+  return process.env.ADMIN_SESSION_SECRET || `starter-session:${FALLBACK_ADMIN_CODE_SHA256}`;
 }
 
 function hmac(payload: string): string {
-  const secret = sessionSecret();
-  if (!secret) throw new Error("ADMIN_SESSION_SECRET is required for admin sessions.");
-  return crypto.createHmac("sha256", secret).update(payload).digest("hex");
+  return crypto.createHmac("sha256", sessionSecret()).update(payload).digest("hex");
 }
 
 export function verifyAdminCode(code: string): boolean {
