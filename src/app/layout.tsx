@@ -4,13 +4,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { siteConfig } from "@/site.config";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { Analytics } from "@/components/analytics/Analytics";
-import { CookieConsent } from "@/components/analytics/CookieConsent";
-import { FirstPartyAnalytics } from "@/components/analytics/FirstPartyAnalytics";
+import { AppShell } from "@/components/AppShell";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -69,16 +64,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <OrganizationJsonLd />
-        <SmoothScroll>
-          <Navbar />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </SmoothScroll>
-        <CookieConsent />
-        <Analytics />
-        <FirstPartyAnalytics />
+        <AppShell>{children}</AppShell>
         <VercelAnalytics />
         <SpeedInsights />
       </body>

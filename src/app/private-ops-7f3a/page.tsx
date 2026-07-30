@@ -101,10 +101,10 @@ function Login({ onSuccess }: { onSuccess: () => void }) {
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-16 text-white">
-      <div className="mx-auto max-w-md rounded-3xl border border-white/10 bg-white/10 p-8 shadow-2xl backdrop-blur">
+    <main className="grid min-h-screen place-items-center bg-[radial-gradient(circle_at_top,#123c34_0%,#020617_42%,#020617_100%)] px-4 py-8 text-white sm:px-6 sm:py-16">
+      <div className="mx-auto w-full max-w-md rounded-[2rem] border border-white/10 bg-white/10 p-5 shadow-2xl backdrop-blur sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">Private Ops</p>
-        <h1 className="mt-3 text-3xl font-black tracking-tight">Collegiate admin dashboard</h1>
+        <h1 className="mt-3 text-2xl font-black tracking-tight sm:text-3xl">Collegiate admin dashboard</h1>
         <p className="mt-3 text-sm leading-6 text-slate-300">
           Enter Shane&apos;s private code to view submissions, website traffic, referrers, and LLM landings.
         </p>
@@ -163,15 +163,15 @@ export default function PrivateOpsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-100 p-4 text-slate-950 sm:p-8">
+    <main className="min-h-screen bg-slate-100 p-3 text-slate-950 sm:p-8">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.3em] text-emerald-600">Private Ops</p>
-            <h1 className="mt-2 text-4xl font-black tracking-tight">Collegiate admin dashboard</h1>
+            <h1 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl">Collegiate admin dashboard</h1>
             <p className="mt-2 text-sm text-slate-500">Generated {fmtDate(summary.generatedAt)} · last 30 days</p>
           </div>
-          <div className="flex gap-2">
+          <div className="grid grid-cols-2 gap-2 sm:flex">
             <button onClick={load} className="rounded-2xl bg-slate-950 px-4 py-3 text-sm font-bold text-white">
               {loading ? "Refreshing…" : "Refresh"}
             </button>
@@ -190,7 +190,7 @@ export default function PrivateOpsPage() {
           </div>
         )}
 
-        <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <section className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-5">
           {[
             ["Page views", summary.pageViews],
             ["Visitors est.", summary.uniqueVisitorsEstimate],
@@ -198,9 +198,9 @@ export default function PrivateOpsPage() {
             ["LLM landings", summary.llmLandings],
             ["Total events", summary.totalEvents],
           ].map(([label, value]) => (
-            <div key={label} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-              <p className="text-xs font-bold uppercase tracking-wider text-slate-500">{label}</p>
-              <p className="mt-2 text-4xl font-black">{value}</p>
+            <div key={label} className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm sm:rounded-3xl sm:p-5">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 sm:text-xs">{label}</p>
+              <p className="mt-2 text-3xl font-black sm:text-4xl">{value}</p>
             </div>
           ))}
         </section>
@@ -239,7 +239,23 @@ export default function PrivateOpsPage() {
 
         <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="text-lg font-black">Recent submissions</h2>
-          <div className="mt-4 overflow-x-auto">
+          <div className="mt-4 grid gap-3 md:hidden">
+            {summary.recentSubmissions.length === 0 && (
+              <p className="rounded-2xl bg-slate-50 p-4 text-center text-sm text-slate-500">No submissions captured yet.</p>
+            )}
+            {summary.recentSubmissions.slice(0, 8).map((event) => (
+              <div key={event.id} className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-sm">
+                <div className="flex items-start justify-between gap-3">
+                  <p className="font-black capitalize">{event.type.replace(/_/g, " ")}</p>
+                  <p className="shrink-0 text-xs text-slate-500">{fmtDate(event.at)}</p>
+                </div>
+                <p className="mt-2 font-semibold">{String(event.data?.company || event.data?.fullName || event.data?.email || "—")}</p>
+                <p className="mt-1 break-all text-slate-600">{String(event.data?.email || event.data?.schoolEmail || "—")}</p>
+                <p className="mt-2 truncate text-slate-500">{event.source || String(event.data?.message || event.data?.school || event.data?.job || "—")}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 hidden overflow-x-auto md:block">
             <table className="w-full min-w-[760px] text-left text-sm">
               <thead className="text-xs uppercase tracking-wider text-slate-500">
                 <tr><th className="py-3">Time</th><th>Type</th><th>Name/company</th><th>Email</th><th>Source</th><th>Details</th></tr>
