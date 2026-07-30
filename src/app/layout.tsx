@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { siteConfig } from "@/site.config";
@@ -75,6 +77,8 @@ export default function RootLayout({
         </SmoothScroll>
         <CookieConsent />
         <Analytics />
+        <VercelAnalytics />
+        <SpeedInsights />
       </body>
     </html>
   );
