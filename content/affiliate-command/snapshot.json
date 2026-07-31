@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T23:27:22.289375+00:00",
+  "generatedAt": "2026-07-31T23:59:18.855192+00:00",
   "leaderboard": [
     {
       "code": "NSCUSE",
@@ -40,6 +40,13 @@
       "code": "NSFREDS",
       "qualified": 0,
       "signups": 3,
+      "source": "Polymarket",
+      "value": 0.0
+    },
+    {
+      "code": "NSOLEMISS",
+      "qualified": 0,
+      "signups": 0,
       "source": "Polymarket",
       "value": 0.0
     }
@@ -86,30 +93,30 @@
     {
       "metrics": {
         "cost": 2100.0,
-        "depositRate": 87.2,
-        "depositors": 41,
+        "depositRate": 91.5,
+        "depositors": 43,
         "qualificationRate": 70.2,
         "qualifiedPaid": 33,
         "signups": 47,
-        "traders": 41
+        "traders": 43
       },
       "metrics90": {
         "cost": 5475.0,
-        "depositRate": 92.9,
-        "depositors": 92,
+        "depositRate": 94.9,
+        "depositors": 94,
         "qualificationRate": 78.8,
         "qualifiedPaid": 78,
         "signups": 99,
-        "traders": 88
+        "traders": 90
       },
       "metricsAll": {
         "cost": 6300.0,
-        "depositRate": 88.7,
-        "depositors": 102,
+        "depositRate": 90.4,
+        "depositors": 104,
         "qualificationRate": 73.0,
         "qualifiedPaid": 84,
         "signups": 115,
-        "traders": 98
+        "traders": 100
       },
       "name": "Polymarket",
       "payments": {
@@ -124,8 +131,8 @@
           "depositors": 21,
           "qualificationRate": 65.2,
           "qualifiedPaid": 15,
-          "revenueLifetime": 27.599999999999998,
-          "roasLifetime": 0.02453333333333333,
+          "revenueLifetime": 27.919999999999998,
+          "roasLifetime": 0.024817777777777775,
           "signups": 23,
           "traders": 19
         },
@@ -180,6 +187,19 @@
           "roasLifetime": null,
           "signups": 3,
           "traders": 1
+        },
+        {
+          "code": "NSOLEMISS",
+          "cost": 0.0,
+          "cpa": 75.0,
+          "depositRate": 0,
+          "depositors": 2,
+          "qualificationRate": 0,
+          "qualifiedPaid": 0,
+          "revenueLifetime": 0.0,
+          "roasLifetime": null,
+          "signups": 0,
+          "traders": 2
         }
       ],
       "range": "Last 30 Days",
