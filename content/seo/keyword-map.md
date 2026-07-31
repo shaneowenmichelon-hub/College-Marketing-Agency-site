@@ -29,3 +29,4 @@ Method: seed keyword research from Collegiate Agency positioning plus live DuckD
 ## 60-day primary keyword lockout
 
 - 2026-07-29 — `college marketing agency` — `/insights/college-marketing-agency`
+- 2026-07-31 — `on-campus product sampling` — `/insights/on-campus-product-sampling`
