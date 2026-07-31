@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T17:12:38.032790+00:00",
+  "generatedAt": "2026-07-31T17:45:58.059764+00:00",
   "leaderboard": [
     {
       "code": "NSCUSE",
@@ -64,14 +64,14 @@
         }
       ],
       "metrics": {
-        "clicks": 125,
+        "clicks": 126,
         "commissionEarned": 595.0,
         "depositAmount": 530.83,
         "deposits": 18,
         "ftds": 6,
         "ngr": -2778.75,
         "regToFtd": 18.18,
-        "registrationCr": 26.4,
+        "registrationCr": 26.19,
         "signups": 33
       },
       "name": "Acebet",
