@@ -11,7 +11,10 @@ import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const isAdmin = pathname?.startsWith("/private-ops-7f3a") || pathname?.startsWith("/api/admin");
+  const isAdmin =
+    pathname?.startsWith("/private-ops-7f3a") ||
+    pathname?.startsWith("/zmm-affiliate-command") ||
+    pathname?.startsWith("/api/admin");
 
   if (isAdmin) {
     return (
