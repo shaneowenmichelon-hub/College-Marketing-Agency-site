@@ -17,6 +17,7 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { Hero } from "@/components/home/Hero";
+import { StickyMobileCTA } from "@/components/home/StickyMobileCTA";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProcessStep } from "@/components/ProcessStep";
@@ -375,6 +376,9 @@ export default function HomePage() {
         primary={{ label: "Get Started", href: "/contact", variant: "lime" }}
         secondary={{ label: "Explore services", href: "/services/events" }}
       />
+
+      {/* Mobile-only sticky prompt (appears after the hero) */}
+      <StickyMobileCTA />
     </>
   );
 }

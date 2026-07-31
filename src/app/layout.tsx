@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
+import { Inter, Space_Grotesk, Space_Mono, Instrument_Serif } from "next/font/google";
 import "@/styles/globals.css";
 import { siteConfig } from "@/site.config";
 import { AppShell } from "@/components/AppShell";
@@ -23,6 +23,15 @@ const spaceMono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-mono",
+  display: "swap",
+});
+
+// Editorial serif — used only for selected emphasis (e.g. "campus culture").
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -55,7 +64,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${spaceMono.variable} ${instrumentSerif.variable}`}>
       <body className="flex min-h-screen flex-col">
         <a
           href="#main"

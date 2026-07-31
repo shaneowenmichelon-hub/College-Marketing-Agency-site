@@ -169,14 +169,24 @@
   100% { transform: translate(3px, -1px); }
 }
 
-/* Hero coin: auto-spin on touch devices (no cursor to drive it). */
+/* Hero coin: gentle idle DRIFT on touch devices (no cursor to drive it) — a slow
+   oscillation, never a continuous auto-spin. A tap triggers coin-flip (below). */
 @media (hover: none) and (pointer: coarse) {
   .coin-idle {
-    animation: coin-spin 7s linear infinite;
+    animation: coin-drift 9s ease-in-out infinite;
     transform-style: preserve-3d;
   }
 }
-@keyframes coin-spin {
+@keyframes coin-drift {
+  0%, 100% { transform: rotateX(-10deg) rotateY(-10deg); }
+  50% { transform: rotateX(-6deg) rotateY(14deg); }
+}
+/* One fast 3D spin on tap (all devices), user-initiated only. */
+.coin-flip {
+  animation: coin-flip 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+}
+@keyframes coin-flip {
   from { transform: rotateX(-8deg) rotateY(0deg); }
   to { transform: rotateX(-8deg) rotateY(360deg); }
 }
@@ -203,6 +213,15 @@ body {
   animation: ch-fade-in 0.25s ease-out;
 }
 
+/* Hero ticker: slow right-to-left scroll (two copies → seamless loop). */
+@keyframes ticker-rtl {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker-rtl 26s linear infinite;
+}
+
 /* Marquee + all decorative motion: fully disabled under reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
@@ -213,10 +232,12 @@ body {
     animation: none !important;
     content: none !important;
   }
-  .coin-idle {
+  .coin-idle,
+  .coin-flip {
     animation: none !important;
   }
-  .ch-fade-in {
+  .ch-fade-in,
+  .ticker-track {
     animation: none !important;
   }
 }

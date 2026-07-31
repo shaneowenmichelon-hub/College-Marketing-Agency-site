@@ -3,71 +3,105 @@
 import { useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { siteConfig } from "@/site.config";
+import { siteConfig, getStat } from "@/site.config";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { MotionTicker } from "@/components/home/MotionTicker";
 
 /**
- * Cursor-reactive CSS-3D "campus coin" motif. Pure CSS transforms (no WebGL) so
- * it's tiny, battery-friendly, and works everywhere. Static under reduced motion.
- * NOTE: a WebGL/three.js version is a documented future enhancement — this ships
- * the interactive 3D moment with zero heavy bundle.
+ * The "campus coin" — a brand artifact, not decoration. Desktop: 3D tilt follows
+ * the cursor. Touch: a slow idle DRIFT (globals.css, never a continuous auto-spin).
+ * Tap (any device, user-initiated): one fast 3D flip + a micro-message + a short
+ * haptic where supported. Everything is static under reduced motion.
  */
 function Coin({ reduce }: { reduce: boolean }) {
   const [rot, setRot] = useState({ x: -12, y: 18 });
+  const [flipping, setFlipping] = useState(false);
+  const [msg, setMsg] = useState(false);
+
+  function spin() {
+    setMsg(true);
+    window.setTimeout(() => setMsg(false), 1700);
+    if (typeof navigator !== "undefined" && "vibrate" in navigator && !reduce) {
+      try {
+        navigator.vibrate([8, 18, 8]);
+      } catch {
+        /* haptics unsupported — ignore */
+      }
+    }
+    if (reduce || flipping) return;
+    setFlipping(true);
+    window.setTimeout(() => setFlipping(false), 820);
+  }
 
   return (
-    <div
-      className="relative flex aspect-square w-full max-w-[220px] items-center justify-center justify-self-center sm:max-w-xs lg:max-w-sm"
-      style={{ perspective: "900px" }}
-      onMouseMove={
-        reduce
-          ? undefined
-          : (e) => {
-              const r = e.currentTarget.getBoundingClientRect();
-              const px = (e.clientX - r.left) / r.width - 0.5;
-              const py = (e.clientY - r.top) / r.height - 0.5;
-              setRot({ x: -py * 40, y: px * 60 });
-            }
-      }
-      onMouseLeave={() => !reduce && setRot({ x: -12, y: 18 })}
-    >
+    <div className="relative flex aspect-square w-full max-w-[210px] items-center justify-center justify-self-center sm:max-w-xs lg:max-w-sm">
       <div
-        className={cnCoin(reduce)}
-        style={{
-          transform: `rotateX(${rot.x}deg) rotateY(${rot.y}deg)`,
-          transformStyle: "preserve-3d",
-          transition: "transform 0.2s ease-out",
+        role="button"
+        tabIndex={0}
+        aria-label="Spin the campus coin"
+        onClick={spin}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            spin();
+          }
         }}
+        className="relative rounded-full outline-none focus-visible:ring-4 focus-visible:ring-[color:var(--accent-2)]/60"
+        style={{ perspective: "900px" }}
+        onMouseMove={
+          reduce || flipping
+            ? undefined
+            : (e) => {
+                const r = e.currentTarget.getBoundingClientRect();
+                const px = (e.clientX - r.left) / r.width - 0.5;
+                const py = (e.clientY - r.top) / r.height - 0.5;
+                setRot({ x: -py * 40, y: px * 60 });
+              }
+        }
+        onMouseLeave={() => !reduce && setRot({ x: -12, y: 18 })}
       >
-        {/* coin face */}
         <div
-          className="absolute inset-0 flex items-center justify-center rounded-full border-4 border-ink bg-[color:var(--accent-2)]"
-          style={{ transform: "translateZ(22px)", boxShadow: "0 0 0 4px var(--ink)" }}
+          className={`${flipping ? "coin-flip" : "coin-idle"} relative h-40 w-40 rounded-full sm:h-56 sm:w-56 lg:h-64 lg:w-64 ${
+            reduce ? "" : "will-change-transform"
+          }`}
+          style={{
+            // While flipping, let the CSS animation own the transform.
+            transform: flipping ? undefined : `rotateX(${rot.x}deg) rotateY(${rot.y}deg)`,
+            transformStyle: "preserve-3d",
+            transition: "transform 0.2s ease-out",
+          }}
         >
-          <span className="font-display text-5xl font-bold text-ink lg:text-6xl">CH</span>
+          {/* coin face */}
+          <div
+            className="absolute inset-0 flex items-center justify-center rounded-full border-4 border-ink bg-[color:var(--accent-2)]"
+            style={{ transform: "translateZ(22px)", boxShadow: "0 0 0 4px var(--ink)" }}
+          >
+            <span className="font-display text-5xl font-bold text-ink lg:text-6xl">CA</span>
+          </div>
+          {/* back face */}
+          <div
+            className="absolute inset-0 flex items-center justify-center rounded-full border-4 border-ink bg-[color:var(--magenta)]"
+            style={{ transform: "translateZ(-22px) rotateY(180deg)" }}
+          >
+            <Sparkles className="h-14 w-14 text-white lg:h-16 lg:w-16" aria-hidden />
+          </div>
+          {/* edge ring */}
+          <div className="absolute inset-0 rounded-full border-[10px] border-ink/80" style={{ transform: "translateZ(0px)" }} />
         </div>
-        {/* back face */}
-        <div
-          className="absolute inset-0 flex items-center justify-center rounded-full border-4 border-ink bg-[color:var(--magenta)]"
-          style={{ transform: "translateZ(-22px) rotateY(180deg)" }}
-        >
-          <Sparkles className="h-14 w-14 text-white lg:h-16 lg:w-16" aria-hidden />
-        </div>
-        {/* edge ring */}
-        <div className="absolute inset-0 rounded-full border-[10px] border-ink/80" style={{ transform: "translateZ(0px)" }} />
       </div>
+
+      {/* Micro-message on tap */}
+      <span
+        aria-live="polite"
+        className={`pointer-events-none absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)] px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wide text-ink shadow-[3px_3px_0_var(--ink)] transition-opacity duration-200 ${
+          msg ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        Campus culture, on the ground.
+      </span>
     </div>
   );
-}
-
-function cnCoin(reduce: boolean) {
-  // On desktop the 3D rotation follows the cursor (inline transform). On touch
-  // devices there's no cursor, so `coin-idle` runs a gentle auto-spin (see
-  // globals.css, disabled under reduced motion) — keeping it gamified on mobile.
-  return `coin-idle relative h-44 w-44 rounded-full sm:h-56 sm:w-56 lg:h-64 lg:w-64 ${
-    reduce ? "" : "will-change-transform"
-  }`;
 }
 
 export function Hero() {
@@ -97,7 +131,7 @@ export function Hero() {
         }}
       />
       <Container className="relative">
-        <div className="grid items-center gap-10 py-24 sm:py-28 lg:grid-cols-[1.3fr_1fr] lg:py-36">
+        <div className="grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-[1.3fr_1fr] lg:py-36">
           <motion.div ref={ref} variants={container} initial="hidden" animate="show" className="flex flex-col items-start">
             {siteConfig.showCredibility && (
               <motion.div variants={item}>
@@ -110,13 +144,10 @@ export function Hero() {
 
             <motion.h1
               variants={item}
-              className="mt-6 max-w-4xl text-balance font-display text-display-lg font-bold"
+              className="mt-6 max-w-4xl text-balance font-display text-display-lg font-bold leading-[0.95]"
             >
               Where brands meet{" "}
-              <span
-                className="glitch text-[color:var(--accent-2)]"
-                data-text="campus culture."
-              >
+              <span className="font-serif font-normal italic text-[color:var(--accent-2)]">
                 campus culture.
               </span>
             </motion.h1>
@@ -139,15 +170,21 @@ export function Hero() {
                 Become an Ambassador
               </Button>
             </motion.div>
-
-            <motion.p variants={item} className="mono-label mt-8 text-[11px] text-[color:var(--muted-on-dark)]">
-              Events · Brand Ambassadors · Influencers — across {siteConfig.campuses.length}+ markets.
-            </motion.p>
           </motion.div>
 
           <Coin reduce={!!reduce} />
         </div>
       </Container>
+
+      {/* Ticker below the hero copy */}
+      <MotionTicker
+        items={[
+          "EVENTS",
+          "BRAND AMBASSADORS",
+          "INFLUENCERS",
+          `${getStat("campuses")}+ MARKETS`,
+        ]}
+      />
     </section>
   );
 }

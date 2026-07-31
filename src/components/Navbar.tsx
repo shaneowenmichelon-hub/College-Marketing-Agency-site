@@ -8,6 +8,7 @@ import { siteConfig } from "@/site.config";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { Button } from "./ui/Button";
+import { MobileNav } from "./MobileNav";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -94,36 +95,9 @@ export function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile drawer
-          Keep this absolute under the sticky header instead of fixed. Mobile
-          browsers treat backdrop-filter ancestors as containing blocks for
-          fixed descendants, which can collapse or hide the drawer. */}
-      {mobileOpen && (
-        <div className="absolute inset-x-0 top-full z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b-2 border-ink bg-white lg:hidden">
-          <div className="space-y-1 px-5 py-6 sm:px-6">
-            {siteConfig.nav.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={cn(
-                  "block rounded-xl px-3 py-3 text-base font-medium hover:bg-surface-muted",
-                  isActive(item.href) ? "text-accent" : "text-ink",
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="flex flex-col gap-3 pt-6">
-              <Button href="/become-an-ambassador" variant="secondary" size="lg">
-                Become an Ambassador
-              </Button>
-              <Button href="/contact" variant="primary" size="lg">
-                Get Started
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Full-height editorial nav panel (portaled to body to escape the header's
+          backdrop-filter containing block). */}
+      <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </header>
   );
 }
