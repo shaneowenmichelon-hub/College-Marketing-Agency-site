@@ -1,0 +1,256 @@
+{
+  "generatedAt": "2026-07-31T05:39:04.433032+00:00",
+  "leaderboard": [
+    {
+      "code": "NSCUSE",
+      "qualified": 15,
+      "signups": 23,
+      "source": "Polymarket",
+      "value": 1125.0
+    },
+    {
+      "code": "NSWISCO",
+      "qualified": 8,
+      "signups": 12,
+      "source": "Polymarket",
+      "value": 600.0
+    },
+    {
+      "code": "ZMM Events CPA",
+      "qualified": 6,
+      "signups": 33,
+      "source": "Acebet",
+      "value": 595.0
+    },
+    {
+      "code": "NIGHTSCHOOL",
+      "qualified": 6,
+      "signups": 8,
+      "source": "Polymarket",
+      "value": 300.0
+    },
+    {
+      "code": "NSUSC",
+      "qualified": 4,
+      "signups": 1,
+      "source": "Polymarket",
+      "value": 75.0
+    },
+    {
+      "code": "NSFREDS",
+      "qualified": 0,
+      "signups": 3,
+      "source": "Polymarket",
+      "value": 0.0
+    }
+  ],
+  "rollup": {
+    "acebetSignups": 33,
+    "polymarketSignups": 47,
+    "qualificationRate": 48.8,
+    "totalQualified": 39,
+    "totalSignups": 80,
+    "totalTrackedValue": 2695.0
+  },
+  "sources": [
+    {
+      "campaigns": [
+        {
+          "id": "594",
+          "payout": 85,
+          "strategy": "flat",
+          "title": "ZMM Events CPA",
+          "type": "cpa"
+        }
+      ],
+      "metrics": {
+        "clicks": 124,
+        "commissionEarned": 595.0,
+        "depositAmount": 338.42,
+        "deposits": 17,
+        "ftds": 6,
+        "ngr": -2913.49,
+        "regToFtd": 18.18,
+        "registrationCr": 26.61,
+        "signups": 33
+      },
+      "name": "Acebet",
+      "notes": [
+        "Dashboard stats are parsed from authenticated Acebet dashboard HTML.",
+        "Campaign metadata comes from Acebet affiliate API."
+      ],
+      "range": "Last 7 Days",
+      "recentTransactions": [],
+      "status": "connected"
+    },
+    {
+      "metrics": {
+        "cost": 2100.0,
+        "depositRate": 87.2,
+        "depositors": 41,
+        "qualificationRate": 70.2,
+        "qualifiedPaid": 33,
+        "signups": 47,
+        "traders": 41
+      },
+      "metrics90": {
+        "cost": 5475.0,
+        "depositRate": 92.9,
+        "depositors": 92,
+        "qualificationRate": 78.8,
+        "qualifiedPaid": 78,
+        "signups": 99,
+        "traders": 88
+      },
+      "metricsAll": {
+        "cost": 6300.0,
+        "depositRate": 88.7,
+        "depositors": 102,
+        "qualificationRate": 73.0,
+        "qualifiedPaid": 84,
+        "signups": 115,
+        "traders": 98
+      },
+      "name": "Polymarket",
+      "payments": {
+        "invoices": []
+      },
+      "promoCodes": [
+        {
+          "code": "NSCUSE",
+          "cost": 1125.0,
+          "cpa": 75.0,
+          "depositRate": 91.3,
+          "depositors": 21,
+          "qualificationRate": 65.2,
+          "qualifiedPaid": 15,
+          "revenueLifetime": 27.04,
+          "roasLifetime": 0.024035555555555553,
+          "signups": 23,
+          "traders": 19
+        },
+        {
+          "code": "NSWISCO",
+          "cost": 600.0,
+          "cpa": 75.0,
+          "depositRate": 83.3,
+          "depositors": 10,
+          "qualificationRate": 66.7,
+          "qualifiedPaid": 8,
+          "revenueLifetime": 25.58,
+          "roasLifetime": 0.04263333333333333,
+          "signups": 12,
+          "traders": 10
+        },
+        {
+          "code": "NIGHTSCHOOL",
+          "cost": 300.0,
+          "cpa": 75.0,
+          "depositRate": 100.0,
+          "depositors": 8,
+          "qualificationRate": 75.0,
+          "qualifiedPaid": 6,
+          "revenueLifetime": 20.82,
+          "roasLifetime": 0.06926666666666667,
+          "signups": 8,
+          "traders": 8
+        },
+        {
+          "code": "NSUSC",
+          "cost": 75.0,
+          "cpa": 75.0,
+          "depositRate": 100.0,
+          "depositors": 1,
+          "qualificationRate": 400.0,
+          "qualifiedPaid": 4,
+          "revenueLifetime": 6.75,
+          "roasLifetime": 0.09,
+          "signups": 1,
+          "traders": 3
+        },
+        {
+          "code": "NSFREDS",
+          "cost": 0.0,
+          "cpa": 75.0,
+          "depositRate": 33.3,
+          "depositors": 1,
+          "qualificationRate": 0.0,
+          "qualifiedPaid": 0,
+          "revenueLifetime": 0.0,
+          "roasLifetime": null,
+          "signups": 3,
+          "traders": 1
+        }
+      ],
+      "range": "Last 30 Days",
+      "requests": [
+        {
+          "code": "NSOSU",
+          "requestedAt": "2026-07-22 23:32:02.401",
+          "shortUrl": "",
+          "status": "pending",
+          "trackingLinks": ""
+        },
+        {
+          "code": "NSCUSE",
+          "requestedAt": "2026-06-26 16:52:07.001",
+          "shortUrl": "",
+          "status": "pending",
+          "trackingLinks": ""
+        }
+      ],
+      "states": [
+        {
+          "qualified_users": 9,
+          "state": "NY"
+        },
+        {
+          "qualified_users": 6,
+          "state": "NJ"
+        },
+        {
+          "qualified_users": 3,
+          "state": "MD"
+        },
+        {
+          "qualified_users": 3,
+          "state": "CA"
+        },
+        {
+          "qualified_users": 2,
+          "state": "PA"
+        },
+        {
+          "qualified_users": 2,
+          "state": "MA"
+        },
+        {
+          "qualified_users": 2,
+          "state": "SC"
+        },
+        {
+          "qualified_users": 1,
+          "state": "WI"
+        },
+        {
+          "qualified_users": 1,
+          "state": "MI"
+        },
+        {
+          "qualified_users": 1,
+          "state": "IL"
+        },
+        {
+          "qualified_users": 1,
+          "state": "FL"
+        },
+        {
+          "qualified_users": 1,
+          "state": "NC"
+        }
+      ],
+      "status": "connected"
+    }
+  ],
+  "title": "ZMM / Night School Affiliate Command Center"
+}
