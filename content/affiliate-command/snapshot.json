@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T15:07:34.928715+00:00",
+  "generatedAt": "2026-07-31T15:38:30.358388+00:00",
   "leaderboard": [
     {
       "code": "NSCUSE",
@@ -124,8 +124,8 @@
           "depositors": 21,
           "qualificationRate": 65.2,
           "qualifiedPaid": 15,
-          "revenueLifetime": 27.04,
-          "roasLifetime": 0.024035555555555553,
+          "revenueLifetime": 27.599999999999998,
+          "roasLifetime": 0.02453333333333333,
           "signups": 23,
           "traders": 19
         },
