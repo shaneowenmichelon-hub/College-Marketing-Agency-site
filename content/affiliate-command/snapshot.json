@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T23:59:18.855192+00:00",
+  "generatedAt": "2026-08-01T00:30:03.929735+00:00",
   "leaderboard": [
     {
       "code": "NSCUSE",
@@ -31,7 +31,7 @@
     },
     {
       "code": "NSUSC",
-      "qualified": 4,
+      "qualified": 2,
       "signups": 1,
       "source": "Polymarket",
       "value": 75.0
@@ -54,8 +54,8 @@
   "rollup": {
     "acebetSignups": 33,
     "polymarketSignups": 47,
-    "qualificationRate": 48.8,
-    "totalQualified": 39,
+    "qualificationRate": 46.2,
+    "totalQualified": 37,
     "totalSignups": 80,
     "totalTrackedValue": 2695.0
   },
@@ -71,14 +71,14 @@
         }
       ],
       "metrics": {
-        "clicks": 126,
+        "clicks": 123,
         "commissionEarned": 595.0,
         "depositAmount": 530.83,
         "deposits": 18,
         "ftds": 6,
         "ngr": -2778.75,
         "regToFtd": 18.18,
-        "registrationCr": 26.19,
+        "registrationCr": 26.83,
         "signups": 33
       },
       "name": "Acebet",
@@ -95,15 +95,15 @@
         "cost": 2100.0,
         "depositRate": 91.5,
         "depositors": 43,
-        "qualificationRate": 70.2,
-        "qualifiedPaid": 33,
+        "qualificationRate": 66.0,
+        "qualifiedPaid": 31,
         "signups": 47,
-        "traders": 43
+        "traders": 41
       },
       "metrics90": {
         "cost": 5475.0,
-        "depositRate": 94.9,
-        "depositors": 94,
+        "depositRate": 93.9,
+        "depositors": 93,
         "qualificationRate": 78.8,
         "qualifiedPaid": 78,
         "signups": 99,
@@ -168,12 +168,12 @@
           "cpa": 75.0,
           "depositRate": 100.0,
           "depositors": 1,
-          "qualificationRate": 400.0,
-          "qualifiedPaid": 4,
+          "qualificationRate": 200.0,
+          "qualifiedPaid": 2,
           "revenueLifetime": 6.75,
           "roasLifetime": 0.09,
           "signups": 1,
-          "traders": 3
+          "traders": 1
         },
         {
           "code": "NSFREDS",
@@ -245,10 +245,6 @@
           "state": "MA"
         },
         {
-          "qualified_users": 2,
-          "state": "SC"
-        },
-        {
           "qualified_users": 1,
           "state": "WI"
         },
@@ -267,6 +263,10 @@
         {
           "qualified_users": 1,
           "state": "NC"
+        },
+        {
+          "qualified_users": 1,
+          "state": "SC"
         }
       ],
       "status": "connected"
