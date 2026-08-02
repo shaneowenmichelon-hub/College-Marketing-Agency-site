@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-02T19:56:41.210765+00:00",
+  "generatedAt": "2026-08-02T20:27:42.030623+00:00",
   "leaderboard": [
     {
       "code": "NSCUSE",
@@ -73,10 +73,10 @@
       "metrics": {
         "clicks": 125,
         "commissionEarned": 595.0,
-        "depositAmount": 545.83,
-        "deposits": 19,
+        "depositAmount": 1037.99,
+        "deposits": 20,
         "ftds": 6,
-        "ngr": -2711.59,
+        "ngr": -3067.0,
         "regToFtd": 18.18,
         "registrationCr": 26.4,
         "signups": 33
