@@ -107,7 +107,7 @@ export default function ZmmAffiliateCommandPage() {
                 Affiliate command center
               </h1>
               <p className="mt-4 max-w-2xl text-base leading-7 text-white/64 sm:text-lg">
-                Acebet and Polymarket/NIGHTSCHOOL in one place: signups, FTDs, qualified paid users, code leaderboard, states, pending codes, and tracked payout value.
+                Acebet and Polymarket/NIGHTSCHOOL in one place: lifetime signups, verified depositors, signed-up-only users, deposited-not-traded users, qualified paid users, code leaderboard, states, pending codes, and tracked payout value.
               </p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-black/20 p-4 text-sm text-white/70">
@@ -119,7 +119,7 @@ export default function ZmmAffiliateCommandPage() {
         </header>
 
         <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <StatCard label="Total signups" value={number(data.rollup.totalSignups)} detail={`${number(data.rollup.acebetSignups)} Acebet · ${number(data.rollup.polymarketSignups)} Polymarket 30d`} accent="cyan" />
+          <StatCard label="Lifetime signups" value={number(data.rollup.totalSignups)} detail={`${number(data.rollup.acebetSignups)} Acebet · ${number(data.rollup.polymarketSignups)} Polymarket lifetime`} accent="cyan" />
           <StatCard label="Qualified / FTD" value={number(data.rollup.totalQualified)} detail={`${pct(data.rollup.qualificationRate)} blended qualification rate`} accent="emerald" />
           <StatCard label="Tracked value" value={money(totalValue)} detail="Acebet commission + Polymarket qualified cost" accent="amber" />
           <StatCard label="Top code" value={String(topCode?.code || "—")} detail={`${number(Number(topCode?.qualified || 0))} qualified · ${number(Number(topCode?.signups || 0))} signups`} accent="violet" />
@@ -149,10 +149,10 @@ export default function ZmmAffiliateCommandPage() {
 
           <SourcePanel source={polymarket}>
             <div className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
-              <StatCard label="30d signups" value={number(poly.signups)} detail={`${number(poly.depositors)} depositors`} accent="cyan" />
-              <StatCard label="Qualified" value={number(poly.qualifiedPaid)} detail={`${pct(poly.qualificationRate)} signup → qualified`} accent="emerald" />
-              <StatCard label="All-time" value={number(all.signups)} detail={`${number(all.qualifiedPaid)} qualified paid`} accent="violet" />
-              <StatCard label="Cost" value={money(poly.cost)} detail={`${money(all.cost)} all-time`} accent="amber" />
+              <StatCard label="Lifetime signups" value={number(poly.signups)} detail={`${number(poly.depositors)} verified depositors`} accent="cyan" />
+              <StatCard label="Signed up only" value={number(poly.signedUpOnly)} detail="No deposit yet" accent="violet" />
+              <StatCard label="Deposited, no trade" value={number(poly.depositedNotTraded)} detail={`${number(poly.traders)} lifetime traders`} accent="amber" />
+              <StatCard label="Qualified paid" value={number(poly.qualifiedPaid)} detail={`${pct(poly.qualificationRate)} signup → qualified`} accent="emerald" />
             </div>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
@@ -220,13 +220,13 @@ export default function ZmmAffiliateCommandPage() {
               <p className="text-[0.65rem] font-black uppercase tracking-[0.28em] text-white/40">Polymarket sub-code table</p>
               <h2 className="mt-2 text-2xl font-black">Night School code performance</h2>
             </div>
-            <p className="text-sm text-white/50">Last 30 days from authenticated affiliate API.</p>
+            <p className="text-sm text-white/50">Lifetime totals from authenticated affiliate API.</p>
           </div>
           <div className="mt-5 hidden overflow-hidden rounded-2xl border border-white/10 lg:block">
             <table className="w-full text-left text-sm">
               <thead className="bg-white/[0.08] text-xs uppercase tracking-widest text-white/45">
                 <tr>
-                  <th className="px-4 py-3">Code</th><th className="px-4 py-3">Signups</th><th className="px-4 py-3">Depositors</th><th className="px-4 py-3">Qualified</th><th className="px-4 py-3">Qual %</th><th className="px-4 py-3">Cost</th><th className="px-4 py-3">ROAS</th>
+                  <th className="px-4 py-3">Code</th><th className="px-4 py-3">Signups</th><th className="px-4 py-3">Depositors</th><th className="px-4 py-3">Signed up only</th><th className="px-4 py-3">Dep/no trade</th><th className="px-4 py-3">Traded/pending qual</th><th className="px-4 py-3">Qualified</th><th className="px-4 py-3">Cost</th>
                 </tr>
               </thead>
               <tbody>
@@ -235,10 +235,11 @@ export default function ZmmAffiliateCommandPage() {
                     <td className="px-4 py-3 font-black">{code.code}</td>
                     <td className="px-4 py-3">{number(Number(code.signups || 0))}</td>
                     <td className="px-4 py-3">{number(Number(code.depositors || 0))}</td>
+                    <td className="px-4 py-3">{number(Number(code.signedUpOnly || 0))}</td>
+                    <td className="px-4 py-3">{number(Number(code.depositedNotTraded || 0))}</td>
+                    <td className="px-4 py-3">{number(Number(code.tradedNotQualified || 0))}</td>
                     <td className="px-4 py-3 text-emerald-200">{number(Number(code.qualifiedPaid || 0))}</td>
-                    <td className="px-4 py-3">{pct(Number(code.qualificationRate || 0))}</td>
                     <td className="px-4 py-3">{money(Number(code.cost || 0))}</td>
-                    <td className="px-4 py-3">{code.roasLifetime == null ? "—" : `${(Number(code.roasLifetime) * 100).toFixed(1)}%`}</td>
                   </tr>
                 ))}
               </tbody>
@@ -248,9 +249,11 @@ export default function ZmmAffiliateCommandPage() {
             {promoCodes.map((code) => (
               <div key={String(code.code)} className="rounded-2xl border border-white/10 bg-black/20 p-4">
                 <div className="flex items-center justify-between"><p className="text-xl font-black">{code.code}</p><p className="text-emerald-200">{number(Number(code.qualifiedPaid || 0))} qualified</p></div>
-                <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
+                <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
                   <div className="rounded-xl bg-white/[0.06] p-2"><p className="text-white/40">Signups</p><p className="font-black">{number(Number(code.signups || 0))}</p></div>
                   <div className="rounded-xl bg-white/[0.06] p-2"><p className="text-white/40">Dep</p><p className="font-black">{number(Number(code.depositors || 0))}</p></div>
+                  <div className="rounded-xl bg-white/[0.06] p-2"><p className="text-white/40">No deposit</p><p className="font-black">{number(Number(code.signedUpOnly || 0))}</p></div>
+                  <div className="rounded-xl bg-white/[0.06] p-2"><p className="text-white/40">Dep/no trade</p><p className="font-black">{number(Number(code.depositedNotTraded || 0))}</p></div>
                   <div className="rounded-xl bg-white/[0.06] p-2"><p className="text-white/40">Cost</p><p className="font-black">{money(Number(code.cost || 0))}</p></div>
                 </div>
               </div>
