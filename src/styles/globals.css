@@ -32,6 +32,8 @@
 
 @layer base {
   html {
+    max-width: 100%;
+    overflow-x: clip;
     scroll-behavior: smooth;
   }
 
@@ -50,6 +52,8 @@
   }
 
   body {
+    max-width: 100%;
+    overflow-x: clip;
     background-color: var(--surface);
     color: var(--text-on-light);
     font-family: var(--font-body), system-ui, sans-serif;
