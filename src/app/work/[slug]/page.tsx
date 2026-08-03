@@ -101,6 +101,11 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             </div>
           ))}
         </div>
+        {c.metricFootnote && (
+          <p className="mt-5 max-w-2xl text-[10px] leading-relaxed text-[color:var(--muted-on-light)]/65">
+            {c.metricFootnote}
+          </p>
+        )}
       </Section>
 
       {/* Challenge / Approach / Results */}

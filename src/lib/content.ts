@@ -373,6 +373,8 @@ export type CaseStudy = {
   statLabel: string;
   /** Secondary metric callouts. */
   metrics: { value: string; label: string }[];
+  /** Optional tiny-print explanation for metric methodology. */
+  metricFootnote?: string;
   challenge: string;
   approach: string;
   results: string;
@@ -434,6 +436,49 @@ const sosConsultantsArticle: ArticleBlock[] = [
   },
 ];
 
+
+const nutrlNightSchoolArticle: ArticleBlock[] = [
+  {
+    type: "p",
+    html: "NÜTRL came into the Night School Tour with a clear product-placement opportunity: do more than place a logo on a flyer. The brand had a chance to become part of the actual college-event economy — the venues stocking the product, the local organizations helping host the nights, the ambassadors pushing the story, and the students seeing the same name repeatedly across the tour. That is the difference between sponsorship as signage and sponsorship as distribution.",
+  },
+  {
+    type: "p",
+    html: "The tour gave NÜTRL a high-intent environment. Night School is built around live college markets, nightlife venues, student organizations, and ambassador promotion, which meant the brand could show up where students were already making weekend plans. As presenting sponsor, NÜTRL did not need to interrupt the audience. It could attach itself to the night students were already choosing, then extend that presence through venues, partner organizations, social content, and ambassador posts.",
+  },
+  { type: "h2", text: "The strategy: turn sponsorship into local product movement" },
+  {
+    type: "p",
+    html: "The strongest part of the campaign was that it connected brand visibility to actual case movement. Across the tour, venues purchased 350 cases connected to the sponsorship. Another 75 cases went to local organizations that partnered on the tour, putting NÜTRL directly into the hands of the groups helping create the event energy. That combination mattered. Venue buys gave the product a retail-style presence inside the nightlife environment; organization cases put the product closer to the student leaders and social circles driving turnout.",
+  },
+  {
+    type: "p",
+    html: "This is exactly what product placement should do in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.",
+  },
+  { type: "h2", text: "Why presenting sponsor status mattered" },
+  {
+    type: "p",
+    html: "Presenting sponsor status gave NÜTRL ownership of the tour narrative. Instead of being one of many brands around the edges, the brand sat at the center of the Night School experience. That positioning created a cleaner story for venues, student partners, and ambassadors to repeat: NÜTRL was not simply sampling at a party; NÜTRL was powering the tour. For a beverage brand, that distinction matters because students remember who made the night feel bigger.",
+  },
+  {
+    type: "p",
+    html: "The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports.",
+  },
+  { type: "h2", text: "The result: product placement with measurable media value" },
+  {
+    type: "p",
+    html: "The campaign produced 425 total cases across venue purchases and local organization partner cases. It also generated about 5 million social insights across owned tour channels, ambassador posts, and partner promotion. Based on that visibility, the campaign created an estimated $175,000 in paid media value, while the presenting sponsorship cost was $50,000. That means NÜTRL received media value well above the sponsorship fee before even counting the on-premise product movement, venue relationships, or student organization distribution.",
+  },
+  {
+    type: "p",
+    html: "For brands evaluating college sponsorships, this is the key lesson: the best event partnerships are not only awareness plays. They are distribution systems. A tour like Night School can create demand with students, give venues a reason to buy, give organizations a reason to participate, and give ambassadors a real story to post. NÜTRL’s placement worked because the product was tied to every layer of the campaign: the show, the social content, the venue relationship, and the campus partner network.",
+  },
+  {
+    type: "p",
+    html: 'If your brand wants college product placement that reaches beyond a logo, the model is clear: own the event moment, put product into the partner network, and let campus ambassadors turn that placement into social proof. <a href="/contact">Tell us the markets you want</a>, and we can build the right Night School or campus-event package around your launch.',
+  },
+];
+
 export const caseStudies: CaseStudy[] = [
   {
     slug: "sos-consultants-nola-campus-leasing-ambassadors",
@@ -480,28 +525,26 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: "red-bull-student-marketeers",
-    brand: "Red Bull",
-    type: "Brand Ambassadors",
-    headline: "The blueprint every campus rep program copies",
-    stat: "2,000+",
-    statLabel: "student marketeers",
-    sample: true,
+    slug: "nutrl-night-school-tour-product-placement",
+    brand: "NÜTRL",
+    type: "Product Placement",
+    headline: "How NÜTRL turned Night School Tour sponsorship into 425 cases and 5M social insights",
+    stat: "425",
+    statLabel: "total cases moved",
     metrics: [
-      { value: "400+", label: "campuses" },
-      { value: "$18–21", label: "hourly pay" },
-      { value: "24%", label: "trial lift" },
+      { value: "350", label: "venue case buys" },
+      { value: "5M", label: "social insights" },
+      { value: "$175K", label: "paid media value" },
     ],
+    metricFootnote:
+      "Paid media value estimated from ~5M social and ambassador impressions at a $35 CPM. Sponsorship cost: $50,000.",
     challenge:
-      "Red Bull needed to live inside campus culture year-round — not just sponsor it with a logo from a distance.",
+      "NÜTRL needed a college event platform that could create real product movement, not just logo visibility — with venues, student partners, ambassadors, and social content all reinforcing the same placement.",
     approach:
-      "Its Student Marketeer program hires students as paid, part-time brand reps who run guerrilla marketing, keep product stocked at local retail, staff Red Bull events, and work alongside sponsored athletes on their own campuses.",
+      "Collegiate Agency positioned NÜTRL as presenting sponsor of the Night School Tour, connecting venue case buys, local organization partner cases, tour content, and ambassador posts into one product-placement campaign.",
     results:
-      "The program scaled to thousands of paid student reps across hundreds of campuses worldwide — and became the template most modern campus ambassador programs, including ours, are built on.",
-    sources: [
-      { label: "Red Bull Student Marketeer (official)", url: "https://studentmarketeer.redbull.com/" },
-      { label: "Red Bull Ambassador Program — BrandChamp", url: "https://brandchamp.io/blog/red-bull-ambassador-program/" },
-    ],
+      "The sponsorship drove 350 venue case buys, 75 additional cases through local organization partners, roughly 5M social insights, and an estimated $175,000 in paid media value on a $50,000 sponsorship.",
+    article: nutrlNightSchoolArticle,
   },
 ];
 
