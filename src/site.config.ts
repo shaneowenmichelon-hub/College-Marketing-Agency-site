@@ -215,29 +215,35 @@ export type ServicePricing = {
 
 export const pricing: Record<string, ServicePricing> = {
   events: {
-    range: "$1,500–$10,000",
-    unit: "per event",
-    included: "Product placement & event sponsorship.",
-    note: "Packages are customizable — let's talk.",
+    range: "Packages from $500 to $500,000",
+    unit: "",
+    included: "Event sponsorship",
+    note: "Single activations to full presenting sponsorships · see the event & trip inventory.",
+  },
+  "product-placement": {
+    range: "From $1,750",
+    unit: "/ school",
+    included: "Product placement",
+    note: "$350 per organization · 5 orgs per school · add more at extra cost · includes dedicated media deliverables.",
   },
   "brand-ambassadors": {
-    range: "$50–$200",
-    unit: "per student",
-    included: "Vetted student reps activating your brand on campus.",
-    note: "Packages are customizable — let's talk.",
+    range: "$150",
+    unit: "/ ambassador / month",
+    included: "Ambassador program",
+    note: "2 dedicated social posts (flyers or videos) with links + brand tags · add-ons: localized paid media, product placement.",
   },
   influencers: {
-    range: "$200–$250",
-    unit: "per influencer",
-    included: "Product donation + user-generated content (UGC).",
-    note: "Packages are customizable — let's talk.",
+    range: "FILL IN",
+    unit: "confirm separate influencer rate",
+    included: "Influencers",
+    note: "FLAG: confirm whether Influencers should stay distinct from the $150/month Ambassador Program or merge into it.",
   },
 };
 
 /** A short, human price note pulled from the single pricing source (never hardcoded). */
 function priceNote(slug: keyof typeof pricing): string {
   const p = pricing[slug];
-  return `${p.range} ${p.unit}`;
+  return `${p.range} ${p.unit}`.trim();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -246,6 +252,8 @@ function priceNote(slug: keyof typeof pricing): string {
 // never drift. Images reuse existing /public assets; swap paths freely.
 // ─────────────────────────────────────────────────────────────────────────────
 export type CapabilityBlock = {
+  /** Optional stable anchor id for /services blocks. */
+  id?: string;
   eyebrow: string;
   heading: string;
   /** One or two columns of bullet points. */
@@ -280,6 +288,20 @@ export const servicesHub: ServicesHub = {
     intro:
       "Brands get real campus presence through three channels — events, ambassadors, and influencers — run end to end by a team that operates Gen-Z events nationally.",
     blocks: [
+      {
+        id: "product-placement",
+        eyebrow: "Product placement",
+        heading: "Product Placement",
+        columns: [
+          [
+            "5 Greek life product placements per school",
+            "Dedicated media deliverables for each organization",
+            "Add additional organizations at extra cost",
+          ],
+        ],
+        priceNote: priceNote("product-placement"),
+        cta: { label: "Get started", href: "/contact" },
+      },
       {
         eyebrow: "On-campus activations",
         heading: "Events",
@@ -524,8 +546,10 @@ export type SponsorshipItem = {
   eventDate?: string;
   venue?: string;
   capacity?: string;
-  /** Optional venue proof image shown inline on classic sponsorship cards. */
+  /** Optional proof/event image shown inline on classic sponsorship cards. */
   image?: { src: string; alt: string };
+  /** Human-readable source label for reporting/internal review. */
+  imageSource?: string;
   /** Optional source-backed facts shown under the card stats. */
   highlights?: string[];
   /** Optional owner/contact line for venue partnerships. */
@@ -632,7 +656,7 @@ const thawTiers: SponsorshipTier[] = [
   },
 ];
 
-function thawMarket(name: string, eventDate: string, venue: string): SponsorshipItem {
+function thawMarket(name: string, eventDate: string, venue: string, imageFile?: string): SponsorshipItem {
   return {
     name,
     description: `${venue} · ${eventDate}`,
@@ -641,6 +665,8 @@ function thawMarket(name: string, eventDate: string, venue: string): Sponsorship
     venue,
     capacity: "8,000",
     tiers: thawTiers,
+    image: imageFile ? { src: `/images/thaw-out/${imageFile}`, alt: `Thaw Out Music Festival event crowd and sponsor activation imagery for ${name}` } : undefined,
+    imageSource: imageFile ? "Existing repo Thaw Out gallery" : undefined,
     photosUrl: "", // editable — point at a Drive album to show "View past activation photos →"
   };
 }
@@ -657,18 +683,18 @@ export const eventSponsorships: {
       title: "JusCollege Trips",
       intro: "Annual destination-trip sponsorships formatted for easy comparison across spring break, senior trips, and custom travel programs.",
       groupPricing: {
-        base: "$50,000/year to sponsor any or all trips",
-        presenting: "$500,000/year to be presenting sponsor of all trips that year",
+        base: "From $10,000 per trip",
+        presenting: "Up to $50,000 per trip · Las Vegas up to $500,000",
       },
       items: [
         {
           name: "Puerto Vallarta — Spring Break",
           description: "Spring Break destination trip with a concentrated student travel audience.",
           valuePerEvent: "2,000+",
-          basePackage: "$50,000/year",
-          presentingSponsor: "$500,000/year",
-          baseDetail: "Annual sponsorship access across JusCollege trip inventory; can be scoped to one or multiple destinations.",
-          presentingDetail: "Presenting sponsorship across all JusCollege trips for the year.",
+          basePackage: "$10,000",
+          presentingSponsor: "$50,000",
+          baseDetail: "Per-trip sponsorship starting at $10,000.",
+          presentingDetail: "Per-trip premium/presenting sponsorship up to $50,000.",
           highlights: [
             "Spring Break destination trip",
             "College travel audience in a high-energy resort market",
@@ -680,10 +706,10 @@ export const eventSponsorships: {
           name: "Cancún — Spring Break",
           description: "Spring Break destination trip built around one of the largest college travel markets.",
           valuePerEvent: "3,000+",
-          basePackage: "$50,000/year",
-          presentingSponsor: "$500,000/year",
-          baseDetail: "Annual sponsorship access across JusCollege trip inventory; can be scoped to one or multiple destinations.",
-          presentingDetail: "Presenting sponsorship across all JusCollege trips for the year.",
+          basePackage: "$10,000",
+          presentingSponsor: "$50,000",
+          baseDetail: "Per-trip sponsorship starting at $10,000.",
+          presentingDetail: "Per-trip premium/presenting sponsorship up to $50,000.",
           highlights: [
             "Spring Break destination trip",
             "Large-format college travel audience",
@@ -695,10 +721,10 @@ export const eventSponsorships: {
           name: "Cabo — Spring Break",
           description: "Spring Break destination trip with a premium resort-market student audience.",
           valuePerEvent: "2,500+",
-          basePackage: "$50,000/year",
-          presentingSponsor: "$500,000/year",
-          baseDetail: "Annual sponsorship access across JusCollege trip inventory; can be scoped to one or multiple destinations.",
-          presentingDetail: "Presenting sponsorship across all JusCollege trips for the year.",
+          basePackage: "$10,000",
+          presentingSponsor: "$50,000",
+          baseDetail: "Per-trip sponsorship starting at $10,000.",
+          presentingDetail: "Per-trip premium/presenting sponsorship up to $50,000.",
           highlights: [
             "Spring Break destination trip",
             "Premium college travel and nightlife market",
@@ -710,10 +736,10 @@ export const eventSponsorships: {
           name: "Punta Cana — Spring Break",
           description: "Spring Break destination trip in a high-demand Caribbean resort market.",
           valuePerEvent: "2,000+",
-          basePackage: "$50,000/year",
-          presentingSponsor: "$500,000/year",
-          baseDetail: "Annual sponsorship access across JusCollege trip inventory; can be scoped to one or multiple destinations.",
-          presentingDetail: "Presenting sponsorship across all JusCollege trips for the year.",
+          basePackage: "$10,000",
+          presentingSponsor: "$50,000",
+          baseDetail: "Per-trip sponsorship starting at $10,000.",
+          presentingDetail: "Per-trip premium/presenting sponsorship up to $50,000.",
           highlights: [
             "Spring Break destination trip",
             "Caribbean resort-market student audience",
@@ -725,10 +751,10 @@ export const eventSponsorships: {
           name: "Miami — Spring Break",
           description: "Spring Break destination trip in a major nightlife and hospitality market.",
           valuePerEvent: "3,000+",
-          basePackage: "$50,000/year",
-          presentingSponsor: "$500,000/year",
-          baseDetail: "Annual sponsorship access across JusCollege trip inventory; can be scoped to one or multiple destinations.",
-          presentingDetail: "Presenting sponsorship across all JusCollege trips for the year.",
+          basePackage: "$10,000",
+          presentingSponsor: "$50,000",
+          baseDetail: "Per-trip sponsorship starting at $10,000.",
+          presentingDetail: "Per-trip premium/presenting sponsorship up to $50,000.",
           highlights: [
             "Spring Break destination trip",
             "Major U.S. nightlife and hospitality market",
@@ -740,10 +766,10 @@ export const eventSponsorships: {
           name: "Florida — Spring Break",
           description: "Spring Break destination trip across Florida student-travel markets.",
           valuePerEvent: "2,500+",
-          basePackage: "$50,000/year",
-          presentingSponsor: "$500,000/year",
-          baseDetail: "Annual sponsorship access across JusCollege trip inventory; can be scoped to one or multiple destinations.",
-          presentingDetail: "Presenting sponsorship across all JusCollege trips for the year.",
+          basePackage: "$10,000",
+          presentingSponsor: "$50,000",
+          baseDetail: "Per-trip sponsorship starting at $10,000.",
+          presentingDetail: "Per-trip premium/presenting sponsorship up to $50,000.",
           highlights: [
             "Spring Break destination trip",
             "Drive-market and fly-in student travel audience",
@@ -755,10 +781,10 @@ export const eventSponsorships: {
           name: "Las Vegas — Senior Trip",
           description: "Senior-year celebration trip built around nightlife, hospitality, and milestone travel.",
           valuePerEvent: "2,500+",
-          basePackage: "$50,000/year",
-          presentingSponsor: "$500,000/year",
-          baseDetail: "Annual sponsorship access across JusCollege trip inventory; can be scoped to one or multiple destinations.",
-          presentingDetail: "Presenting sponsorship across all JusCollege trips for the year.",
+          basePackage: "$10,000",
+          presentingSponsor: "$500,000",
+          baseDetail: "Per-trip sponsorship starting at $10,000. FLAG: Vegas floor assumed at $10,000; Shane to confirm if it should differ.",
+          presentingDetail: "Las Vegas senior-trip premium/presenting sponsorship up to $500,000.",
           highlights: [
             "Senior-year celebration trip",
             "High-intent nightlife and hospitality audience",
@@ -770,10 +796,10 @@ export const eventSponsorships: {
           name: "Montreal — Oktoberfest",
           description: "Oktoberfest destination trip with a seasonal college travel audience.",
           valuePerEvent: "1,500+",
-          basePackage: "$50,000/year",
-          presentingSponsor: "$500,000/year",
-          baseDetail: "Annual sponsorship access across JusCollege trip inventory; can be scoped to one or multiple destinations.",
-          presentingDetail: "Presenting sponsorship across all JusCollege trips for the year.",
+          basePackage: "$10,000",
+          presentingSponsor: "$50,000",
+          baseDetail: "Per-trip sponsorship starting at $10,000.",
+          presentingDetail: "Per-trip premium/presenting sponsorship up to $50,000.",
           highlights: [
             "Oktoberfest destination trip",
             "Seasonal college travel and nightlife audience",
@@ -785,10 +811,10 @@ export const eventSponsorships: {
           name: "Custom Destination",
           description: "Choose-your-own destination program built around the sponsor's target campuses and travel moment.",
           valuePerEvent: "Varies",
-          basePackage: "$50,000/year",
-          presentingSponsor: "$500,000/year",
-          baseDetail: "Annual sponsorship access across JusCollege trip inventory; can be scoped to one or multiple destinations.",
-          presentingDetail: "Presenting sponsorship across all JusCollege trips for the year.",
+          basePackage: "$10,000",
+          presentingSponsor: "$50,000",
+          baseDetail: "Per-trip sponsorship starting at $10,000.",
+          presentingDetail: "Per-trip premium/presenting sponsorship up to $50,000.",
           highlights: [
             "Custom destination planning",
             "Sponsor can align markets to priority campuses and audiences",
@@ -806,8 +832,8 @@ export const eventSponsorships: {
           name: "Night School Tour",
           description: "The national college nightlife tour, currently planned around 15,000 attendees across confirmed fall markets.",
           valuePerEvent: "15,000",
-          basePackage: "$10,000",
-          presentingSponsor: "$100,000",
+          basePackage: "$2,500",
+          presentingSponsor: "$10,000",
           highlights: [
             "15,000 planned attendees across confirmed fall markets",
             "Tour-style programming across student markets",
@@ -842,8 +868,8 @@ export const eventSponsorships: {
           name: "CRNVL",
           description: "A two-day Mardi Gras 2027 carnival-themed festival with house DJs on one day, a bass DJ on the other, actors, brand activations, and carnival games.",
           valuePerEvent: "12,000",
-          basePackage: "$10,000",
-          presentingSponsor: "$50,000",
+          basePackage: "$2,500",
+          presentingSponsor: "$10,000",
           baseDetail:
             "Base sponsorship includes brand presence inside the CRNVL festival footprint with activation opportunities scoped around the sponsor's goals.",
           presentingDetail:
@@ -944,10 +970,10 @@ export const eventSponsorships: {
         alt: "Sponsor activation at Thaw Out Music Festival",
       },
       items: [
-        thawMarket("Morgantown, WV", "April 3, 2027", "Mylan Park"),
-        thawMarket("Iowa City, IA", "April 10, 2027", "Iowa Fairgrounds"),
-        thawMarket("Boone, NC", "April 24, 2027", "High Country Fairgrounds"),
-        thawMarket("Knoxville, TN", "May 1, 2027", "World's Fair Park"),
+        thawMarket("Morgantown, WV", "April 3, 2027", "Mylan Park", "thaw-out-01.jpg"),
+        thawMarket("Iowa City, IA", "April 10, 2027", "Iowa Fairgrounds", "thaw-out-03.jpg"),
+        thawMarket("Boone, NC", "April 24, 2027", "High Country Fairgrounds", "thaw-out-05.jpg"),
+        thawMarket("Knoxville, TN", "May 1, 2027", "World's Fair Park", "thaw-out-07.jpg"),
       ],
     },{
       id: "venues",

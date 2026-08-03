@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Check } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -65,6 +66,17 @@ function EventCard({ item, group }: { item: SponsorshipItem; group: SponsorshipG
 
   return (
     <article className="flex h-full flex-col rounded-[4px] border-2 border-ink bg-white p-5 shadow-[5px_5px_0_var(--ink)]">
+      {item.image?.src && (
+        <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-[3px] border-2 border-ink bg-surface-muted">
+          <Image
+            src={item.image.src}
+            alt={item.image.alt}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+          />
+        </div>
+      )}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <p className="mono-label text-[10px] font-bold text-accent">{group.title}</p>

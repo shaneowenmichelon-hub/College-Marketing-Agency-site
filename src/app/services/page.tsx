@@ -25,8 +25,8 @@ function BrandsPanel() {
       </p>
       <div className="mt-14 space-y-16 lg:space-y-24">
         {brands.blocks.map((block, i) => {
-          // Anchor id derived from the detail-page slug (/services/<slug>).
-          const anchor = block.cta?.href.replace("/services/", "");
+          // Prefer explicit config ids; legacy blocks derive their anchor from the detail-page slug.
+          const anchor = block.id ?? block.cta?.href.replace("/services/", "");
           return (
             <div key={block.heading} id={anchor} className="scroll-mt-24">
               <CapabilityBlock block={block} imageSide={i % 2 === 0 ? "left" : "right"} />

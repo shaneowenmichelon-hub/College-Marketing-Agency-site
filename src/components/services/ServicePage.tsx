@@ -147,9 +147,11 @@ export function ServicePage({
                 <span className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
                   {price.range}
                 </span>
-                <span className="text-base text-[color:var(--muted-on-light)]">
-                  {price.unit}
-                </span>
+                {price.unit && (
+                  <span className="text-base text-[color:var(--muted-on-light)]">
+                    {price.unit}
+                  </span>
+                )}
               </div>
               <p className="mt-4 text-sm text-[color:var(--muted-on-light)]">{price.note}</p>
               <Button href="/contact" variant="primary" size="md" className="mt-6">
