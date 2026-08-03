@@ -3,7 +3,7 @@ import { LegalPage } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Terms of Service — placeholder.",
+  description: "Terms of Service - placeholder.",
   robots: { index: false, follow: true },
 };
 

@@ -17,7 +17,7 @@ function ClientLogo({ client }: { client: Client }) {
 
   // Dark chip so light/white brand logos (the norm for these sponsor assets) are
   // visible. Logos are normalized to a clean white silhouette so every logo shows
-  // regardless of its original color — a consistent monochrome logo wall.
+  // regardless of its original color - a consistent monochrome logo wall.
   const tile =
     "flex h-16 w-40 items-center justify-center rounded-xl border border-white/10 bg-ink px-5";
 

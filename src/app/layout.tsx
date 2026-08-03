@@ -26,7 +26,7 @@ const spaceMono = Space_Mono({
   display: "swap",
 });
 
-// Editorial serif — used only for selected emphasis (e.g. "campus culture").
+// Editorial serif - used only for selected emphasis (e.g. "campus culture").
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
@@ -38,7 +38,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.companyName} — ${siteConfig.tagline}`,
+    default: `${siteConfig.companyName} - ${siteConfig.tagline}`,
     template: `%s · ${siteConfig.companyName}`,
   },
   description: siteConfig.description,
@@ -46,14 +46,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: siteConfig.companyName,
-    title: `${siteConfig.companyName} — ${siteConfig.tagline}`,
+    title: `${siteConfig.companyName} - ${siteConfig.tagline}`,
     description: siteConfig.description,
     url: siteConfig.url,
     images: [{ url: "/og.svg", width: 1200, height: 630, alt: siteConfig.companyName }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.companyName} — ${siteConfig.tagline}`,
+    title: `${siteConfig.companyName} - ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: ["/og.svg"],
   },

@@ -9,6 +9,7 @@ const VALID_CATEGORIES: PostCategory[] = [
   "Ambassadors",
   "Brand Ambassadors",
   "Events",
+  "Product Placement",
 ];
 
 function parseValue(raw: string): string | string[] {

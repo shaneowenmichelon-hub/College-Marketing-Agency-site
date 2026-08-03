@@ -1,6 +1,6 @@
 /**
  * Consent-aware analytics helpers (client-side).
- * Nothing here loads a script — see components/analytics/Analytics.tsx. These are
+ * Nothing here loads a script - see components/analytics/Analytics.tsx. These are
  * just safe wrappers that no-op when analytics isn't loaded (env unset or no consent).
  */
 
@@ -27,7 +27,7 @@ type GtagWindow = Window & {
 };
 
 /**
- * Track a conversion/event. Safe to call always — it only does something when
+ * Track a conversion/event. Safe to call always - it only does something when
  * analytics is actually loaded (consent granted + env id set).
  */
 export function trackEvent(name: string, params: Record<string, unknown> = {}) {

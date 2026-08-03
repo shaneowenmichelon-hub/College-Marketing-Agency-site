@@ -75,7 +75,7 @@ export function usePrefill() {
   return prefill;
 }
 
-/** Milliseconds since the form mounted — used for the bot time-to-submit check. */
+/** Milliseconds since the form mounted - used for the bot time-to-submit check. */
 export function useElapsed() {
   const mountedAt = useRef<number>(0);
   useEffect(() => {

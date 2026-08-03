@@ -2,7 +2,7 @@
  * Tiny in-memory, per-IP fixed-window rate limiter.
  *
  * Good enough to blunt casual abuse on a single instance. NOTE: serverless
- * instances don't share memory, so this is best-effort — for hard guarantees
+ * instances don't share memory, so this is best-effort - for hard guarantees
  * put a WAF / Upstash Ratelimit in front. (// TODO: swap for durable store.)
  */
 

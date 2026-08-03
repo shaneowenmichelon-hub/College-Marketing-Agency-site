@@ -4,12 +4,12 @@
  * Ambassador-portal client state (PROTOTYPE).
  *
  * TODO: move jobs, signups, slot counts, and submissions to a database
- * (Supabase / Vercel Postgres) — this local state does not sync across users or
+ * (Supabase / Vercel Postgres) - this local state does not sync across users or
  * devices, and slot counts only reflect the current student's own signups. Email
  * to the agency inbox is the reliable record until then.
  *
  * TODO: replace the shared-secret gate with real per-user auth (Clerk / NextAuth
- * / Supabase) before production — the session below is a client flag only and
+ * / Supabase) before production - the session below is a client flag only and
  * does NOT authenticate individuals.
  */
 import type { Job } from "@/site.config";

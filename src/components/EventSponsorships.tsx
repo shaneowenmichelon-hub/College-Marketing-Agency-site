@@ -125,7 +125,7 @@ function EventCard({ item, group }: { item: SponsorshipItem; group: SponsorshipG
       )}
 
       <Link
-        href={inquireHref(group.id, "sponsorship", item.name, `Inquiry: ${group.title} — ${item.name}`)}
+        href={inquireHref(group.id, "sponsorship", item.name, `Inquiry: ${group.title} - ${item.name}`)}
         className="mono-label mt-auto inline-flex items-center gap-1.5 pt-5 text-[11px] font-bold text-accent hover:underline"
       >
         Inquire about this opportunity <ArrowRight className="h-4 w-4" />
@@ -159,7 +159,7 @@ export function EventSponsorships() {
       <SectionHeading
         eyebrow="Sponsorships"
         title="Sponsor the moments students already care about."
-        intro="A tighter menu of campus events, festivals, and venue partnerships — formatted so a brand can quickly compare audience, pricing, and value."
+        intro="A tighter menu of campus events, festivals, and venue partnerships - formatted so a brand can quickly compare audience, pricing, and value."
       />
       <div className="mt-12 space-y-14">
         {eventSponsorships.groups.map((group, index) => (

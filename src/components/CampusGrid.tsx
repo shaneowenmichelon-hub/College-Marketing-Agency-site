@@ -2,7 +2,7 @@ import { siteConfig } from "@/site.config";
 import { Reveal } from "./motion/Reveal";
 
 /**
- * Renders the REAL campus network — the markets the network spans / is
+ * Renders the REAL campus network - the markets the network spans / is
  * launching across. Framed honestly (markets, not "years of operation").
  */
 export function CampusGrid() {

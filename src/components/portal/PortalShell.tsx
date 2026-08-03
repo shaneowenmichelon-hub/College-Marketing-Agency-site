@@ -10,7 +10,7 @@ import { Container } from "@/components/ui/Container";
 
 /**
  * Guards a portal page: redirects to /portal if there's no client session.
- * Prototype gate only — see src/lib/portal.ts TODO for real per-user auth.
+ * Prototype gate only - see src/lib/portal.ts TODO for real per-user auth.
  */
 export function PortalShell({ children }: { children: ReactNode }) {
   const router = useRouter();

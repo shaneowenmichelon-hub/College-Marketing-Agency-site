@@ -19,9 +19,9 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ApplyForm } from "@/components/forms/ApplyForm";
 
 export const metadata: Metadata = {
-  title: "Become an Ambassador — Get paid to rep brands you love",
+  title: "Become an Ambassador - Get paid to rep brands you love",
   description:
-    "Join the student ambassador network. Apply, get matched with brands, post and activate on campus, and get paid — cash, free product, and real resume experience.",
+    "Join the student ambassador network. Apply, get matched with brands, post and activate on campus, and get paid - cash, free product, and real resume experience.",
   alternates: { canonical: "/become-an-ambassador" },
 };
 
@@ -33,7 +33,7 @@ const steps = [
 ];
 
 const benefits = [
-  { icon: Banknote, title: "Real money", body: "Get paid for activations, content, and referrals — not just exposure." },
+  { icon: Banknote, title: "Real money", body: "Get paid for activations, content, and referrals - not just exposure." },
   { icon: Gift, title: "Free product", body: "First access to gear, samples, and drops from brands students actually want." },
   { icon: CalendarClock, title: "Flexible", body: "Work around your class schedule. You choose what you take on." },
   { icon: Star, title: "Resume & portfolio", body: "Real marketing experience and content you can show off after graduation." },
@@ -57,7 +57,7 @@ export default function BecomeAnAmbassadorPage() {
               </h1>
               <p className="mt-5 max-w-2xl text-lg text-[color:var(--muted-on-dark)]">
                 Join the ambassador network. Post, show up at campus activations, and
-                earn — cash, free product, and experience that actually looks good on a
+                earn - cash, free product, and experience that actually looks good on a
                 resume.
               </p>
               <div className="mt-8">
@@ -118,7 +118,7 @@ export default function BecomeAnAmbassadorPage() {
           <SectionHeading
             eyebrow="The work"
             title="What you'll actually do."
-            intro="Real, concrete tasks — so you know exactly what you're signing up for. Some are on-campus, some are online, most are flexible around your schedule."
+            intro="Real, concrete tasks - so you know exactly what you're signing up for. Some are on-campus, some are online, most are flexible around your schedule."
           />
           <ul className="grid gap-3 sm:grid-cols-2">
             {[

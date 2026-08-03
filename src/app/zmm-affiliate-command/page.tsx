@@ -122,7 +122,7 @@ export default function ZmmAffiliateCommandPage() {
           <StatCard label="Lifetime signups" value={number(data.rollup.totalSignups)} detail={`${number(data.rollup.acebetSignups)} Acebet · ${number(data.rollup.polymarketSignups)} Polymarket lifetime`} accent="cyan" />
           <StatCard label="Qualified / FTD" value={number(data.rollup.totalQualified)} detail={`${pct(data.rollup.qualificationRate)} blended qualification rate`} accent="emerald" />
           <StatCard label="Tracked value" value={money(totalValue)} detail="Acebet commission + Polymarket qualified cost" accent="amber" />
-          <StatCard label="Top code" value={String(topCode?.code || "—")} detail={`${number(Number(topCode?.qualified || 0))} qualified · ${number(Number(topCode?.signups || 0))} signups`} accent="violet" />
+          <StatCard label="Top code" value={String(topCode?.code || "-")} detail={`${number(Number(topCode?.qualified || 0))} qualified · ${number(Number(topCode?.signups || 0))} signups`} accent="violet" />
         </section>
 
         <section className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
@@ -175,7 +175,7 @@ export default function ZmmAffiliateCommandPage() {
                         <span className="font-black">{request.code}</span>
                         <span className="rounded-full bg-amber-300/15 px-2 py-1 text-[0.65rem] font-black uppercase tracking-widest text-amber-200">{request.status}</span>
                       </div>
-                      <p className="mt-1 text-xs text-white/45">Requested {String(request.requestedAt || "—").slice(0, 10)}</p>
+                      <p className="mt-1 text-xs text-white/45">Requested {String(request.requestedAt || "-").slice(0, 10)}</p>
                     </div>
                   )) : <p className="text-sm text-white/50">No pending requests.</p>}
                 </div>

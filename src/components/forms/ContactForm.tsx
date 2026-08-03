@@ -80,7 +80,7 @@ export function ContactForm() {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-10 text-center shadow-soft">
         <CheckCircle2 className="h-12 w-12 text-accent" aria-hidden />
-        <h3 className="mt-4 font-display text-2xl font-bold text-ink">Thanks — we&apos;re on it.</h3>
+        <h3 className="mt-4 font-display text-2xl font-bold text-ink">Thanks - we&apos;re on it.</h3>
         <p className="mt-2 max-w-sm text-sm text-[color:var(--muted-on-light)]">
           Your message is in. We&apos;ll get back to you shortly with next steps for
           reaching students.

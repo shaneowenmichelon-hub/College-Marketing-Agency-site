@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 
 /**
  * Issues short-lived client-upload tokens so the browser uploads ID / proof files
- * DIRECTLY to Vercel Blob — bypassing the ~4.5MB serverless request-body limit
+ * DIRECTLY to Vercel Blob - bypassing the ~4.5MB serverless request-body limit
  * (files never pass through this function). Type + size are validated here
  * (server side) via onBeforeGenerateToken, and pathnames are locked to the two
  * allowed prefixes with unguessable random suffixes.
@@ -19,7 +19,7 @@ const PROOF_TYPES = [...ID_TYPES, "image/gif", "video/mp4", "video/quicktime", "
 export async function POST(request: Request): Promise<NextResponse> {
   if (!process.env.BLOB_READ_WRITE_TOKEN?.trim()) {
     console.warn(
-      "[blob/upload] BLOB_READ_WRITE_TOKEN is not set on this deployment — returning 501. " +
+      "[blob/upload] BLOB_READ_WRITE_TOKEN is not set on this deployment - returning 501. " +
         "Connect a Vercel Blob store (Storage tab) to this project and redeploy so ID uploads are stored.",
     );
     return NextResponse.json({ error: "storage not configured" }, { status: 501 });

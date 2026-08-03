@@ -1,7 +1,7 @@
 import { siteConfig } from "@/site.config";
 
 /**
- * Structured data (JSON-LD). Server components — rendered inline as
+ * Structured data (JSON-LD). Server components - rendered inline as
  * <script type="application/ld+json">. Values come from site.config.ts.
  */
 
@@ -9,7 +9,7 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
     <script
       type="application/ld+json"
-      // Content is our own config, not user input — safe to inline.
+      // Content is our own config, not user input - safe to inline.
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   );

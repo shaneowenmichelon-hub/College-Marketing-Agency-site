@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
  *
  * Values are placeholder tokens like "[X]M+" or "[X]+". We only animate the
  * numeric part when present; token values that contain no digits (the common
- * case here) render statically. This keeps the placeholders honest — nothing
- * fabricated — while still supporting real numbers once they're dropped in.
+ * case here) render statically. This keeps the placeholders honest - nothing
+ * fabricated - while still supporting real numbers once they're dropped in.
  */
 export function StatCounter({
   value,

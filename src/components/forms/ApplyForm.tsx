@@ -63,7 +63,7 @@ export function ApplyForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [followers, setFollowers] = useState({ ig: "", tt: "" });
-  // Live snapshot of uncontrolled fields — for the XP meter / card / badges only.
+  // Live snapshot of uncontrolled fields - for the XP meter / card / badges only.
   // Never used for validation or submission (that stays on FormData).
   const [watch, setWatch] = useState<Record<string, string>>({});
   const attribution = useAttribution();
@@ -157,7 +157,7 @@ export function ApplyForm() {
     setStatus("loading");
 
     // Upload ID photos straight to Blob (browser -> Blob), then POST JSON with
-    // just the URLs — the large files never hit our serverless function.
+    // just the URLs - the large files never hit our serverless function.
     const submissionId = newSubmissionId();
     let frontUp = { url: null as string | null };
     let backUp = { url: null as string | null };
@@ -347,7 +347,7 @@ export function ApplyForm() {
           <strong className="text-ink">
             {AMBASSADOR_SOCIAL_FOLLOWER_BENCHMARK.toLocaleString()}+ followers
           </strong>{" "}
-          on Instagram or TikTok — but ambassadors don&apos;t need a big following, so
+          on Instagram or TikTok - but ambassadors don&apos;t need a big following, so
           apply either way.
         </p>
         <div className="grid gap-5 sm:grid-cols-2">
@@ -392,8 +392,8 @@ export function ApplyForm() {
         </div>
         {showFollowerWarning && (
           <p className="mt-3 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-700" role="status">
-            Heads up — that&apos;s below our {AMBASSADOR_SOCIAL_FOLLOWER_BENCHMARK.toLocaleString()}+
-            follower guideline for paid social-story ambassador work. You can still apply —
+            Heads up - that&apos;s below our {AMBASSADOR_SOCIAL_FOLLOWER_BENCHMARK.toLocaleString()}+
+            follower guideline for paid social-story ambassador work. You can still apply -
             many ambassador roles have no follower minimum.
           </p>
         )}
@@ -422,13 +422,13 @@ export function ApplyForm() {
           done={!!idFront && !!idBack && !errors.idFront && !errors.idBack}
         />
         <p className="mb-4 text-sm text-[color:var(--muted-on-light)]">
-          We verify identity and age so you can be matched to brand campaigns — including
+          We verify identity and age so you can be matched to brand campaigns - including
           21+ campaigns. Upload a clear photo of the front and back of a government photo ID.
         </p>
         <div className="grid gap-5 sm:grid-cols-2">
           <IdUpload
             id="idFront"
-            label="Government photo ID — front"
+            label="Government photo ID - front"
             file={idFront}
             onFile={setIdFront}
             error={errors.idFront}
@@ -436,7 +436,7 @@ export function ApplyForm() {
           />
           <IdUpload
             id="idBack"
-            label="Government photo ID — back"
+            label="Government photo ID - back"
             file={idBack}
             onFile={setIdBack}
             error={errors.idBack}

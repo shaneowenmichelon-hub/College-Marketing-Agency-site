@@ -43,7 +43,7 @@ export default function MyJobPage() {
               }`}
             >
               {submitted ? <Check className="h-3 w-3" /> : <Clock className="h-3 w-3" />}
-              {submitted ? "Submitted — in review" : "In progress"}
+              {submitted ? "Submitted - in review" : "In progress"}
             </span>
           </div>
           <p className="mono-label mt-3 text-[10px] font-bold text-[color:var(--muted-on-light)]">

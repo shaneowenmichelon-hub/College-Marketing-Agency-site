@@ -1,4 +1,4 @@
-/** Tiny className joiner — avoids pulling in a dependency. */
+/** Tiny className joiner - avoids pulling in a dependency. */
 export function cn(...classes: (string | false | null | undefined)[]): string {
   return classes.filter(Boolean).join(" ");
 }

@@ -122,12 +122,12 @@ export default function SubmitProofPage() {
       </Link>
       <h1 className="mt-4 font-display text-display-sm font-bold text-ink">Submit your proof</h1>
       <p className="mono-label mt-1 text-[11px] text-[color:var(--muted-on-light)]">
-        {job.brand} — {job.title}
+        {job.brand} - {job.title}
       </p>
 
       {!signedUp && (
         <p className="mt-4 rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)] px-4 py-2 text-xs font-bold text-ink">
-          Heads up: you haven&apos;t signed up for this job yet — you can still submit, but sign up first if you meant to.
+          Heads up: you haven&apos;t signed up for this job yet - you can still submit, but sign up first if you meant to.
         </p>
       )}
 

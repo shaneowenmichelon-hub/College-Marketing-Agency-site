@@ -7,7 +7,7 @@ export const runtime = "nodejs";
 
 // Shared-secret access code given to approved ambassadors. Override with the
 // PORTAL_ACCESS_CODE env var; the default keeps the portal testable in dev.
-// TODO: replace with real per-user auth (Clerk / NextAuth / Supabase) — this is
+// TODO: replace with real per-user auth (Clerk / NextAuth / Supabase) - this is
 // a shared secret and does NOT authenticate individuals.
 const ACCESS_CODE = process.env.PORTAL_ACCESS_CODE || "collegiate2026";
 

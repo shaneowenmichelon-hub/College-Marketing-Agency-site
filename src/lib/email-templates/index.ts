@@ -20,21 +20,21 @@ export function studentConfirmation(data: StudentLead): RenderedEmail {
       )} ambassador network. We've got your application.`,
     ) +
     p(
-      `Here's what happens next: our team reviews applications and reaches out with brand opportunities that fit your campus and your socials. There's nothing else you need to do right now — just keep an eye on your inbox.`,
+      `Here's what happens next: our team reviews applications and reaches out with brand opportunities that fit your campus and your socials. There's nothing else you need to do right now - just keep an eye on your inbox.`,
     ) +
     `<div style="margin:22px 0;">${button("Explore the site", siteConfig.url)}</div>` +
     p(
-      `Excited to have you in the mix.<br/>— The ${escapeHtml(siteConfig.companyName)} team`,
+      `Excited to have you in the mix.<br/>- The ${escapeHtml(siteConfig.companyName)} team`,
     );
   const text = `You're on our radar, ${name}!
 
 Thanks for applying to the ${siteConfig.companyName} ambassador network. We've got your application.
 
-What happens next: our team reviews applications and reaches out with brand opportunities that fit your campus and your socials. Nothing else to do right now — keep an eye on your inbox.
+What happens next: our team reviews applications and reaches out with brand opportunities that fit your campus and your socials. Nothing else to do right now - keep an eye on your inbox.
 
 Explore the site: ${siteConfig.url}
 
-— The ${siteConfig.companyName} team
+- The ${siteConfig.companyName} team
 ${siteConfig.companyDomain}`;
   return { subject, html: wrap(body, "We received your ambassador application."), text };
 }
@@ -52,7 +52,7 @@ export function brandConfirmation(data: BrandLead): RenderedEmail {
   const opening = isLeadMagnet
     ? isNewsletter
       ? p(`You're on the list. We'll send Gen-Z marketing tips, trend updates, and campus activation ideas to your inbox.`)
-      : p(`Thanks for your interest — we'll send your requested resource shortly.`)
+      : p(`Thanks for your interest - we'll send your requested resource shortly.`)
     : p(
         `Thanks for reaching out. We've received your inquiry and a member of our team will be in touch soon to talk through how we can help.`,
       );
@@ -61,30 +61,30 @@ export function brandConfirmation(data: BrandLead): RenderedEmail {
     opening +
     p(
       `In the meantime, here's how we help brands reach students:` +
-        `<br/>• <strong style="color:${colors.INK};">Events</strong> — campus activations planned, staffed & executed.` +
-        `<br/>• <strong style="color:${colors.INK};">Brand Ambassadors</strong> — a vetted student rep network.` +
-        `<br/>• <strong style="color:${colors.INK};">Product Placement</strong> — Greek-life placements with dedicated media deliverables.`,
+        `<br/>• <strong style="color:${colors.INK};">Events</strong> - campus activations planned, staffed & executed.` +
+        `<br/>• <strong style="color:${colors.INK};">Brand Ambassadors</strong> - a vetted student rep network.` +
+        `<br/>• <strong style="color:${colors.INK};">Product Placement</strong> - Greek-life placements with dedicated media deliverables.`,
     ) +
     `<div style="margin:22px 0;">${button("See our work", `${siteConfig.url}/work`)}</div>` +
-    p(`Talk soon,<br/>— The ${escapeHtml(siteConfig.companyName)} team`);
+    p(`Talk soon,<br/>- The ${escapeHtml(siteConfig.companyName)} team`);
   const text = `Thanks, ${name}.
 
 ${
     isLeadMagnet
       ? isNewsletter
         ? "You're on the list. We'll send Gen-Z marketing tips, trend updates, and campus activation ideas to your inbox."
-        : "Thanks for your interest — we'll send your requested resource shortly."
+        : "Thanks for your interest - we'll send your requested resource shortly."
       : "We've received your inquiry and a member of our team will be in touch soon."
   }
 
 How we help brands reach students:
-- Events — campus activations planned, staffed & executed.
-- Brand Ambassadors — a vetted student rep network.
-- Product Placement — Greek-life placements with dedicated media deliverables.
+- Events - campus activations planned, staffed & executed.
+- Brand Ambassadors - a vetted student rep network.
+- Product Placement - Greek-life placements with dedicated media deliverables.
 
 See our work: ${siteConfig.url}/work
 
-— The ${siteConfig.companyName} team
+- The ${siteConfig.companyName} team
 ${siteConfig.companyDomain}`;
   return {
     subject,
@@ -115,13 +115,13 @@ export function internalNotification(
   let subject: string;
   if (kind === "student_application") {
     const s = data as StudentLead;
-    subject = `New ambassador application — ${s.fullName || "unknown"}, ${s.school || "school n/a"}`;
+    subject = `New ambassador application - ${s.fullName || "unknown"}, ${s.school || "school n/a"}`;
   } else if (kind === "brand_inquiry") {
     const b = data as BrandLead;
-    subject = `New brand inquiry — ${b.company || b.email || "unknown"}`;
+    subject = `New brand inquiry - ${b.company || b.email || "unknown"}`;
   } else {
     const b = data as BrandLead;
-    subject = `${b.resource === "newsletter-signup" ? "New newsletter signup" : "New lead magnet"} — ${b.email || "unknown"}`;
+    subject = `${b.resource === "newsletter-signup" ? "New newsletter signup" : "New lead magnet"} - ${b.email || "unknown"}`;
   }
 
   const skip = new Set(["kind", "attribution"]);
@@ -224,7 +224,7 @@ function secureLinksBlock(links: SecureLink[]): string {
     .join("");
   return (
     sectionLabel("Secure files") +
-    `<p style="font-size:12px;color:${colors.MUTED};margin:0 0 8px;">Access-restricted links — do not forward. Delete once verification is complete.</p>` +
+    `<p style="font-size:12px;color:${colors.MUTED};margin:0 0 8px;">Access-restricted links - do not forward. Delete once verification is complete.</p>` +
     `<ul style="padding-left:18px;margin:0;">${items}</ul>`
   );
 }

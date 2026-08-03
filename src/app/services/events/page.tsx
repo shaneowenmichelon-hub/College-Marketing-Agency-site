@@ -5,9 +5,9 @@ import { EventSponsorships } from "@/components/EventSponsorships";
 import { getStat } from "@/site.config";
 
 export const metadata: Metadata = {
-  title: "Events — Campus activations, planned & executed",
+  title: "Events - Campus activations, planned & executed",
   description:
-    "Custom campus activations planned, staffed, and executed end to end — Welcome Week takeovers, tailgates, sampling, and experiential moments students actually show up for.",
+    "Custom campus activations planned, staffed, and executed end to end - Welcome Week takeovers, tailgates, sampling, and experiential moments students actually show up for.",
   alternates: { canonical: "/services/events" },
 };
 
@@ -18,9 +18,9 @@ export default function EventsPage() {
       icon={CalendarHeart}
       eyebrow="Events"
       title="Campus activations students actually show up for."
-      intro="We plan, staff, and run custom activations on campus — from the first permit to the post-event recap. You get a moment students remember and content that keeps working after everyone goes home."
+      intro="We plan, staff, and run custom activations on campus - from the first permit to the post-event recap. You get a moment students remember and content that keeps working after everyone goes home."
       overview={[
-        "An event is the fastest way to turn a brand into an experience. We design activations around the moments students already care about — move-in, game day, finals, the first warm week of spring — so your brand shows up where the energy already is.",
+        "An event is the fastest way to turn a brand into an experience. We design activations around the moments students already care about - move-in, game day, finals, the first warm week of spring - so your brand shows up where the energy already is.",
         "Every activation is planned, staffed, and executed by our team. We handle the logistics, permits, product, and people on the ground, then hand you the assets and the numbers afterward.",
       ]}
       tacticsHeading="Ways we activate on campus."
@@ -31,7 +31,7 @@ export default function EventsPage() {
         },
         {
           title: "Tailgates & sampling",
-          body: "Meet students where the crowd already is — game days, tailgate lots, and big campus gatherings.",
+          body: "Meet students where the crowd already is - game days, tailgate lots, and big campus gatherings.",
         },
         {
           title: "Pop-up activations",

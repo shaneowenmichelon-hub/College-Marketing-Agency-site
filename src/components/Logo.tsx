@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Wordmark rendering COMPANY_NAME in the display typeface.
- * Swap the inner markup for an <svg> logo later — the API stays the same.
+ * Swap the inner markup for an <svg> logo later - the API stays the same.
  */
 export function Logo({
   className,
@@ -16,7 +16,7 @@ export function Logo({
   return (
     <Link
       href="/"
-      aria-label={`${siteConfig.companyName} — home`}
+      aria-label={`${siteConfig.companyName} - home`}
       className={cn(
         "group inline-flex items-center gap-2 font-display text-lg font-bold tracking-tight",
         onDark ? "text-white" : "text-ink",

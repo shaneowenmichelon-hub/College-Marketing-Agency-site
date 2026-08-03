@@ -34,7 +34,7 @@ export function CapabilityBlock({
           <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[4px] border-2 border-dashed border-ink bg-gradient-to-br from-[#2F5BFF] to-[#0B0B0F] shadow-[6px_6px_0_var(--ink)]">
             <div aria-hidden className="grain absolute inset-0" />
             <span className="relative z-10 rounded-full bg-black/25 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              Image slot — {block.heading}
+              Image slot - {block.heading}
             </span>
           </div>
         )}

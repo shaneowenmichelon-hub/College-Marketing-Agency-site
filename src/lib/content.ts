@@ -12,9 +12,10 @@ export type PostCategory =
   | "Campus Strategy"
   | "Ambassadors"
   | "Brand Ambassadors"
-  | "Events";
+  | "Events"
+  | "Product Placement";
 
-type ServiceSlug = "events" | "brand-ambassadors";
+type ServiceSlug = "events" | "brand-ambassadors" | "product-placement";
 
 /** A single rendered block of an article body. `html` blocks allow inline tags. */
 export type ArticleBlock =
@@ -65,172 +66,102 @@ export function estimateReadingTime(body: ArticleBlock[]): string {
   return `${Math.max(1, Math.round(words / 225))} min read`;
 }
 
-// ── Article 1 — Influencer vetting (Influencers) ─────────────────────────────
-const influencerVettingBody: ArticleBlock[] = [
+// -- Article 1 - SOS Consultants Nola campaign (Brand Ambassadors) ----------
+const sosInsightBody: ArticleBlock[] = [
   {
     type: "p",
-    html: "Every brand that has run a creator campaign has a version of the same story: the post went up, the follower count looked huge, and almost nothing happened. No comments worth reading, no clicks, no lift. The problem is rarely the platform and almost never the product. It's that the creator was never vetted — someone looked at a big number and mistook it for influence. Those are not the same thing, and the gap between them is where marketing budgets quietly disappear.",
+    html: "SOS Consultants Nola had the exact problem most local service businesses face around campus: students needed the service, but the brand had to reach them at the right moment, in the right neighborhood, with enough repetition to turn awareness into actual inquiries. For a New Orleans leasing agency, that meant connecting with students when housing decisions were live, social calendars were full, and attention was split between class, events, friends, and feeds. A standard ad campaign could put a flyer in front of students. The stronger play was to make SOS visible both in person and online, using the same creative system across a real campus moment and targeted Meta ads.",
   },
   {
     type: "p",
-    html: "Vetting is the cheapest insurance you can buy in influencer marketing. It costs an hour of attention per creator and saves you from paying for an audience that can't or won't act. Here's the exact screen we run before a single dollar changes hands — and why each step matters.",
+    html: "The package was intentionally compact: a $2,500 campaign spanning two shows, an on-site activation at the show, and a round of ambassador posts. The posts used dedicated flyer and video creative, and that same creative was then run as localized paid advertising on Meta. That mattered because the campaign did not ask students to process three different messages. They saw the same leasing offer from campus ambassadors, around a live social event, and again in their feeds afterward. The result was a campaign that behaved less like a one-off promotion and more like a coordinated local demand engine.",
   },
-  { type: "h2", text: "Follower count is a vanity metric" },
+  { type: "h2", text: "The strategy: combine trusted student distribution with localized paid media" },
   {
     type: "p",
-    html: "Start by demoting the number everyone leads with. Follower count tells you how many accounts once tapped a button; it tells you nothing about whether those accounts are real, awake, or remotely interested in what the creator posts today. The signal that actually predicts campaign performance is <strong>engagement quality</strong> paired with <strong>audience fit</strong> — is the creator reaching the right people, and are those people responding?",
-  },
-  {
-    type: "p",
-    html: "A creator with 20,000 genuinely engaged followers will almost always outperform one with 200,000 followers who are mostly inflated, inattentive, or geographically irrelevant. Smaller, tighter audiences trust the creator more and act on recommendations more often. When you're selling to college students, a micro-creator who is actually embedded in one campus is worth more than a distant mega-account whose reach happens to include a few students by accident.",
-  },
-  { type: "h2", text: "Do the engagement math — out loud" },
-  {
-    type: "p",
-    html: "Engagement rate is the single fastest filter, and the formula is not complicated: <strong>(likes + comments) ÷ followers × 100</strong>. Run it across a creator's recent posts, not just their best one, and you'll immediately see whether the audience is alive.",
+    html: "Ambassador posts gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears.",
   },
   {
     type: "p",
-    html: "Rough, approximate benchmarks help calibrate what you're looking at. On Instagram, micro-influencers often land somewhere around <strong>5–15%</strong>, while larger macro-accounts more commonly sit in the <strong>1–3%</strong> range — bigger audiences almost always engage at a lower rate, so judge a creator against peers of similar size. Treat these as guidance, not gospel; they shift by platform, category, and season. What you're really hunting for is the red flag: a large following attached to tiny engagement. If someone has 500,000 followers and posts routinely pull around 100 likes, the audience is either purchased or long gone. No caption is going to fix that.",
+    html: "The live-event component added physical context. Across the two shows, SOS was attached to moments students were already choosing to attend. The activation gave the campaign a real-world presence: not just a logo in a feed, but a local leasing partner showing up where the student audience was already gathered. That kind of environment makes the ad spend more efficient because students have already seen the name in a social setting. When the Meta ad appears later, it is not the first touch; it is the reminder.",
   },
-  { type: "h2", text: "Read the comments by hand" },
+  { type: "h2", text: "Why the same creative ran across ambassadors and Meta" },
   {
     type: "p",
-    html: "Numbers can be bought; a real conversation is much harder to fake. Open the comment section and read it the way a human would. Authentic engagement looks specific and on-topic — people referencing the actual content, asking real questions, tagging friends for a reason. Manufactured engagement has a texture you learn to spot instantly: waves of generic \"Nice!\", strings of \"🔥🔥🔥\", and \"follow me back\" spam, often the same handful of accounts repeating across every post.",
-  },
-  {
-    type: "p",
-    html: "This isn't a fringe technique. A large majority of experienced marketers still vet comment sections manually, because it's the check that most reliably separates a community from a crowd. It takes five minutes and tells you more than any dashboard.",
-  },
-  { type: "h2", text: "Look at how the following was built" },
-  {
-    type: "p",
-    html: "A follower count is a snapshot; the growth curve is the story. Pull a creator's follower history — a Social Blade-style growth chart is the quick tell — and look at the shape. Steady, organic growth trends upward with the natural bumps of a viral post here and there. What should stop you cold is a sudden vertical spike with no corresponding content moment: 40,000 followers appearing over a weekend is not a break-out, it's a purchase. Sharp drops right after those spikes (platforms sweeping fake accounts) are the same story told in reverse.",
-  },
-  { type: "h2", text: "Check audience authenticity and geography" },
-  {
-    type: "p",
-    html: "Reach only matters if it lands where you sell. For a US-focused campaign, US-located followers should make up a meaningful share of the audience — roughly <strong>40–50% or more</strong> as a working floor — otherwise you're paying for impressions that can never convert into a purchase. Ask any serious creator for their audience insights covering both a 90-day and a 12-month window; the two views together reveal whether their audience is stable and real or churning and bought. On a campus program this gets even more specific: we want to see that the audience actually clusters around the schools a brand cares about, not a scattershot of countries that happen to sum to a big number.",
-  },
-  { type: "h2", text: "Demand brand and audience alignment" },
-  {
-    type: "p",
-    html: "Authenticity without alignment still fails. A creator can have a completely real, highly engaged audience that is simply wrong for you. If your target is young women and the creator's followers skew to older men, the match is broken no matter how healthy the engagement looks. Get the demographic breakdown — age, gender, location, interests — and hold it against your actual customer. The best-fitting creator is rarely the biggest one; it's the one whose audience already looks like the people you're trying to reach.",
-  },
-  { type: "h2", text: "Audit content history and brand safety" },
-  {
-    type: "p",
-    html: "You are renting a creator's reputation, so inspect it first. Scroll back through their history for tone, past controversies, and — critically — <strong>undisclosed sponsorships</strong>, which signal someone who cuts corners on the rules that protect you. Run a quick news search on their name. A creator who has been quietly deleting sponsored posts, feuding publicly, or posting content that clashes with your brand values is a liability that no engagement rate offsets.",
-  },
-  { type: "h2", text: "Ask for references — and actually call them" },
-  {
-    type: "p",
-    html: "Treat a paid partnership like a hire. Ask the creator for their last few brand collaborations, then do the thing most marketers skip: contact those brands and ask how it went. Did the content ship on time and on brief? Did it drive measurable results, or just a nice-looking post? A creator worth working with will hand over references without flinching. Which leads to the most telling signal of all.",
-  },
-  { type: "h2", text: "Refusal to share analytics is the answer" },
-  {
-    type: "p",
-    html: "If a creator won't show you their engagement analytics or audience insights, you already have your data point. Legitimate creators know their numbers are their sales pitch and share them readily. Evasiveness almost always means the numbers won't survive scrutiny. A \"no\" here is a complete vetting result on its own.",
-  },
-  { type: "h2", text: "Where tools fit" },
-  {
-    type: "p",
-    html: "Software can accelerate this, and it's worth knowing the category exists: authenticity and fake-follower checkers and audience-quality scorers such as <strong>HypeAuditor</strong>, <strong>Modash</strong>, and <strong>Social Blade</strong> can score audience credibility and flag anomalies at scale. Use them — but as a second pass, not a first one. The manual checks above are free, fast, and remarkably reliable, and they catch the things a score can miss. Let the tools confirm what your own eyes already suspect.",
-  },
-  { type: "h2", text: "Or let us run the screen for you" },
-  {
-    type: "p",
-    html: "This is precisely the work Collegiate Agency does before a brand ever pays a creator. Every student influencer in our network is vetted for real, engaged, campus-based audiences — we check the engagement math, read the comments, verify audience geography and school fit, and confirm the creator is who they say they are. Brands come to us so they never have to gamble on a follower count again.",
+    html: "The most important execution choice was keeping the flyer and video creative consistent. Too many local campaigns split the message: one version for ambassadors, another for events, and a third for ads. SOS avoided that. The dedicated creative from the ambassador round became the same creative used for paid Meta placement, which let the campaign build frequency without confusing the audience. Students could recognize the same offer and the same brand identity whether they saw it from a friend, at the show, or in an Instagram placement.",
   },
   {
     type: "p",
-    html: 'If you\'d rather skip the vetting and go straight to creators who are already screened, that\'s exactly what our <a href="/services/brand-ambassadors">brand ambassador program</a> is built for — or <a href="/contact">tell us what you\'re launching</a> and we\'ll match you to the right ones.',
+    html: "The paid media layer was localized to campus, which kept the budget focused. For a New Orleans leasing agency, broad reach would have wasted money on people outside the decision zone. The campaign did not need everyone in the city. It needed students near the relevant schools, in the right age and interest environment, who were likely to be thinking about housing or responding to student-life content. Localized targeting turned the ambassador creative into a performance channel instead of treating social posts as a vanity deliverable.",
+  },
+  { type: "h2", text: "The result: 11x return on ad spend" },
+  {
+    type: "p",
+    html: "From a total package spend of $2,500, SOS Consultants Nola achieved an 11x return on ad spend. The number is the headline, but the mechanism is the lesson: the return came from stacking channels that reinforced each other. The ambassador posts created familiarity. The shows created real-world context. The activation made the brand tangible. The Meta ads repeated the same flyer and video creative to the same local student market. Each piece made the next one work harder.",
+  },
+  {
+    type: "p",
+    html: "For local businesses trying to reach college students, this is the model we want to repeat. You do not need a massive national budget to create real movement on campus. You need the right audience, a student-trusted distribution layer, a reason for the brand to appear in the real world, and paid media targeted tightly enough that every dollar stays close to the students who can act. SOS Consultants Nola proved that a lean, coordinated campus package can produce performance-level returns when ambassadors, events, and ads are treated as one system.",
+  },
+  {
+    type: "p",
+    html: 'If your brand needs local student demand, whether that means leasing inquiries, product trial, app downloads, retail visits, or event attendance, the takeaway is simple: do not separate campus ambassadors from paid media. Use ambassadors to create trust, use events to create context, and use localized Meta ads to turn the same creative into measurable conversion. <a href="/contact">Tell us the campus and the goal</a>, and we can build the same kind of integrated package around your market.',
   },
 ];
 
-// ── Article 2 — Ambassador selection (Ambassadors) ───────────────────────────
-const ambassadorBody: ArticleBlock[] = [
+// -- Article 2 - NUTRL Night School Tour campaign (Product Placement) ----------
+const nutrlInsightBody: ArticleBlock[] = [
   {
     type: "p",
-    html: "A campus ambassador program lives or dies on one decision made over and over: who wears the shirt. You can get the product, the budget, and the campaign timing perfectly right, and a single wrong ambassador at the table can undo all of it — while the right one turns a folding table and a case of samples into a week of word-of-mouth. The difference between a great ambassador and a bad one isn't subtle, and it's not luck. It's a set of traits you can screen for, if you know what you're looking at.",
+    html: "NÜTRL came into the Night School Tour with a clear product-placement opportunity: do more than place a logo on a flyer. The brand had a chance to become part of the actual college-event economy: the venues stocking the product, the local organizations helping host the nights, the ambassadors pushing the story, and the students seeing the same name repeatedly across the tour. That is the difference between sponsorship as signage and sponsorship as distribution.",
   },
   {
     type: "p",
-    html: "Here's the profile we screen for, drawn as a direct contrast — because every quality that makes an ambassador great has a mirror-image failure mode that makes one a liability.",
+    html: "The tour gave NÜTRL a high-intent environment. Night School is built around live college markets, nightlife venues, student organizations, and ambassador promotion, which meant the brand could show up where students were already making weekend plans. As presenting sponsor, NÜTRL did not need to interrupt the audience. It could attach itself to the night students were already choosing, then extend that presence through venues, partner organizations, social content, and ambassador posts.",
   },
-  { type: "h2", text: "Authenticity beats reach" },
+  { type: "h2", text: "The strategy: turn sponsorship into local product movement" },
   {
     type: "p",
-    html: "The best ambassadors genuinely use and believe in the product. That belief is not a soft nicety — it's the entire mechanism. Students have a finely tuned radar for a paid script, and the moment an endorsement feels rented, it stops working and can actively hurt you. This is why a real customer with a modest following often outperforms a bigger name who's obviously reading from a brief. <strong>The bad version:</strong> someone who took the gig purely for the free product and the stipend, has no real relationship to the brand, and recites features they don't care about. The audience feels the difference immediately.",
-  },
-  {
-    type: "p",
-    html: "You can usually hear this in the first conversation. Ask a candidate why they'd want to represent the brand, and the authentic ones answer with a story — how they already drink it, where they first tried it, which friend put them onto it. The mismatch answers in marketing language, listing reach and follower counts, because there's nothing personal underneath. We put a lot of weight on that single question, because the honest enthusiasm behind it is the one thing that can't be coached in later.",
-  },
-  { type: "h2", text: "Audience fit, not just audience size" },
-  {
-    type: "p",
-    html: "A great ambassador sits inside the exact social circles a brand wants to reach — their interests, lifestyle, and demographics line up with the target customer. On campus this is physical, not theoretical: the right ambassador is actually in the dorm, the club, the group chat, the friend group where the brand wants to land. A wellness brand wants the ambassador who already runs the intramural team; a nightlife brand wants the one who actually plans the pregame. That embeddedness is the whole asset. <strong>The bad version:</strong> an ambassador whose audience simply doesn't match — plenty of followers, wrong people — so the reach is real but useless. Fit always beats raw size.",
-  },
-  { type: "h2", text: "Engaged and active, not big and passive" },
-  {
-    type: "p",
-    html: "Look for a genuinely active online presence over a large but dormant follower count. An ambassador who posts consistently, replies to comments, and actually talks with their audience will move product; one who has accumulated followers but doesn't engage is a billboard in an empty field. <strong>The bad version, at its worst:</strong> an ambassador who has <em>bought</em> followers to look impressive — inflated numbers hiding an audience that isn't listening. Engagement, not follower count, is the metric that predicts results.",
-  },
-  { type: "h2", text: "Communication and networking charisma" },
-  {
-    type: "p",
-    html: "So much of campus marketing happens face to face, so personality is a hard requirement, not a bonus. Great ambassadors are approachable and enthusiastic — they can strike up a real conversation at a tabling shift, pull people over, and start genuine dialogue in a DM without it feeling like a cold pitch. That charisma is what converts a walk-by into a trial. <strong>The bad version:</strong> someone who sits behind the table on their phone, waits to be approached, and lets a prime activation window pass in silence.",
-  },
-  { type: "h2", text: "Professionalism and reliability — the biggest divider" },
-  {
-    type: "p",
-    html: "If we could screen for only one thing, it would be this. In practice, professionalism and reliability are the single largest dividing line between a good ambassador and a bad one. A great ambassador hits deadlines, follows the brief, discloses partnerships properly with <strong>#ad</strong>, and actually shows up for the tabling shift they committed to. They treat a small campus gig like real work, because it is. <strong>The bad version:</strong> the ambassador who ghosts on deliverables, misses the shift, posts late or not at all, and skips disclosure — creating both a marketing gap and a compliance risk. Talent is common; dependability is rare, and it's what you're really buying.",
-  },
-  { type: "h2", text: "Marketing literacy and adaptability" },
-  {
-    type: "p",
-    html: "The strongest ambassadors understand <em>why</em> a brand cares about a given message, which lets them adapt it intelligently — adjusting tone for Instagram versus TikTok, or reading a crowd at an event and shifting the pitch on the fly. They don't need every word handed to them. <strong>The bad version:</strong> someone who copy-pastes the exact same generic caption everywhere, can't tailor a message to a platform or a person, and treats the brief as a script to recite rather than a goal to hit.",
-  },
-  { type: "h2", text: "A live sensor on the ground" },
-  {
-    type: "p",
-    html: "A great ambassador gives you something no dashboard can: real-time feedback from inside the audience. They tell you how students actually reacted to the sampling, which flavor moved, what fell flat, and what the competitor down the quad is doing. That ground truth is often the most valuable deliverable of all. <strong>The bad version:</strong> an ambassador who reports nothing, notices nothing, and treats the role as a transaction — leaving you blind to how the campaign really landed.",
-  },
-  { type: "h2", text: "The bad ambassador, in one picture" },
-  {
-    type: "p",
-    html: "Put the failure modes together and the profile is clear: someone who buys followers to look bigger than they are, posts generic non-disclosed content, ghosts on deliverables, misrepresents the brand, treats the whole thing as a free-product grab with zero follow-through, and reaches an audience that never matched in the first place. Any one of these is a problem. Together they're a program-killer — and they're common enough that selection, not creative, is where most campus programs are actually won or lost.",
+    html: "The strongest part of the campaign was that it connected brand visibility to actual case movement. Across the tour, venues purchased 350 cases connected to the sponsorship. Another 75 cases went to local organizations that partnered on the tour, putting NÜTRL directly into the hands of the groups helping create the event energy. That combination mattered. Venue buys gave the product a retail-style presence inside the nightlife environment; organization cases put the product closer to the student leaders and social circles driving turnout.",
   },
   {
     type: "p",
-    html: "What makes the bad ambassador so costly is that the damage is often invisible until it's done. The follower count looked fine on the application. The enthusiasm sounded real on the call. It's only three weeks in — when the posts don't go up, the shift goes uncovered, and the brand has no idea how the sampling actually landed — that the mismatch surfaces, by which point the welcome-week window may already be closing. That's why the screening has to happen <em>before</em> the shirt goes on, not after the first missed deliverable.",
+    html: "This is exactly what product placement should do in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.",
   },
-  { type: "h2", text: "Why this is hard to do at scale" },
+  { type: "h2", text: "Why presenting sponsor status mattered" },
   {
     type: "p",
-    html: "Screening one ambassador well is doable. Screening dozens across multiple campuses — verifying they're real students, confirming school affiliation, checking their audience and their reliability, then actually managing them through a campaign — is a different job entirely. It's slow, it's relationship-heavy, and it doesn't scale by accident.",
-  },
-  {
-    type: "p",
-    html: "That's the work Collegiate Agency is built to do. We screen for the traits above, verify government ID and school affiliation, and manage ambassadors through the campaign so brands get reliable representation instead of a gamble. The result is a roster of students who genuinely fit, actually show up, and represent the brand the way you'd want to be represented.",
+    html: "Presenting sponsor status gave NÜTRL ownership of the tour narrative. Instead of being one of many brands around the edges, the brand sat at the center of the Night School experience. That positioning created a cleaner story for venues, student partners, and ambassadors to repeat: NÜTRL was not simply sampling at a party; NÜTRL was powering the tour. For a beverage brand, that distinction matters because students remember who made the night feel bigger.",
   },
   {
     type: "p",
-    html: 'See how our <a href="/services/brand-ambassadors">brand ambassador program</a> works, or — if you\'re a student who reads this and recognizes yourself in the "great" column — <a href="/become-an-ambassador">apply to join the network</a>.',
+    html: "The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports.",
+  },
+  { type: "h2", text: "The result: product placement with measurable media value" },
+  {
+    type: "p",
+    html: "The campaign produced 425 total cases across venue purchases and local organization partner cases. It also generated about 5 million social insights across owned tour channels, ambassador posts, and partner promotion. Based on that visibility, the campaign created an estimated $175,000 in paid media value, while the presenting sponsorship cost was $50,000. That means NÜTRL received media value well above the sponsorship fee before even counting the on-premise product movement, venue relationships, or student organization distribution.",
+  },
+  {
+    type: "p",
+    html: "For brands evaluating college sponsorships, this is the key lesson: the best event partnerships are not only awareness plays. They are distribution systems. A tour like Night School can create demand with students, give venues a reason to buy, give organizations a reason to participate, and give ambassadors a real story to post. NÜTRL's placement worked because the product was tied to every layer of the campaign: the show, the social content, the venue relationship, and the campus partner network.",
+  },
+  {
+    type: "p",
+    html: 'If your brand wants college product placement that reaches beyond a logo, the model is clear: own the event moment, put product into the partner network, and let campus ambassadors turn that placement into social proof. <a href="/contact">Tell us the markets you want</a>, and we can build the right Night School or campus-event package around your launch.',
   },
 ];
 
-// ── Article 3 — Welcome week (Events) ────────────────────────────────────────
+// ── Article 3 - Welcome week (Events) ────────────────────────────────────────
 const welcomeWeekBody: ArticleBlock[] = [
   {
     type: "p",
-    html: "Ask anyone who markets to college students where the leverage is, and the honest answer is a window most brands sleep through. The first two weeks of each semester — welcome week, syllabus week, whatever a given campus calls it — are when the entire social and behavioral map of the year gets drawn. A brand that shows up authentically in that window doesn't just buy attention; it buys a place in habits that hold for months. We build our whole events calendar around this, and it's the single most repeatable edge we hand to brands.",
+    html: "Ask anyone who markets to college students where the leverage is, and the honest answer is a window most brands sleep through. The first two weeks of each semester - welcome week, syllabus week, whatever a given campus calls it - are when the entire social and behavioral map of the year gets drawn. A brand that shows up authentically in that window doesn't just buy attention; it buys a place in habits that hold for months. We build our whole events calendar around this, and it's the single most repeatable edge we hand to brands.",
   },
   { type: "h2", text: "The first two weeks set the whole year" },
   {
     type: "p",
-    html: "At the start of a semester, students are deciding almost everything at once: which friend groups they'll run with, which spots they'll frequent, which routines and loyalties will define the next several months. Move-in, the org fair, the first parties, the first trip to the store to stock a dorm or apartment — it all happens in a compressed, high-stakes stretch where nothing is settled yet. Openness is at its absolute peak. New students especially are actively looking for what to adopt, and returning students are resetting their defaults after a summer away.",
+    html: "At the start of a semester, students are deciding almost everything at once: which friend groups they'll run with, which spots they'll frequent, which routines and loyalties will define the next several months. Move-in, the org fair, the first parties, the first trip to the store to stock a dorm or apartment - it all happens in a compressed, high-stakes stretch where nothing is settled yet. Openness is at its absolute peak. New students especially are actively looking for what to adopt, and returning students are resetting their defaults after a summer away.",
   },
   {
     type: "p",
@@ -243,34 +174,34 @@ const welcomeWeekBody: ArticleBlock[] = [
   { type: "h2", text: "The cost of showing up late" },
   {
     type: "p",
-    html: "The flip side of all that leverage is what happens when a brand waits. A campaign that launches in week seven is fighting uphill against loyalties that have already hardened — it has to <em>displace</em> a habit instead of forming one, which is far more expensive and far less certain. Mid-semester spend isn't wasted, but it's working against the calendar rather than with it. The brands that win a campus almost always got there first, in the window when students were still deciding who to let in. Timing isn't a detail here; it's most of the strategy.",
+    html: "The flip side of all that leverage is what happens when a brand waits. A campaign that launches in week seven is fighting uphill against loyalties that have already hardened - it has to <em>displace</em> a habit instead of forming one, which is far more expensive and far less certain. Mid-semester spend isn't wasted, but it's working against the calendar rather than with it. The brands that win a campus almost always got there first, in the window when students were still deciding who to let in. Timing isn't a detail here; it's most of the strategy.",
   },
   { type: "h2", text: "Why events beat ads in this window" },
   {
     type: "p",
-    html: "A feed impression during syllabus week competes with a thousand others and is forgotten in seconds. An in-person moment during the same window does something a screen can't: it attaches a brand to a real memory, in a high-energy, high-openness setting, surrounded by the exact peers whose opinions students are calibrating against. That's presence and authenticity over raw reach — and it's why experiential integration outperforms media spend precisely when students are most impressionable. You're not renting eyeballs; you're becoming part of the story of someone's first week.",
+    html: "A feed impression during syllabus week competes with a thousand others and is forgotten in seconds. An in-person moment during the same window does something a screen can't: it attaches a brand to a real memory, in a high-energy, high-openness setting, surrounded by the exact peers whose opinions students are calibrating against. That's presence and authenticity over raw reach - and it's why experiential integration outperforms media spend precisely when students are most impressionable. You're not renting eyeballs; you're becoming part of the story of someone's first week.",
   },
   {
     type: "p",
-    html: "Picture the two versions side by side. In one, a student scrolls past a video ad for a drink between classes and forgets it before they've unlocked the next app. In the other, that same student is handed the same drink at a packed welcome-week show, tries it while the headliner is on, sees their friends holding it too, and posts the moment themselves. Only one of those creates an association strong enough to survive to the checkout line. The medium isn't a nice-to-have — it's the entire difference between reach and recall.",
+    html: "Picture the two versions side by side. In one, a student scrolls past a video ad for a drink between classes and forgets it before they've unlocked the next app. In the other, that same student is handed the same drink at a packed welcome-week show, tries it while the headliner is on, sees their friends holding it too, and posts the moment themselves. Only one of those creates an association strong enough to survive to the checkout line. The medium isn't a nice-to-have - it's the entire difference between reach and recall.",
   },
   { type: "h2", text: "Our proof: the Night School Tour" },
   {
     type: "p",
-    html: "This isn't theory for us. The <strong>Night School Tour</strong> is our flagship welcome-week and syllabus-week concert series — an owned, ever-growing network of shows that run one to two times per school year across our campus markets. It's infrastructure brands can plug into on day one, not a program we'd have to build from scratch for each campaign. The stages, the talent, the campus relationships, and the crowd are already there.",
+    html: "This isn't theory for us. The <strong>Night School Tour</strong> is our flagship welcome-week and syllabus-week concert series - an owned, ever-growing network of shows that run one to two times per school year across our campus markets. It's infrastructure brands can plug into on day one, not a program we'd have to build from scratch for each campaign. The stages, the talent, the campus relationships, and the crowd are already there.",
   },
   {
     type: "p",
-    html: `That network is real and it's sizeable. Across our footprint we work with roughly ${getStat("campuses")} campus markets and a student-facing reach in the range of ${getStat("studentsReached")} — the kind of scale that turns a single welcome-week window into a coordinated, multi-market moment rather than a one-off activation.`,
+    html: `That network is real and it's sizeable. Across our footprint we work with roughly ${getStat("campuses")} campus markets and a student-facing reach in the range of ${getStat("studentsReached")} - the kind of scale that turns a single welcome-week window into a coordinated, multi-market moment rather than a one-off activation.`,
   },
   { type: "h2", text: "The structural advantage: who's behind us" },
   {
     type: "p",
-    html: "There's a reason we can promise owned infrastructure instead of a pitch deck. Collegiate Agency is backed by the national Gen-Z events company behind the Night School Tour — the team at ZMM Events — which means real, tested expertise in amplifying brands through live college events. Production, talent booking, and on-the-ground campus relationships are already in place and already running.",
+    html: "There's a reason we can promise owned infrastructure instead of a pitch deck. Collegiate Agency is backed by the national Gen-Z events company behind the Night School Tour - the team at ZMM Events - which means real, tested expertise in amplifying brands through live college events. Production, talent booking, and on-the-ground campus relationships are already in place and already running.",
   },
   {
     type: "p",
-    html: "That's the difference between us and a generic marketing agency. A typical agency approaches a campus activation as a project to assemble from scratch: find a venue, pull permits, book talent, hope a crowd materializes, and absorb the risk if it doesn't. We start from the opposite end. The show already exists, the students already come, and the brand is stepping into a moment with its own gravity rather than manufacturing one. When the events are owned, the brand's dollars go into <em>integration</em> — being part of the night — instead of into praying the night happens at all.",
+    html: "That's the difference between us and a generic marketing agency. A typical agency approaches a campus activation as a project to assemble from scratch: find a venue, pull permits, book talent, hope a crowd materializes, and absorb the risk if it doesn't. We start from the opposite end. The show already exists, the students already come, and the brand is stepping into a moment with its own gravity rather than manufacturing one. When the events are owned, the brand's dollars go into <em>integration</em> - being part of the night - instead of into praying the night happens at all.",
   },
   {
     type: "p",
@@ -278,7 +209,7 @@ const welcomeWeekBody: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: "There's a compounding effect worth naming, too. When a brand shows up at the same welcome-week series semester after semester, students start to expect it — the association stops being a campaign and becomes part of how they remember the event itself. That kind of continuity is only possible when the events are a standing network rather than a one-time booking, and it's a large part of why plugging into existing infrastructure beats building a bespoke activation that vanishes the moment the campaign budget does.",
+    html: "There's a compounding effect worth naming, too. When a brand shows up at the same welcome-week series semester after semester, students start to expect it - the association stops being a campaign and becomes part of how they remember the event itself. That kind of continuity is only possible when the events are a standing network rather than a one-time booking, and it's a large part of why plugging into existing infrastructure beats building a bespoke activation that vanishes the moment the campaign budget does.",
   },
   { type: "h2", text: "How a brand plugs in" },
   {
@@ -288,10 +219,10 @@ const welcomeWeekBody: ArticleBlock[] = [
   {
     type: "ul",
     items: [
-      "<strong>Product sampling</strong> — put the product in students' hands at the exact moment they're forming semester habits, where trial converts to routine.",
-      "<strong>Stage and branding moments</strong> — visible, high-energy association with the show itself, tied to the peak of the night rather than the margins of a feed.",
-      "<strong>Ambassador-run activations</strong> — our vetted campus ambassadors work the event, turning a logo into real conversations and hands-on trial.",
-      "<strong>Content capture</strong> — with athletes and influencers already in attendance, the night produces authentic, reusable content that keeps working long after the lights come up.",
+      "<strong>Product sampling</strong> - put the product in students' hands at the exact moment they're forming semester habits, where trial converts to routine.",
+      "<strong>Stage and branding moments</strong> - visible, high-energy association with the show itself, tied to the peak of the night rather than the margins of a feed.",
+      "<strong>Ambassador-run activations</strong> - our vetted campus ambassadors work the event, turning a logo into real conversations and hands-on trial.",
+      "<strong>Content capture</strong> - with athletes and influencers already in attendance, the night produces authentic, reusable content that keeps working long after the lights come up.",
     ],
   },
   { type: "h2", text: "Claim the window before it fills" },
@@ -301,36 +232,42 @@ const welcomeWeekBody: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: 'Explore how brands sponsor our shows on the <a href="/services/events">events page</a> and browse the live sponsorship directory there — or <a href="/contact">tell us which markets you want</a> and we\'ll help you lock a window before it\'s gone.',
+    html: 'Explore how brands sponsor our shows on the <a href="/services/events">events page</a> and browse the live sponsorship directory there - or <a href="/contact">tell us which markets you want</a> and we\'ll help you lock a window before it\'s gone.',
   },
 ];
 
 const legacyPosts: Post[] = [
   {
-    slug: "how-to-vet-an-influencer-before-you-pay-them",
-    title: "How to vet an influencer before you pay them",
+    slug: "sos-consultants-nola-campus-leasing-ambassadors",
+    title: "How SOS Consultants Nola used campus ambassadors and localized ads to drive 11x ROAS",
+    metaTitle: "SOS Consultants Nola Campus Ambassador Case Study | Collegiate Agency",
+    metaDescription:
+      "A New Orleans leasing agency case study: two shows, an on-site activation, ambassador posts, localized Meta ads, and 11x return on ad spend from a $2,500 package.",
     category: "Brand Ambassadors",
-    services: ["brand-ambassadors"],
-    excerpt:
-      "Follower counts lie. Here's the exact screen we run — engagement math, comment checks, growth history, audience geography, and brand safety — before a brand ever pays a creator.",
-    date: "2026-06-24",
-    author: AUTHOR,
-    ctaService: "brand-ambassadors",
-    body: influencerVettingBody,
-    readingTime: estimateReadingTime(influencerVettingBody),
-  },
-  {
-    slug: "what-separates-a-great-campus-brand-ambassador",
-    title: "What separates a great campus brand ambassador from a bad one",
-    category: "Ambassadors",
     services: ["brand-ambassadors", "events"],
     excerpt:
-      "Selection makes or breaks an ambassador program. A point-by-point contrast of the traits that move product versus the ones that quietly sink a campaign.",
-    date: "2026-06-10",
+      "A New Orleans leasing agency used two shows, an on-site activation, ambassador posts, and localized Meta ads to turn a $2,500 campus package into 11x ROAS.",
+    date: "2026-08-03",
     author: AUTHOR,
     ctaService: "brand-ambassadors",
-    body: ambassadorBody,
-    readingTime: estimateReadingTime(ambassadorBody),
+    body: sosInsightBody,
+    readingTime: estimateReadingTime(sosInsightBody),
+  },
+  {
+    slug: "nutrl-night-school-tour-product-placement",
+    title: "How NÜTRL turned Night School Tour product placement into 425 cases and 5M social insights",
+    metaTitle: "NÜTRL Night School Tour Product Placement Case Study | Collegiate Agency",
+    metaDescription:
+      "A product-placement case study on NÜTRL as presenting sponsor of the Night School Tour, including 425 total cases, 5M social insights, and $175,000 in estimated paid media value.",
+    category: "Product Placement",
+    services: ["product-placement", "events", "brand-ambassadors"],
+    excerpt:
+      "NÜTRL became presenting sponsor of Night School Tour and turned the placement into 350 venue case buys, 75 partner organization cases, and roughly 5M social insights.",
+    date: "2026-08-02",
+    author: AUTHOR,
+    ctaService: "product-placement",
+    body: nutrlInsightBody,
+    readingTime: estimateReadingTime(nutrlInsightBody),
   },
   {
     slug: "why-welcome-week-is-the-highest-leverage-moment-on-campus",
@@ -338,7 +275,7 @@ const legacyPosts: Post[] = [
     category: "Events",
     services: ["events", "brand-ambassadors"],
     excerpt:
-      "The first two weeks of each semester decide the whole year. Why in-person beats ads in that window — and how brands plug into our Night School Tour network.",
+      "The first two weeks of each semester decide the whole year. Why in-person beats ads in that window - and how brands plug into our Night School Tour network.",
     date: "2026-05-20",
     author: AUTHOR,
     ctaService: "events",
@@ -387,11 +324,11 @@ export type CaseStudy = {
 };
 
 /**
- * INDUSTRY REFERENCE examples — real, well-known brand programs that show each of
+ * INDUSTRY REFERENCE examples - real, well-known brand programs that show each of
  * the three tactics working on campus. These are NOT Collegiate Agency
  * campaigns; they're public industry references. The `sample` flag renders an
  * "Industry example" label, and the headline/metric figures are illustrative
- * (kept modest on purpose) — the program descriptions are factual. Replace with
+ * (kept modest on purpose) - the program descriptions are factual. Replace with
  * CH's own client-approved case studies as they land.
  */
 const sosConsultantsArticle: ArticleBlock[] = [
@@ -432,7 +369,7 @@ const sosConsultantsArticle: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: 'If your brand needs local student demand — whether that means leasing inquiries, product trial, app downloads, retail visits, or event attendance — the takeaway is simple: do not separate campus ambassadors from paid media. Use ambassadors to create trust, use events to create context, and use localized Meta ads to turn the same creative into measurable conversion. <a href="/contact">Tell us the campus and the goal</a>, and we can build the same kind of integrated package around your market.',
+    html: 'If your brand needs local student demand - whether that means leasing inquiries, product trial, app downloads, retail visits, or event attendance - the takeaway is simple: do not separate campus ambassadors from paid media. Use ambassadors to create trust, use events to create context, and use localized Meta ads to turn the same creative into measurable conversion. <a href="/contact">Tell us the campus and the goal</a>, and we can build the same kind of integrated package around your market.',
   },
 ];
 
@@ -440,7 +377,7 @@ const sosConsultantsArticle: ArticleBlock[] = [
 const nutrlNightSchoolArticle: ArticleBlock[] = [
   {
     type: "p",
-    html: "NÜTRL came into the Night School Tour with a clear product-placement opportunity: do more than place a logo on a flyer. The brand had a chance to become part of the actual college-event economy — the venues stocking the product, the local organizations helping host the nights, the ambassadors pushing the story, and the students seeing the same name repeatedly across the tour. That is the difference between sponsorship as signage and sponsorship as distribution.",
+    html: "NÜTRL came into the Night School Tour with a clear product-placement opportunity: do more than place a logo on a flyer. The brand had a chance to become part of the actual college-event economy - the venues stocking the product, the local organizations helping host the nights, the ambassadors pushing the story, and the students seeing the same name repeatedly across the tour. That is the difference between sponsorship as signage and sponsorship as distribution.",
   },
   {
     type: "p",
@@ -493,7 +430,7 @@ export const caseStudies: CaseStudy[] = [
       { value: "1", label: "ambassador post round" },
     ],
     challenge:
-      "SOS Consultants Nola needed to reach New Orleans students with a leasing message that felt local, trusted, and timely — not like a generic housing ad competing blindly in the feed.",
+      "SOS Consultants Nola needed to reach New Orleans students with a leasing message that felt local, trusted, and timely - not like a generic housing ad competing blindly in the feed.",
     approach:
       "Collegiate Agency packaged two shows, an on-site activation, ambassador flyer/video posts, and localized Meta ads using the same creative so students saw one consistent message across campus, events, and social.",
     results:
@@ -514,14 +451,14 @@ export const caseStudies: CaseStudy[] = [
       { value: "32%", label: "trial-to-repeat" },
     ],
     challenge:
-      "Celsius was outspent many times over by the energy-drink giants. It couldn't win on ad budget — so it had to win on the ground, in front of students.",
+      "Celsius was outspent many times over by the energy-drink giants. It couldn't win on ad budget - so it had to win on the ground, in front of students.",
     approach:
-      "Through its CELSIUS University program the brand ran relentless campus sampling — gym takeovers, game-day activations, and dorm drops — putting cold cans in students' hands and converting first trial into habit at nearby retail.",
+      "Through its CELSIUS University program the brand ran relentless campus sampling - gym takeovers, game-day activations, and dorm drops - putting cold cans in students' hands and converting first trial into habit at nearby retail.",
     results:
-      "On-campus sampling turned free trials into repeat buyers and helped power Celsius into the top tier of US energy drinks — a textbook case that experiential activation beats impressions with a student audience.",
+      "On-campus sampling turned free trials into repeat buyers and helped power Celsius into the top tier of US energy drinks - a textbook case that experiential activation beats impressions with a student audience.",
     sources: [
-      { label: "Celsius Marketing Strategy — Latterly", url: "https://www.latterly.org/celsius-marketing-strategy/" },
-      { label: "CELSIUS campus roster — Learfield", url: "https://www.learfield.com/2023/08/celsius-adds-5-new-colleges-to-its-roster-fueling-students-and-athletes-with-essential-energy/" },
+      { label: "Celsius Marketing Strategy - Latterly", url: "https://www.latterly.org/celsius-marketing-strategy/" },
+      { label: "CELSIUS campus roster - Learfield", url: "https://www.learfield.com/2023/08/celsius-adds-5-new-colleges-to-its-roster-fueling-students-and-athletes-with-essential-energy/" },
     ],
   },
   {
@@ -539,7 +476,7 @@ export const caseStudies: CaseStudy[] = [
     metricFootnote:
       "Paid media value estimated from ~5M social and ambassador impressions at a $35 CPM. Sponsorship cost: $50,000.",
     challenge:
-      "NÜTRL needed a college event platform that could create real product movement, not just logo visibility — with venues, student partners, ambassadors, and social content all reinforcing the same placement.",
+      "NÜTRL needed a college event platform that could create real product movement, not just logo visibility - with venues, student partners, ambassadors, and social content all reinforcing the same placement.",
     approach:
       "Collegiate Agency positioned NÜTRL as presenting sponsor of the Night School Tour, connecting venue case buys, local organization partner cases, tour content, and ambassador posts into one product-placement campaign.",
     results:

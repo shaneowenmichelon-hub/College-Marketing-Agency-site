@@ -45,9 +45,9 @@ export async function POST(request: Request) {
     },
   });
 
-  const mail = genericNotification(`Job signup — ${email} → ${job.brand}: ${job.title}`, [
+  const mail = genericNotification(`Job signup - ${email} → ${job.brand}: ${job.title}`, [
     ["Student", email],
-    ["Job", `${job.brand} — ${job.title}`],
+    ["Job", `${job.brand} - ${job.title}`],
     ["Compensation", `${job.compensation.cash} + ${job.compensation.product}`],
     ["Category", job.category],
   ]);

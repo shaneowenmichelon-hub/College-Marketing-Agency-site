@@ -1,13 +1,13 @@
 /**
- * Transactional email — provider-swappable, fails gracefully.
+ * Transactional email - provider-swappable, fails gracefully.
  * ----------------------------------------------------------
  * Default provider: Resend. When RESEND_API_KEY is unset/empty, sending is a
- * no-op (logged) and returns { ok: true, skipped: true } — forms still succeed.
+ * no-op (logged) and returns { ok: true, skipped: true } - forms still succeed.
  *
  * ┌─────────────────────────────────────────────────────────────────────────┐
  * │ TO SWAP PROVIDERS (Postmark / SendGrid / SES / Nodemailer SMTP):          │
- * │ replace ONLY the `deliver()` function below. Everything else — the        │
- * │ graceful-disable behavior, the return shape, the callers — stays the same.│
+ * │ replace ONLY the `deliver()` function below. Everything else - the        │
+ * │ graceful-disable behavior, the return shape, the callers - stays the same.│
  * └─────────────────────────────────────────────────────────────────────────┘
  */
 
@@ -33,7 +33,7 @@ function emailEnabled(): boolean {
   return !!process.env.RESEND_API_KEY && process.env.RESEND_API_KEY.trim() !== "";
 }
 
-/* ── PROVIDER CALL — the single swap point ─────────────────────────────────
+/* ── PROVIDER CALL - the single swap point ─────────────────────────────────
  * Return a provider message id on success, or throw to signal failure.
  */
 async function deliver(args: SendEmailArgs): Promise<string | undefined> {
@@ -52,13 +52,13 @@ async function deliver(args: SendEmailArgs): Promise<string | undefined> {
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 /**
- * Send an email. Never throws — a delivery failure is logged and returns
+ * Send an email. Never throws - a delivery failure is logged and returns
  * { ok: false } so the caller (a form handler) can still respond with success.
  */
 export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
   if (!emailEnabled()) {
     console.warn(
-      `[email] disabled — no RESEND_API_KEY set. Would have sent: "${args.subject}" to ${
+      `[email] disabled - no RESEND_API_KEY set. Would have sent: "${args.subject}" to ${
         Array.isArray(args.to) ? args.to.join(", ") : args.to
       }`,
     );
@@ -69,7 +69,7 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
   // which Resend rejects because the domain isn't verified. Surface it clearly.
   if (!process.env.EMAIL_FROM) {
     console.warn(
-      `[email] EMAIL_FROM is not set — using default "${FROM}". Resend will REJECT this ` +
+      `[email] EMAIL_FROM is not set - using default "${FROM}". Resend will REJECT this ` +
         `unless that domain is verified. Set EMAIL_FROM to a verified sender (or ` +
         `"onboarding@resend.dev" to test).`,
     );
@@ -83,7 +83,7 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
     console.error(
       `[email] send FAILED ("${args.subject}"):`,
       err instanceof Error ? err.message : err,
-      "— check RESEND_API_KEY and that EMAIL_FROM is a VERIFIED sender.",
+      "- check RESEND_API_KEY and that EMAIL_FROM is a VERIFIED sender.",
     );
     return { ok: false };
   }

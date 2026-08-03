@@ -9,9 +9,9 @@ import { IconCardGrid } from "@/components/services/IconCardGrid";
 import { servicesHub } from "@/site.config";
 
 export const metadata: Metadata = {
-  title: "Services — For brands and for students",
+  title: "Services - For brands and for students",
   description:
-    "Campus presence for brands through events, ambassadors, and product placement — and paid opportunities for students. One team, run end to end.",
+    "Campus presence for brands through events, ambassadors, and product placement - and paid opportunities for students. One team, run end to end.",
   alternates: { canonical: "/services" },
 };
 

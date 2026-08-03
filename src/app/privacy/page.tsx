@@ -4,7 +4,7 @@ import { LegalPage } from "@/components/LegalPage";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How we collect, use, and protect your data — including student applicant data.",
+  description: "How we collect, use, and protect your data - including student applicant data.",
   alternates: { canonical: "/privacy" },
   robots: { index: false, follow: true },
 };

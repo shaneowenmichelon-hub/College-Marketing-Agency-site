@@ -15,7 +15,7 @@ export const ACCEPT_ATTR = ".jpg,.jpeg,.png,.heic,.heif,.webp,.pdf,image/*,appli
 
 /**
  * Validate a File against type + size. Returns an error message, or null if OK.
- * Some HEIC files report an empty MIME type on certain browsers — we accept an
+ * Some HEIC files report an empty MIME type on certain browsers - we accept an
  * empty type (size is still enforced) rather than reject a legitimate photo.
  */
 export function validateUpload(file: File): string | null {

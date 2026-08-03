@@ -80,7 +80,7 @@ export async function POST(request: Request) {
     attribution,
   };
 
-  // Structured submission record — the capture fallback (never lose a lead).
+  // Structured submission record - the capture fallback (never lose a lead).
   console.log("[lead]", JSON.stringify({ at: new Date().toISOString(), ...lead }));
 
   const ipForAnalytics = analyticsClientIp(request);

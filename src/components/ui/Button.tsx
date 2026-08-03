@@ -17,7 +17,7 @@ const variants: Record<Variant, string> = {
   // white fill, ink border (on light)
   secondary:
     "bg-white text-ink shadow-[4px_4px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--ink)]",
-  // on dark bands — white border, offset shadow uses accent
+  // on dark bands - white border, offset shadow uses accent
   "ghost-dark":
     "border-white bg-transparent text-white shadow-[4px_4px_0_var(--accent)] hover:-translate-x-0.5 hover:-translate-y-0.5",
   // acid lime accent

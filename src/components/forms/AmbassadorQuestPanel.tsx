@@ -8,7 +8,7 @@ import { pop } from "@/lib/confetti";
 export type Badge = { key: string; label: string; earned: boolean };
 
 /** The gamification sidebar: XP meter, achievement badges, and a live player card.
- *  Purely presentational — it reflects form state, never blocks or alters it. */
+ *  Purely presentational - it reflects form state, never blocks or alters it. */
 export function AmbassadorQuestPanel({
   percent,
   level,
@@ -155,8 +155,8 @@ export function AmbassadorCard({
         </div>
 
         <div className="mono-label mt-4 grid grid-cols-2 gap-2 border-t-2 border-white/20 pt-3 text-[10px] text-[color:var(--muted-on-dark)]">
-          <span className="truncate">IG {card.ig ? `@${card.ig.replace(/^@/, "")}` : "—"}</span>
-          <span className="truncate text-right">TT {card.tt ? `@${card.tt.replace(/^@/, "")}` : "—"}</span>
+          <span className="truncate">IG {card.ig ? `@${card.ig.replace(/^@/, "")}` : "-"}</span>
+          <span className="truncate text-right">TT {card.tt ? `@${card.tt.replace(/^@/, "")}` : "-"}</span>
         </div>
       </div>
     </div>

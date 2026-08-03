@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * All placeholders are intentionally labeled so the site reads as a template
- * ready to be filled — never as fabricated proof.
+ * ready to be filled - never as fabricated proof.
  */
 
 const gradients = [
@@ -62,13 +62,13 @@ export function TestimonialCard({ index = 0 }: { index?: number }) {
     <figure className="flex h-full flex-col rounded-2xl border border-dashed border-[color:var(--border-on-light)] bg-surface p-6">
       <Quote className="h-7 w-7 text-accent/40" aria-hidden />
       <blockquote className="mt-4 flex-1 text-sm italic leading-relaxed text-[color:var(--muted-on-light)]">
-        Testimonial {index + 1} — to be added. Drop a real client quote here once
+        Testimonial {index + 1} - to be added. Drop a real client quote here once
         you have sign-off.
       </blockquote>
       <figcaption className="mt-5 flex items-center gap-3">
         <span className="h-9 w-9 rounded-full bg-surface-muted" aria-hidden />
         <span className="text-xs text-[color:var(--muted-on-light)]">
-          Name, Title — Company
+          Name, Title - Company
         </span>
       </figcaption>
     </figure>

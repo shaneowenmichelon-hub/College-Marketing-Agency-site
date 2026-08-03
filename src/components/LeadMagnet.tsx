@@ -14,13 +14,13 @@ import { Badge } from "@/components/ui/Badge";
  * kind: "lead_magnet" so it triggers the same email flow (confirmation +
  * internal notification).
  *
- * TODO: add downloadable asset — deliver the file link in the confirmation email
+ * TODO: add downloadable asset - deliver the file link in the confirmation email
  * or redirect to a gated URL after submit.
  */
 export function LeadMagnet({
   eyebrow = "Free guide",
   title = "The Gen-Z campus marketing guide",
-  description = "A no-fluff playbook for reaching college students in 2026 — events, ambassadors, and product placement that actually convert.",
+  description = "A no-fluff playbook for reaching college students in 2026 - events, ambassadors, and product placement that actually convert.",
   resource = "gen-z-campus-marketing-guide",
 }: {
   eyebrow?: string;

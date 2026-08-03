@@ -93,11 +93,11 @@ function JobCard({ job, state }: { job: Job; state: PortalState | null }) {
           href="/portal/my-job"
           className="mono-label mt-5 inline-flex items-center justify-center gap-1.5 rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)] px-4 py-2.5 text-[11px] font-bold text-ink shadow-[3px_3px_0_var(--ink)]"
         >
-          You signed up — view job <ArrowRight className="h-4 w-4" />
+          You signed up - view job <ArrowRight className="h-4 w-4" />
         </Link>
       ) : full ? (
         <span className="mono-label mt-5 inline-flex items-center justify-center rounded-[3px] border-2 border-[color:var(--muted-on-light)]/40 bg-surface-muted px-4 py-2.5 text-[11px] font-bold text-[color:var(--muted-on-light)]">
-          Full — all slots taken
+          Full - all slots taken
         </span>
       ) : (
         <Link

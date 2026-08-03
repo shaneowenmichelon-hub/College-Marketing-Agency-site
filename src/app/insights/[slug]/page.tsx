@@ -17,6 +17,7 @@ const HERO_GRADIENT: Record<string, string> = {
   Ambassadors: "from-[#0B0B0F] via-[#3a2a4a] to-[#FF3D9A]",
   "Brand Ambassadors": "from-[#0B0B0F] via-[#3a2a4a] to-[#FF3D9A]",
   Events: "from-[#0B0B0F] via-[#2a2340] to-[#FF6A2B]",
+  "Product Placement": "from-[#0B0B0F] via-[#162f2d] to-[#2F5BFF]",
   "Campus Strategy": "from-[#2F5BFF] to-[#0B0B0F]",
 };
 
@@ -25,12 +26,17 @@ const SERVICE_CTA: Record<Post["ctaService"], { label: string; href: string; blu
   "brand-ambassadors": {
     label: "Explore our ambassador program",
     href: "/services/brand-ambassadors",
-    blurb: "We screen, verify, and manage campus ambassadors so brands get reliable representation — not a gamble.",
+    blurb: "We screen, verify, and manage campus ambassadors so brands get reliable representation - not a gamble.",
   },
   events: {
     label: "Explore campus events",
     href: "/services/events",
     blurb: "Plug into the Night School Tour and our welcome-week network across campus markets.",
+  },
+  "product-placement": {
+    label: "Explore product placement",
+    href: "/services#product-placement",
+    blurb: "Place product directly into campus events, student organizations, venues, and ambassador-led content.",
   },
 };
 

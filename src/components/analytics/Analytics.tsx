@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { CONSENT_EVENT, getConsent } from "@/lib/analytics";
 
 /**
- * Loads GA4 / GTM / optional pixels — but ONLY when:
+ * Loads GA4 / GTM / optional pixels - but ONLY when:
  *   1. the corresponding env var is set, AND
  *   2. the visitor has opted in via the cookie banner.
  * All scripts use next/script `afterInteractive`. With env unset or consent not

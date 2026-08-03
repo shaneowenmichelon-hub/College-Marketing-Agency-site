@@ -249,9 +249,9 @@ export default function PrivateOpsPage() {
                   <p className="font-black capitalize">{event.type.replace(/_/g, " ")}</p>
                   <p className="shrink-0 text-xs text-slate-500">{fmtDate(event.at)}</p>
                 </div>
-                <p className="mt-2 font-semibold">{String(event.data?.company || event.data?.fullName || event.data?.email || "—")}</p>
-                <p className="mt-1 break-all text-slate-600">{String(event.data?.email || event.data?.schoolEmail || "—")}</p>
-                <p className="mt-2 truncate text-slate-500">{event.source || String(event.data?.message || event.data?.school || event.data?.job || "—")}</p>
+                <p className="mt-2 font-semibold">{String(event.data?.company || event.data?.fullName || event.data?.email || "-")}</p>
+                <p className="mt-1 break-all text-slate-600">{String(event.data?.email || event.data?.schoolEmail || "-")}</p>
+                <p className="mt-2 truncate text-slate-500">{event.source || String(event.data?.message || event.data?.school || event.data?.job || "-")}</p>
               </div>
             ))}
           </div>
@@ -266,10 +266,10 @@ export default function PrivateOpsPage() {
                   <tr key={event.id} className="align-top">
                     <td className="py-3 text-slate-500">{fmtDate(event.at)}</td>
                     <td className="font-bold">{event.type.replace(/_/g, " ")}</td>
-                    <td>{String(event.data?.company || event.data?.fullName || event.data?.email || "—")}</td>
-                    <td>{String(event.data?.email || event.data?.schoolEmail || "—")}</td>
-                    <td>{event.source || "—"}</td>
-                    <td className="max-w-sm truncate text-slate-500">{String(event.data?.message || event.data?.school || event.data?.job || event.path || "—")}</td>
+                    <td>{String(event.data?.company || event.data?.fullName || event.data?.email || "-")}</td>
+                    <td>{String(event.data?.email || event.data?.schoolEmail || "-")}</td>
+                    <td>{event.source || "-"}</td>
+                    <td className="max-w-sm truncate text-slate-500">{String(event.data?.message || event.data?.school || event.data?.job || event.path || "-")}</td>
                   </tr>
                 ))}
               </tbody>
@@ -284,8 +284,8 @@ export default function PrivateOpsPage() {
               <div key={event.id} className="grid gap-2 rounded-2xl bg-slate-50 p-3 text-sm sm:grid-cols-[150px_150px_1fr_160px]">
                 <span className="text-slate-500">{fmtDate(event.at)}</span>
                 <span className="font-bold">{event.type.replace(/_/g, " ")}</span>
-                <span className="truncate">{event.path || String(event.data?.company || event.data?.email || "—")}</span>
-                <span className="truncate text-slate-500">{event.llmSource || event.source || "—"}</span>
+                <span className="truncate">{event.path || String(event.data?.company || event.data?.email || "-")}</span>
+                <span className="truncate text-slate-500">{event.llmSource || event.source || "-"}</span>
               </div>
             ))}
           </div>

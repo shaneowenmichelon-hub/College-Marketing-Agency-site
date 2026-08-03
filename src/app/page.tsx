@@ -43,7 +43,7 @@ const serviceIcons = {
 const process = [
   {
     title: "Understand the goal",
-    body: "We start with the outcome you're after — awareness, trial, sign-ups, sales — and work backward from there.",
+    body: "We start with the outcome you're after - awareness, trial, sign-ups, sales - and work backward from there.",
     icon: Target,
   },
   {
@@ -53,7 +53,7 @@ const process = [
   },
   {
     title: "Stretch the budget",
-    body: "We map spend to impact so every dollar shows up on the ground and online — no waste, no vanity metrics.",
+    body: "We map spend to impact so every dollar shows up on the ground and online - no waste, no vanity metrics.",
     icon: Wallet,
   },
   {
@@ -66,7 +66,7 @@ const process = [
 const whyUs = [
   {
     title: "Culturally native",
-    body: "We don't study campus culture from the outside — we run it. Your brand shows up fluent, not forced.",
+    body: "We don't study campus culture from the outside - we run it. Your brand shows up fluent, not forced.",
     icon: Sparkles,
   },
   {
@@ -76,7 +76,7 @@ const whyUs = [
   },
   {
     title: "A vetted student network",
-    body: "Real students, screened and trained — not a spreadsheet of random handles.",
+    body: "Real students, screened and trained - not a spreadsheet of random handles.",
     icon: ShieldCheck,
   },
   {
@@ -114,7 +114,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="What we do"
             title="A modern college-marketing agency built for how students actually live."
-            intro="Legacy campus-media shops sell you posters and email blasts. We connect your brand to students through the things they show up for — the events they go to, the friends they trust, and the feeds they scroll. It's marketing that feels native to campus, because it is."
+            intro="Legacy campus-media shops sell you posters and email blasts. We connect your brand to students through the things they show up for - the events they go to, the friends they trust, and the feeds they scroll. It's marketing that feels native to campus, because it is."
           />
           <Reveal delay={0.1}>
             <EventImage index={1} aspect="aspect-[5/4]" />
@@ -140,7 +140,7 @@ export default function HomePage() {
       <Section tone="light">
         <SectionHeading
           eyebrow="Services"
-          title="Three ways to reach students — one integrated plan."
+          title="Three ways to reach students - one integrated plan."
           intro="Run them on their own or stack them together. Either way, it's one team and one plan."
         />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -163,7 +163,7 @@ export default function HomePage() {
         <SectionHeading
           eyebrow="Our process"
           title="How a campaign comes together."
-          intro="A simple, repeatable path from goal to plan — designed to make your budget work harder."
+          intro="A simple, repeatable path from goal to plan - designed to make your budget work harder."
         />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((p, i) => (
@@ -183,7 +183,7 @@ export default function HomePage() {
         <SectionHeading
           eyebrow="Campus network"
           title="On the campuses that matter."
-          intro="The markets our network spans and is launching across — big-ten towns, SEC country, and major metros where students live, study, and go out."
+          intro="The markets our network spans and is launching across - big-ten towns, SEC country, and major metros where students live, study, and go out."
         />
         <div className="mt-12">
           <CampusGrid />
@@ -196,7 +196,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Work"
             title="The playbook, proven."
-            intro="How events, ambassadors, and product placement move brands — shown through well-known industry examples (illustrative figures) until our own case studies land."
+            intro="How events, ambassadors, and product placement move brands - shown through real campaign case studies and selected industry references."
           />
           <Reveal>
             <Link
@@ -274,7 +274,7 @@ export default function HomePage() {
               Get paid to rep brands you actually love.
             </h2>
             <p className="mt-4 text-base text-[color:var(--muted-on-dark)] sm:text-lg">
-              Join the ambassador network. Post, activate on campus, and earn —
+              Join the ambassador network. Post, activate on campus, and earn -
               cash, free product, and real experience for your resume.
             </p>
           </Reveal>

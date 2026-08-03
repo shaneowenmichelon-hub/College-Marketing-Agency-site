@@ -136,7 +136,7 @@ export function ServicePage({
           <SectionHeading
             eyebrow="Pricing"
             title="Simple, flexible pricing."
-            intro="Straightforward rates to start from — we scope the exact package around your goals."
+            intro="Straightforward rates to start from - we scope the exact package around your goals."
           />
           <Reveal delay={0.1}>
             <div className="rounded-3xl border border-[color:var(--border-on-light)] bg-surface p-8 shadow-soft">

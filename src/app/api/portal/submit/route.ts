@@ -47,7 +47,7 @@ export async function POST(request: Request) {
   const secureLinks: SecureLink[] = files.map((f, i) => ({
     label: `Proof file ${i + 1}${f.name ? ` (${f.name})` : ""}`,
     url: f.url && /^https:\/\/[a-z0-9.-]*\.?blob\.vercel-storage\.com\//i.test(f.url) ? f.url : null,
-    note: f.url ? undefined : "not uploaded — storage not configured",
+    note: f.url ? undefined : "not uploaded - storage not configured",
   }));
 
   console.log(
@@ -75,13 +75,13 @@ export async function POST(request: Request) {
 
   const rows: [string, string][] = [
     ["Student", email],
-    ["Job", `${job!.brand} — ${job!.title}`],
+    ["Job", `${job!.brand} - ${job!.title}`],
     ...links.map((l, i) => [`Post link ${i + 1}`, l] as [string, string]),
   ];
   if (notes) rows.push(["Notes", notes]);
 
   const mail = genericNotification(
-    `Job submission — ${email} → ${job!.brand}: ${job!.title}`,
+    `Job submission - ${email} → ${job!.brand}: ${job!.title}`,
     rows,
     secureLinks,
   );

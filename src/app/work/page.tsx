@@ -11,7 +11,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { caseStudies } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Work — Campaigns & case studies",
+  title: "Work - Campaigns & case studies",
   description:
     "Metric-led campus campaigns across events, brand ambassadors, and product placement, including client case studies and public reference examples.",
   alternates: { canonical: "/work" },
@@ -30,7 +30,7 @@ export default function WorkPage() {
         <SectionHeading
           eyebrow="Work"
           title="The three tactics, proven on campus."
-          intro="How events, brand ambassadors, and product placement actually move brands — shown through client case studies and public reference examples."
+          intro="How events, brand ambassadors, and product placement actually move brands - shown through client case studies and public reference examples."
         />
       </Section>
 

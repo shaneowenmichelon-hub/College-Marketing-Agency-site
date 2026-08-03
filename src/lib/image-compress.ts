@@ -3,7 +3,7 @@
  * Vercel's ~4.5MB serverless request-body limit so submissions don't 413.
  *
  * Runs in the browser only. Non-image files (PDF) and anything the browser can't
- * decode (e.g. HEIC in some browsers) are returned unchanged — the server still
+ * decode (e.g. HEIC in some browsers) are returned unchanged - the server still
  * enforces the 10MB hard cap as a backstop.
  */
 export async function compressImage(
@@ -36,6 +36,6 @@ export async function compressImage(
     const name = file.name.replace(/\.[^.]+$/, "") + ".jpg";
     return new File([blob], name, { type: "image/jpeg", lastModified: file.lastModified });
   } catch {
-    return file; // couldn't decode (e.g. HEIC in Chrome) — leave as-is
+    return file; // couldn't decode (e.g. HEIC in Chrome) - leave as-is
   }
 }

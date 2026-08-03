@@ -10,9 +10,9 @@ import { CTASection } from "@/components/CTASection";
 import { posts, formatDate } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Insights — Notes on campus marketing & culture",
+  title: "Insights - Notes on campus marketing & culture",
   description:
-    "Practical, brand-facing perspective on campus marketing: product placement, selecting ambassadors, and winning welcome week.",
+    "Practical, brand-facing perspective on campus marketing: product placement, ambassador campaigns, and winning welcome week.",
   alternates: { canonical: "/insights" },
 };
 
@@ -25,7 +25,7 @@ export default function InsightsPage() {
         <SectionHeading
           eyebrow="Insights"
           title="Notes from the ground."
-          intro="Practical, brand-facing perspective on campus marketing — how we vet creators, pick ambassadors, and turn welcome week into mindshare that lasts."
+          intro="Practical, brand-facing perspective on campus marketing - case studies, product placement, ambassador campaigns, and event strategy that actually move students."
         />
 
         {/* Featured */}

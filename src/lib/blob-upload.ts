@@ -6,11 +6,11 @@ export type ClientUpload = { url: string | null; note?: string };
 
 /**
  * Upload a file straight from the browser to Vercel Blob (client-direct upload),
- * bypassing the serverless request-body limit — so files of any size work.
+ * bypassing the serverless request-body limit - so files of any size work.
  * Never throws: if storage isn't configured or the upload fails, returns
  * { url: null, note } so the caller can still submit and flag it in the email.
  *
- * NOTE: the client necessarily receives the (unguessable, random-suffixed) URL —
+ * NOTE: the client necessarily receives the (unguessable, random-suffixed) URL -
  * that's inherent to client-direct uploads. Keep it in memory only; never render
  * it, log it, or put it in analytics. For fully server-mediated uploads instead,
  * use src/lib/storage.ts (subject to the 4.5MB function-body limit).
@@ -24,11 +24,11 @@ export async function uploadToBlob(pathname: string, file: File): Promise<Client
     });
     return { url: res.url };
   } catch (err) {
-    // Surface the real reason in the browser console for debugging — the email
+    // Surface the real reason in the browser console for debugging - the email
     // note stays generic. Most common cause: BLOB_READ_WRITE_TOKEN is not set on
     // the deployment, so /api/blob/upload returns 501 ("storage not configured").
     console.error("[blob-upload] direct upload failed:", err);
-    return { url: null, note: "not uploaded — storage not configured" };
+    return { url: null, note: "not uploaded - storage not configured" };
   }
 }
 

@@ -30,22 +30,22 @@ export type Office = {
 
 export const siteConfig = {
   /**
-   * The agency brand name — a single swappable token referenced everywhere.
+   * The agency brand name - a single swappable token referenced everywhere.
    * Change it once and the entire site (nav, hero, footer, meta, forms, emails)
    * updates. Later: replace <Logo /> internals with an SVG wordmark.
    */
   companyName: "Collegiate Agency",
 
-  /** Legal entity name — used in emails, legal pages, and copyright. */
+  /** Legal entity name - used in emails, legal pages, and copyright. */
   companyLegalName: "Collegiate Agency LLC",
 
-  /** Root domain (no protocol) — used to build email addresses and canonical URLs. */
+  /** Root domain (no protocol) - used to build email addresses and canonical URLs. */
   companyDomain: "collegiateagency.com",
 
   /** Used for <title> templates, OG, and general voice. */
   tagline: "Where brands meet campus culture.",
   description:
-    "A college marketing & events agency connecting brands with students through events, brand ambassadors, and product placement — on the campuses where they live, study, and go out.",
+    "A college marketing & events agency connecting brands with students through events, brand ambassadors, and product placement - on the campuses where they live, study, and go out.",
 
   /** Canonical URL for SEO/sitemap. Update to your production domain before launch. */
   url: "https://collegiateagency.com",
@@ -58,14 +58,14 @@ export const siteConfig = {
   credibilityLine:
     "Backed by the team behind ZMM Events and the Night School college tour.",
 
-  /** Primary contact info — sourced from Shane's ZMM email signature. */
+  /** Primary contact info - sourced from Shane's ZMM email signature. */
   contact: {
     email: "shane@zmmevents.com",
     phone: "847-420-9553",
     location: "New York, NY",
   },
 
-  /** Office locations — kept intentionally lean until formal office addresses are confirmed. */
+  /** Office locations - kept intentionally lean until formal office addresses are confirmed. */
   offices: [
     {
       name: "New York",
@@ -94,7 +94,7 @@ export const siteConfig = {
   ] as StatToken[],
 
   /**
-   * REAL campus network — the markets the agency's network spans / is launching
+   * REAL campus network - the markets the agency's network spans / is launching
    * across. Framed honestly (markets, not "years of operation").
    */
   campuses: [
@@ -147,7 +147,7 @@ export const siteConfig = {
   ] as const,
 
   /**
-   * The /services hub is the sole services entry point — the top-nav "Services"
+   * The /services hub is the sole services entry point - the top-nav "Services"
    * item is a single plain link to it (no dropdown). Kept as a flag for clarity;
    * the dropdown UI has been removed from the Navbar entirely.
    */
@@ -176,7 +176,7 @@ export const siteConfig = {
 
 export type SiteConfig = typeof siteConfig;
 
-/** Derived email defaults (env vars override these — see src/lib/email.ts). */
+/** Derived email defaults (env vars override these - see src/lib/email.ts). */
 export const emailDefaults = {
   from: `${siteConfig.companyName} <hello@${siteConfig.companyDomain}>`,
   // Destination for ALL internal notifications (brand + ambassador + portal).
@@ -199,7 +199,7 @@ export function getStat(key: string): string {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PRICING — per service slug. Edit ranges/copy here; pages read from this.
+// PRICING - per service slug. Edit ranges/copy here; pages read from this.
 // ─────────────────────────────────────────────────────────────────────────────
 export type ServicePricing = {
   range: string;
@@ -236,7 +236,7 @@ function priceNote(slug: keyof typeof pricing): string {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SERVICES HUB — the /services page (Brand ↔ Student tabbed layout). All copy is
+// SERVICES HUB - the /services page (Brand ↔ Student tabbed layout). All copy is
 // data-driven from here. Price notes reference the pricing config above so they
 // never drift. Images reuse existing /public assets; swap paths freely.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -272,10 +272,10 @@ export type ServicesHub = {
 
 export const servicesHub: ServicesHub = {
   intro:
-    "One team, three channels onto campus — events, ambassadors, and product placement — run end to end. Pick your side: what we do for brands, and what's in it for students.",
+    "One team, three channels onto campus - events, ambassadors, and product placement - run end to end. Pick your side: what we do for brands, and what's in it for students.",
   brands: {
     intro:
-      "Brands get real campus presence through three channels — events, ambassadors, and product placement — run end to end by a team that operates Gen-Z events nationally.",
+      "Brands get real campus presence through three channels - events, ambassadors, and product placement - run end to end by a team that operates Gen-Z events nationally.",
     blocks: [
       {
         eyebrow: "On-campus activations",
@@ -288,7 +288,7 @@ export const servicesHub: ServicesHub = {
           ],
           [
             "Greek & student-club sponsorships",
-            "Access to our event & trip sponsorship inventory — ZMM Events, JusCollege, and Thaw Out",
+            "Access to our event & trip sponsorship inventory - ZMM Events, JusCollege, and Thaw Out",
           ],
         ],
         priceNote: priceNote("events"),
@@ -344,7 +344,7 @@ export const servicesHub: ServicesHub = {
   },
   students: {
     intro:
-      "Get paid to rep the brands you already love — on your own campus, around your class schedule.",
+      "Get paid to rep the brands you already love - on your own campus, around your class schedule.",
     howItWorks: {
       eyebrow: "The path",
       heading: "How it works",
@@ -361,11 +361,11 @@ export const servicesHub: ServicesHub = {
       cta: { label: "Apply now", href: "/become-an-ambassador" },
     },
     perks: [
-      { icon: "DollarSign", title: "Get paid", body: "Cash for every job you complete — no vague \"exposure\" deals." },
+      { icon: "DollarSign", title: "Get paid", body: "Cash for every job you complete - no vague \"exposure\" deals." },
       { icon: "Gift", title: "Free product", body: "Keep the products from the brands you rep." },
       { icon: "CalendarClock", title: "Flexible", body: "Work around your class schedule, not against it." },
       { icon: "Briefcase", title: "Real experience", body: "Build a resume and portfolio brands actually recognize." },
-      { icon: "ShieldCheck", title: "One job at a time", body: "No oversaturation — you rep one brand at a time." },
+      { icon: "ShieldCheck", title: "One job at a time", body: "No oversaturation - you rep one brand at a time." },
       { icon: "Zap", title: "Fast payouts", body: "Submit your proof and get paid quickly." },
       { icon: "Music", title: "Work the events", body: "Staff the Night School Tour and other live shows." },
       { icon: "Video", title: "Create UGC", body: "Get better on camera and grow your own channels." },
@@ -375,7 +375,7 @@ export const servicesHub: ServicesHub = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CLIENTS — revolving marquee logos. `file` is self-hosted at /public/logos/
+// CLIENTS - revolving marquee logos. `file` is self-hosted at /public/logos/
 // (populated by scripts/fetch-assets.mjs at build). `remote` is the live source
 // used as a fallback if the self-hosted file is missing. Reorder/remove freely.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -390,12 +390,12 @@ export const clients: Client[] = [
       remote: `https://www.zmm.events/assets/sponsors/sponsor${n}.png`,
     };
   }),
-  // Polymarket — self-hosted SVG wordmark (see /public/logos/polymarket.svg).
+  // Polymarket - self-hosted SVG wordmark (see /public/logos/polymarket.svg).
   { name: "Polymarket", file: "polymarket.svg", url: "https://polymarket.com" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TEAM — rendered on /about. Drop a headshot at the `photo` path (e.g.
+// TEAM - rendered on /about. Drop a headshot at the `photo` path (e.g.
 // public/team/shane-michelon.jpg) to show it; until then a clean initials avatar
 // is shown. Optionally add a `linkedin` URL to link the card.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -428,15 +428,15 @@ export const team: TeamMember[] = [
     photo: "/team/ronan-rolstan.png",
   },
   {
-    // Photo intentionally left blank for now — shows a clean initials avatar.
-    // Title intentionally blank — show name only.
+    // Photo intentionally left blank for now - shows a clean initials avatar.
+    // Title intentionally blank - show name only.
     name: "Elizabeth",
     title: "",
   },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// EVENT PHOTOS — real ZMM event imagery, self-hosted at /public/images/events/
+// EVENT PHOTOS - real ZMM event imagery, self-hosted at /public/images/events/
 // (populated by scripts/fetch-assets.mjs). A curated spread of the t1–t54 set.
 // Swap in higher-res originals later by replacing the files.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -452,13 +452,13 @@ export function eventPhotoRemote(file: string): string {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SITE PHOTOS — online imagery used across the site and in the homepage photo
+// SITE PHOTOS - online imagery used across the site and in the homepage photo
 // carousel. Rights-safe (Unsplash). `src` is the topical photo; if it ever fails
 // to load, the component falls back to a guaranteed real photo via `photoFallback`
-// (Picsum, seeded so it's stable), then a gradient. Swap any `src` here anytime —
+// (Picsum, seeded so it's stable), then a gradient. Swap any `src` here anytime -
 // drop in your own /images/events/*.jpg and point `src` at "/images/events/x.jpg".
 // NOTE: these load on the live site / browser; this build sandbox blocks image
-// hosts, so they won't render inside CI — verify on the Vercel deploy.
+// hosts, so they won't render inside CI - verify on the Vercel deploy.
 // ─────────────────────────────────────────────────────────────────────────────
 export type SitePhoto = { src: string; alt: string; seed: string };
 
@@ -492,8 +492,8 @@ export function photoFallback(seed: string, w = 1200, h = 900): string {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// EVENT & TRIP SPONSORSHIP DIRECTORY — Events page. Grouped by category.
-// Fill valuePerEvent / basePackage / presentingSponsor; use "[$ —]" for unknowns.
+// EVENT & TRIP SPONSORSHIP DIRECTORY - Events page. Grouped by category.
+// Fill valuePerEvent / basePackage / presentingSponsor; use "[$ -]" for unknowns.
 // ─────────────────────────────────────────────────────────────────────────────
 /** A single sellable tier (e.g. Thaw Out's Presenting / Title / Founder). */
 export type SponsorshipTier = {
@@ -535,7 +535,7 @@ export type SponsorshipItem = {
   contact?: { name: string; role: string; email: string; phone?: string };
   /**
    * Optional link to a hosted album ("View past activation photos →"). Available on
-   * every item across all groups; leave "" to hide. Editable — point at a Drive folder.
+   * every item across all groups; leave "" to hide. Editable - point at a Drive folder.
    */
   photosUrl?: string;
 };
@@ -585,19 +585,19 @@ export type SponsorshipGroup = {
   comingSoon?: boolean;
 };
 
-// Thaw Out sells the same three tiers in every market — defined once, reused per
+// Thaw Out sells the same three tiers in every market - defined once, reused per
 // market so the four cards stay in sync. Prices are OUR sell prices (see §4);
 // partner cost is never stored in this repo.
 const thawTiers: SponsorshipTier[] = [
   {
     name: "Presenting Sponsor",
     price: "$25,000",
-    summary: '"Thaw Out Presented By [Brand]" — naming rights at that campus.',
+    summary: '"Thaw Out Presented By [Brand]" - naming rights at that campus.',
     benefits: [
       'Festival named "Thaw Out Presented By [Brand]" at that campus',
       "Main stage visibility and naming rights",
       "Product featured with campus leaders and student-athletes",
-      "Logo on all festival marketing — poster, map, digital, wristband",
+      "Logo on all festival marketing - poster, map, digital, wristband",
       "20 VIP tickets",
       "Premium activation space (10x20)",
       "3 dedicated Instagram posts",
@@ -607,11 +607,11 @@ const thawTiers: SponsorshipTier[] = [
   {
     name: "Title Sponsor",
     price: "$12,500",
-    summary: '"[Brand] Official [Category]" — exclusive category ownership, one per category per market.',
+    summary: '"[Brand] Official [Category]" - exclusive category ownership, one per category per market.',
     exclusive: true,
     benefits: [
       '"[Brand] Official [Category]" designation',
-      "Exclusive category ownership — only one per category per market",
+      "Exclusive category ownership - only one per category per market",
       "Logo on all festival marketing",
       "15 VIP tickets",
       "Activation space (10x20)",
@@ -646,7 +646,7 @@ function thawMarket(name: string, eventDate: string, venue: string, imageFile?: 
     tiers: thawTiers,
     image: imageFile ? { src: `/images/thaw-out/${imageFile}`, alt: `Thaw Out Music Festival event crowd and sponsor activation imagery for ${name}` } : undefined,
     imageSource: imageFile ? "Existing repo Thaw Out gallery" : undefined,
-    photosUrl: "", // editable — point at a Drive album to show "View past activation photos →"
+    photosUrl: "", // editable - point at a Drive album to show "View past activation photos →"
   };
 }
 
@@ -667,7 +667,7 @@ export const eventSponsorships: {
       },
       items: [
         {
-          name: "Puerto Vallarta — Spring Break",
+          name: "Puerto Vallarta - Spring Break",
           description: "Spring Break destination trip with a concentrated student travel audience.",
           valuePerEvent: "2,000+",
           basePackage: "$10,000",
@@ -682,7 +682,7 @@ export const eventSponsorships: {
           ],
         },
         {
-          name: "Cancún — Spring Break",
+          name: "Cancún - Spring Break",
           description: "Spring Break destination trip built around one of the largest college travel markets.",
           valuePerEvent: "3,000+",
           basePackage: "$10,000",
@@ -697,7 +697,7 @@ export const eventSponsorships: {
           ],
         },
         {
-          name: "Cabo — Spring Break",
+          name: "Cabo - Spring Break",
           description: "Spring Break destination trip with a premium resort-market student audience.",
           valuePerEvent: "2,500+",
           basePackage: "$10,000",
@@ -712,7 +712,7 @@ export const eventSponsorships: {
           ],
         },
         {
-          name: "Punta Cana — Spring Break",
+          name: "Punta Cana - Spring Break",
           description: "Spring Break destination trip in a high-demand Caribbean resort market.",
           valuePerEvent: "2,000+",
           basePackage: "$10,000",
@@ -727,7 +727,7 @@ export const eventSponsorships: {
           ],
         },
         {
-          name: "Miami — Spring Break",
+          name: "Miami - Spring Break",
           description: "Spring Break destination trip in a major nightlife and hospitality market.",
           valuePerEvent: "3,000+",
           basePackage: "$10,000",
@@ -742,7 +742,7 @@ export const eventSponsorships: {
           ],
         },
         {
-          name: "Florida — Spring Break",
+          name: "Florida - Spring Break",
           description: "Spring Break destination trip across Florida student-travel markets.",
           valuePerEvent: "2,500+",
           basePackage: "$10,000",
@@ -757,7 +757,7 @@ export const eventSponsorships: {
           ],
         },
         {
-          name: "Las Vegas — Senior Trip",
+          name: "Las Vegas - Senior Trip",
           description: "Senior-year celebration trip built around nightlife, hospitality, and milestone travel.",
           valuePerEvent: "2,500+",
           basePackage: "$10,000",
@@ -772,7 +772,7 @@ export const eventSponsorships: {
           ],
         },
         {
-          name: "Montreal — Oktoberfest",
+          name: "Montreal - Oktoberfest",
           description: "Oktoberfest destination trip with a seasonal college travel audience.",
           valuePerEvent: "1,500+",
           basePackage: "$10,000",
@@ -868,20 +868,20 @@ export const eventSponsorships: {
       intro:
         "Four spring festival markets with the same clean sponsorship structure in every city.",
       positioning:
-        "An independent, grassroots college festival built around campus culture — artists, top student-athletes in VIP sections, brands, and the student body. It is not a school-sanctioned event and carries no university affiliation; it's a cultural moment embedded in the college town. Brands buy in to become part of the single day students remember from their college years — presence and authenticity, not just impressions.",
+        "An independent, grassroots college festival built around campus culture - artists, top student-athletes in VIP sections, brands, and the student body. It is not a school-sanctioned event and carries no university affiliation; it's a cultural moment embedded in the college town. Brands buy in to become part of the single day students remember from their college years - presence and authenticity, not just impressions.",
       seasonBundle: {
         intro: "Own the whole spring season across all four 2027 markets.",
         tiers: [
-          { name: "Presenting — full season", price: "$90,000" },
-          { name: "Title — full season", price: "$45,000" },
-          { name: "Founder — full season", price: "$24,000" },
+          { name: "Presenting - full season", price: "$90,000" },
+          { name: "Title - full season", price: "$45,000" },
+          { name: "Founder - full season", price: "$24,000" },
         ],
-        note: "Season pricing sits below 4× the single-market rate — the play is owning the whole spring, not a discount table.",
+        note: "Season pricing sits below 4× the single-market rate - the play is owning the whole spring, not a discount table.",
       },
       proof: {
         heading: "Why Thaw Out works",
         intro:
-          "The diligence a brand asks for before writing a check — reach, audience, on-site consumption, and repeat sponsors. Every figure traces to Thaw Out's own reporting; estimates are labeled as such.",
+          "The diligence a brand asks for before writing a check - reach, audience, on-site consumption, and repeat sponsors. Every figure traces to Thaw Out's own reporting; estimates are labeled as such.",
         reachStats: [
           { value: "15M", label: "Impressions per season" },
           { value: "15,000", label: "Email subscribers" },
@@ -897,7 +897,7 @@ export const eventSponsorships: {
           ],
           notes: [
             "Parent-backed disposable income",
-            "Peer-to-peer social drivers — campus culture leaders and trendsetters",
+            "Peer-to-peer social drivers - campus culture leaders and trendsetters",
           ],
         },
         viral: {
@@ -905,7 +905,7 @@ export const eventSponsorships: {
           label: "Estimated 100M+ total impressions (unverified estimate)",
         },
         consumption: {
-          intro: "Brands don't just get seen here — product moves.",
+          intro: "Brands don't just get seen here - product moves.",
           totalDrinks: "16,334",
           revenue: "≈ $200K",
           byProduct: [
@@ -920,11 +920,11 @@ export const eventSponsorships: {
         caseStudies: [
           {
             brand: "Red Bull",
-            body: "A major financial commitment and infrastructure partnership — enterprise-level validation of the festival's reach.",
+            body: "A major financial commitment and infrastructure partnership - enterprise-level validation of the festival's reach.",
           },
           {
             brand: "Happy Dad",
-            body: "Sponsored, placed product organically with influential campus figures, sold 125 cases in Knoxville alone in 2026, and returned the following year. They came for relationships, not awareness — the repeat buy is the proof.",
+            body: "Sponsored, placed product organically with influential campus figures, sold 125 cases in Knoxville alone in 2026, and returned the following year. They came for relationships, not awareness - the repeat buy is the proof.",
           },
         ],
         talent: {
@@ -932,7 +932,7 @@ export const eventSponsorships: {
           performers: ["DaBaby", "Waka Flocka", "Big X Tha Plug", "Acraze", "Sidepiece", "Bunt", "Xandra"],
         },
         athletes:
-          "Every market features that school's most recognizable athletes in dedicated VIP sections — campus icons visible to the whole crowd. For sponsors: product lands organically with the most influential people on campus, athletes can appear on stage during sponsor moments for content capture, and it requires no formal endorsement contracts.",
+          "Every market features that school's most recognizable athletes in dedicated VIP sections - campus icons visible to the whole crowd. For sponsors: product lands organically with the most influential people on campus, athletes can appear on stage during sponsor moments for content capture, and it requires no formal endorsement contracts.",
         insights: [],
       },
       gallery: {
@@ -960,9 +960,9 @@ export const eventSponsorships: {
       intro: "Year-long venue sponsorships built around repeat in-person traffic.",
       items: [
         {
-          name: "The Village — Raleigh, NC",
+          name: "The Village - Raleigh, NC",
           description:
-            "One of Raleigh's highest-volume nightlife destinations in the Glenwood South Entertainment District — built for concerts, activations, celebrity appearances, and experiential events.",
+            "One of Raleigh's highest-volume nightlife destinations in the Glenwood South Entertainment District - built for concerts, activations, celebrity appearances, and experiential events.",
           valuePerEvent: "1,000–4,000",
           basePackage: "$10,000",
           presentingSponsor: "Custom",
@@ -989,7 +989,7 @@ export const eventSponsorships: {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// AMBASSADOR JOB PORTAL — editable job board. Edit comp/slots/copy here; the
+// AMBASSADOR JOB PORTAL - editable job board. Edit comp/slots/copy here; the
 // portal renders from this. Slot counts, signups and submissions are held in
 // local state for the prototype (see src/lib/portal.ts).
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1055,7 +1055,7 @@ export const jobs: Job[] = [
     status: "open",
   },
   {
-    // Sample job (placeholder brand) — partially filled to demo the slot-counter state.
+    // Sample job (placeholder brand) - partially filled to demo the slot-counter state.
     slug: "sample-campus-sampling",
     brand: "Sample Brand",
     title: "Product sampling at a campus event",

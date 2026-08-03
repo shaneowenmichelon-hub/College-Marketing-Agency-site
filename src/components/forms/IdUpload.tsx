@@ -8,7 +8,7 @@ import { compressImage } from "@/lib/image-compress";
 
 /**
  * Single-file ID photo picker with thumbnail preview, remove/replace, and mobile
- * camera capture. The file is held in parent state and uploaded only on submit —
+ * camera capture. The file is held in parent state and uploaded only on submit -
  * the object URL never leaves the browser.
  */
 export function IdUpload({

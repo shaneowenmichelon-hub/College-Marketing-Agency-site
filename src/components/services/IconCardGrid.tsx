@@ -37,7 +37,7 @@ function IconCard({ card }: { card: PerkCard }) {
   );
 }
 
-/** Responsive perk grid — 1-up mobile, 2-up tablet, 3-up desktop. */
+/** Responsive perk grid - 1-up mobile, 2-up tablet, 3-up desktop. */
 export function IconCardGrid({ cards }: { cards: PerkCard[] }) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

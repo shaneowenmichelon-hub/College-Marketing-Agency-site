@@ -8,7 +8,7 @@ export type AudienceTab = { id: string; label: string; panel: ReactNode };
 /**
  * Accessible tabbed audience switcher (ARIA tablist pattern, roving tabindex,
  * arrow-key nav, selection-follows-focus). Deep-linkable via URL hash
- * (#for-brands / #for-students) — the hash updates on switch via replaceState
+ * (#for-brands / #for-students) - the hash updates on switch via replaceState
  * so there's no navigation or scroll jump. Reduced motion disables the fade.
  */
 // Sticky-nav offset applied when scrolling to a deep-linked block.
@@ -120,7 +120,7 @@ export function AudienceTabs({
         })}
       </div>
 
-      {/* Panels — both mounted; inactive is hidden. Fade in on show. */}
+      {/* Panels - both mounted; inactive is hidden. Fade in on show. */}
       <div className="mt-12">
         {tabs.map((t) => (
           <div

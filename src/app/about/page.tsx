@@ -9,9 +9,9 @@ import { TeamAvatar } from "@/components/TeamAvatar";
 import { CTASection } from "@/components/CTASection";
 
 export const metadata: Metadata = {
-  title: "About — Built by people who run campus culture",
+  title: "About - Built by people who run campus culture",
   description:
-    "A modern college-marketing agency built by people who actually run campus and nightlife culture — the fresh alternative to legacy campus-media shops.",
+    "A modern college-marketing agency built by people who actually run campus and nightlife culture - the fresh alternative to legacy campus-media shops.",
   alternates: { canonical: "/about" },
 };
 
@@ -24,7 +24,7 @@ const values = [
   {
     icon: Zap,
     title: "Bias to action",
-    body: "We move at the speed of a semester — plan fast, execute faster, learn in real time.",
+    body: "We move at the speed of a semester - plan fast, execute faster, learn in real time.",
   },
   {
     icon: HeartHandshake,
@@ -46,7 +46,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="About"
             title="A campus agency built by people who run the culture."
-            intro="We're not a legacy campus-media shop dusting off the same posters and email lists. We're the team that plans the events, knows the promoters, and understands why students show up — building the modern, culturally-native way for brands to reach campus."
+            intro="We're not a legacy campus-media shop dusting off the same posters and email lists. We're the team that plans the events, knows the promoters, and understands why students show up - building the modern, culturally-native way for brands to reach campus."
           />
           <Reveal delay={0.1}>
             <EventImage index={13} aspect="aspect-[5/4]" />
@@ -66,14 +66,14 @@ export default function AboutPage() {
               <p className="text-lg">
                 We&apos;re backed by the team behind{" "}
                 <span className="text-white">ZMM Events</span> and the{" "}
-                <span className="text-white">Night School college tour</span> — a
+                <span className="text-white">Night School college tour</span> - a
                 national events operation with deep campus and nightlife roots.
               </p>
             )}
             <p>
               That pedigree is the whole point: we&apos;ve spent years earning
               students&apos; attention in the rooms where it&apos;s hardest to earn.
-              This agency brings that same instinct to brands — pairing on-the-ground
+              This agency brings that same instinct to brands - pairing on-the-ground
               activation with the online reach of a vetted student network.
             </p>
             <p>
@@ -109,7 +109,7 @@ export default function AboutPage() {
         <SectionHeading
           eyebrow="Team"
           title="The operators behind the network."
-          intro="A team that actually runs campus and nightlife culture — not a legacy media shop."
+          intro="A team that actually runs campus and nightlife culture - not a legacy media shop."
         />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {team.map((member, i) => {

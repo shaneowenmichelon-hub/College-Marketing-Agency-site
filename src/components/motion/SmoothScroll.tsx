@@ -7,7 +7,7 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 /**
  * Smooth-scroll provider (Lenis) synced with GSAP's ticker so ScrollTrigger stays
- * in lockstep — protects INP/jank. Under prefers-reduced-motion we DON'T hijack
+ * in lockstep - protects INP/jank. Under prefers-reduced-motion we DON'T hijack
  * scroll at all: native scrolling is used and only ScrollTrigger.update runs.
  */
 export function SmoothScroll({ children }: { children: ReactNode }) {

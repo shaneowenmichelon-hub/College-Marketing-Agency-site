@@ -4,7 +4,7 @@ import { ServicePage } from "@/components/services/ServicePage";
 import { getStat } from "@/site.config";
 
 export const metadata: Metadata = {
-  title: "Brand Ambassadors — Student reps and campus leaders",
+  title: "Brand Ambassadors - Student reps and campus leaders",
   description:
     "A vetted student rep network for sampling, flyering, product distribution, tabling, pop-ups, and campus leaders posting monthly Instagram and TikTok stories to real peers.",
   alternates: { canonical: "/services/brand-ambassadors" },
@@ -19,7 +19,7 @@ export default function BrandAmbassadorsPage() {
       title="A vetted student rep network that carries your brand on campus."
       intro="Our ambassador program combines boots-on-the-ground execution with real peer-to-peer social stories. We recruit, screen, train, and manage campus leaders so your product shows up through students their friends already trust."
       overview={[
-        "The program is built around real student operators — not random handles. Ambassadors sample, flyer, distribute product through friend groups, staff tables, support pop-ups, and create campus-native visibility.",
+        "The program is built around real student operators - not random handles. Ambassadors sample, flyer, distribute product through friend groups, staff tables, support pop-ups, and create campus-native visibility.",
         "Each ambassador can post 2x a month on Instagram/TikTok stories to real peers, with links and brand tags. When it makes sense, we add localized paid media boosting to extend what is already working organically.",
       ]}
       tacticsHeading="What ambassadors do for brands."

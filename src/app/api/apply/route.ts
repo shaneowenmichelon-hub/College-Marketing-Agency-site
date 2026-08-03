@@ -12,7 +12,7 @@ export const runtime = "nodejs";
 /**
  * Student ambassador applications (JSON). ID photos are uploaded DIRECTLY from
  * the browser to Vercel Blob (see /api/blob/upload) before this runs, so we only
- * receive their secure URLs here — the large files never hit this function (no
+ * receive their secure URLs here - the large files never hit this function (no
  * 4.5MB limit). Type/size were validated at the token route + client side.
  *
  * Validate (18+ gate, .edu) → email a confirmation to the applicant + an internal
@@ -91,14 +91,14 @@ export async function POST(request: Request) {
 
   const secureLinks: SecureLink[] = [
     {
-      label: "Government ID — front",
+      label: "Government ID - front",
       url: idFrontUrl || null,
-      note: idFrontUrl ? undefined : "not uploaded — storage not configured",
+      note: idFrontUrl ? undefined : "not uploaded - storage not configured",
     },
     {
-      label: "Government ID — back",
+      label: "Government ID - back",
       url: idBackUrl || null,
-      note: idBackUrl ? undefined : "not uploaded — storage not configured",
+      note: idBackUrl ? undefined : "not uploaded - storage not configured",
     },
   ];
 
@@ -122,7 +122,7 @@ export async function POST(request: Request) {
     attribution,
   };
 
-  // Structured record — NO ID URLs in logs, just whether they were stored.
+  // Structured record - NO ID URLs in logs, just whether they were stored.
   console.log(
     "[lead]",
     JSON.stringify({

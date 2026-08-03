@@ -108,7 +108,7 @@ export default function JobDetailPage() {
                 </span>
                 <h2 className="mt-4 font-display text-xl font-bold text-ink">You&apos;re signed up.</h2>
                 <p className="mt-2 text-sm text-[color:var(--muted-on-light)]">
-                  Instructions are above — do the work, then submit your proof when you&apos;re done.
+                  Instructions are above - do the work, then submit your proof when you&apos;re done.
                 </p>
                 <Link
                   href={`/portal/submit/${job.slug}`}
@@ -118,7 +118,7 @@ export default function JobDetailPage() {
                 </Link>
               </div>
             ) : full ? (
-              <p className="text-sm font-bold text-ink">This job is full — all slots are taken.</p>
+              <p className="text-sm font-bold text-ink">This job is full - all slots are taken.</p>
             ) : blockedByActive ? (
               <div>
                 <h2 className="font-display text-lg font-bold text-ink">One job at a time</h2>
@@ -155,7 +155,7 @@ export default function JobDetailPage() {
                 </button>
                 {status === "error" && (
                   <p className="mt-3 text-xs font-medium text-red-500" role="alert">
-                    Something went wrong — you&apos;re signed up locally; please tell us if you
+                    Something went wrong - you&apos;re signed up locally; please tell us if you
                     don&apos;t hear back.
                   </p>
                 )}

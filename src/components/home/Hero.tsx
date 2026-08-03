@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { MotionTicker } from "@/components/home/MotionTicker";
 
 /**
- * The "campus coin" — a brand artifact, not decoration. Desktop: 3D tilt follows
+ * The "campus coin" - a brand artifact, not decoration. Desktop: 3D tilt follows
  * the cursor. Touch: a slow idle DRIFT (globals.css, never a continuous auto-spin).
  * Tap (any device, user-initiated): one fast 3D flip + a micro-message + a short
  * haptic where supported. Everything is static under reduced motion.
@@ -26,7 +26,7 @@ function Coin({ reduce }: { reduce: boolean }) {
       try {
         navigator.vibrate([8, 18, 8]);
       } catch {
-        /* haptics unsupported — ignore */
+        /* haptics unsupported - ignore */
       }
     }
     if (reduce || flipping) return;
@@ -157,7 +157,7 @@ export function Hero() {
               className="mt-6 max-w-2xl text-lg leading-relaxed text-[color:var(--muted-on-dark)] sm:text-xl"
             >
               We put your brand in front of college students through events, brand
-              ambassadors, and product placement — on the campuses where they live, study,
+              ambassadors, and product placement - on the campuses where they live, study,
               and go out.
             </motion.p>
 

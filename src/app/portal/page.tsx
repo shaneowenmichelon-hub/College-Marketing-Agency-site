@@ -107,7 +107,7 @@ export default function PortalLoginPage() {
             <a href="/become-an-ambassador" className="text-accent underline">
               Apply here
             </a>
-            . Prototype access — shared code, not individual login.
+            . Prototype access - shared code, not individual login.
           </p>
         </div>
         <p className="mono-label mt-4 text-center text-[10px] text-white/60">

@@ -1,6 +1,6 @@
 "use client";
 
-/** Central GSAP setup — registers plugins once on the client. */
+/** Central GSAP setup - registers plugins once on the client. */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
