@@ -380,6 +380,8 @@ export type CaseStudy = {
   sample?: boolean;
   /** Public sources for the factual program description (industry references). */
   sources?: { label: string; url: string }[];
+  /** Optional long-form case-study article rendered on the work detail page. */
+  article?: ArticleBlock[];
 };
 
 /**
@@ -390,7 +392,69 @@ export type CaseStudy = {
  * (kept modest on purpose) — the program descriptions are factual. Replace with
  * CH's own client-approved case studies as they land.
  */
+const sosConsultantsArticle: ArticleBlock[] = [
+  {
+    type: "p",
+    html: "SOS Consultants Nola had the exact problem most local service businesses face around campus: students needed the service, but the brand had to reach them at the right moment, in the right neighborhood, with enough repetition to turn awareness into actual inquiries. For a New Orleans leasing agency, that meant connecting with students when housing decisions were live, social calendars were full, and attention was split between class, events, friends, and feeds. A standard ad campaign could put a flyer in front of students. The stronger play was to make SOS visible both in person and online, using the same creative system across a real campus moment and targeted Meta ads.",
+  },
+  {
+    type: "p",
+    html: "The package was intentionally compact: a $2,500 campaign spanning two shows, an on-site activation at the show, and a round of ambassador posts. The posts used dedicated flyer and video creative, and that same creative was then run as localized paid advertising on Meta. That mattered because the campaign did not ask students to process three different messages. They saw the same leasing offer from campus ambassadors, around a live social event, and again in their feeds afterward. The result was a campaign that behaved less like a one-off promotion and more like a coordinated local demand engine.",
+  },
+  { type: "h2", text: "The strategy: combine trusted student distribution with localized paid media" },
+  {
+    type: "p",
+    html: "Ambassador posts gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears.",
+  },
+  {
+    type: "p",
+    html: "The live-event component added physical context. Across the two shows, SOS was attached to moments students were already choosing to attend. The activation gave the campaign a real-world presence: not just a logo in a feed, but a local leasing partner showing up where the student audience was already gathered. That kind of environment makes the ad spend more efficient because students have already seen the name in a social setting. When the Meta ad appears later, it is not the first touch; it is the reminder.",
+  },
+  { type: "h2", text: "Why the same creative ran across ambassadors and Meta" },
+  {
+    type: "p",
+    html: "The most important execution choice was keeping the flyer and video creative consistent. Too many local campaigns split the message: one version for ambassadors, another for events, and a third for ads. SOS avoided that. The dedicated creative from the ambassador round became the same creative used for paid Meta placement, which let the campaign build frequency without confusing the audience. Students could recognize the same offer and the same brand identity whether they saw it from a friend, at the show, or in an Instagram placement.",
+  },
+  {
+    type: "p",
+    html: "The paid media layer was localized to campus, which kept the budget focused. For a New Orleans leasing agency, broad reach would have wasted money on people outside the decision zone. The campaign did not need everyone in the city. It needed students near the relevant schools, in the right age and interest environment, who were likely to be thinking about housing or responding to student-life content. Localized targeting turned the ambassador creative into a performance channel instead of treating social posts as a vanity deliverable.",
+  },
+  { type: "h2", text: "The result: 11x return on ad spend" },
+  {
+    type: "p",
+    html: "From a total package spend of $2,500, SOS Consultants Nola achieved an 11x return on ad spend. The number is the headline, but the mechanism is the lesson: the return came from stacking channels that reinforced each other. The ambassador posts created familiarity. The shows created real-world context. The activation made the brand tangible. The Meta ads repeated the same flyer and video creative to the same local student market. Each piece made the next one work harder.",
+  },
+  {
+    type: "p",
+    html: "For local businesses trying to reach college students, this is the model we want to repeat. You do not need a massive national budget to create real movement on campus. You need the right audience, a student-trusted distribution layer, a reason for the brand to appear in the real world, and paid media targeted tightly enough that every dollar stays close to the students who can act. SOS Consultants Nola proved that a lean, coordinated campus package can produce performance-level returns when ambassadors, events, and ads are treated as one system.",
+  },
+  {
+    type: "p",
+    html: 'If your brand needs local student demand — whether that means leasing inquiries, product trial, app downloads, retail visits, or event attendance — the takeaway is simple: do not separate campus ambassadors from paid media. Use ambassadors to create trust, use events to create context, and use localized Meta ads to turn the same creative into measurable conversion. <a href="/contact">Tell us the campus and the goal</a>, and we can build the same kind of integrated package around your market.',
+  },
+];
+
 export const caseStudies: CaseStudy[] = [
+  {
+    slug: "sos-consultants-nola-campus-leasing-ambassadors",
+    brand: "SOS Consultants Nola",
+    type: "Brand Ambassadors",
+    headline: "How a New Orleans leasing agency turned campus ambassadors and Meta ads into 11x ROAS",
+    stat: "11x",
+    statLabel: "return on ad spend",
+    metrics: [
+      { value: "$2.5K", label: "total package" },
+      { value: "2", label: "shows" },
+      { value: "1", label: "ambassador post round" },
+    ],
+    challenge:
+      "SOS Consultants Nola needed to reach New Orleans students with a leasing message that felt local, trusted, and timely — not like a generic housing ad competing blindly in the feed.",
+    approach:
+      "Collegiate Agency packaged two shows, an on-site activation, ambassador flyer/video posts, and localized Meta ads using the same creative so students saw one consistent message across campus, events, and social.",
+    results:
+      "The integrated campaign turned a $2,500 package into an 11x return on ad spend by combining trusted student distribution, real-world event presence, and campus-local paid media.",
+    article: sosConsultantsArticle,
+  },
   {
     slug: "celsius-campus-sampling",
     brand: "Celsius",
@@ -437,30 +501,6 @@ export const caseStudies: CaseStudy[] = [
     sources: [
       { label: "Red Bull Student Marketeer (official)", url: "https://studentmarketeer.redbull.com/" },
       { label: "Red Bull Ambassador Program — BrandChamp", url: "https://brandchamp.io/blog/red-bull-ambassador-program/" },
-    ],
-  },
-  {
-    slug: "alani-nu-student-creators",
-    brand: "Alani Nu",
-    type: "Brand Ambassadors",
-    headline: "A Gen-Z brand built on student creators",
-    stat: "1,200+",
-    statLabel: "student creators",
-    sample: true,
-    metrics: [
-      { value: "6.5%", label: "avg. engagement" },
-      { value: "3.5x", label: "est. ROAS" },
-      { value: "Gen Z", label: "core audience" },
-    ],
-    challenge:
-      "Alani Nu was chasing Gen-Z and millennial women in a category run by legacy giants — and needed to feel like a friend's recommendation, not an advertiser.",
-    approach:
-      "Alani built a creator-first engine: college ambassadors and micro-influencers posting authentic UGC with personal discount codes, amplified by high-profile partners — turning everyday students into the brand's marketing team.",
-    results:
-      "The creator-driven playbook made Alani Nu one of the fastest-growing wellness brands of the decade — later acquired by Celsius in a landmark 2025 deal reported at roughly $1.8B.",
-    sources: [
-      { label: "Alani Nu Marketing Playbook — OptiMonk", url: "https://www.optimonk.com/alani-nu-marketing-playbook" },
-      { label: "Fitness brands winning influencer marketing — Aspire", url: "https://www.aspire.io/blog/fitness-brands-influencer-marketing" },
     ],
   },
 ];

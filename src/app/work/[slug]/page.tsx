@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!c) return { title: "Case study not found" };
   return {
     title: `${c.headline} — Work`,
-    description: `${c.type} case study: ${c.headline}. ${c.stat} ${c.statLabel} (sample).`,
+    description: `${c.type} case study: ${c.headline}. ${c.stat} ${c.statLabel}${c.sample ? " (sample)." : "."}`,
     alternates: { canonical: `/work/${slug}` },
   };
 }
@@ -120,6 +120,49 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             </Reveal>
           ))}
         </div>
+
+        {c.article && c.article.length > 0 && (
+          <Reveal className="mt-10">
+            <article className="rounded-[3px] border-2 border-ink bg-white p-6 shadow-[6px_6px_0_var(--ink)] sm:p-8">
+              <div className="mx-auto max-w-3xl space-y-5">
+                {c.article.map((block, i) => {
+                  if (block.type === "h2") {
+                    return (
+                      <h2 key={i} className="pt-3 font-display text-2xl font-bold leading-tight text-ink sm:text-3xl">
+                        {block.text}
+                      </h2>
+                    );
+                  }
+                  if (block.type === "p") {
+                    return (
+                      <p
+                        key={i}
+                        className="text-base leading-8 text-[color:var(--muted-on-light)] [&_a]:font-semibold [&_a]:text-accent [&_a]:no-underline hover:[&_a]:underline"
+                        dangerouslySetInnerHTML={{ __html: block.html }}
+                      />
+                    );
+                  }
+                  if (block.type === "ul") {
+                    return (
+                      <ul key={i} className="space-y-2 pl-5 text-base leading-8 text-[color:var(--muted-on-light)]">
+                        {block.items.map((item: string) => (
+                          <li key={item} className="list-disc" dangerouslySetInnerHTML={{ __html: item }} />
+                        ))}
+                      </ul>
+                    );
+                  }
+                  return (
+                    <ol key={i} className="space-y-2 pl-5 text-base leading-8 text-[color:var(--muted-on-light)]">
+                      {block.items.map((item: string) => (
+                        <li key={item} className="list-decimal" dangerouslySetInnerHTML={{ __html: item }} />
+                      ))}
+                    </ol>
+                  );
+                })}
+              </div>
+            </article>
+          </Reveal>
+        )}
 
         {/* Gallery placeholder */}
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
