@@ -58,7 +58,7 @@ export function brandConfirmation(data: BrandLead): RenderedEmail {
       `In the meantime, here's how we help brands reach students:` +
         `<br/>• <strong style="color:${colors.INK};">Events</strong> — campus activations planned, staffed & executed.` +
         `<br/>• <strong style="color:${colors.INK};">Brand Ambassadors</strong> — a vetted student rep network.` +
-        `<br/>• <strong style="color:${colors.INK};">Influencers</strong> — authentic peer-to-peer student content.`,
+        `<br/>• <strong style="color:${colors.INK};">Product Placement</strong> — Greek-life placements with dedicated media deliverables.`,
     ) +
     `<div style="margin:22px 0;">${button("See our work", `${siteConfig.url}/work`)}</div>` +
     p(`Talk soon,<br/>— The ${escapeHtml(siteConfig.companyName)} team`);
@@ -73,7 +73,7 @@ ${
 How we help brands reach students:
 - Events — campus activations planned, staffed & executed.
 - Brand Ambassadors — a vetted student rep network.
-- Influencers — authentic peer-to-peer student content.
+- Product Placement — Greek-life placements with dedicated media deliverables.
 
 See our work: ${siteConfig.url}/work
 

@@ -11,10 +11,10 @@ import { loadMdxPosts } from "@/lib/blog-files";
 export type PostCategory =
   | "Campus Strategy"
   | "Ambassadors"
-  | "Influencers"
+  | "Brand Ambassadors"
   | "Events";
 
-type ServiceSlug = "events" | "brand-ambassadors" | "influencers";
+type ServiceSlug = "events" | "brand-ambassadors";
 
 /** A single rendered block of an article body. `html` blocks allow inline tags. */
 export type ArticleBlock =
@@ -144,7 +144,7 @@ const influencerVettingBody: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: 'If you\'d rather skip the vetting and go straight to creators who are already screened, that\'s exactly what our <a href="/services/influencers">student influencer program</a> is built for — or <a href="/contact">tell us what you\'re launching</a> and we\'ll match you to the right ones.',
+    html: 'If you\'d rather skip the vetting and go straight to creators who are already screened, that\'s exactly what our <a href="/services/brand-ambassadors">brand ambassador program</a> is built for — or <a href="/contact">tell us what you\'re launching</a> and we\'ll match you to the right ones.',
   },
 ];
 
@@ -309,13 +309,13 @@ const legacyPosts: Post[] = [
   {
     slug: "how-to-vet-an-influencer-before-you-pay-them",
     title: "How to vet an influencer before you pay them",
-    category: "Influencers",
-    services: ["influencers", "brand-ambassadors"],
+    category: "Brand Ambassadors",
+    services: ["brand-ambassadors"],
     excerpt:
       "Follower counts lie. Here's the exact screen we run — engagement math, comment checks, growth history, audience geography, and brand safety — before a brand ever pays a creator.",
     date: "2026-06-24",
     author: AUTHOR,
-    ctaService: "influencers",
+    ctaService: "brand-ambassadors",
     body: influencerVettingBody,
     readingTime: estimateReadingTime(influencerVettingBody),
   },
@@ -366,7 +366,7 @@ export function postsForService(service: ServiceSlug, limit = 3): Post[] {
 export type CaseStudy = {
   slug: string;
   brand: string;
-  type: "Events" | "Brand Ambassadors" | "Influencers";
+  type: "Events" | "Brand Ambassadors" | "Product Placement";
   headline: string;
   /** Big metric-forward stat. */
   stat: string;
@@ -442,7 +442,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "alani-nu-student-creators",
     brand: "Alani Nu",
-    type: "Influencers",
+    type: "Brand Ambassadors",
     headline: "A Gen-Z brand built on student creators",
     stat: "1,200+",
     statLabel: "student creators",

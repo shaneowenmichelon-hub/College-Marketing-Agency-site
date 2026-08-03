@@ -11,7 +11,7 @@ import { servicesHub } from "@/site.config";
 export const metadata: Metadata = {
   title: "Services — For brands and for students",
   description:
-    "Campus presence for brands through events, ambassadors, and influencers — and paid opportunities for students. One team, run end to end.",
+    "Campus presence for brands through events, ambassadors, and product placement — and paid opportunities for students. One team, run end to end.",
   alternates: { canonical: "/services" },
 };
 
@@ -95,7 +95,7 @@ export default function ServicesPage() {
             anchorTab={{
               events: "for-brands",
               "brand-ambassadors": "for-brands",
-              influencers: "for-brands",
+              "product-placement": "for-brands",
             }}
           />
         </div>

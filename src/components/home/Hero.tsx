@@ -157,7 +157,7 @@ export function Hero() {
               className="mt-6 max-w-2xl text-lg leading-relaxed text-[color:var(--muted-on-dark)] sm:text-xl"
             >
               We put your brand in front of college students through events, brand
-              ambassadors, and influencers — on the campuses where they live, study,
+              ambassadors, and product placement — on the campuses where they live, study,
               and go out.
             </motion.p>
 
@@ -181,7 +181,7 @@ export function Hero() {
         items={[
           "EVENTS",
           "BRAND AMBASSADORS",
-          "INFLUENCERS",
+          "PRODUCT PLACEMENT",
           `${getStat("campuses")}+ MARKETS`,
         ]}
       />

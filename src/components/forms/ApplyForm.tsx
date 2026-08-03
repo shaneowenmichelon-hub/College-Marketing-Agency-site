@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Check, Loader2 } from "lucide-react";
-import { siteConfig } from "@/site.config";
+
 import { ageFromDOB, isEduEmail } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 import { useAttribution, useElapsed } from "@/lib/client-forms";
@@ -37,6 +37,7 @@ const NICHES = [
 
 const currentYear = 2026;
 const gradYears = Array.from({ length: 8 }, (_, i) => currentYear + i - 1);
+const AMBASSADOR_SOCIAL_FOLLOWER_BENCHMARK = 1500;
 
 function SectionTitle({ n, title, done = false }: { n: number; title: string; done?: boolean }) {
   return (
@@ -110,12 +111,12 @@ export function ApplyForm() {
     if (status === "success") celebrate();
   }, [status]);
 
-  // Soft eligibility check: warn (don't block) if neither platform meets the min.
+  // Soft eligibility check for social-story ambassador work: warn (don't block)
+  // if neither platform meets the benchmark.
   const igCount = parseInt(followers.ig.replace(/[^\d]/g, ""), 10) || 0;
   const ttCount = parseInt(followers.tt.replace(/[^\d]/g, ""), 10) || 0;
   const enteredFollowers = followers.ig !== "" || followers.tt !== "";
-  const meetsFollowerMin =
-    Math.max(igCount, ttCount) >= siteConfig.influencerMinFollowers;
+  const meetsFollowerMin = Math.max(igCount, ttCount) >= AMBASSADOR_SOCIAL_FOLLOWER_BENCHMARK;
   const showFollowerWarning = enteredFollowers && !meetsFollowerMin;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -342,9 +343,9 @@ export function ApplyForm() {
       <section>
         <SectionTitle n={3} title="Your socials" done={questFlags.socials} />
         <p className="mb-4 text-sm text-[color:var(--muted-on-light)]">
-          Our influencer program looks for{" "}
+          Ambassador social-story roles are strongest when campus leaders have{" "}
           <strong className="text-ink">
-            {siteConfig.influencerMinFollowers.toLocaleString()}+ followers
+            {AMBASSADOR_SOCIAL_FOLLOWER_BENCHMARK.toLocaleString()}+ followers
           </strong>{" "}
           on Instagram or TikTok — but ambassadors don&apos;t need a big following, so
           apply either way.
@@ -391,9 +392,9 @@ export function ApplyForm() {
         </div>
         {showFollowerWarning && (
           <p className="mt-3 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-700" role="status">
-            Heads up — that&apos;s below our {siteConfig.influencerMinFollowers.toLocaleString()}+
-            follower guideline for paid influencer work. You can still apply to be a
-            brand ambassador, which has no follower minimum.
+            Heads up — that&apos;s below our {AMBASSADOR_SOCIAL_FOLLOWER_BENCHMARK.toLocaleString()}+
+            follower guideline for paid social-story ambassador work. You can still apply —
+            many ambassador roles have no follower minimum.
           </p>
         )}
       </section>

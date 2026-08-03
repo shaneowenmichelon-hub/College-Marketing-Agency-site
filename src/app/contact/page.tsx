@@ -9,7 +9,7 @@ import { ContactForm } from "@/components/forms/ContactForm";
 export const metadata: Metadata = {
   title: "Contact — Let's reach students together",
   description:
-    "Tell us what you're launching and we'll build a plan to put it in front of the right campuses through events, brand ambassadors, and influencers.",
+    "Tell us what you're launching and we'll build a plan to put it in front of the right campuses through events, brand ambassadors, and product placement.",
   alternates: { canonical: "/contact" },
 };
 
@@ -25,7 +25,7 @@ export default function ContactPage() {
           </h1>
           <p className="mt-4 max-w-md text-lg text-[color:var(--muted-on-light)]">
             Tell us your goal and we&apos;ll come back with a plan across events, brand
-            ambassadors, and influencers — mapped to the campuses that matter for you.
+            ambassadors, and product placement — mapped to the campuses that matter for you.
           </p>
 
           <dl className="mt-10 space-y-5">

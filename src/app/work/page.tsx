@@ -13,7 +13,7 @@ import { caseStudies } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Work — Campaigns & case studies",
   description:
-    "Metric-led campus campaigns across events, brand ambassadors, and influencers. Sample case studies — real ones are added as they're approved.",
+    "Metric-led campus campaigns across events, brand ambassadors, and product placement. Sample case studies — real ones are added as they're approved.",
   alternates: { canonical: "/work" },
 };
 
@@ -30,7 +30,7 @@ export default function WorkPage() {
         <SectionHeading
           eyebrow="Work"
           title="The three tactics, proven on campus."
-          intro="How events, brand ambassadors, and influencers actually move brands — shown through well-known industry programs. These are public reference examples, not Collegiate Agency campaigns, and the figures are illustrative; our own client-approved case studies are on the way."
+          intro="How events, brand ambassadors, and product placement actually move brands — shown through well-known industry programs. These are public reference examples, not Collegiate Agency campaigns, and the figures are illustrative; our own client-approved case studies are on the way."
         />
       </Section>
 

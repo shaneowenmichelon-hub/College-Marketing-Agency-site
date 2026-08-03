@@ -12,7 +12,7 @@ import { posts, formatDate } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Insights — Notes on campus marketing & culture",
   description:
-    "Practical, brand-facing perspective on campus marketing: vetting influencers, selecting ambassadors, and winning welcome week.",
+    "Practical, brand-facing perspective on campus marketing: product placement, selecting ambassadors, and winning welcome week.",
   alternates: { canonical: "/insights" },
 };
 

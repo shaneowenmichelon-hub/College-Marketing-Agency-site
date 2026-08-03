@@ -20,7 +20,7 @@ import { Badge } from "@/components/ui/Badge";
 export function LeadMagnet({
   eyebrow = "Free guide",
   title = "The Gen-Z campus marketing guide",
-  description = "A no-fluff playbook for reaching college students in 2026 — events, ambassadors, and creators that actually convert.",
+  description = "A no-fluff playbook for reaching college students in 2026 — events, ambassadors, and product placement that actually convert.",
   resource = "gen-z-campus-marketing-guide",
 }: {
   eyebrow?: string;

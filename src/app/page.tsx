@@ -3,7 +3,7 @@ import {
   ArrowRight,
   CalendarHeart,
   Users,
-  Megaphone,
+  PackageOpen,
   Target,
   MapPin,
   Wallet,
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 const serviceIcons = {
   events: CalendarHeart,
   "brand-ambassadors": Users,
-  influencers: Megaphone,
+  "product-placement": PackageOpen,
 } as const;
 
 const process = [
@@ -58,7 +58,7 @@ const process = [
   },
   {
     title: "Build the media plan",
-    body: "Events, ambassadors, and creators combined into one plan built to actually move your number.",
+    body: "Events, ambassadors, and product placement combined into one plan built to actually move your number.",
     icon: ClipboardList,
   },
 ];
@@ -196,7 +196,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Work"
             title="The playbook, proven."
-            intro="How events, ambassadors, and influencers move brands — shown through well-known industry examples (illustrative figures) until our own case studies land."
+            intro="How events, ambassadors, and product placement move brands — shown through well-known industry examples (illustrative figures) until our own case studies land."
           />
           <Reveal>
             <Link
@@ -295,7 +295,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Insights"
             title="Notes from the ground."
-            intro="Perspective on campus marketing, culture, and creators."
+            intro="Perspective on campus marketing, culture, and campus activations."
           />
           <Reveal>
             <Link
@@ -338,7 +338,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Follow along"
             title="Campus, in real time."
-            intro="Behind the scenes from activations and creators across the network."
+            intro="Behind the scenes from activations and campus leaders across the network."
           />
           {(() => {
             const ig = siteConfig.socials.find((s) => s.label === "Instagram");

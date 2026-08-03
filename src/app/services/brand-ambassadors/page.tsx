@@ -4,9 +4,9 @@ import { ServicePage } from "@/components/services/ServicePage";
 import { getStat } from "@/site.config";
 
 export const metadata: Metadata = {
-  title: "Brand Ambassadors — Your voice on campus",
+  title: "Brand Ambassadors — Student reps and campus leaders",
   description:
-    "A vetted student rep network that becomes your brand's voice on campus — peer-to-peer, customized by school and audience. Sampling, dorm drops, tabling, pop-ups, and more.",
+    "A vetted student rep network for sampling, flyering, product distribution, tabling, pop-ups, and campus leaders posting monthly Instagram and TikTok stories to real peers.",
   alternates: { canonical: "/services/brand-ambassadors" },
 };
 
@@ -16,48 +16,48 @@ export default function BrandAmbassadorsPage() {
       slug="brand-ambassadors"
       icon={Users}
       eyebrow="Brand Ambassadors"
-      title="A student rep network that becomes your voice on campus."
-      intro="Our vetted ambassadors are real students who represent your brand where they live, study, and hang out. It's peer-to-peer marketing — customized by school and audience — that reaches students through people they already trust."
+      title="A vetted student rep network that carries your brand on campus."
+      intro="Our ambassador program combines boots-on-the-ground execution with real peer-to-peer social stories. We recruit, screen, train, and manage campus leaders so your product shows up through students their friends already trust."
       overview={[
-        "Nobody sells a brand to students better than another student. Our ambassador program puts a screened, trained network of reps on the ground for you — handing out product, running tables, hosting drops, and talking about your brand like the insiders they are.",
-        "We recruit and vet the network, match reps to your brand and campuses, and manage them so the program actually runs. You set the goal; we put the right students behind it. Every program is customized by school and audience — 1,200 ambassadors across the network and growing.",
+        "The program is built around real student operators — not random handles. Ambassadors sample, flyer, distribute product through friend groups, staff tables, support pop-ups, and create campus-native visibility.",
+        "Each ambassador can post 2x a month on Instagram/TikTok stories to real peers, with links and brand tags. When it makes sense, we add localized paid media boosting to extend what is already working organically.",
       ]}
-      tacticsHeading="What ambassadors do on the ground."
+      tacticsHeading="What ambassadors do for brands."
       tactics={[
         {
           title: "Sampling & flyering",
-          body: "Get product and messaging directly into students' hands in high-traffic spots.",
+          body: "Get product and messaging directly into students' hands in high-traffic campus moments.",
         },
         {
-          title: "Dorm & residence drops",
-          body: "Reach students where they live with targeted drops and residence-hall programs.",
-        },
-        {
-          title: "Greek & club sponsorships",
-          body: "Activate through the orgs that shape the social calendar and carry real influence.",
+          title: "Friend group product distribution",
+          body: "Seed product through trusted social circles so trial starts with the people students already know.",
         },
         {
           title: "Tabling & event staffing",
-          body: "Staffed tables and event support that put a friendly, on-brand face on your presence.",
+          body: "Staffed tables and event support that put a friendly, on-brand student face on your presence.",
         },
         {
-          title: "Pop-up stores",
-          body: "Short-run branded retail moments run by students who know the campus.",
+          title: "Pop-up activations",
+          body: "Short-run branded moments run by students who know the campus and the crowd.",
         },
         {
-          title: "Peer-to-peer content",
-          body: "Ambassadors post from their own accounts, so your brand shows up in real student feeds.",
+          title: "2x monthly social stories",
+          body: "Campus leaders post Instagram/TikTok stories to real peers with links and brand tags.",
+        },
+        {
+          title: "Optional paid media boosting",
+          body: "Extend strong ambassador content with localized paid media when the organic signal is there.",
         },
       ]}
       processHeading="How the network works."
       steps={[
-        { title: "Match", body: "We match reps to your brand, goals, and target campuses." },
-        { title: "Train", body: "Ambassadors are briefed and trained so they represent you accurately." },
-        { title: "Activate", body: "Reps execute on the ground and online across the semester." },
-        { title: "Report", body: "We track activity and results and report back on what landed." },
+        { title: "Recruit", body: "We source campus leaders and student reps who match your target schools and audience." },
+        { title: "Screen", body: "We vet for reliability, campus fit, and ability to represent the brand cleanly." },
+        { title: "Train", body: "Ambassadors are briefed on deliverables, links, tags, talking points, and campus execution." },
+        { title: "Manage", body: "We manage the roster, proof, content, and reporting so the program actually runs." },
       ]}
       proof={[
-        { value: getStat("ambassadors"), label: "ambassadors" },
+        { value: getStat("ambassadors"), label: "student ambassadors" },
         { value: getStat("campuses"), label: "campuses" },
         { value: getStat("studentsReached"), label: "students reached" },
       ]}

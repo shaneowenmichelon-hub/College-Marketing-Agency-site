@@ -7,7 +7,7 @@ const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 const VALID_CATEGORIES: PostCategory[] = [
   "Campus Strategy",
   "Ambassadors",
-  "Influencers",
+  "Brand Ambassadors",
   "Events",
 ];
 

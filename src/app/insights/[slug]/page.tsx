@@ -14,19 +14,14 @@ type Params = Promise<{ slug: string }>;
 
 // Hero gradients keyed by category so each article reads as finished, not templated.
 const HERO_GRADIENT: Record<string, string> = {
-  Influencers: "from-[#2F5BFF] via-[#6b7bff] to-[#C6FF3D]",
   Ambassadors: "from-[#0B0B0F] via-[#3a2a4a] to-[#FF3D9A]",
+  "Brand Ambassadors": "from-[#0B0B0F] via-[#3a2a4a] to-[#FF3D9A]",
   Events: "from-[#0B0B0F] via-[#2a2340] to-[#FF6A2B]",
   "Campus Strategy": "from-[#2F5BFF] to-[#0B0B0F]",
 };
 
 // Closing CTA copy per service.
 const SERVICE_CTA: Record<Post["ctaService"], { label: string; href: string; blurb: string }> = {
-  influencers: {
-    label: "Explore our influencer program",
-    href: "/services/influencers",
-    blurb: "Every creator in our network is vetted for real, engaged, campus-based audiences before a brand ever pays.",
-  },
   "brand-ambassadors": {
     label: "Explore our ambassador program",
     href: "/services/brand-ambassadors",

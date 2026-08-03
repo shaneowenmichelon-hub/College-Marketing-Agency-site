@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services",
     "/services/events",
     "/services/brand-ambassadors",
-    "/services/influencers",
+
     "/work",
     "/about",
     "/insights",

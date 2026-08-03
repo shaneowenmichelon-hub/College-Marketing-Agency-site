@@ -45,7 +45,7 @@ export const siteConfig = {
   /** Used for <title> templates, OG, and general voice. */
   tagline: "Where brands meet campus culture.",
   description:
-    "A college marketing & events agency connecting brands with students through events, brand ambassadors, and influencers — on the campuses where they live, study, and go out.",
+    "A college marketing & events agency connecting brands with students through events, brand ambassadors, and product placement — on the campuses where they live, study, and go out.",
 
   /** Canonical URL for SEO/sitemap. Update to your production domain before launch. */
   url: "https://collegiateagency.com",
@@ -81,16 +81,12 @@ export const siteConfig = {
     { label: "ZMM Events", href: "https://www.zmm.events" },
   ] as { label: string; href: string }[],
 
-  /** Minimum follower count for the influencer program (IG or TikTok). */
-  influencerMinFollowers: 1500,
-
   /**
    * REAL headline stats. Animated as counters on the homepage. `key` lets other
    * sections (e.g. service-page proof strips) pull the same number from one place.
    */
   stats: [
     { key: "ambassadors", value: "1,200", label: "student ambassadors" },
-    { key: "influencers", value: "300+", label: "college influencers" },
     { key: "campuses", value: "21", label: "campuses" },
     { key: "brands", value: "20+", label: "brands served" },
     { key: "socialReach", value: "1.44M+", label: "social reach" },
@@ -126,9 +122,8 @@ export const siteConfig = {
   ] as { school: string; city: string }[],
 
   /**
-   * The three services. `href` points into the /services hub (per-block anchor),
-   * which is the sole services entry point; the detail pages are reached from the
-   * hub's "Learn more" CTAs.
+   * The three brand prongs. `href` points into the /services hub (per-block anchor),
+   * which is the sole services entry point; detail pages exist only where useful.
    */
   services: [
     {
@@ -144,10 +139,10 @@ export const siteConfig = {
       blurb: "A vetted student rep network that becomes your voice on campus.",
     },
     {
-      slug: "influencers",
-      label: "Influencers",
-      href: "/services#influencers",
-      blurb: "Real students posting to real friends — peer-to-peer content that lands.",
+      slug: "product-placement",
+      label: "Product Placement",
+      href: "/services#product-placement",
+      blurb: "Greek-life product placements with dedicated media deliverables.",
     },
   ] as const,
 
@@ -232,12 +227,6 @@ export const pricing: Record<string, ServicePricing> = {
     included: "Ambassador program",
     note: "2 dedicated social posts (flyers or videos) with links + brand tags · add-ons: localized paid media, product placement.",
   },
-  influencers: {
-    range: "FILL IN",
-    unit: "confirm separate influencer rate",
-    included: "Influencers",
-    note: "FLAG: confirm whether Influencers should stay distinct from the $150/month Ambassador Program or merge into it.",
-  },
 };
 
 /** A short, human price note pulled from the single pricing source (never hardcoded). */
@@ -283,33 +272,19 @@ export type ServicesHub = {
 
 export const servicesHub: ServicesHub = {
   intro:
-    "One team, three channels onto campus — events, ambassadors, and influencers — run end to end. Pick your side: what we do for brands, and what's in it for students.",
+    "One team, three channels onto campus — events, ambassadors, and product placement — run end to end. Pick your side: what we do for brands, and what's in it for students.",
   brands: {
     intro:
-      "Brands get real campus presence through three channels — events, ambassadors, and influencers — run end to end by a team that operates Gen-Z events nationally.",
+      "Brands get real campus presence through three channels — events, ambassadors, and product placement — run end to end by a team that operates Gen-Z events nationally.",
     blocks: [
-      {
-        id: "product-placement",
-        eyebrow: "Product placement",
-        heading: "Product Placement",
-        columns: [
-          [
-            "5 Greek life product placements per school",
-            "Dedicated media deliverables for each organization",
-            "Add additional organizations at extra cost",
-          ],
-        ],
-        priceNote: priceNote("product-placement"),
-        cta: { label: "Get started", href: "/contact" },
-      },
       {
         eyebrow: "On-campus activations",
         heading: "Events",
         columns: [
           [
-            "Product placement & event sponsorship",
+            "Event sponsorships and campus activations",
             "Welcome-week & syllabus-week shows via the Night School Tour",
-            "Tailgates, sampling & experiential activations",
+            "Tailgates, sampling & experiential moments",
           ],
           [
             "Greek & student-club sponsorships",
@@ -322,18 +297,20 @@ export const servicesHub: ServicesHub = {
         cta: { label: "Learn more", href: "/services/events" },
       },
       {
-        eyebrow: "Boots on the ground",
+        eyebrow: "Boots on the ground + social stories",
         heading: "Brand Ambassadors",
         columns: [
           [
             "A vetted student rep network",
             "Sampling & flyering",
-            "Dorm & residence-hall drops",
+            "Friend group product distribution",
+            "Tabling & event staffing",
           ],
           [
-            "Tabling & event staffing",
-            "Greek & club sponsorships",
             "Pop-up activations",
+            "Campus leaders posting 2x a month on Instagram/TikTok stories to real peers",
+            "Recruit → screen → train → manage",
+            "Optional paid media boosting",
           ],
         ],
         priceNote: priceNote("brand-ambassadors"),
@@ -342,23 +319,23 @@ export const servicesHub: ServicesHub = {
         cta: { label: "Learn more", href: "/services/brand-ambassadors" },
       },
       {
-        eyebrow: "Peer-to-peer content",
-        heading: "Influencers",
+        id: "product-placement",
+        eyebrow: "Product placement",
+        heading: "Product Placement",
         columns: [
           [
-            "Campus creators posting to real peers",
-            "UGC for Instagram + TikTok",
-            "Recruit → screen → train → manage",
+            "From $1,750 per school",
+            "$350 per organization",
+            "5 Greek life product placements per school",
           ],
           [
-            "Optional paid boosting",
-            `Vetted creators (${siteConfig.influencerMinFollowers.toLocaleString()}+ follower threshold)`,
+            "Dedicated media deliverables for each organization",
+            "Add additional organizations at extra cost",
+            "Built for brands that need product in student hands",
           ],
         ],
-        priceNote: priceNote("influencers"),
-        image: "/images/thaw-out/thaw-out-05.jpg",
-        imageAlt: "Campus creator filming content at an event",
-        cta: { label: "Learn more", href: "/services/influencers" },
+        priceNote: priceNote("product-placement"),
+        cta: { label: "Get started", href: "/contact" },
       },
     ],
     cta: { label: "Get started", href: "/contact" },
@@ -617,7 +594,7 @@ const thawTiers: SponsorshipTier[] = [
     benefits: [
       'Festival named "Thaw Out Presented By [Brand]" at that campus',
       "Main stage visibility and naming rights",
-      "Product featured with campus influencers and student-athletes",
+      "Product featured with campus leaders and student-athletes",
       "Logo on all festival marketing — poster, map, digital, wristband",
       "20 VIP tickets",
       "Premium activation space (10x20)",
@@ -636,7 +613,7 @@ const thawTiers: SponsorshipTier[] = [
       "Logo on all festival marketing",
       "15 VIP tickets",
       "Activation space (10x20)",
-      "Product placement with campus influencers",
+      "Product placement with campus leaders",
       "3 dedicated Instagram posts",
       "On-site sampling and organic visibility",
     ],
@@ -1018,7 +995,7 @@ export type Job = {
   slug: string;
   brand: string;
   title: string;
-  category: "Events" | "Brand Ambassadors" | "Influencers";
+  category: "Events" | "Brand Ambassadors";
   compensation: { cash: string; product: string };
   slotsTotal: number;
   slotsFilled: number;
@@ -1057,7 +1034,7 @@ export const jobs: Job[] = [
     slug: "whoosh-ugc-creator",
     brand: "Whoosh",
     title: "UGC creator (Instagram + TikTok)",
-    category: "Influencers",
+    category: "Brand Ambassadors",
     compensation: { cash: "$100", product: "One month of product free" },
     slotsTotal: 10,
     slotsFilled: 0,

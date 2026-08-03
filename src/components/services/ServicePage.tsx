@@ -19,7 +19,7 @@ export type Step = { title: string; body: string };
 export type ProofStat = { value: string; label: string };
 
 export type ServicePageProps = {
-  slug: "events" | "brand-ambassadors" | "influencers";
+  slug: "events" | "brand-ambassadors";
   eyebrow: string;
   title: string;
   intro: string;
