@@ -43,11 +43,16 @@ ${siteConfig.companyDomain}`;
 export function brandConfirmation(data: BrandLead): RenderedEmail {
   const name = (data.firstName || "there").trim();
   const isLeadMagnet = data.kind === "lead_magnet";
+  const isNewsletter = isLeadMagnet && data.resource === "newsletter-signup";
   const subject = isLeadMagnet
-    ? `Your guide from ${siteConfig.companyName}`
+    ? isNewsletter
+      ? `You're subscribed to ${siteConfig.companyName}`
+      : `Your guide from ${siteConfig.companyName}`
     : `Thanks for reaching out to ${siteConfig.companyName}`;
   const opening = isLeadMagnet
-    ? p(`Thanks for your interest — we'll send your requested resource shortly.`)
+    ? isNewsletter
+      ? p(`You're on the list. We'll send Gen-Z marketing tips, trend updates, and campus activation ideas to your inbox.`)
+      : p(`Thanks for your interest — we'll send your requested resource shortly.`)
     : p(
         `Thanks for reaching out. We've received your inquiry and a member of our team will be in touch soon to talk through how we can help.`,
       );
@@ -66,7 +71,9 @@ export function brandConfirmation(data: BrandLead): RenderedEmail {
 
 ${
     isLeadMagnet
-      ? "Thanks for your interest — we'll send your requested resource shortly."
+      ? isNewsletter
+        ? "You're on the list. We'll send Gen-Z marketing tips, trend updates, and campus activation ideas to your inbox."
+        : "Thanks for your interest — we'll send your requested resource shortly."
       : "We've received your inquiry and a member of our team will be in touch soon."
   }
 
@@ -81,7 +88,7 @@ See our work: ${siteConfig.url}/work
 ${siteConfig.companyDomain}`;
   return {
     subject,
-    html: wrap(body, isLeadMagnet ? "Your resource is on the way." : "We received your inquiry."),
+    html: wrap(body, isLeadMagnet ? (isNewsletter ? "You're subscribed." : "Your resource is on the way.") : "We received your inquiry."),
     text,
   };
 }
@@ -99,7 +106,9 @@ export function internalNotification(
     kind === "student_application"
       ? "ambassador application"
       : kind === "lead_magnet"
-        ? "lead magnet"
+        ? (data as BrandLead).resource === "newsletter-signup"
+          ? "newsletter signup"
+          : "lead magnet"
         : "brand inquiry";
 
   // Subjects per spec.
@@ -111,7 +120,8 @@ export function internalNotification(
     const b = data as BrandLead;
     subject = `New brand inquiry — ${b.company || b.email || "unknown"}`;
   } else {
-    subject = `New lead magnet — ${(data as BrandLead).email || "unknown"}`;
+    const b = data as BrandLead;
+    subject = `${b.resource === "newsletter-signup" ? "New newsletter signup" : "New lead magnet"} — ${b.email || "unknown"}`;
   }
 
   const skip = new Set(["kind", "attribution"]);
