@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T22:56:58.332405+00:00",
+  "generatedAt": "2026-08-04T23:58:12.285510+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -164,8 +164,8 @@
           "depositors": 57,
           "qualificationRate": 79.0,
           "qualifiedPaid": 49,
-          "revenueLifetime": 610.78,
-          "roasLifetime": 0.1661877551020408,
+          "revenueLifetime": 610.9799999999999,
+          "roasLifetime": 0.16624217687074827,
           "signedUpOnly": 5,
           "signups": 62,
           "tradedNotQualified": 5,
