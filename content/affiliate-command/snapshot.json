@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T09:58:32.033978+00:00",
+  "generatedAt": "2026-08-04T15:45:19.842954+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -104,51 +104,51 @@
     {
       "metrics": {
         "cost": 6825.0,
-        "depositRate": 86.7,
+        "depositRate": 87.5,
         "depositedNotTraded": 4,
-        "depositors": 111,
+        "depositors": 112,
         "qualificationRate": 71.1,
         "qualifiedPaid": 91,
-        "signedUpOnly": 17,
+        "signedUpOnly": 16,
         "signups": 128,
-        "tradedNotQualified": 16,
-        "traders": 107
+        "tradedNotQualified": 17,
+        "traders": 108
       },
       "metrics30": {
         "cost": 2475.0,
-        "depositRate": 82.8,
+        "depositRate": 84.5,
         "depositedNotTraded": 2,
-        "depositors": 48,
+        "depositors": 49,
         "qualificationRate": 62.1,
         "qualifiedPaid": 36,
-        "signedUpOnly": 10,
+        "signedUpOnly": 9,
         "signups": 58,
-        "tradedNotQualified": 10,
-        "traders": 46
+        "tradedNotQualified": 11,
+        "traders": 47
       },
       "metrics90": {
         "cost": 5625.0,
-        "depositRate": 87.9,
+        "depositRate": 88.8,
         "depositedNotTraded": 0,
-        "depositors": 94,
+        "depositors": 95,
         "qualificationRate": 79.4,
         "qualifiedPaid": 85,
-        "signedUpOnly": 13,
+        "signedUpOnly": 12,
         "signups": 107,
-        "tradedNotQualified": 11,
-        "traders": 96
+        "tradedNotQualified": 12,
+        "traders": 97
       },
       "metricsAll": {
         "cost": 6825.0,
-        "depositRate": 86.7,
+        "depositRate": 87.5,
         "depositedNotTraded": 4,
-        "depositors": 111,
+        "depositors": 112,
         "qualificationRate": 71.1,
         "qualifiedPaid": 91,
-        "signedUpOnly": 17,
+        "signedUpOnly": 16,
         "signups": 128,
-        "tradedNotQualified": 16,
-        "traders": 107
+        "tradedNotQualified": 17,
+        "traders": 108
       },
       "name": "Polymarket",
       "payments": {
@@ -191,17 +191,17 @@
           "code": "NSWISCO",
           "cost": 825.0,
           "cpa": 75.0,
-          "depositRate": 71.4,
+          "depositRate": 76.2,
           "depositedNotTraded": 0,
-          "depositors": 15,
+          "depositors": 16,
           "qualificationRate": 52.4,
           "qualifiedPaid": 11,
-          "revenueLifetime": 33.97,
-          "roasLifetime": 0.0404,
-          "signedUpOnly": 6,
+          "revenueLifetime": 34.13999999999999,
+          "roasLifetime": 0.0406060606060606,
+          "signedUpOnly": 5,
           "signups": 21,
-          "tradedNotQualified": 6,
-          "traders": 17
+          "tradedNotQualified": 7,
+          "traders": 18
         },
         {
           "code": "NSUSC",
