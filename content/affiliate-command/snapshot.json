@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T23:47:21.068373+00:00",
+  "generatedAt": "2026-08-04T00:18:24.067455+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -31,10 +31,10 @@
     },
     {
       "code": "ZMM Events CPA",
-      "qualified": 6,
-      "signups": 31,
+      "qualified": 5,
+      "signups": 25,
       "source": "Acebet",
-      "value": 595.0
+      "value": 510.0
     },
     {
       "code": "NSOLEMISS",
@@ -59,12 +59,12 @@
     }
   ],
   "rollup": {
-    "acebetSignups": 31,
+    "acebetSignups": 25,
     "polymarketSignups": 125,
-    "qualificationRate": 62.2,
-    "totalQualified": 97,
-    "totalSignups": 156,
-    "totalTrackedValue": 7420.0
+    "qualificationRate": 64.0,
+    "totalQualified": 96,
+    "totalSignups": 150,
+    "totalTrackedValue": 7335.0
   },
   "sources": [
     {
@@ -78,18 +78,18 @@
         }
       ],
       "metrics": {
-        "clicks": 112,
-        "commissionEarned": 595.0,
-        "depositAmount": 2178.51,
+        "clicks": 77,
+        "commissionEarned": 510.0,
+        "depositAmount": 2153.51,
         "depositedNotTraded": 0,
-        "deposits": 25,
-        "ftds": 6,
-        "ngr": -2291.08,
-        "regToFtd": 19.35,
-        "registrationCr": 27.68,
-        "signedUpOnly": 25,
-        "signups": 31,
-        "verifiedDepositors": 6
+        "deposits": 24,
+        "ftds": 5,
+        "ngr": -2315.15,
+        "regToFtd": 20.0,
+        "registrationCr": 32.47,
+        "signedUpOnly": 20,
+        "signups": 25,
+        "verifiedDepositors": 5
       },
       "name": "Acebet",
       "notes": [
@@ -127,16 +127,16 @@
         "traders": 45
       },
       "metrics90": {
-        "cost": 5925.0,
-        "depositRate": 91.7,
-        "depositedNotTraded": 3,
-        "depositors": 99,
-        "qualificationRate": 78.7,
+        "cost": 5625.0,
+        "depositRate": 90.4,
+        "depositedNotTraded": 0,
+        "depositors": 94,
+        "qualificationRate": 81.7,
         "qualifiedPaid": 85,
-        "signedUpOnly": 9,
-        "signups": 108,
-        "tradedNotQualified": 11,
-        "traders": 96
+        "signedUpOnly": 10,
+        "signups": 104,
+        "tradedNotQualified": 10,
+        "traders": 95
       },
       "metricsAll": {
         "cost": 6825.0,
