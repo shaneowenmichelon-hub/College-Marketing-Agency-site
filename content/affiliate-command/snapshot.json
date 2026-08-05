@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T02:47:47.216934+00:00",
+  "generatedAt": "2026-08-05T04:51:44.658602+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -52,19 +52,19 @@
     },
     {
       "code": "NSFREDS",
-      "qualified": 0,
+      "qualified": 1,
       "signups": 3,
       "source": "Polymarket",
-      "value": 0.0
+      "value": 75.0
     }
   ],
   "rollup": {
     "acebetSignups": 10,
     "polymarketSignups": 129,
-    "qualificationRate": 69.1,
-    "totalQualified": 96,
+    "qualificationRate": 69.8,
+    "totalQualified": 97,
     "totalSignups": 139,
-    "totalTrackedValue": 7315.0
+    "totalTrackedValue": 7390.0
   },
   "sources": [
     {
@@ -103,52 +103,52 @@
     },
     {
       "metrics": {
-        "cost": 6975.0,
+        "cost": 7050.0,
         "depositRate": 87.6,
-        "depositedNotTraded": 5,
+        "depositedNotTraded": 4,
         "depositors": 113,
-        "qualificationRate": 72.1,
-        "qualifiedPaid": 93,
+        "qualificationRate": 72.9,
+        "qualifiedPaid": 94,
         "signedUpOnly": 16,
         "signups": 129,
         "tradedNotQualified": 15,
-        "traders": 108
+        "traders": 109
       },
       "metrics30": {
-        "cost": 2625.0,
+        "cost": 2700.0,
         "depositRate": 84.7,
-        "depositedNotTraded": 3,
+        "depositedNotTraded": 2,
         "depositors": 50,
-        "qualificationRate": 64.4,
-        "qualifiedPaid": 38,
+        "qualificationRate": 66.1,
+        "qualifiedPaid": 39,
         "signedUpOnly": 9,
         "signups": 59,
         "tradedNotQualified": 9,
-        "traders": 47
+        "traders": 48
       },
       "metrics90": {
-        "cost": 5700.0,
+        "cost": 5775.0,
         "depositRate": 88.8,
         "depositedNotTraded": 0,
         "depositors": 95,
-        "qualificationRate": 79.4,
-        "qualifiedPaid": 85,
+        "qualificationRate": 80.4,
+        "qualifiedPaid": 86,
         "signedUpOnly": 12,
         "signups": 107,
         "tradedNotQualified": 10,
-        "traders": 95
+        "traders": 96
       },
       "metricsAll": {
-        "cost": 6975.0,
+        "cost": 7050.0,
         "depositRate": 87.6,
-        "depositedNotTraded": 5,
+        "depositedNotTraded": 4,
         "depositors": 113,
-        "qualificationRate": 72.1,
-        "qualifiedPaid": 93,
+        "qualificationRate": 72.9,
+        "qualifiedPaid": 94,
         "signedUpOnly": 16,
         "signups": 129,
         "tradedNotQualified": 15,
-        "traders": 108
+        "traders": 109
       },
       "name": "Polymarket",
       "payments": {
@@ -253,19 +253,19 @@
         },
         {
           "code": "NSFREDS",
-          "cost": 0.0,
+          "cost": 75.0,
           "cpa": 75.0,
           "depositRate": 33.3,
           "depositedNotTraded": 0,
           "depositors": 1,
-          "qualificationRate": 0.0,
-          "qualifiedPaid": 0,
-          "revenueLifetime": 0.0,
-          "roasLifetime": null,
+          "qualificationRate": 33.3,
+          "qualifiedPaid": 1,
+          "revenueLifetime": 0.87,
+          "roasLifetime": 0.0116,
           "signedUpOnly": 2,
           "signups": 3,
           "tradedNotQualified": 1,
-          "traders": 1
+          "traders": 2
         }
       ],
       "range": "Lifetime",
@@ -341,6 +341,10 @@
         {
           "qualified_users": 1,
           "state": "MI"
+        },
+        {
+          "qualified_users": 1,
+          "state": "LA"
         },
         {
           "qualified_users": 1,
