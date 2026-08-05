@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-04T23:58:12.285510+00:00",
+  "generatedAt": "2026-08-05T00:33:18.424727+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
-      "qualified": 49,
+      "qualified": 50,
       "signups": 62,
       "source": "Polymarket",
-      "value": 3675.0
+      "value": 3750.0
     },
     {
       "code": "NSCUSE",
@@ -17,10 +17,10 @@
     },
     {
       "code": "NSWISCO",
-      "qualified": 11,
-      "signups": 21,
+      "qualified": 12,
+      "signups": 22,
       "source": "Polymarket",
-      "value": 825.0
+      "value": 900.0
     },
     {
       "code": "NSUSC",
@@ -31,10 +31,10 @@
     },
     {
       "code": "ZMM Events CPA",
-      "qualified": 5,
-      "signups": 25,
+      "qualified": 3,
+      "signups": 10,
       "source": "Acebet",
-      "value": 510.0
+      "value": 340.0
     },
     {
       "code": "NSOLEMISS",
@@ -59,12 +59,12 @@
     }
   ],
   "rollup": {
-    "acebetSignups": 25,
-    "polymarketSignups": 128,
-    "qualificationRate": 62.7,
+    "acebetSignups": 10,
+    "polymarketSignups": 129,
+    "qualificationRate": 69.1,
     "totalQualified": 96,
-    "totalSignups": 153,
-    "totalTrackedValue": 7335.0
+    "totalSignups": 139,
+    "totalTrackedValue": 7315.0
   },
   "sources": [
     {
@@ -78,18 +78,18 @@
         }
       ],
       "metrics": {
-        "clicks": 78,
-        "commissionEarned": 510.0,
-        "depositAmount": 2644.7,
+        "clicks": 39,
+        "commissionEarned": 340.0,
+        "depositAmount": 2544.7,
         "depositedNotTraded": 0,
-        "deposits": 25,
-        "ftds": 5,
-        "ngr": -1988.88,
-        "regToFtd": 20.0,
-        "registrationCr": 32.05,
-        "signedUpOnly": 20,
-        "signups": 25,
-        "verifiedDepositors": 5
+        "deposits": 20,
+        "ftds": 3,
+        "ngr": -2054.95,
+        "regToFtd": 30.0,
+        "registrationCr": 25.64,
+        "signedUpOnly": 7,
+        "signups": 10,
+        "verifiedDepositors": 3
       },
       "name": "Acebet",
       "notes": [
@@ -103,51 +103,51 @@
     },
     {
       "metrics": {
-        "cost": 6825.0,
-        "depositRate": 87.5,
+        "cost": 6975.0,
+        "depositRate": 86.8,
         "depositedNotTraded": 4,
         "depositors": 112,
-        "qualificationRate": 71.1,
-        "qualifiedPaid": 91,
-        "signedUpOnly": 16,
-        "signups": 128,
-        "tradedNotQualified": 17,
+        "qualificationRate": 72.1,
+        "qualifiedPaid": 93,
+        "signedUpOnly": 17,
+        "signups": 129,
+        "tradedNotQualified": 15,
         "traders": 108
       },
       "metrics30": {
-        "cost": 2475.0,
-        "depositRate": 84.5,
+        "cost": 2625.0,
+        "depositRate": 83.1,
         "depositedNotTraded": 2,
         "depositors": 49,
-        "qualificationRate": 62.1,
-        "qualifiedPaid": 36,
-        "signedUpOnly": 9,
-        "signups": 58,
-        "tradedNotQualified": 11,
+        "qualificationRate": 64.4,
+        "qualifiedPaid": 38,
+        "signedUpOnly": 10,
+        "signups": 59,
+        "tradedNotQualified": 9,
         "traders": 47
       },
       "metrics90": {
-        "cost": 5625.0,
-        "depositRate": 88.8,
+        "cost": 5700.0,
+        "depositRate": 87.9,
         "depositedNotTraded": 0,
-        "depositors": 95,
+        "depositors": 94,
         "qualificationRate": 79.4,
         "qualifiedPaid": 85,
-        "signedUpOnly": 12,
+        "signedUpOnly": 13,
         "signups": 107,
-        "tradedNotQualified": 12,
-        "traders": 97
+        "tradedNotQualified": 10,
+        "traders": 95
       },
       "metricsAll": {
-        "cost": 6825.0,
-        "depositRate": 87.5,
+        "cost": 6975.0,
+        "depositRate": 86.8,
         "depositedNotTraded": 4,
         "depositors": 112,
-        "qualificationRate": 71.1,
-        "qualifiedPaid": 91,
-        "signedUpOnly": 16,
-        "signups": 128,
-        "tradedNotQualified": 17,
+        "qualificationRate": 72.1,
+        "qualifiedPaid": 93,
+        "signedUpOnly": 17,
+        "signups": 129,
+        "tradedNotQualified": 15,
         "traders": 108
       },
       "name": "Polymarket",
@@ -157,18 +157,18 @@
       "promoCodes": [
         {
           "code": "NIGHTSCHOOL",
-          "cost": 3675.0,
+          "cost": 3750.0,
           "cpa": 75.0,
           "depositRate": 91.9,
           "depositedNotTraded": 3,
           "depositors": 57,
-          "qualificationRate": 79.0,
-          "qualifiedPaid": 49,
-          "revenueLifetime": 610.9799999999999,
-          "roasLifetime": 0.16624217687074827,
+          "qualificationRate": 80.6,
+          "qualifiedPaid": 50,
+          "revenueLifetime": 611.2199999999999,
+          "roasLifetime": 0.1629813333333333,
           "signedUpOnly": 5,
           "signups": 62,
-          "tradedNotQualified": 5,
+          "tradedNotQualified": 4,
           "traders": 54
         },
         {
@@ -189,18 +189,18 @@
         },
         {
           "code": "NSWISCO",
-          "cost": 825.0,
+          "cost": 900.0,
           "cpa": 75.0,
-          "depositRate": 76.2,
+          "depositRate": 72.7,
           "depositedNotTraded": 0,
           "depositors": 16,
-          "qualificationRate": 52.4,
-          "qualifiedPaid": 11,
-          "revenueLifetime": 35.199999999999996,
-          "roasLifetime": 0.04189090909090908,
-          "signedUpOnly": 5,
-          "signups": 21,
-          "tradedNotQualified": 7,
+          "qualificationRate": 54.5,
+          "qualifiedPaid": 12,
+          "revenueLifetime": 37.279999999999994,
+          "roasLifetime": 0.0407111111111111,
+          "signedUpOnly": 6,
+          "signups": 22,
+          "tradedNotQualified": 6,
           "traders": 18
         },
         {
@@ -287,7 +287,7 @@
       ],
       "states": [
         {
-          "qualified_users": 35,
+          "qualified_users": 36,
           "state": "NY"
         },
         {
@@ -312,15 +312,15 @@
         },
         {
           "qualified_users": 3,
+          "state": "MA"
+        },
+        {
+          "qualified_users": 3,
           "state": "NC"
         },
         {
           "qualified_users": 2,
           "state": "PA"
-        },
-        {
-          "qualified_users": 2,
-          "state": "MA"
         },
         {
           "qualified_users": 2,
