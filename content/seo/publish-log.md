@@ -8,3 +8,4 @@
 | 4 | 2026-08-02 | 14:56 CDT | - | - | 0 | skipped-even-cadence |
 | 5 | 2026-08-03 | 17:00 CDT | student-brand-reps | student brand reps | 1555 | published |
 | 6 | 2026-08-04 | 14:00 CDT | — | — | 0 | skipped-even-cadence |
+| 7 | 2026-08-05 | 16:00 CDT | college-event-sponsorship | college event sponsorship | 1476 | published |
