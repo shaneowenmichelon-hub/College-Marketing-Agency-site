@@ -93,7 +93,10 @@ export default function ZmmAffiliateCommandPage() {
   const all = polymarket.metricsAll || polymarket.metrics;
   const states = polymarket.states || [];
   const promoCodes = polymarket.promoCodes || [];
-  const requests = polymarket.requests || [];
+  const activePromoCodes = new Set(promoCodes.map((code) => String(code.code || "").toUpperCase()));
+  const requests = (polymarket.requests || []).filter(
+    (request) => !activePromoCodes.has(String(request.code || "").toUpperCase()),
+  );
 
   return (
     <main className="min-h-screen overflow-hidden bg-[#070b18] text-white">
