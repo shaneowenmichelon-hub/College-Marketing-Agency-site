@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T23:40:35.132851+00:00",
+  "generatedAt": "2026-08-06T00:11:04.178926+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -30,13 +30,6 @@
       "value": 600.0
     },
     {
-      "code": "ZMM Events CPA",
-      "qualified": 3,
-      "signups": 10,
-      "source": "Acebet",
-      "value": 340.0
-    },
-    {
       "code": "NSOLEMISS",
       "qualified": 3,
       "signups": 4,
@@ -56,15 +49,22 @@
       "signups": 3,
       "source": "Polymarket",
       "value": 75.0
+    },
+    {
+      "code": "ZMM Events CPA",
+      "qualified": 1,
+      "signups": 0,
+      "source": "Acebet",
+      "value": 85.0
     }
   ],
   "rollup": {
-    "acebetSignups": 10,
+    "acebetSignups": 0,
     "polymarketSignups": 129,
-    "qualificationRate": 70.5,
-    "totalQualified": 98,
-    "totalSignups": 139,
-    "totalTrackedValue": 7465.0
+    "qualificationRate": 74.4,
+    "totalQualified": 96,
+    "totalSignups": 129,
+    "totalTrackedValue": 7210.0
   },
   "sources": [
     {
@@ -78,18 +78,18 @@
         }
       ],
       "metrics": {
-        "clicks": 42,
-        "commissionEarned": 340.0,
-        "depositAmount": 2544.7,
+        "clicks": 10,
+        "commissionEarned": 85.0,
+        "depositAmount": 2371.28,
         "depositedNotTraded": 0,
-        "deposits": 20,
-        "ftds": 3,
-        "ngr": -2054.95,
-        "regToFtd": 30.0,
-        "registrationCr": 23.81,
-        "signedUpOnly": 7,
-        "signups": 10,
-        "verifiedDepositors": 3
+        "deposits": 11,
+        "ftds": 1,
+        "ngr": 1014.25,
+        "regToFtd": 0.0,
+        "registrationCr": 0.0,
+        "signedUpOnly": 0,
+        "signups": 0,
+        "verifiedDepositors": 1
       },
       "name": "Acebet",
       "notes": [
