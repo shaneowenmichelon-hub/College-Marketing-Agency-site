@@ -10,3 +10,4 @@
 | 6 | 2026-08-04 | 14:00 CDT | — | — | 0 | skipped-even-cadence |
 | 7 | 2026-08-05 | 16:00 CDT | college-event-sponsorship | college event sponsorship | 1476 | published |
 | 8 | 2026-08-06 | 11:00 CDT | — | — | 0 | skipped-even-cadence |
+| 9 | 2026-08-07 | 13:02 CDT | campus-influencers | campus influencers | 1429 | published |
