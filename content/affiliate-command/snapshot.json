@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T01:39:51.885982+00:00",
+  "generatedAt": "2026-08-07T02:42:37.099176+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -31,10 +31,10 @@
     },
     {
       "code": "NSOLEMISS",
-      "qualified": 3,
+      "qualified": 4,
       "signups": 5,
       "source": "Polymarket",
-      "value": 225.0
+      "value": 300.0
     },
     {
       "code": "MILKMAN50",
@@ -61,10 +61,10 @@
   "rollup": {
     "acebetSignups": 0,
     "polymarketSignups": 131,
-    "qualificationRate": 73.3,
-    "totalQualified": 96,
+    "qualificationRate": 74.0,
+    "totalQualified": 97,
     "totalSignups": 131,
-    "totalTrackedValue": 7210.0
+    "totalTrackedValue": 7285.0
   },
   "sources": [
     {
@@ -103,52 +103,52 @@
     },
     {
       "metrics": {
-        "cost": 7125.0,
+        "cost": 7200.0,
         "depositRate": 86.3,
-        "depositedNotTraded": 4,
+        "depositedNotTraded": 3,
         "depositors": 113,
-        "qualificationRate": 72.5,
-        "qualifiedPaid": 95,
+        "qualificationRate": 73.3,
+        "qualifiedPaid": 96,
         "signedUpOnly": 18,
         "signups": 131,
         "tradedNotQualified": 14,
-        "traders": 109
+        "traders": 110
       },
       "metrics30": {
-        "cost": 2700.0,
+        "cost": 2775.0,
         "depositRate": 81.7,
-        "depositedNotTraded": 2,
+        "depositedNotTraded": 1,
         "depositors": 49,
-        "qualificationRate": 65.0,
-        "qualifiedPaid": 39,
+        "qualificationRate": 66.7,
+        "qualifiedPaid": 40,
         "signedUpOnly": 11,
         "signups": 60,
         "tradedNotQualified": 8,
-        "traders": 47
+        "traders": 48
       },
       "metrics90": {
-        "cost": 5850.0,
+        "cost": 5925.0,
         "depositRate": 87.2,
         "depositedNotTraded": 0,
         "depositors": 95,
-        "qualificationRate": 79.8,
-        "qualifiedPaid": 87,
+        "qualificationRate": 80.7,
+        "qualifiedPaid": 88,
         "signedUpOnly": 14,
         "signups": 109,
         "tradedNotQualified": 9,
-        "traders": 96
+        "traders": 97
       },
       "metricsAll": {
-        "cost": 7125.0,
+        "cost": 7200.0,
         "depositRate": 86.3,
-        "depositedNotTraded": 4,
+        "depositedNotTraded": 3,
         "depositors": 113,
-        "qualificationRate": 72.5,
-        "qualifiedPaid": 95,
+        "qualificationRate": 73.3,
+        "qualifiedPaid": 96,
         "signedUpOnly": 18,
         "signups": 131,
         "tradedNotQualified": 14,
-        "traders": 109
+        "traders": 110
       },
       "name": "Polymarket",
       "payments": {
@@ -196,8 +196,8 @@
           "depositors": 16,
           "qualificationRate": 59.1,
           "qualifiedPaid": 13,
-          "revenueLifetime": 39.75999999999999,
-          "roasLifetime": 0.04077948717948717,
+          "revenueLifetime": 39.76,
+          "roasLifetime": 0.04077948717948718,
           "signedUpOnly": 6,
           "signups": 22,
           "tradedNotQualified": 5,
@@ -221,19 +221,19 @@
         },
         {
           "code": "NSOLEMISS",
-          "cost": 225.0,
+          "cost": 300.0,
           "cpa": 75.0,
           "depositRate": 100.0,
-          "depositedNotTraded": 2,
+          "depositedNotTraded": 1,
           "depositors": 5,
-          "qualificationRate": 60.0,
-          "qualifiedPaid": 3,
-          "revenueLifetime": 8.69,
-          "roasLifetime": 0.03862222222222222,
+          "qualificationRate": 80.0,
+          "qualifiedPaid": 4,
+          "revenueLifetime": 10.100000000000001,
+          "roasLifetime": 0.03366666666666667,
           "signedUpOnly": 0,
           "signups": 5,
           "tradedNotQualified": 0,
-          "traders": 3
+          "traders": 4
         },
         {
           "code": "MILKMAN50",
@@ -333,6 +333,10 @@
         {
           "qualified_users": 2,
           "state": "SC"
+        },
+        {
+          "qualified_users": 1,
+          "state": "TX"
         },
         {
           "qualified_users": 1,
