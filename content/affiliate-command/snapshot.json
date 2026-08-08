@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-08T19:35:20.462540+00:00",
+  "generatedAt": "2026-08-08T20:35:33.879318+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -18,7 +18,7 @@
     {
       "code": "NSWISCO",
       "qualified": 13,
-      "signups": 23,
+      "signups": 24,
       "source": "Polymarket",
       "value": 975.0
     },
@@ -60,10 +60,10 @@
   ],
   "rollup": {
     "acebetSignups": 0,
-    "polymarketSignups": 133,
-    "qualificationRate": 73.7,
+    "polymarketSignups": 134,
+    "qualificationRate": 73.1,
     "totalQualified": 98,
-    "totalSignups": 133,
+    "totalSignups": 134,
     "totalTrackedValue": 7360.0
   },
   "sources": [
@@ -104,49 +104,49 @@
     {
       "metrics": {
         "cost": 7275.0,
-        "depositRate": 86.5,
+        "depositRate": 85.8,
         "depositedNotTraded": 3,
         "depositors": 115,
-        "qualificationRate": 72.9,
+        "qualificationRate": 72.4,
         "qualifiedPaid": 97,
-        "signedUpOnly": 18,
-        "signups": 133,
+        "signedUpOnly": 19,
+        "signups": 134,
         "tradedNotQualified": 15,
         "traders": 112
       },
       "metrics30": {
         "cost": 2850.0,
-        "depositRate": 82.3,
+        "depositRate": 81.0,
         "depositedNotTraded": 1,
         "depositors": 51,
-        "qualificationRate": 66.1,
+        "qualificationRate": 65.1,
         "qualifiedPaid": 41,
-        "signedUpOnly": 11,
-        "signups": 62,
+        "signedUpOnly": 12,
+        "signups": 63,
         "tradedNotQualified": 9,
         "traders": 50
       },
       "metrics90": {
         "cost": 6000.0,
-        "depositRate": 87.4,
+        "depositRate": 86.6,
         "depositedNotTraded": 0,
         "depositors": 97,
-        "qualificationRate": 80.2,
+        "qualificationRate": 79.5,
         "qualifiedPaid": 89,
-        "signedUpOnly": 14,
-        "signups": 111,
+        "signedUpOnly": 15,
+        "signups": 112,
         "tradedNotQualified": 10,
         "traders": 99
       },
       "metricsAll": {
         "cost": 7275.0,
-        "depositRate": 86.5,
+        "depositRate": 85.8,
         "depositedNotTraded": 3,
         "depositors": 115,
-        "qualificationRate": 72.9,
+        "qualificationRate": 72.4,
         "qualifiedPaid": 97,
-        "signedUpOnly": 18,
-        "signups": 133,
+        "signedUpOnly": 19,
+        "signups": 134,
         "tradedNotQualified": 15,
         "traders": 112
       },
@@ -191,15 +191,15 @@
           "code": "NSWISCO",
           "cost": 975.0,
           "cpa": 75.0,
-          "depositRate": 73.9,
+          "depositRate": 70.8,
           "depositedNotTraded": 0,
           "depositors": 17,
-          "qualificationRate": 56.5,
+          "qualificationRate": 54.2,
           "qualifiedPaid": 13,
           "revenueLifetime": 40.76,
           "roasLifetime": 0.04176410256410256,
-          "signedUpOnly": 6,
-          "signups": 23,
+          "signedUpOnly": 7,
+          "signups": 24,
           "tradedNotQualified": 6,
           "traders": 19
         },
