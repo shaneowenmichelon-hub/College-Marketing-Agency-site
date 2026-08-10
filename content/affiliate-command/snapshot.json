@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T19:46:09.646886+00:00",
+  "generatedAt": "2026-08-10T22:46:46.537826+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -104,51 +104,51 @@
     {
       "metrics": {
         "cost": 7275.0,
-        "depositRate": 85.2,
+        "depositRate": 85.9,
         "depositedNotTraded": 3,
-        "depositors": 115,
+        "depositors": 116,
         "qualificationRate": 71.9,
         "qualifiedPaid": 97,
-        "signedUpOnly": 20,
+        "signedUpOnly": 19,
         "signups": 135,
-        "tradedNotQualified": 15,
-        "traders": 112
+        "tradedNotQualified": 16,
+        "traders": 113
       },
       "metrics30": {
         "cost": 2775.0,
-        "depositRate": 80.6,
+        "depositRate": 82.3,
         "depositedNotTraded": 1,
-        "depositors": 50,
+        "depositors": 51,
         "qualificationRate": 62.9,
         "qualifiedPaid": 39,
-        "signedUpOnly": 12,
+        "signedUpOnly": 11,
         "signups": 62,
-        "tradedNotQualified": 10,
-        "traders": 49
+        "tradedNotQualified": 11,
+        "traders": 50
       },
       "metrics90": {
         "cost": 5850.0,
-        "depositRate": 85.6,
+        "depositRate": 86.5,
         "depositedNotTraded": 0,
-        "depositors": 95,
+        "depositors": 96,
         "qualificationRate": 77.5,
         "qualifiedPaid": 86,
-        "signedUpOnly": 16,
+        "signedUpOnly": 15,
         "signups": 111,
-        "tradedNotQualified": 10,
-        "traders": 96
+        "tradedNotQualified": 11,
+        "traders": 97
       },
       "metricsAll": {
         "cost": 7275.0,
-        "depositRate": 85.2,
+        "depositRate": 85.9,
         "depositedNotTraded": 3,
-        "depositors": 115,
+        "depositors": 116,
         "qualificationRate": 71.9,
         "qualifiedPaid": 97,
-        "signedUpOnly": 20,
+        "signedUpOnly": 19,
         "signups": 135,
-        "tradedNotQualified": 15,
-        "traders": 112
+        "tradedNotQualified": 16,
+        "traders": 113
       },
       "name": "Polymarket",
       "payments": {
@@ -223,17 +223,17 @@
           "code": "NSOLEMISS",
           "cost": 375.0,
           "cpa": 75.0,
-          "depositRate": 85.7,
+          "depositRate": 100.0,
           "depositedNotTraded": 1,
-          "depositors": 6,
+          "depositors": 7,
           "qualificationRate": 71.4,
           "qualifiedPaid": 5,
-          "revenueLifetime": 10.709999999999999,
-          "roasLifetime": 0.02856,
-          "signedUpOnly": 1,
+          "revenueLifetime": 10.71,
+          "roasLifetime": 0.028560000000000002,
+          "signedUpOnly": 0,
           "signups": 7,
-          "tradedNotQualified": 0,
-          "traders": 5
+          "tradedNotQualified": 1,
+          "traders": 6
         },
         {
           "code": "MILKMAN50",
