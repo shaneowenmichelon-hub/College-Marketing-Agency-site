@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T00:53:44.799018+00:00",
+  "generatedAt": "2026-08-10T04:00:24.219318+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -32,7 +32,7 @@
     {
       "code": "NSOLEMISS",
       "qualified": 5,
-      "signups": 6,
+      "signups": 7,
       "source": "Polymarket",
       "value": 375.0
     },
@@ -60,10 +60,10 @@
   ],
   "rollup": {
     "acebetSignups": 0,
-    "polymarketSignups": 134,
-    "qualificationRate": 73.1,
+    "polymarketSignups": 135,
+    "qualificationRate": 72.6,
     "totalQualified": 98,
-    "totalSignups": 134,
+    "totalSignups": 135,
     "totalTrackedValue": 7360.0
   },
   "sources": [
@@ -104,13 +104,13 @@
     {
       "metrics": {
         "cost": 7275.0,
-        "depositRate": 85.8,
+        "depositRate": 85.2,
         "depositedNotTraded": 3,
         "depositors": 115,
-        "qualificationRate": 72.4,
+        "qualificationRate": 71.9,
         "qualifiedPaid": 97,
-        "signedUpOnly": 19,
-        "signups": 134,
+        "signedUpOnly": 20,
+        "signups": 135,
         "tradedNotQualified": 15,
         "traders": 112
       },
@@ -128,25 +128,25 @@
       },
       "metrics90": {
         "cost": 5850.0,
-        "depositRate": 86.4,
+        "depositRate": 85.6,
         "depositedNotTraded": 0,
         "depositors": 95,
-        "qualificationRate": 78.2,
+        "qualificationRate": 77.5,
         "qualifiedPaid": 86,
-        "signedUpOnly": 15,
-        "signups": 110,
+        "signedUpOnly": 16,
+        "signups": 111,
         "tradedNotQualified": 10,
         "traders": 96
       },
       "metricsAll": {
         "cost": 7275.0,
-        "depositRate": 85.8,
+        "depositRate": 85.2,
         "depositedNotTraded": 3,
         "depositors": 115,
-        "qualificationRate": 72.4,
+        "qualificationRate": 71.9,
         "qualifiedPaid": 97,
-        "signedUpOnly": 19,
-        "signups": 134,
+        "signedUpOnly": 20,
+        "signups": 135,
         "tradedNotQualified": 15,
         "traders": 112
       },
@@ -164,8 +164,8 @@
           "depositors": 57,
           "qualificationRate": 80.6,
           "qualifiedPaid": 50,
-          "revenueLifetime": 623.38,
-          "roasLifetime": 0.166224,
+          "revenueLifetime": 623.3800000000001,
+          "roasLifetime": 0.16622400000000004,
           "signedUpOnly": 5,
           "signups": 62,
           "tradedNotQualified": 4,
@@ -223,15 +223,15 @@
           "code": "NSOLEMISS",
           "cost": 375.0,
           "cpa": 75.0,
-          "depositRate": 100.0,
+          "depositRate": 85.7,
           "depositedNotTraded": 1,
           "depositors": 6,
-          "qualificationRate": 83.3,
+          "qualificationRate": 71.4,
           "qualifiedPaid": 5,
-          "revenueLifetime": 10.709999999999999,
-          "roasLifetime": 0.02856,
-          "signedUpOnly": 0,
-          "signups": 6,
+          "revenueLifetime": 10.71,
+          "roasLifetime": 0.028560000000000002,
+          "signedUpOnly": 1,
+          "signups": 7,
           "tradedNotQualified": 0,
           "traders": 5
         },
