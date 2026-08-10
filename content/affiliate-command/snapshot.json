@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-10T06:36:17.175402+00:00",
+  "generatedAt": "2026-08-10T07:06:24.890215+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -80,11 +80,11 @@
       "metrics": {
         "clicks": 8,
         "commissionEarned": 85.0,
-        "depositAmount": 1041.8,
+        "depositAmount": 1537.59,
         "depositedNotTraded": 0,
-        "deposits": 5,
+        "deposits": 6,
         "ftds": 1,
-        "ngr": 286.02,
+        "ngr": 630.2,
         "regToFtd": 0.0,
         "registrationCr": 0.0,
         "signedUpOnly": 0,
