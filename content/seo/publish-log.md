@@ -13,3 +13,4 @@
 | 9 | 2026-08-07 | 13:02 CDT | campus-influencers | campus influencers | 1429 | published |
 | 10 | 2026-08-08 | 17:00 CDT | — | — | 0 | skipped-even-cadence |
 | 11 | 2026-08-10 | 08:00 CDT | gen-z-marketing | Gen Z marketing | 1518 | published |
+| 12 | 2026-08-11 | 10:00 CDT | — | — | 0 | skipped-even-cadence |
