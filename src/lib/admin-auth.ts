@@ -3,11 +3,11 @@ import { cookies } from "next/headers";
 
 export const ADMIN_COOKIE = "ch_admin_session";
 
-// Fallback access-code hash generated for Shane. Prefer overriding with
-// ADMIN_ACCESS_CODE_SHA256 in Vercel env when dashboard ownership moves fully
-// into the Vercel dashboard.
+// Fallback access-code hash. Currently the simple code "collegiate" (sha256).
+// Override with ADMIN_ACCESS_CODE_SHA256 in Vercel env to set your own code.
+// NOTE: this gate stays on because the dashboard shows applicant personal data.
 const FALLBACK_ADMIN_CODE_SHA256 =
-  "9ec004c312597f729add2c7365b3391781dce734bac977cb12be7d5f02de1cbd";
+  "30f87a9672d9f18bffe25925c5e936d071f5fef822ab2afecab5b3d1e5223529";
 
 function sha256(value: string): string {
   return crypto.createHash("sha256").update(value).digest("hex");
