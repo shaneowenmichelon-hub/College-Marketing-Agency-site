@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T18:51:16.420000+00:00",
+  "generatedAt": "2026-08-12T19:25:26.531947+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -78,7 +78,7 @@
         }
       ],
       "metrics": {
-        "clicks": 8,
+        "clicks": 9,
         "commissionEarned": 0.0,
         "depositAmount": 1031.4,
         "depositedNotTraded": 0,
