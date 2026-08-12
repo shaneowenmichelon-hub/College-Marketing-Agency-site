@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T18:45:34.352011+00:00",
+  "generatedAt": "2026-08-12T00:17:49.913837+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -52,19 +52,19 @@
     },
     {
       "code": "ZMM Events CPA",
-      "qualified": 1,
+      "qualified": 0,
       "signups": 0,
       "source": "Acebet",
-      "value": 85.0
+      "value": 0.0
     }
   ],
   "rollup": {
     "acebetSignups": 0,
     "polymarketSignups": 139,
-    "qualificationRate": 71.9,
-    "totalQualified": 100,
+    "qualificationRate": 71.2,
+    "totalQualified": 99,
     "totalSignups": 139,
-    "totalTrackedValue": 7510.0
+    "totalTrackedValue": 7425.0
   },
   "sources": [
     {
@@ -78,18 +78,18 @@
         }
       ],
       "metrics": {
-        "clicks": 10,
-        "commissionEarned": 85.0,
-        "depositAmount": 1046.4,
+        "clicks": 7,
+        "commissionEarned": 0.0,
+        "depositAmount": 1031.4,
         "depositedNotTraded": 0,
-        "deposits": 5,
-        "ftds": 1,
-        "ngr": 656.98,
+        "deposits": 4,
+        "ftds": 0,
+        "ngr": 644.83,
         "regToFtd": 0.0,
         "registrationCr": 0.0,
         "signedUpOnly": 0,
         "signups": 0,
-        "verifiedDepositors": 1
+        "verifiedDepositors": 0
       },
       "name": "Acebet",
       "notes": [
@@ -127,14 +127,14 @@
         "traders": 51
       },
       "metrics90": {
-        "cost": 6000.0,
-        "depositRate": 86.1,
-        "depositedNotTraded": 2,
-        "depositors": 99,
-        "qualificationRate": 75.7,
+        "cost": 5775.0,
+        "depositRate": 87.4,
+        "depositedNotTraded": 0,
+        "depositors": 97,
+        "qualificationRate": 78.4,
         "qualifiedPaid": 87,
-        "signedUpOnly": 16,
-        "signups": 115,
+        "signedUpOnly": 14,
+        "signups": 111,
         "tradedNotQualified": 10,
         "traders": 97
       },
