@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T05:41:52.158430+00:00",
+  "generatedAt": "2026-08-13T06:42:16.086405+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -164,8 +164,8 @@
           "depositors": 57,
           "qualificationRate": 79.4,
           "qualifiedPaid": 50,
-          "revenueLifetime": 627.47,
-          "roasLifetime": 0.1673146666666667,
+          "revenueLifetime": 640.62,
+          "roasLifetime": 0.17082133333333335,
           "signedUpOnly": 6,
           "signups": 63,
           "tradedNotQualified": 4,
@@ -180,8 +180,8 @@
           "depositors": 23,
           "qualificationRate": 64.3,
           "qualifiedPaid": 18,
-          "revenueLifetime": 35.18,
-          "roasLifetime": 0.026059259259259258,
+          "revenueLifetime": 37.209999999999994,
+          "roasLifetime": 0.02756296296296296,
           "signedUpOnly": 5,
           "signups": 28,
           "tradedNotQualified": 4,
@@ -196,8 +196,8 @@
           "depositors": 17,
           "qualificationRate": 54.2,
           "qualifiedPaid": 13,
-          "revenueLifetime": 42.32999999999999,
-          "roasLifetime": 0.04337435897435896,
+          "revenueLifetime": 43.9,
+          "roasLifetime": 0.04498461538461539,
           "signedUpOnly": 7,
           "signups": 24,
           "tradedNotQualified": 6,
@@ -228,8 +228,8 @@
           "depositors": 9,
           "qualificationRate": 80.0,
           "qualifiedPaid": 8,
-          "revenueLifetime": 19.65,
-          "roasLifetime": 0.032749999999999994,
+          "revenueLifetime": 28.940000000000005,
+          "roasLifetime": 0.04823333333333334,
           "signedUpOnly": 1,
           "signups": 10,
           "tradedNotQualified": 0,
@@ -285,92 +285,7 @@
           "trackingLinks": ""
         }
       ],
-      "states": [
-        {
-          "qualified_users": 36,
-          "state": "NY"
-        },
-        {
-          "qualified_users": 15,
-          "state": "NJ"
-        },
-        {
-          "qualified_users": 5,
-          "state": "MD"
-        },
-        {
-          "qualified_users": 4,
-          "state": "CA"
-        },
-        {
-          "qualified_users": 4,
-          "state": "GA"
-        },
-        {
-          "qualified_users": 3,
-          "state": "TX"
-        },
-        {
-          "qualified_users": 3,
-          "state": "CT"
-        },
-        {
-          "qualified_users": 3,
-          "state": "IL"
-        },
-        {
-          "qualified_users": 3,
-          "state": "MA"
-        },
-        {
-          "qualified_users": 3,
-          "state": "NC"
-        },
-        {
-          "qualified_users": 2,
-          "state": "PA"
-        },
-        {
-          "qualified_users": 2,
-          "state": "LA"
-        },
-        {
-          "qualified_users": 2,
-          "state": "FL"
-        },
-        {
-          "qualified_users": 2,
-          "state": "SC"
-        },
-        {
-          "qualified_users": 1,
-          "state": "WI"
-        },
-        {
-          "qualified_users": 1,
-          "state": "MI"
-        },
-        {
-          "qualified_users": 1,
-          "state": "DE"
-        },
-        {
-          "qualified_users": 1,
-          "state": "MO"
-        },
-        {
-          "qualified_users": 1,
-          "state": "CO"
-        },
-        {
-          "qualified_users": 1,
-          "state": "MN"
-        },
-        {
-          "qualified_users": 1,
-          "state": "IN"
-        }
-      ],
+      "states": [],
       "status": "connected"
     }
   ],
