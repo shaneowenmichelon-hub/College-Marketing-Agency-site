@@ -16,3 +16,4 @@
 | 12 | 2026-08-11 | 10:00 CDT | — | — | 0 | skipped-even-cadence |
 | 13 | 2026-08-12 | 13:00 CDT | college-brand-ambassadors | college brand ambassadors | 1607 | published |
 | 14 | 2026-08-13 | 09:00 CDT | — | — | 0 | skipped-even-cadence |
+| 15 | 2026-08-14 | 10:00 CDT | college-tour-marketing | college tour marketing | 1475 | published |
