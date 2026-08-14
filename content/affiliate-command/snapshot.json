@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-14T15:52:34.776519+00:00",
+  "generatedAt": "2026-08-14T16:55:07.449294+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -196,8 +196,8 @@
           "depositors": 18,
           "qualificationRate": 56.0,
           "qualifiedPaid": 14,
-          "revenueLifetime": 45.160000000000004,
-          "roasLifetime": 0.04300952380952381,
+          "revenueLifetime": 45.15999999999999,
+          "roasLifetime": 0.043009523809523796,
           "signedUpOnly": 7,
           "signups": 25,
           "tradedNotQualified": 6,
@@ -285,92 +285,7 @@
           "trackingLinks": ""
         }
       ],
-      "states": [
-        {
-          "qualified_users": 36,
-          "state": "NY"
-        },
-        {
-          "qualified_users": 15,
-          "state": "NJ"
-        },
-        {
-          "qualified_users": 5,
-          "state": "MD"
-        },
-        {
-          "qualified_users": 4,
-          "state": "CA"
-        },
-        {
-          "qualified_users": 4,
-          "state": "GA"
-        },
-        {
-          "qualified_users": 3,
-          "state": "TX"
-        },
-        {
-          "qualified_users": 3,
-          "state": "CT"
-        },
-        {
-          "qualified_users": 3,
-          "state": "IL"
-        },
-        {
-          "qualified_users": 3,
-          "state": "MA"
-        },
-        {
-          "qualified_users": 3,
-          "state": "NC"
-        },
-        {
-          "qualified_users": 2,
-          "state": "PA"
-        },
-        {
-          "qualified_users": 2,
-          "state": "LA"
-        },
-        {
-          "qualified_users": 2,
-          "state": "FL"
-        },
-        {
-          "qualified_users": 2,
-          "state": "SC"
-        },
-        {
-          "qualified_users": 2,
-          "state": "MN"
-        },
-        {
-          "qualified_users": 1,
-          "state": "WI"
-        },
-        {
-          "qualified_users": 1,
-          "state": "MI"
-        },
-        {
-          "qualified_users": 1,
-          "state": "DE"
-        },
-        {
-          "qualified_users": 1,
-          "state": "MO"
-        },
-        {
-          "qualified_users": 1,
-          "state": "CO"
-        },
-        {
-          "qualified_users": 1,
-          "state": "IN"
-        }
-      ],
+      "states": [],
       "status": "connected"
     }
   ],
