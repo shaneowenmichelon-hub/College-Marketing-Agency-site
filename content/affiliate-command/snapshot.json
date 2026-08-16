@@ -1,6 +1,48 @@
 {
-  "generatedAt": "2026-08-16T08:39:02.051442+00:00",
+  "generatedAt": "2026-08-16T09:19:37.623868+00:00",
   "leaderboard": [
+    {
+      "code": "NIGHTSCHOOL",
+      "qualified": 20,
+      "signups": 23,
+      "source": "Polymarket",
+      "value": 1500.0
+    },
+    {
+      "code": "NSWISCO",
+      "qualified": 7,
+      "signups": 13,
+      "source": "Polymarket",
+      "value": 525.0
+    },
+    {
+      "code": "NSCUSE",
+      "qualified": 4,
+      "signups": 9,
+      "source": "Polymarket",
+      "value": 300.0
+    },
+    {
+      "code": "NSOLEMISS",
+      "qualified": 2,
+      "signups": 4,
+      "source": "Polymarket",
+      "value": 150.0
+    },
+    {
+      "code": "NSFREDS",
+      "qualified": 2,
+      "signups": 3,
+      "source": "Polymarket",
+      "value": 150.0
+    },
+    {
+      "code": "NSUSC",
+      "qualified": 2,
+      "signups": 3,
+      "source": "Polymarket",
+      "value": 150.0
+    },
     {
       "code": "ZMM Events CPA",
       "qualified": 0,
@@ -11,11 +53,11 @@
   ],
   "rollup": {
     "acebetSignups": 0,
-    "polymarketSignups": 0,
-    "qualificationRate": 0,
-    "totalQualified": 0,
-    "totalSignups": 0,
-    "totalTrackedValue": 0.0
+    "polymarketSignups": 55,
+    "qualificationRate": 67.3,
+    "totalQualified": 37,
+    "totalSignups": 55,
+    "totalTrackedValue": 2775.0
   },
   "sources": [
     {
@@ -54,58 +96,155 @@
     },
     {
       "metrics": {
-        "cost": 0,
-        "depositRate": 0,
+        "cost": 2775.0,
+        "depositRate": 76.4,
         "depositedNotTraded": 0,
-        "depositors": 0,
-        "qualificationRate": 0,
-        "qualifiedPaid": 0,
-        "signedUpOnly": 0,
-        "signups": 0,
-        "tradedNotQualified": 0,
-        "traders": 0
+        "depositors": 42,
+        "qualificationRate": 67.3,
+        "qualifiedPaid": 37,
+        "signedUpOnly": 13,
+        "signups": 55,
+        "tradedNotQualified": 8,
+        "traders": 45
       },
       "metrics30": {
-        "cost": 0,
-        "depositRate": 0,
+        "cost": 1050.0,
+        "depositRate": 67.9,
         "depositedNotTraded": 0,
-        "depositors": 0,
-        "qualificationRate": 0,
-        "qualifiedPaid": 0,
-        "signedUpOnly": 0,
-        "signups": 0,
-        "tradedNotQualified": 0,
-        "traders": 0
+        "depositors": 19,
+        "qualificationRate": 53.6,
+        "qualifiedPaid": 15,
+        "signedUpOnly": 9,
+        "signups": 28,
+        "tradedNotQualified": 7,
+        "traders": 22
       },
       "metrics90": {
-        "cost": 0,
-        "depositRate": 0,
+        "cost": 1950.0,
+        "depositRate": 76.7,
         "depositedNotTraded": 0,
-        "depositors": 0,
-        "qualificationRate": 0,
-        "qualifiedPaid": 0,
-        "signedUpOnly": 0,
-        "signups": 0,
-        "tradedNotQualified": 0,
-        "traders": 0
+        "depositors": 33,
+        "qualificationRate": 79.1,
+        "qualifiedPaid": 34,
+        "signedUpOnly": 10,
+        "signups": 43,
+        "tradedNotQualified": 7,
+        "traders": 41
       },
       "metricsAll": {
-        "cost": 0,
-        "depositRate": 0,
+        "cost": 2775.0,
+        "depositRate": 76.4,
         "depositedNotTraded": 0,
-        "depositors": 0,
-        "qualificationRate": 0,
-        "qualifiedPaid": 0,
-        "signedUpOnly": 0,
-        "signups": 0,
-        "tradedNotQualified": 0,
-        "traders": 0
+        "depositors": 42,
+        "qualificationRate": 67.3,
+        "qualifiedPaid": 37,
+        "signedUpOnly": 13,
+        "signups": 55,
+        "tradedNotQualified": 8,
+        "traders": 45
       },
       "name": "Polymarket",
       "payments": {
         "invoices": []
       },
-      "promoCodes": [],
+      "promoCodes": [
+        {
+          "code": "NIGHTSCHOOL",
+          "cost": 1500.0,
+          "cpa": 75.0,
+          "depositRate": 91.3,
+          "depositedNotTraded": 0,
+          "depositors": 21,
+          "qualificationRate": 87.0,
+          "qualifiedPaid": 20,
+          "revenueLifetime": 115.14,
+          "roasLifetime": 0.07673333333333333,
+          "signedUpOnly": 2,
+          "signups": 23,
+          "tradedNotQualified": 1,
+          "traders": 21
+        },
+        {
+          "code": "NSWISCO",
+          "cost": 525.0,
+          "cpa": 75.0,
+          "depositRate": 61.5,
+          "depositedNotTraded": 0,
+          "depositors": 8,
+          "qualificationRate": 53.8,
+          "qualifiedPaid": 7,
+          "revenueLifetime": 23.57,
+          "roasLifetime": 0.0448952380952381,
+          "signedUpOnly": 5,
+          "signups": 13,
+          "tradedNotQualified": 5,
+          "traders": 12
+        },
+        {
+          "code": "NSCUSE",
+          "cost": 300.0,
+          "cpa": 75.0,
+          "depositRate": 55.6,
+          "depositedNotTraded": 0,
+          "depositors": 5,
+          "qualificationRate": 44.4,
+          "qualifiedPaid": 4,
+          "revenueLifetime": 2.58,
+          "roasLifetime": 0.0086,
+          "signedUpOnly": 4,
+          "signups": 9,
+          "tradedNotQualified": 1,
+          "traders": 5
+        },
+        {
+          "code": "NSFREDS",
+          "cost": 150.0,
+          "cpa": 75.0,
+          "depositRate": 66.7,
+          "depositedNotTraded": 0,
+          "depositors": 2,
+          "qualificationRate": 66.7,
+          "qualifiedPaid": 2,
+          "revenueLifetime": 0.94,
+          "roasLifetime": 0.006266666666666666,
+          "signedUpOnly": 1,
+          "signups": 3,
+          "tradedNotQualified": 1,
+          "traders": 3
+        },
+        {
+          "code": "NSUSC",
+          "cost": 150.0,
+          "cpa": 75.0,
+          "depositRate": 100.0,
+          "depositedNotTraded": 1,
+          "depositors": 3,
+          "qualificationRate": 66.7,
+          "qualifiedPaid": 2,
+          "revenueLifetime": 7.630000000000001,
+          "roasLifetime": 0.05086666666666667,
+          "signedUpOnly": 0,
+          "signups": 3,
+          "tradedNotQualified": 0,
+          "traders": 2
+        },
+        {
+          "code": "NSOLEMISS",
+          "cost": 150.0,
+          "cpa": 75.0,
+          "depositRate": 75.0,
+          "depositedNotTraded": 1,
+          "depositors": 3,
+          "qualificationRate": 50.0,
+          "qualifiedPaid": 2,
+          "revenueLifetime": 6.54,
+          "roasLifetime": 0.0436,
+          "signedUpOnly": 1,
+          "signups": 4,
+          "tradedNotQualified": 0,
+          "traders": 2
+        }
+      ],
       "range": "Lifetime",
       "requests": [
         {
