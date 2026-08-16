@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T02:56:11.109434+00:00",
+  "generatedAt": "2026-08-16T04:31:18.328197+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -287,7 +287,7 @@
       ],
       "states": [
         {
-          "qualified_users": 37,
+          "qualified_users": 38,
           "state": "NY"
         },
         {
@@ -300,15 +300,15 @@
         },
         {
           "qualified_users": 4,
+          "state": "TX"
+        },
+        {
+          "qualified_users": 4,
           "state": "CA"
         },
         {
           "qualified_users": 4,
           "state": "GA"
-        },
-        {
-          "qualified_users": 3,
-          "state": "TX"
         },
         {
           "qualified_users": 3,
