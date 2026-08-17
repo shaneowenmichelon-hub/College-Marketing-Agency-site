@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T23:38:31.393971+00:00",
+  "generatedAt": "2026-08-17T00:08:40.434242+00:00",
   "leaderboard": [
     {
       "code": "ZMM Events CPA",
@@ -31,11 +31,11 @@
       "metrics": {
         "clicks": 8,
         "commissionEarned": 0.0,
-        "depositAmount": 991.4,
+        "depositAmount": 0.0,
         "depositedNotTraded": 0,
-        "deposits": 2,
+        "deposits": 0,
         "ftds": 0,
-        "ngr": 623.24,
+        "ngr": 0.0,
         "regToFtd": 0.0,
         "registrationCr": 0.0,
         "signedUpOnly": 0,
