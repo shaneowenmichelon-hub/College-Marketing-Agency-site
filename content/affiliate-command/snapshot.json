@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T00:22:55.609633+00:00",
+  "generatedAt": "2026-08-18T00:53:04.607604+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -17,10 +17,10 @@
     },
     {
       "code": "NSWISCO",
-      "qualified": 15,
-      "signups": 26,
+      "qualified": 16,
+      "signups": 27,
       "source": "Polymarket",
-      "value": 1125.0
+      "value": 1200.0
     },
     {
       "code": "NSOLEMISS",
@@ -60,11 +60,11 @@
   ],
   "rollup": {
     "acebetSignups": 0,
-    "polymarketSignups": 142,
-    "qualificationRate": 74.6,
-    "totalQualified": 106,
-    "totalSignups": 142,
-    "totalTrackedValue": 7950.0
+    "polymarketSignups": 143,
+    "qualificationRate": 74.8,
+    "totalQualified": 107,
+    "totalSignups": 143,
+    "totalTrackedValue": 8025.0
   },
   "sources": [
     {
@@ -103,51 +103,51 @@
     },
     {
       "metrics": {
-        "cost": 7950.0,
-        "depositRate": 86.6,
+        "cost": 8025.0,
+        "depositRate": 86.0,
         "depositedNotTraded": 2,
         "depositors": 123,
-        "qualificationRate": 74.6,
-        "qualifiedPaid": 106,
-        "signedUpOnly": 19,
-        "signups": 142,
-        "tradedNotQualified": 15,
+        "qualificationRate": 74.8,
+        "qualifiedPaid": 107,
+        "signedUpOnly": 20,
+        "signups": 143,
+        "tradedNotQualified": 14,
         "traders": 121
       },
       "metrics30": {
-        "cost": 3375.0,
-        "depositRate": 80.9,
+        "cost": 3450.0,
+        "depositRate": 79.7,
         "depositedNotTraded": 0,
         "depositors": 55,
-        "qualificationRate": 67.6,
-        "qualifiedPaid": 46,
-        "signedUpOnly": 13,
-        "signups": 68,
-        "tradedNotQualified": 10,
+        "qualificationRate": 68.1,
+        "qualifiedPaid": 47,
+        "signedUpOnly": 14,
+        "signups": 69,
+        "tradedNotQualified": 9,
         "traders": 56
       },
       "metrics90": {
-        "cost": 5625.0,
-        "depositRate": 88.5,
+        "cost": 5700.0,
+        "depositRate": 87.6,
         "depositedNotTraded": 0,
         "depositors": 92,
-        "qualificationRate": 86.5,
-        "qualifiedPaid": 90,
-        "signedUpOnly": 12,
-        "signups": 104,
-        "tradedNotQualified": 10,
+        "qualificationRate": 86.7,
+        "qualifiedPaid": 91,
+        "signedUpOnly": 13,
+        "signups": 105,
+        "tradedNotQualified": 9,
         "traders": 100
       },
       "metricsAll": {
-        "cost": 7950.0,
-        "depositRate": 86.6,
+        "cost": 8025.0,
+        "depositRate": 86.0,
         "depositedNotTraded": 2,
         "depositors": 123,
-        "qualificationRate": 74.6,
-        "qualifiedPaid": 106,
-        "signedUpOnly": 19,
-        "signups": 142,
-        "tradedNotQualified": 15,
+        "qualificationRate": 74.8,
+        "qualifiedPaid": 107,
+        "signedUpOnly": 20,
+        "signups": 143,
+        "tradedNotQualified": 14,
         "traders": 121
       },
       "name": "Polymarket",
@@ -189,18 +189,18 @@
         },
         {
           "code": "NSWISCO",
-          "cost": 1125.0,
+          "cost": 1200.0,
           "cpa": 75.0,
-          "depositRate": 76.9,
+          "depositRate": 74.1,
           "depositedNotTraded": 0,
           "depositors": 20,
-          "qualificationRate": 57.7,
-          "qualifiedPaid": 15,
-          "revenueLifetime": 48.77,
-          "roasLifetime": 0.04335111111111111,
-          "signedUpOnly": 6,
-          "signups": 26,
-          "tradedNotQualified": 7,
+          "qualificationRate": 59.3,
+          "qualifiedPaid": 16,
+          "revenueLifetime": 48.84,
+          "roasLifetime": 0.0407,
+          "signedUpOnly": 7,
+          "signups": 27,
+          "tradedNotQualified": 6,
           "traders": 22
         },
         {
@@ -312,6 +312,10 @@
         },
         {
           "qualified_users": 3,
+          "state": "WI"
+        },
+        {
+          "qualified_users": 3,
           "state": "CT"
         },
         {
@@ -325,10 +329,6 @@
         {
           "qualified_users": 3,
           "state": "NC"
-        },
-        {
-          "qualified_users": 2,
-          "state": "WI"
         },
         {
           "qualified_users": 2,
