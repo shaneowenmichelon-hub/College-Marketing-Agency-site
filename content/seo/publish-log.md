@@ -20,3 +20,4 @@
 | 16 | 2026-08-15 | 09:00 CDT | — | — | 0 | skipped-even-cadence |
 | 17 | 2026-08-16 | 16:00 CDT | university-activations | university activations | 1468 | published |
 | 18 | 2026-08-17 | 14:00 CDT | — | — | 0 | skipped-even-cadence |
+| 19 | 2026-08-18 | 09:00 CDT | campus-product-launch | campus product launch | 1525 | published |
