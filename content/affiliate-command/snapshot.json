@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-18T15:01:27.300009+00:00",
+  "generatedAt": "2026-08-18T15:36:11.501940+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -164,8 +164,8 @@
           "depositors": 58,
           "qualificationRate": 81.0,
           "qualifiedPaid": 51,
-          "revenueLifetime": 637.11,
-          "roasLifetime": 0.1665542483660131,
+          "revenueLifetime": 637.1099999999999,
+          "roasLifetime": 0.16655424836601307,
           "signedUpOnly": 5,
           "signups": 63,
           "tradedNotQualified": 4,
@@ -204,22 +204,6 @@
           "traders": 23
         },
         {
-          "code": "NSUSC",
-          "cost": 600.0,
-          "cpa": 75.0,
-          "depositRate": 100.0,
-          "depositedNotTraded": 1,
-          "depositors": 9,
-          "qualificationRate": 88.9,
-          "qualifiedPaid": 8,
-          "revenueLifetime": 96.09,
-          "roasLifetime": 0.16015000000000001,
-          "signedUpOnly": 0,
-          "signups": 9,
-          "tradedNotQualified": 0,
-          "traders": 8
-        },
-        {
           "code": "NSOLEMISS",
           "cost": 600.0,
           "cpa": 75.0,
@@ -236,20 +220,20 @@
           "traders": 8
         },
         {
-          "code": "NSFREDS",
-          "cost": 150.0,
+          "code": "NSUSC",
+          "cost": 600.0,
           "cpa": 75.0,
-          "depositRate": 50.0,
-          "depositedNotTraded": 0,
-          "depositors": 2,
-          "qualificationRate": 50.0,
-          "qualifiedPaid": 2,
-          "revenueLifetime": 0.94,
-          "roasLifetime": 0.006266666666666666,
-          "signedUpOnly": 2,
-          "signups": 4,
-          "tradedNotQualified": 1,
-          "traders": 3
+          "depositRate": 100.0,
+          "depositedNotTraded": 1,
+          "depositors": 9,
+          "qualificationRate": 88.9,
+          "qualifiedPaid": 8,
+          "revenueLifetime": 96.09,
+          "roasLifetime": 0.16015000000000001,
+          "signedUpOnly": 0,
+          "signups": 9,
+          "tradedNotQualified": 0,
+          "traders": 8
         },
         {
           "code": "MILKMAN50",
@@ -266,6 +250,22 @@
           "signups": 2,
           "tradedNotQualified": 0,
           "traders": 2
+        },
+        {
+          "code": "NSFREDS",
+          "cost": 150.0,
+          "cpa": 75.0,
+          "depositRate": 50.0,
+          "depositedNotTraded": 0,
+          "depositors": 2,
+          "qualificationRate": 50.0,
+          "qualifiedPaid": 2,
+          "revenueLifetime": 0.94,
+          "roasLifetime": 0.006266666666666666,
+          "signedUpOnly": 2,
+          "signups": 4,
+          "tradedNotQualified": 1,
+          "traders": 3
         }
       ],
       "range": "Lifetime",
