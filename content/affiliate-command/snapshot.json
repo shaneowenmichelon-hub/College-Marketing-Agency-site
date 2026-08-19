@@ -1,52 +1,52 @@
 {
-  "generatedAt": "2026-08-19T04:13:06.512610+00:00",
+  "generatedAt": "2026-08-19T05:18:48.568770+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
       "qualified": 49,
       "signups": 62,
       "source": "Polymarket",
-      "value": 0.0
+      "value": 1650.0
     },
     {
       "code": "NSCUSE",
       "qualified": 16,
       "signups": 26,
       "source": "Polymarket",
-      "value": 0.0
+      "value": 375.0
     },
     {
       "code": "NSWISCO",
-      "qualified": 8,
-      "signups": 13,
+      "qualified": 12,
+      "signups": 22,
       "source": "Polymarket",
-      "value": 0.0
+      "value": 600.0
     },
     {
       "code": "NSUSC",
       "qualified": 8,
       "signups": 9,
       "source": "Polymarket",
-      "value": 0.0
+      "value": 225.0
     },
     {
       "code": "NSOLEMISS",
-      "qualified": 3,
+      "qualified": 4,
+      "signups": 5,
+      "source": "Polymarket",
+      "value": 150.0
+    },
+    {
+      "code": "NSFREDS",
+      "qualified": 2,
       "signups": 4,
       "source": "Polymarket",
-      "value": 0.0
+      "value": 150.0
     },
     {
       "code": "MILKMAN50",
       "qualified": 2,
       "signups": 2,
-      "source": "Polymarket",
-      "value": 0.0
-    },
-    {
-      "code": "NSFREDS",
-      "qualified": 0,
-      "signups": 3,
       "source": "Polymarket",
       "value": 0.0
     },
@@ -60,11 +60,11 @@
   ],
   "rollup": {
     "acebetSignups": 0,
-    "polymarketSignups": 119,
-    "qualificationRate": 72.3,
-    "totalQualified": 86,
-    "totalSignups": 119,
-    "totalTrackedValue": 0.0
+    "polymarketSignups": 130,
+    "qualificationRate": 71.5,
+    "totalQualified": 93,
+    "totalSignups": 130,
+    "totalTrackedValue": 3150.0
   },
   "sources": [
     {
@@ -84,7 +84,7 @@
         "depositedNotTraded": 0,
         "deposits": 0,
         "ftds": 0,
-        "ngr": -0.01,
+        "ngr": 0.01,
         "regToFtd": 0.0,
         "registrationCr": 0.0,
         "signedUpOnly": 0,
@@ -103,52 +103,52 @@
     },
     {
       "metrics": {
-        "cost": 0.0,
-        "depositRate": 87.4,
-        "depositedNotTraded": 4,
-        "depositors": 104,
-        "qualificationRate": 72.3,
-        "qualifiedPaid": 86,
-        "signedUpOnly": 15,
-        "signups": 119,
-        "tradedNotQualified": 14,
-        "traders": 100
+        "cost": 3150.0,
+        "depositRate": 85.4,
+        "depositedNotTraded": 2,
+        "depositors": 111,
+        "qualificationRate": 71.5,
+        "qualifiedPaid": 93,
+        "signedUpOnly": 19,
+        "signups": 130,
+        "tradedNotQualified": 16,
+        "traders": 109
       },
       "metrics30": {
-        "cost": 0.0,
-        "depositRate": 79.1,
-        "depositedNotTraded": 1,
-        "depositors": 34,
-        "qualificationRate": 58.1,
-        "qualifiedPaid": 25,
-        "signedUpOnly": 9,
-        "signups": 43,
-        "tradedNotQualified": 8,
-        "traders": 33
+        "cost": 1050.0,
+        "depositRate": 75.9,
+        "depositedNotTraded": 0,
+        "depositors": 41,
+        "qualificationRate": 59.3,
+        "qualifiedPaid": 32,
+        "signedUpOnly": 13,
+        "signups": 54,
+        "tradedNotQualified": 10,
+        "traders": 42
       },
       "metrics90": {
-        "cost": 0.0,
-        "depositRate": 91.2,
+        "cost": 2175.0,
+        "depositRate": 87.9,
         "depositedNotTraded": 0,
-        "depositors": 73,
-        "qualificationRate": 85.0,
-        "qualifiedPaid": 68,
-        "signedUpOnly": 7,
-        "signups": 80,
-        "tradedNotQualified": 9,
-        "traders": 77
+        "depositors": 80,
+        "qualificationRate": 82.4,
+        "qualifiedPaid": 75,
+        "signedUpOnly": 11,
+        "signups": 91,
+        "tradedNotQualified": 11,
+        "traders": 86
       },
       "metricsAll": {
-        "cost": 0.0,
-        "depositRate": 87.4,
-        "depositedNotTraded": 4,
-        "depositors": 104,
-        "qualificationRate": 72.3,
-        "qualifiedPaid": 86,
-        "signedUpOnly": 15,
-        "signups": 119,
-        "tradedNotQualified": 14,
-        "traders": 100
+        "cost": 3150.0,
+        "depositRate": 85.4,
+        "depositedNotTraded": 2,
+        "depositors": 111,
+        "qualificationRate": 71.5,
+        "qualifiedPaid": 93,
+        "signedUpOnly": 19,
+        "signups": 130,
+        "tradedNotQualified": 16,
+        "traders": 109
       },
       "name": "Polymarket",
       "payments": {
@@ -157,15 +157,15 @@
       "promoCodes": [
         {
           "code": "NIGHTSCHOOL",
-          "cost": 0.0,
+          "cost": 1650.0,
           "cpa": 75.0,
           "depositRate": 91.9,
           "depositedNotTraded": 3,
           "depositors": 57,
           "qualificationRate": 79.0,
           "qualifiedPaid": 49,
-          "revenueLifetime": 0.0,
-          "roasLifetime": null,
+          "revenueLifetime": 122.73000000000002,
+          "roasLifetime": 0.07438181818181819,
           "signedUpOnly": 5,
           "signups": 62,
           "tradedNotQualified": 5,
@@ -173,15 +173,15 @@
         },
         {
           "code": "NSCUSE",
-          "cost": 0.0,
+          "cost": 375.0,
           "cpa": 75.0,
           "depositRate": 84.6,
           "depositedNotTraded": 1,
           "depositors": 22,
           "qualificationRate": 61.5,
           "qualifiedPaid": 16,
-          "revenueLifetime": 0.0,
-          "roasLifetime": null,
+          "revenueLifetime": 5.6000000000000005,
+          "roasLifetime": 0.014933333333333335,
           "signedUpOnly": 4,
           "signups": 26,
           "tradedNotQualified": 5,
@@ -189,31 +189,31 @@
         },
         {
           "code": "NSWISCO",
-          "cost": 0.0,
+          "cost": 600.0,
           "cpa": 75.0,
-          "depositRate": 76.9,
+          "depositRate": 68.2,
           "depositedNotTraded": 0,
-          "depositors": 10,
-          "qualificationRate": 61.5,
-          "qualifiedPaid": 8,
-          "revenueLifetime": 0.0,
-          "roasLifetime": null,
-          "signedUpOnly": 3,
-          "signups": 13,
-          "tradedNotQualified": 3,
-          "traders": 11
+          "depositors": 15,
+          "qualificationRate": 54.5,
+          "qualifiedPaid": 12,
+          "revenueLifetime": 24.880000000000003,
+          "roasLifetime": 0.04146666666666667,
+          "signedUpOnly": 7,
+          "signups": 22,
+          "tradedNotQualified": 5,
+          "traders": 17
         },
         {
           "code": "NSUSC",
-          "cost": 0.0,
+          "cost": 225.0,
           "cpa": 75.0,
           "depositRate": 100.0,
           "depositedNotTraded": 1,
           "depositors": 9,
           "qualificationRate": 88.9,
           "qualifiedPaid": 8,
-          "revenueLifetime": 0.0,
-          "roasLifetime": null,
+          "revenueLifetime": 46.31,
+          "roasLifetime": 0.20582222222222224,
           "signedUpOnly": 0,
           "signups": 9,
           "tradedNotQualified": 0,
@@ -221,19 +221,19 @@
         },
         {
           "code": "NSOLEMISS",
-          "cost": 0.0,
+          "cost": 150.0,
           "cpa": 75.0,
-          "depositRate": 75.0,
+          "depositRate": 80.0,
           "depositedNotTraded": 0,
-          "depositors": 3,
-          "qualificationRate": 75.0,
-          "qualifiedPaid": 3,
-          "revenueLifetime": 0.0,
-          "roasLifetime": null,
+          "depositors": 4,
+          "qualificationRate": 80.0,
+          "qualifiedPaid": 4,
+          "revenueLifetime": 5.35,
+          "roasLifetime": 0.035666666666666666,
           "signedUpOnly": 1,
-          "signups": 4,
+          "signups": 5,
           "tradedNotQualified": 0,
-          "traders": 3
+          "traders": 4
         },
         {
           "code": "MILKMAN50",
@@ -253,19 +253,19 @@
         },
         {
           "code": "NSFREDS",
-          "cost": 0.0,
+          "cost": 150.0,
           "cpa": 75.0,
-          "depositRate": 33.3,
+          "depositRate": 50.0,
           "depositedNotTraded": 0,
-          "depositors": 1,
-          "qualificationRate": 0.0,
-          "qualifiedPaid": 0,
-          "revenueLifetime": 0.0,
-          "roasLifetime": null,
+          "depositors": 2,
+          "qualificationRate": 50.0,
+          "qualifiedPaid": 2,
+          "revenueLifetime": 0.94,
+          "roasLifetime": 0.006266666666666666,
           "signedUpOnly": 2,
-          "signups": 3,
+          "signups": 4,
           "tradedNotQualified": 1,
-          "traders": 1
+          "traders": 3
         }
       ],
       "range": "Lifetime",
