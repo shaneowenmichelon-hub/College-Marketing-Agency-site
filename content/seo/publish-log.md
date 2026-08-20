@@ -21,3 +21,4 @@
 | 17 | 2026-08-16 | 16:00 CDT | university-activations | university activations | 1468 | published |
 | 18 | 2026-08-17 | 14:00 CDT | — | — | 0 | skipped-even-cadence |
 | 19 | 2026-08-18 | 09:00 CDT | campus-product-launch | campus product launch | 1525 | published |
+| 19 | 2026-08-20 | 12:00 CDT | college-marketing-strategy | college marketing strategy | 1577 | published |

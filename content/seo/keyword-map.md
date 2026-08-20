@@ -25,6 +25,7 @@ Method: seed keyword research from Collegiate Agency positioning plus live DuckD
 | 8 | college tour marketing | Brand marketer evaluating multi-market campus tours | ESTIMATE: medium; query overlaps admissions tours, music tours, and brand tours | college tour sponsorship; campus tour marketing; college nightlife tour marketing | Live search was accessible but current results were materially mixed with admissions/education results on 2026-08-10; no clean 3-URL competitor set recorded |
 | 9 | university activations | Brand marketer looking for activation ideas | ESTIMATE: medium; terminology varies by institution and brand, with mixed non-marketing results | university brand activations; campus activations for brands; college campus activation ideas | Live search was accessible but current results were materially mixed with university directory/event results on 2026-08-10; no clean 3-URL competitor set recorded |
 | 10 | college marketing agency | Brand marketer evaluating an agency partner | ESTIMATE: high commercial intent; agency homepages and service pages ranking; current Bing result parsing returned multiple relevant agency pages | best college marketing agency; college marketing agency for brands; college student marketing agency | https://thecampusagency.com/; https://collegemarketingpros.com/; https://www.refuelagency.com/college-marketing/ |
+| 11 | college marketing strategy | Brand marketer planning how to reach college students before choosing vendors or tactics | ESTIMATE: medium/high; broad education and marketing-advice results compete with agency/vendor content | marketing to college students; campus marketing plan; student ambassador strategy; college event marketing | https://www.business.com/articles/marketing-to-college-students/; https://www.sheerid.com/business/blog/marketing-to-college-students-the-2026-guide-for-brands/; https://newbridgemarketing.com/news/how-to-market-to-college-students |
 
 ## 60-day primary keyword lockout
 
@@ -38,3 +39,4 @@ Method: seed keyword research from Collegiate Agency positioning plus live DuckD
 - 2026-08-14 - `college tour marketing` - `/insights/college-tour-marketing`
 - 2026-08-16 - `university activations` - `/insights/university-activations`
 - 2026-08-18 - `campus product launch` - `/insights/campus-product-launch`
+- 2026-08-20 - `college marketing strategy` - `/insights/college-marketing-strategy`
