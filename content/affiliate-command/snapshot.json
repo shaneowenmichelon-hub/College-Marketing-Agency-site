@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T01:45:24.016871+00:00",
+  "generatedAt": "2026-08-20T02:16:19.683812+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -287,24 +287,52 @@
       ],
       "states": [
         {
-          "qualified_users": 15,
+          "qualified_users": 39,
           "state": "NY"
         },
         {
-          "qualified_users": 4,
+          "qualified_users": 15,
           "state": "NJ"
         },
         {
-          "qualified_users": 3,
+          "qualified_users": 5,
           "state": "MD"
         },
         {
-          "qualified_users": 3,
+          "qualified_users": 4,
+          "state": "TX"
+        },
+        {
+          "qualified_users": 4,
+          "state": "WI"
+        },
+        {
+          "qualified_users": 4,
           "state": "CA"
         },
         {
+          "qualified_users": 4,
+          "state": "GA"
+        },
+        {
+          "qualified_users": 3,
+          "state": "CT"
+        },
+        {
+          "qualified_users": 3,
+          "state": "IL"
+        },
+        {
+          "qualified_users": 3,
+          "state": "MA"
+        },
+        {
+          "qualified_users": 3,
+          "state": "NC"
+        },
+        {
           "qualified_users": 2,
-          "state": "TX"
+          "state": "PA"
         },
         {
           "qualified_users": 2,
@@ -312,11 +340,15 @@
         },
         {
           "qualified_users": 2,
-          "state": "MA"
+          "state": "FL"
         },
         {
-          "qualified_users": 1,
-          "state": "WI"
+          "qualified_users": 2,
+          "state": "SC"
+        },
+        {
+          "qualified_users": 2,
+          "state": "MN"
         },
         {
           "qualified_users": 1,
@@ -324,19 +356,15 @@
         },
         {
           "qualified_users": 1,
+          "state": "DE"
+        },
+        {
+          "qualified_users": 1,
           "state": "MO"
         },
         {
           "qualified_users": 1,
-          "state": "FL"
-        },
-        {
-          "qualified_users": 1,
-          "state": "SC"
-        },
-        {
-          "qualified_users": 1,
-          "state": "MN"
+          "state": "CO"
         },
         {
           "qualified_users": 1,
