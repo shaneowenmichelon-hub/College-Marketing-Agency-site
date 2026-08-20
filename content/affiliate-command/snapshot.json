@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T23:44:38.584719+00:00",
+  "generatedAt": "2026-08-20T00:14:54.287270+00:00",
   "leaderboard": [
     {
       "code": "NIGHTSCHOOL",
@@ -78,13 +78,13 @@
         }
       ],
       "metrics": {
-        "clicks": 4,
+        "clicks": 3,
         "commissionEarned": 0.0,
         "depositAmount": 0.0,
         "depositedNotTraded": 0,
         "deposits": 0,
         "ftds": 0,
-        "ngr": 0.01,
+        "ngr": 0.0,
         "regToFtd": 0.0,
         "registrationCr": 0.0,
         "signedUpOnly": 0,
@@ -118,12 +118,12 @@
         "cost": 975.0,
         "depositRate": 74.5,
         "depositedNotTraded": 0,
-        "depositors": 41,
-        "qualificationRate": 60.0,
-        "qualifiedPaid": 33,
-        "signedUpOnly": 14,
-        "signups": 55,
-        "tradedNotQualified": 9,
+        "depositors": 38,
+        "qualificationRate": 62.7,
+        "qualifiedPaid": 32,
+        "signedUpOnly": 13,
+        "signups": 51,
+        "tradedNotQualified": 10,
         "traders": 42
       },
       "metrics90": {
@@ -131,12 +131,12 @@
         "depositRate": 87.0,
         "depositedNotTraded": 0,
         "depositors": 80,
-        "qualificationRate": 82.6,
-        "qualifiedPaid": 76,
+        "qualificationRate": 80.4,
+        "qualifiedPaid": 74,
         "signedUpOnly": 12,
         "signups": 92,
         "tradedNotQualified": 10,
-        "traders": 86
+        "traders": 84
       },
       "metricsAll": {
         "cost": 2850.0,
