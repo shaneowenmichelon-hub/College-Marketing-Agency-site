@@ -216,13 +216,13 @@ export const pricing: Record<string, ServicePricing> = {
     note: "Single activations to full presenting sponsorships · see the event & trip inventory.",
   },
   "product-placement": {
-    range: "From $1,750",
-    unit: "/ school",
+    range: "$2,500",
+    unit: "/ campus",
     included: "Product placement",
-    note: "$350 per organization · 5 orgs per school · add more at extra cost · includes dedicated media deliverables.",
+    note: "5 of the top Greek-life organizations per campus, with dedicated media deliverables · add more organizations at extra cost.",
   },
   "brand-ambassadors": {
-    range: "$150",
+    range: "$250",
     unit: "/ ambassador / month",
     included: "Ambassador program",
     note: "2 dedicated social posts (flyers or videos) with links + brand tags · add-ons: localized paid media, product placement.",
@@ -324,9 +324,9 @@ export const servicesHub: ServicesHub = {
         heading: "Product Placement",
         columns: [
           [
-            "From $1,750 per school",
-            "$350 per organization",
-            "5 Greek life product placements per school",
+            "$2,500 per campus",
+            "5 of the top Greek-life organizations per campus",
+            "Product placed directly with campus social leaders",
           ],
           [
             "Dedicated media deliverables for each organization",
