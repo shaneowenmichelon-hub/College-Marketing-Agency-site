@@ -144,7 +144,7 @@ export function MobileNav({ open, onClose }: { open: boolean; onClose: () => voi
             <div className="shrink-0 border-t-2 border-white/15 px-5 pt-5 [padding-bottom:calc(1.25rem+env(safe-area-inset-bottom))]">
               <div className="flex flex-col gap-3">
                 <Button href="/contact" variant="lime" size="lg">
-                  Get Started
+                  Contact us
                 </Button>
                 <Button href="/become-an-ambassador" variant="ghost-dark" size="lg">
                   Become an Ambassador

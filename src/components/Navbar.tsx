@@ -79,7 +79,7 @@ export function Navbar() {
             Become an Ambassador
           </Button>
           <Button href="/contact" variant="primary" size="sm">
-            Get Started
+            Contact us
           </Button>
         </div>
 
