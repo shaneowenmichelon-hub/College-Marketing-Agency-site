@@ -49,9 +49,11 @@ export async function POST(request: Request) {
   const kind = body.kind === "lead_magnet" ? "lead_magnet" : "brand_inquiry";
   const company = String(body.company ?? "").trim();
   const email = String(body.email ?? "").trim();
+  const howHeard = String(body.howHeard ?? "").trim();
 
   const errors: Record<string, string> = {};
   if (kind === "brand_inquiry" && !company) errors.company = "Company is required.";
+  if (kind === "brand_inquiry" && !howHeard) errors.howHeard = "Please tell us how you found us.";
   if (!email) errors.email = "Work email is required.";
   else if (!isValidEmail(email)) errors.email = "Enter a valid email.";
 
@@ -76,6 +78,7 @@ export async function POST(request: Request) {
     interests: Array.isArray(body.interests) ? (body.interests as string[]) : [],
     budget: String(body.budget ?? ""),
     message: String(body.message ?? ""),
+    howHeard,
     resource: String(body.resource ?? ""),
     attribution,
   };
@@ -108,6 +111,7 @@ export async function POST(request: Request) {
       interests: lead.interests,
       budget: lead.budget,
       message: lead.message,
+      howHeard: lead.howHeard,
       resource: lead.resource,
     },
   });

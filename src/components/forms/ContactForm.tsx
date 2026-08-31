@@ -42,6 +42,7 @@ export function ContactForm() {
       interests,
       budget: String(data.get("budget") ?? ""),
       message: String(data.get("message") ?? ""),
+      howHeard: String(data.get("howHeard") ?? "").trim(),
       company_website: String(data.get("company_website") ?? ""), // honeypot
       elapsedMs: getElapsed(),
       attribution,
@@ -51,6 +52,7 @@ export function ContactForm() {
     if (!payload.company) nextErrors.company = "Company is required.";
     if (!payload.email) nextErrors.email = "Work email is required.";
     else if (!isValidEmail(payload.email)) nextErrors.email = "Enter a valid email.";
+    if (!payload.howHeard) nextErrors.howHeard = "Please let us know how you found us.";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
@@ -195,6 +197,14 @@ export function ContactForm() {
             placeholder="Tell us what you're launching and which campuses you're after."
             defaultValue={prefill.message}
             key={`msg-${prefill.message ?? ""}`}
+          />
+        </FormField>
+        <FormField label="How did you find us?" htmlFor="howHeard" required error={errors.howHeard}>
+          <Input
+            id="howHeard"
+            name="howHeard"
+            error={errors.howHeard}
+            placeholder="e.g. Instagram, a referral, Google search, an event…"
           />
         </FormField>
       </div>
