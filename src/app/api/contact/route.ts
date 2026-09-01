@@ -54,6 +54,7 @@ export async function POST(request: Request) {
   const errors: Record<string, string> = {};
   if (kind === "brand_inquiry" && !company) errors.company = "Company is required.";
   if (kind === "brand_inquiry" && !howHeard) errors.howHeard = "Please tell us how you found us.";
+  if (kind === "brand_inquiry" && !String(body.budget ?? "").trim()) errors.budget = "Please select a budget range.";
   if (!email) errors.email = "Work email is required.";
   else if (!isValidEmail(email)) errors.email = "Enter a valid email.";
 

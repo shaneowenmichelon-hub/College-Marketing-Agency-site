@@ -52,6 +52,7 @@ export function ContactForm() {
     if (!payload.company) nextErrors.company = "Company is required.";
     if (!payload.email) nextErrors.email = "Work email is required.";
     else if (!isValidEmail(payload.email)) nextErrors.email = "Enter a valid email.";
+    if (!payload.budget) nextErrors.budget = "Please select a budget range.";
     if (!payload.howHeard) nextErrors.howHeard = "Please let us know how you found us.";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
@@ -178,8 +179,8 @@ export function ContactForm() {
       </fieldset>
 
       <div className="mt-5 grid gap-5">
-        <FormField label="Budget range" htmlFor="budget">
-          <Select id="budget" name="budget" defaultValue="">
+        <FormField label="Budget range" htmlFor="budget" required error={errors.budget}>
+          <Select id="budget" name="budget" defaultValue="" error={errors.budget}>
             <option value="" disabled>
               Select a range
             </option>
