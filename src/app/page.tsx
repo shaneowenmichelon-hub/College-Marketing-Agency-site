@@ -18,6 +18,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { Hero } from "@/components/home/Hero";
 import { StickyMobileCTA } from "@/components/home/StickyMobileCTA";
+import { CampusAttentionJourney } from "@/components/home/CampusAttentionJourney";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProcessStep } from "@/components/ProcessStep";
@@ -121,6 +122,8 @@ export default function HomePage() {
           </Reveal>
         </div>
       </Section>
+
+      <CampusAttentionJourney />
 
       {/* Stats band */}
       <Section tone="dark" grain>
