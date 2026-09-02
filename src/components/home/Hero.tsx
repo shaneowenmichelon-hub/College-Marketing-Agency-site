@@ -104,96 +104,58 @@ function Coin({ reduce }: { reduce: boolean }) {
 }
 
 /**
- * Scroll-driven reel: a worker + spool/wheel pop up on first scroll with a rope
- * to the CA coin; the coin is lowered in three steps, then drops with a dust
- * burst — after which the page scrolls on. Driven by hero scroll progress, so it
- * never traps the user. Lives in the coin slot (no extra hero height).
+ * Scroll-driven reel: the big CA coin hangs up top; a worker cranking a cable
+ * spool on an A-frame stand sits at the bottom, roping the coin in. Three scrolls
+ * lower the coin toward the spool; on the third it drops with a dust burst, then
+ * the page scrolls on. Driven by hero scroll progress, so it never traps the user.
  */
+const PANTS = "#F4A9C7";
+const SKIN = "#C98A5E";
+
 function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
   const [stage, setStage] = useState(0);
 
   const appear = useTransform(progress, [0, 0.06], [0, 1]);
-  const wheelRotate = useTransform(progress, [0.06, 0.86], [0, 720]);
+  const spoolRotate = useTransform(progress, [0.06, 0.86], [0, 900]);
+  // Big coin: hangs high, reeled down toward the spool in 3 steps, then drops.
   const coinY = useTransform(
     progress,
     [0.06, 0.3, 0.34, 0.55, 0.6, 0.8, 0.86, 0.93, 1],
-    [110, 150, 150, 195, 195, 235, 235, 286, 286],
+    [70, 150, 150, 226, 226, 300, 300, 422, 422],
   );
-  const coinRotate = useTransform(progress, [0.86, 0.95], [0, 160]);
-  const ropeEndY = useTransform(coinY, (v) => v - 24);
+  const coinRotate = useTransform(progress, [0.86, 0.96], [0, 150]);
+  const ropeEndY = useTransform(coinY, (v) => v - 46); // rope meets the coin's top
+  const ropeOpacity = useTransform(progress, [0, 0.06, 0.86, 0.9], [0, 1, 1, 0]);
   const dustOpacity = useTransform(progress, [0.86, 0.9, 0.99], [0, 0.9, 0]);
-  const dustScale = useTransform(progress, [0.86, 1], [0.3, 1.7]);
+  const dustScale = useTransform(progress, [0.86, 1], [0.3, 1.9]);
   const hintOpacity = useTransform(progress, [0, 0.04, 0.12], [0, 1, 0]);
   const labelOpacity = useTransform(progress, [0.08, 0.12, 0.84, 0.9], [0, 1, 1, 0]);
 
   useMotionValueEvent(progress, "change", (v) => {
     setStage(v < 0.06 ? 0 : v < 0.34 ? 1 : v < 0.6 ? 2 : v < 0.86 ? 3 : v < 0.93 ? 4 : 5);
   });
-  const label = stage === 0 ? "" : stage <= 3 ? `Lower ${stage} / 3` : stage === 4 ? "Drop!" : "";
+  const label = stage === 0 ? "" : stage <= 3 ? `Reel ${stage} / 3` : stage === 4 ? "Drop!" : "";
 
   return (
-    <div className="relative mx-auto w-full max-w-[210px] justify-self-center sm:max-w-[260px] lg:max-w-[320px]">
-      <svg viewBox="0 0 260 300" className="w-full" role="img" aria-label="A worker lowers the Collegiate Agency coin on a rope, then it drops.">
+    <div className="relative mx-auto w-full max-w-[240px] justify-self-center sm:max-w-[300px] lg:max-w-[360px]">
+      <svg viewBox="0 0 300 480" className="w-full" role="img" aria-label="A worker cranks a cable spool that reels the big Collegiate Agency coin down, then it drops.">
         {/* ground */}
-        <line x1="24" y1="288" x2="236" y2="288" stroke="var(--ink)" strokeWidth="3" />
+        <line x1="30" y1="432" x2="270" y2="432" stroke="var(--ink)" strokeWidth="3" />
 
-        {/* support post */}
-        <motion.g style={{ opacity: appear }}>
-          <line x1="196" y1="70" x2="196" y2="288" stroke="var(--ink)" strokeWidth="6" />
-          {/* spool/wheel */}
-          <motion.g style={{ rotate: wheelRotate, transformBox: "fill-box", transformOrigin: "center" }}>
-            <circle cx="196" cy="70" r="34" fill="var(--accent)" stroke="var(--ink)" strokeWidth="4" />
-            <circle cx="196" cy="70" r="6" fill="var(--ink)" />
-            {[0, 60, 120].map((a) => (
-              <line
-                key={a}
-                x1="196"
-                y1="70"
-                x2={196 + 30 * Math.cos((a * Math.PI) / 180)}
-                y2={70 + 30 * Math.sin((a * Math.PI) / 180)}
-                stroke="var(--ink)"
-                strokeWidth="3"
-              />
-            ))}
-            <line x1="196" y1="70" x2="196" y2="40" stroke="var(--ink)" strokeWidth="4" />
-            <circle cx="196" cy="36" r="6" fill="var(--accent-2)" stroke="var(--ink)" strokeWidth="3" />
-          </motion.g>
-        </motion.g>
+        {/* rope from spool up to the coin */}
+        <motion.line x1="150" y1="330" x2="196" y2={ropeEndY} stroke="var(--ink)" strokeWidth="3" style={{ opacity: ropeOpacity }} />
 
-        {/* rope */}
-        <motion.line x1="196" y1="70" x2="196" y2={ropeEndY} stroke="var(--ink)" strokeWidth="3" style={{ opacity: appear }} />
-
-        {/* worker cranking (left of the spool) */}
-        <motion.g style={{ opacity: appear }} stroke="var(--ink)" strokeWidth="6" strokeLinecap="round" fill="none">
-          <circle cx="96" cy="150" r="15" fill="var(--accent-2)" />
-          <line x1="96" y1="165" x2="96" y2="240" />
-          <line x1="96" y1="240" x2="80" y2="286" />
-          <line x1="96" y1="240" x2="112" y2="286" />
-          <line x1="96" y1="196" x2="164" y2="150" />
-          <line x1="96" y1="196" x2="160" y2="120" />
-        </motion.g>
-
-        {/* dust burst on impact */}
-        <motion.g style={{ opacity: dustOpacity, scale: dustScale, transformBox: "fill-box", transformOrigin: "center" }}>
-          <g transform="translate(196 280)">
-            <circle cx="-24" cy="0" r="10" fill="var(--muted-on-dark)" opacity="0.5" />
-            <circle cx="0" cy="-6" r="13" fill="var(--muted-on-dark)" opacity="0.45" />
-            <circle cx="24" cy="0" r="10" fill="var(--muted-on-dark)" opacity="0.5" />
-            <circle cx="-10" cy="6" r="7" fill="var(--muted-on-dark)" opacity="0.4" />
-            <circle cx="14" cy="6" r="8" fill="var(--muted-on-dark)" opacity="0.4" />
-          </g>
-        </motion.g>
-
-        {/* the CA coin on the rope */}
+        {/* the BIG CA coin */}
         <motion.g style={{ y: coinY, opacity: appear }}>
           <motion.g style={{ rotate: coinRotate, transformBox: "fill-box", transformOrigin: "center" }}>
-            <circle cx="196" cy="0" r="24" fill="var(--accent-2)" stroke="var(--ink)" strokeWidth="5" />
+            <circle cx="196" cy="0" r="46" fill="var(--accent-2)" stroke="var(--ink)" strokeWidth="6" />
+            <circle cx="196" cy="0" r="46" fill="none" stroke="var(--ink)" strokeWidth="2" opacity="0.35" />
             <text
               x="196"
               y="0"
               textAnchor="middle"
               dominantBaseline="central"
-              fontSize="19"
+              fontSize="34"
               fontWeight="800"
               fill="var(--ink)"
               style={{ fontFamily: "var(--font-display), system-ui, sans-serif" }}
@@ -202,18 +164,69 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
             </text>
           </motion.g>
         </motion.g>
+
+        {/* dust burst on impact (ground, right of the spool) */}
+        <motion.g style={{ opacity: dustOpacity, scale: dustScale, transformBox: "fill-box", transformOrigin: "center" }}>
+          <g transform="translate(196 424)">
+            <circle cx="-30" cy="0" r="12" fill="var(--muted-on-dark)" opacity="0.5" />
+            <circle cx="0" cy="-8" r="16" fill="var(--muted-on-dark)" opacity="0.45" />
+            <circle cx="30" cy="0" r="13" fill="var(--muted-on-dark)" opacity="0.5" />
+            <circle cx="-14" cy="8" r="9" fill="var(--muted-on-dark)" opacity="0.4" />
+            <circle cx="18" cy="8" r="10" fill="var(--muted-on-dark)" opacity="0.4" />
+          </g>
+        </motion.g>
+
+        {/* ── the contraption at the bottom ── */}
+        <motion.g style={{ opacity: appear }}>
+          {/* A-frame stand */}
+          <path d="M104 432L150 322" stroke="var(--accent)" strokeWidth="12" strokeLinecap="round" />
+          <path d="M196 432L150 322" stroke="var(--accent)" strokeWidth="12" strokeLinecap="round" />
+          <line x1="122" y1="388" x2="178" y2="388" stroke="var(--accent)" strokeWidth="9" strokeLinecap="round" />
+          <path d="M104 432L150 322" stroke="var(--ink)" strokeWidth="12" strokeLinecap="round" opacity="0.25" />
+
+          {/* cable spool (side view) — rotates */}
+          <motion.g style={{ rotate: spoolRotate, transformBox: "fill-box", transformOrigin: "center" }}>
+            <circle cx="150" cy="330" r="52" fill="#fff" stroke="var(--ink)" strokeWidth="5" />
+            {[42, 34, 26, 18].map((r) => (
+              <circle key={r} cx="150" cy="330" r={r} fill="none" stroke="var(--ink)" strokeWidth="2" opacity="0.55" />
+            ))}
+            <circle cx="150" cy="330" r="9" fill="var(--ink)" />
+            {/* crank handle on the rim */}
+            <circle cx="150" cy="286" r="7" fill="var(--accent-2)" stroke="var(--ink)" strokeWidth="3" />
+          </motion.g>
+          <circle cx="150" cy="330" r="52" fill="none" stroke="var(--ink)" strokeWidth="5" />
+
+          {/* worker (left), bent over cranking */}
+          <g>
+            {/* legs (pink) */}
+            <path d="M78 356l-8 76" stroke={PANTS} strokeWidth="14" strokeLinecap="round" />
+            <path d="M92 356l10 76" stroke={PANTS} strokeWidth="14" strokeLinecap="round" />
+            {/* shoes */}
+            <path d="M62 432h18" stroke="#fff" strokeWidth="8" strokeLinecap="round" />
+            <path d="M100 432h18" stroke="#fff" strokeWidth="8" strokeLinecap="round" />
+            {/* torso (blue shirt), leaning toward spool */}
+            <path d="M84 360l26 -44" stroke="var(--accent)" strokeWidth="22" strokeLinecap="round" />
+            {/* arm reaching to the crank */}
+            <path d="M104 322l40 -30" stroke="var(--accent)" strokeWidth="11" strokeLinecap="round" />
+            <path d="M138 296l14 -8" stroke={SKIN} strokeWidth="9" strokeLinecap="round" />
+            {/* head + cap */}
+            <circle cx="120" cy="306" r="15" fill={SKIN} stroke="var(--ink)" strokeWidth="3" />
+            <path d="M104 302a16 12 0 0 1 32 0z" fill="var(--accent)" stroke="var(--ink)" strokeWidth="3" />
+            <path d="M132 302h16" stroke="var(--accent)" strokeWidth="6" strokeLinecap="round" />
+          </g>
+        </motion.g>
       </svg>
 
       {/* hint + stage label */}
       <motion.p
         style={{ opacity: hintOpacity }}
-        className="mono-label pointer-events-none absolute inset-x-0 -top-2 text-center text-[10px] font-bold tracking-widest text-[color:var(--accent-2)]"
+        className="mono-label pointer-events-none absolute inset-x-0 top-0 text-center text-[10px] font-bold tracking-widest text-[color:var(--accent-2)]"
       >
-        ↓ scroll to lower the coin
+        ↓ scroll to reel the coin in
       </motion.p>
       <motion.p
         style={{ opacity: labelOpacity }}
-        className="mono-label pointer-events-none absolute inset-x-0 bottom-1 text-center text-[10px] font-bold tracking-widest text-white"
+        className="mono-label pointer-events-none absolute inset-x-0 bottom-0 text-center text-[10px] font-bold tracking-widest text-white"
       >
         {label}
       </motion.p>
