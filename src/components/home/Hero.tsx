@@ -125,7 +125,6 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
   const [stage, setStage] = useState(0);
 
   const appear = useTransform(progress, [0, 0.06], [0, 1]);
-  const spoolRotate = useTransform(progress, [0.06, 0.8], [0, 1080]);
   // Coin center Y: reeled straight down in 3 steps (with holds), then a fast drop
   // to the ground on the last beat.
   const coinY = useTransform(
@@ -136,7 +135,7 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
   const ropeEndY = useTransform(coinY, (v) => v - COIN_R); // hang-rope meets coin top
   const hangRopeOpacity = useTransform(progress, [0, 0.06, 0.8, 0.86], [0, 1, 1, 0]);
   const dustOpacity = useTransform(progress, [0.8, 0.86, 0.99], [0, 1, 0]);
-  const dustScale = useTransform(progress, [0.8, 1], [0.3, 2.6]);
+  const dustScale = useTransform(progress, [0.8, 1], [0.3, 3.2]);
   const hintOpacity = useTransform(progress, [0, 0.04, 0.12], [0, 1, 0]);
   const labelOpacity = useTransform(progress, [0.08, 0.12, 0.9, 0.96], [0, 1, 1, 0]);
 
@@ -192,23 +191,27 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
         {/* dust burst where the coin lands */}
         <motion.g style={{ opacity: dustOpacity, scale: dustScale, transformBox: "fill-box", transformOrigin: "center" }}>
           <g transform={`translate(${COIN_X} ${GROUND_Y - 6})`}>
-            <circle cx="-46" cy="2" r="14" fill="#fff" opacity="0.5" />
-            <circle cx="-28" cy="-16" r="17" fill="#fff" opacity="0.55" />
-            <circle cx="-8" cy="-26" r="19" fill="#fff" opacity="0.5" />
-            <circle cx="14" cy="-20" r="18" fill="#fff" opacity="0.55" />
-            <circle cx="38" cy="-8" r="16" fill="#fff" opacity="0.5" />
-            <circle cx="50" cy="6" r="13" fill="#fff" opacity="0.45" />
-            <circle cx="-34" cy="12" r="12" fill="#fff" opacity="0.45" />
-            <circle cx="0" cy="4" r="22" fill="#fff" opacity="0.4" />
-            <circle cx="26" cy="12" r="14" fill="#fff" opacity="0.45" />
-            <circle cx="-16" cy="-6" r="13" fill="#fff" opacity="0.5" />
+            <circle cx="-62" cy="4" r="15" fill="#fff" opacity="0.45" />
+            <circle cx="-46" cy="-12" r="16" fill="#fff" opacity="0.5" />
+            <circle cx="-30" cy="-24" r="18" fill="#fff" opacity="0.55" />
+            <circle cx="-10" cy="-32" r="20" fill="#fff" opacity="0.5" />
+            <circle cx="12" cy="-30" r="20" fill="#fff" opacity="0.55" />
+            <circle cx="34" cy="-22" r="18" fill="#fff" opacity="0.5" />
+            <circle cx="54" cy="-8" r="16" fill="#fff" opacity="0.5" />
+            <circle cx="66" cy="6" r="14" fill="#fff" opacity="0.45" />
+            <circle cx="-40" cy="14" r="13" fill="#fff" opacity="0.45" />
+            <circle cx="-18" cy="6" r="16" fill="#fff" opacity="0.45" />
+            <circle cx="0" cy="2" r="24" fill="#fff" opacity="0.4" />
+            <circle cx="22" cy="8" r="17" fill="#fff" opacity="0.45" />
+            <circle cx="44" cy="14" r="13" fill="#fff" opacity="0.45" />
+            <circle cx="-6" cy="-14" r="15" fill="#fff" opacity="0.5" />
           </g>
         </motion.g>
 
         {/* ── spool + worker (in front of the rig) ── */}
         <motion.g style={{ opacity: appear }}>
-          {/* cable spool (side view) — a reel full of white cable the whole time, rotates as cranked */}
-          <motion.g style={{ rotate: spoolRotate, transformBox: "fill-box", transformOrigin: "center" }}>
+          {/* cable spool (side view) — a reel full of white cable; stays still, only the rope moves */}
+          <g>
             {/* rim */}
             <circle cx={SPOOL.x} cy={SPOOL.y} r={SPOOL.r} fill="#fff" stroke="var(--ink)" strokeWidth="5" />
             {/* wound white cable filling the reel (bright, always present) */}
@@ -221,8 +224,7 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
             <circle cx={SPOOL.x} cy={SPOOL.y} r="6" fill="var(--ink)" />
             {/* crank handle on the rim */}
             <circle cx={SPOOL.x} cy={SPOOL.y - SPOOL.r} r="6" fill="var(--accent-2)" stroke="var(--ink)" strokeWidth="3" />
-          </motion.g>
-          <circle cx={SPOOL.x} cy={SPOOL.y} r={SPOOL.r} fill="none" stroke="var(--ink)" strokeWidth="5" />
+          </g>
 
           {/* worker to the right of the spool, bent over cranking it */}
           <g>
