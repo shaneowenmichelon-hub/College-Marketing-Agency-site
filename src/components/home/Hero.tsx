@@ -6,7 +6,6 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
-  useMotionValueEvent,
   type MotionValue,
 } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
@@ -122,8 +121,6 @@ const SPOOL = { x: 214, y: 392, r: 34 };
 const GROUND_Y = 452;
 
 function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
-  const [stage, setStage] = useState(0);
-
   const appear = useTransform(progress, [0, 0.08], [0, 1]);
   // Coin center Y: reeled straight down in 2 steps (with holds), then a fast drop
   // to the ground, after which the page scrolls on.
@@ -136,13 +133,6 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
   const hangRopeOpacity = useTransform(progress, [0, 0.08, 0.74, 0.8], [0, 1, 1, 0]);
   const dustOpacity = useTransform(progress, [0.74, 0.8, 0.98], [0, 1, 0]);
   const dustScale = useTransform(progress, [0.74, 1], [0.3, 3.2]);
-  const hintOpacity = useTransform(progress, [0, 0.05, 0.15], [0, 1, 0]);
-  const labelOpacity = useTransform(progress, [0.1, 0.14, 0.84, 0.9], [0, 1, 1, 0]);
-
-  useMotionValueEvent(progress, "change", (v) => {
-    setStage(v < 0.08 ? 0 : v < 0.42 ? 1 : v < 0.74 ? 2 : v < 0.9 ? 3 : 4);
-  });
-  const label = stage === 0 ? "" : stage <= 2 ? `Reel ${stage} / 2` : stage === 3 ? "Drop!" : "";
 
   return (
     <div className="relative mx-auto w-full max-w-[240px] justify-self-center sm:max-w-[300px] lg:max-w-[360px]">
@@ -246,20 +236,6 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
           </g>
         </motion.g>
       </svg>
-
-      {/* hint + stage label */}
-      <motion.p
-        style={{ opacity: hintOpacity }}
-        className="mono-label pointer-events-none absolute inset-x-0 top-0 text-center text-[10px] font-bold tracking-widest text-[color:var(--accent-2)]"
-      >
-        ↓ scroll to reel the coin in
-      </motion.p>
-      <motion.p
-        style={{ opacity: labelOpacity }}
-        className="mono-label pointer-events-none absolute inset-x-0 bottom-0 text-center text-[10px] font-bold tracking-widest text-white"
-      >
-        {label}
-      </motion.p>
     </div>
   );
 }
