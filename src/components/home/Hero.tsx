@@ -1,7 +1,14 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+  type MotionValue,
+} from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { siteConfig, getStat } from "@/site.config";
 import { Container } from "@/components/ui/Container";
@@ -9,10 +16,8 @@ import { Button } from "@/components/ui/Button";
 import { MotionTicker } from "@/components/home/MotionTicker";
 
 /**
- * The "campus coin" - a brand artifact, not decoration. Desktop: 3D tilt follows
- * the cursor. Touch: a slow idle DRIFT (globals.css, never a continuous auto-spin).
- * Tap (any device, user-initiated): one fast 3D flip + a micro-message + a short
- * haptic where supported. Everything is static under reduced motion.
+ * Fallback coin (reduced motion / pre-hydration): the tappable CS-3D CA coin,
+ * cursor-tilt on desktop, one flip + micro-message + haptic on tap.
  */
 function Coin({ reduce }: { reduce: boolean }) {
   const [rot, setRot] = useState({ x: -12, y: 18 });
@@ -26,7 +31,7 @@ function Coin({ reduce }: { reduce: boolean }) {
       try {
         navigator.vibrate([8, 18, 8]);
       } catch {
-        /* haptics unsupported - ignore */
+        /* haptics unsupported */
       }
     }
     if (reduce || flipping) return;
@@ -66,32 +71,26 @@ function Coin({ reduce }: { reduce: boolean }) {
             reduce ? "" : "will-change-transform"
           }`}
           style={{
-            // While flipping, let the CSS animation own the transform.
             transform: flipping ? undefined : `rotateX(${rot.x}deg) rotateY(${rot.y}deg)`,
             transformStyle: "preserve-3d",
             transition: "transform 0.2s ease-out",
           }}
         >
-          {/* coin face */}
           <div
             className="absolute inset-0 flex items-center justify-center rounded-full border-4 border-ink bg-[color:var(--accent-2)]"
             style={{ transform: "translateZ(22px)", boxShadow: "0 0 0 4px var(--ink)" }}
           >
             <span className="font-display text-5xl font-bold text-ink lg:text-6xl">CA</span>
           </div>
-          {/* back face */}
           <div
             className="absolute inset-0 flex items-center justify-center rounded-full border-4 border-ink bg-[color:var(--magenta)]"
             style={{ transform: "translateZ(-22px) rotateY(180deg)" }}
           >
             <Sparkles className="h-14 w-14 text-white lg:h-16 lg:w-16" aria-hidden />
           </div>
-          {/* edge ring */}
           <div className="absolute inset-0 rounded-full border-[10px] border-ink/80" style={{ transform: "translateZ(0px)" }} />
         </div>
       </div>
-
-      {/* Micro-message on tap */}
       <span
         aria-live="polite"
         className={`pointer-events-none absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)] px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wide text-ink shadow-[3px_3px_0_var(--ink)] transition-opacity duration-200 ${
@@ -104,9 +103,132 @@ function Coin({ reduce }: { reduce: boolean }) {
   );
 }
 
+/**
+ * Scroll-driven reel: a worker + spool/wheel pop up on first scroll with a rope
+ * to the CA coin; the coin is lowered in three steps, then drops with a dust
+ * burst — after which the page scrolls on. Driven by hero scroll progress, so it
+ * never traps the user. Lives in the coin slot (no extra hero height).
+ */
+function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
+  const [stage, setStage] = useState(0);
+
+  const appear = useTransform(progress, [0, 0.06], [0, 1]);
+  const wheelRotate = useTransform(progress, [0.06, 0.86], [0, 720]);
+  const coinY = useTransform(
+    progress,
+    [0.06, 0.3, 0.34, 0.55, 0.6, 0.8, 0.86, 0.93, 1],
+    [110, 150, 150, 195, 195, 235, 235, 286, 286],
+  );
+  const coinRotate = useTransform(progress, [0.86, 0.95], [0, 160]);
+  const ropeEndY = useTransform(coinY, (v) => v - 24);
+  const dustOpacity = useTransform(progress, [0.86, 0.9, 0.99], [0, 0.9, 0]);
+  const dustScale = useTransform(progress, [0.86, 1], [0.3, 1.7]);
+  const hintOpacity = useTransform(progress, [0, 0.04, 0.12], [0, 1, 0]);
+  const labelOpacity = useTransform(progress, [0.08, 0.12, 0.84, 0.9], [0, 1, 1, 0]);
+
+  useMotionValueEvent(progress, "change", (v) => {
+    setStage(v < 0.06 ? 0 : v < 0.34 ? 1 : v < 0.6 ? 2 : v < 0.86 ? 3 : v < 0.93 ? 4 : 5);
+  });
+  const label = stage === 0 ? "" : stage <= 3 ? `Lower ${stage} / 3` : stage === 4 ? "Drop!" : "";
+
+  return (
+    <div className="relative mx-auto w-full max-w-[210px] justify-self-center sm:max-w-[260px] lg:max-w-[320px]">
+      <svg viewBox="0 0 260 300" className="w-full" role="img" aria-label="A worker lowers the Collegiate Agency coin on a rope, then it drops.">
+        {/* ground */}
+        <line x1="24" y1="288" x2="236" y2="288" stroke="var(--ink)" strokeWidth="3" />
+
+        {/* support post */}
+        <motion.g style={{ opacity: appear }}>
+          <line x1="196" y1="70" x2="196" y2="288" stroke="var(--ink)" strokeWidth="6" />
+          {/* spool/wheel */}
+          <motion.g style={{ rotate: wheelRotate, transformBox: "fill-box", transformOrigin: "center" }}>
+            <circle cx="196" cy="70" r="34" fill="var(--accent)" stroke="var(--ink)" strokeWidth="4" />
+            <circle cx="196" cy="70" r="6" fill="var(--ink)" />
+            {[0, 60, 120].map((a) => (
+              <line
+                key={a}
+                x1="196"
+                y1="70"
+                x2={196 + 30 * Math.cos((a * Math.PI) / 180)}
+                y2={70 + 30 * Math.sin((a * Math.PI) / 180)}
+                stroke="var(--ink)"
+                strokeWidth="3"
+              />
+            ))}
+            <line x1="196" y1="70" x2="196" y2="40" stroke="var(--ink)" strokeWidth="4" />
+            <circle cx="196" cy="36" r="6" fill="var(--accent-2)" stroke="var(--ink)" strokeWidth="3" />
+          </motion.g>
+        </motion.g>
+
+        {/* rope */}
+        <motion.line x1="196" y1="70" x2="196" y2={ropeEndY} stroke="var(--ink)" strokeWidth="3" style={{ opacity: appear }} />
+
+        {/* worker cranking (left of the spool) */}
+        <motion.g style={{ opacity: appear }} stroke="var(--ink)" strokeWidth="6" strokeLinecap="round" fill="none">
+          <circle cx="96" cy="150" r="15" fill="var(--accent-2)" />
+          <line x1="96" y1="165" x2="96" y2="240" />
+          <line x1="96" y1="240" x2="80" y2="286" />
+          <line x1="96" y1="240" x2="112" y2="286" />
+          <line x1="96" y1="196" x2="164" y2="150" />
+          <line x1="96" y1="196" x2="160" y2="120" />
+        </motion.g>
+
+        {/* dust burst on impact */}
+        <motion.g style={{ opacity: dustOpacity, scale: dustScale, transformBox: "fill-box", transformOrigin: "center" }}>
+          <g transform="translate(196 280)">
+            <circle cx="-24" cy="0" r="10" fill="var(--muted-on-dark)" opacity="0.5" />
+            <circle cx="0" cy="-6" r="13" fill="var(--muted-on-dark)" opacity="0.45" />
+            <circle cx="24" cy="0" r="10" fill="var(--muted-on-dark)" opacity="0.5" />
+            <circle cx="-10" cy="6" r="7" fill="var(--muted-on-dark)" opacity="0.4" />
+            <circle cx="14" cy="6" r="8" fill="var(--muted-on-dark)" opacity="0.4" />
+          </g>
+        </motion.g>
+
+        {/* the CA coin on the rope */}
+        <motion.g style={{ y: coinY, opacity: appear }}>
+          <motion.g style={{ rotate: coinRotate, transformBox: "fill-box", transformOrigin: "center" }}>
+            <circle cx="196" cy="0" r="24" fill="var(--accent-2)" stroke="var(--ink)" strokeWidth="5" />
+            <text
+              x="196"
+              y="0"
+              textAnchor="middle"
+              dominantBaseline="central"
+              fontSize="19"
+              fontWeight="800"
+              fill="var(--ink)"
+              style={{ fontFamily: "var(--font-display), system-ui, sans-serif" }}
+            >
+              CA
+            </text>
+          </motion.g>
+        </motion.g>
+      </svg>
+
+      {/* hint + stage label */}
+      <motion.p
+        style={{ opacity: hintOpacity }}
+        className="mono-label pointer-events-none absolute inset-x-0 -top-2 text-center text-[10px] font-bold tracking-widest text-[color:var(--accent-2)]"
+      >
+        ↓ scroll to lower the coin
+      </motion.p>
+      <motion.p
+        style={{ opacity: labelOpacity }}
+        className="mono-label pointer-events-none absolute inset-x-0 bottom-1 text-center text-[10px] font-bold tracking-widest text-white"
+      >
+        {label}
+      </motion.p>
+    </div>
+  );
+}
+
 export function Hero() {
   const reduce = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const active = mounted && !reduce;
+
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end end"] });
 
   const container = {
     hidden: {},
@@ -118,73 +240,70 @@ export function Hero() {
   };
 
   return (
-    <section className="grain relative overflow-hidden border-b-2 border-ink bg-ink text-white">
-      <div aria-hidden className="mesh pointer-events-none absolute inset-0" />
-      {/* brutalist grid lines */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--surface) 1px, transparent 1px), linear-gradient(90deg, var(--surface) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-        }}
-      />
-      <Container className="relative">
-        <div className="grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-[1.3fr_1fr] lg:py-36">
-          <motion.div ref={ref} variants={container} initial="hidden" animate="show" className="flex flex-col items-start">
-            {siteConfig.showCredibility && (
-              <motion.div variants={item}>
-                <span className="sticker mono-label bg-[color:var(--accent-2)] px-3 py-1.5 text-[11px] font-bold text-ink">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  {siteConfig.credibilityLine}
-                </span>
+    <div ref={wrapRef} className={active ? "relative h-[240vh] sm:h-[300vh]" : "relative"}>
+      <section
+        className={`grain relative overflow-hidden border-b-2 border-ink bg-ink text-white ${
+          active ? "sticky top-0 flex min-h-[100svh] flex-col justify-center" : ""
+        }`}
+      >
+        <div aria-hidden className="mesh pointer-events-none absolute inset-0" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage:
+              "linear-gradient(var(--surface) 1px, transparent 1px), linear-gradient(90deg, var(--surface) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+          }}
+        />
+        <Container className="relative">
+          <div className={`grid items-center gap-8 lg:grid-cols-[1.3fr_1fr] ${active ? "py-10 sm:py-14 lg:py-16" : "py-20 sm:py-28 lg:py-36"}`}>
+            <motion.div variants={container} initial="hidden" animate="show" className="flex flex-col items-start">
+              {siteConfig.showCredibility && (
+                <motion.div variants={item}>
+                  <span className="sticker mono-label bg-[color:var(--accent-2)] px-3 py-1.5 text-[11px] font-bold text-ink">
+                    <Sparkles className="h-3.5 w-3.5" />
+                    {siteConfig.credibilityLine}
+                  </span>
+                </motion.div>
+              )}
+
+              <motion.h1
+                variants={item}
+                className="mt-6 max-w-4xl text-balance font-display text-display-lg font-bold leading-[0.95]"
+              >
+                Where brands meet{" "}
+                <span className="font-serif font-normal italic text-[color:var(--accent-2)]">campus culture.</span>
+              </motion.h1>
+
+              <motion.p
+                variants={item}
+                className="mt-6 max-w-2xl text-lg leading-relaxed text-[color:var(--muted-on-dark)] sm:text-xl"
+              >
+                We put your brand in front of college students through events, brand
+                ambassadors, and product placement — on the campuses where they live,
+                study, and go out.
+              </motion.p>
+
+              <motion.div variants={item} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Button href="/contact" variant="lime" size="lg">
+                  Get Started
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+                <Button href="/become-an-ambassador" variant="ghost-dark" size="lg">
+                  Become an Ambassador
+                </Button>
               </motion.div>
-            )}
-
-            <motion.h1
-              variants={item}
-              className="mt-6 max-w-4xl text-balance font-display text-display-lg font-bold leading-[0.95]"
-            >
-              Where brands meet{" "}
-              <span className="font-serif font-normal italic text-[color:var(--accent-2)]">
-                campus culture.
-              </span>
-            </motion.h1>
-
-            <motion.p
-              variants={item}
-              className="mt-6 max-w-2xl text-lg leading-relaxed text-[color:var(--muted-on-dark)] sm:text-xl"
-            >
-              We put your brand in front of college students through events, brand
-              ambassadors, and product placement - on the campuses where they live, study,
-              and go out.
-            </motion.p>
-
-            <motion.div variants={item} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button href="/contact" variant="lime" size="lg">
-                Get Started
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-              <Button href="/become-an-ambassador" variant="ghost-dark" size="lg">
-                Become an Ambassador
-              </Button>
             </motion.div>
-          </motion.div>
 
-          <Coin reduce={!!reduce} />
-        </div>
-      </Container>
+            {active ? <ReelApparatus progress={scrollYProgress} /> : <Coin reduce={!!reduce} />}
+          </div>
+        </Container>
 
-      {/* Ticker below the hero copy */}
-      <MotionTicker
-        items={[
-          "EVENTS",
-          "BRAND AMBASSADORS",
-          "PRODUCT PLACEMENT",
-          `${getStat("campuses")}+ MARKETS`,
-        ]}
-      />
-    </section>
+        <MotionTicker
+          items={["EVENTS", "BRAND AMBASSADORS", "PRODUCT PLACEMENT", `${getStat("campuses")}+ MARKETS`]}
+        />
+      </section>
+    </div>
   );
 }
