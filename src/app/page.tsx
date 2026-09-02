@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Hero } from "@/components/home/Hero";
 import { StickyMobileCTA } from "@/components/home/StickyMobileCTA";
 import { CampusAttentionJourney } from "@/components/home/CampusAttentionJourney";
+import { CoinReel } from "@/components/home/CoinReel";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProcessStep } from "@/components/ProcessStep";
@@ -91,6 +92,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+
+      {/* Reel-the-coin scroll moment */}
+      <CoinReel />
 
       {/* Trust bar */}
       <Section tone="light" className="py-10 sm:py-12">
