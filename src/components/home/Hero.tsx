@@ -135,8 +135,8 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
   );
   const ropeEndY = useTransform(coinY, (v) => v - COIN_R); // hang-rope meets coin top
   const hangRopeOpacity = useTransform(progress, [0, 0.06, 0.8, 0.86], [0, 1, 1, 0]);
-  const dustOpacity = useTransform(progress, [0.8, 0.86, 0.99], [0, 0.9, 0]);
-  const dustScale = useTransform(progress, [0.8, 1], [0.3, 1.9]);
+  const dustOpacity = useTransform(progress, [0.8, 0.86, 0.99], [0, 1, 0]);
+  const dustScale = useTransform(progress, [0.8, 1], [0.3, 2.6]);
   const hintOpacity = useTransform(progress, [0, 0.04, 0.12], [0, 1, 0]);
   const labelOpacity = useTransform(progress, [0.08, 0.12, 0.9, 0.96], [0, 1, 1, 0]);
 
@@ -159,15 +159,15 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
           <line x1="192" y1="414" x2="236" y2="414" stroke="var(--accent)" strokeWidth="9" strokeLinecap="round" />
           {/* boom arm reaching up-left to the pulley above the coin */}
           <path d={`M${SPOOL.x} 360L${PULLEY.x} ${PULLEY.y}`} stroke="var(--accent)" strokeWidth="11" strokeLinecap="round" />
-          {/* drive rope: spool → up the boom → over the pulley (static) */}
-          <line x1={SPOOL.x} y1={SPOOL.y} x2={PULLEY.x} y2={PULLEY.y} stroke="var(--ink)" strokeWidth="2.5" opacity="0.85" />
+          {/* drive rope (white): spool → up the boom → over the pulley (static) */}
+          <line x1={SPOOL.x} y1={SPOOL.y} x2={PULLEY.x} y2={PULLEY.y} stroke="#fff" strokeWidth="3" />
           {/* pulley wheel */}
           <circle cx={PULLEY.x} cy={PULLEY.y} r="9" fill="#fff" stroke="var(--ink)" strokeWidth="4" />
           <circle cx={PULLEY.x} cy={PULLEY.y} r="2.5" fill="var(--ink)" />
         </motion.g>
 
-        {/* hang-rope: pulley straight down to the coin (always vertical) */}
-        <motion.line x1={PULLEY.x} y1={PULLEY.y} x2={COIN_X} y2={ropeEndY} stroke="var(--ink)" strokeWidth="3" style={{ opacity: hangRopeOpacity }} />
+        {/* hang-rope (white): pulley straight down to the coin (always vertical) */}
+        <motion.line x1={PULLEY.x} y1={PULLEY.y} x2={COIN_X} y2={ropeEndY} stroke="#fff" strokeWidth="3.5" style={{ opacity: hangRopeOpacity }} />
 
         {/* the BIG CA coin (no spin — just reeled down) */}
         <motion.g style={{ y: coinY, opacity: appear }}>
@@ -192,23 +192,33 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
         {/* dust burst where the coin lands */}
         <motion.g style={{ opacity: dustOpacity, scale: dustScale, transformBox: "fill-box", transformOrigin: "center" }}>
           <g transform={`translate(${COIN_X} ${GROUND_Y - 6})`}>
-            <circle cx="-30" cy="0" r="12" fill="var(--muted-on-dark)" opacity="0.5" />
-            <circle cx="0" cy="-8" r="16" fill="var(--muted-on-dark)" opacity="0.45" />
-            <circle cx="30" cy="0" r="13" fill="var(--muted-on-dark)" opacity="0.5" />
-            <circle cx="-14" cy="8" r="9" fill="var(--muted-on-dark)" opacity="0.4" />
-            <circle cx="18" cy="8" r="10" fill="var(--muted-on-dark)" opacity="0.4" />
+            <circle cx="-46" cy="2" r="14" fill="#fff" opacity="0.5" />
+            <circle cx="-28" cy="-16" r="17" fill="#fff" opacity="0.55" />
+            <circle cx="-8" cy="-26" r="19" fill="#fff" opacity="0.5" />
+            <circle cx="14" cy="-20" r="18" fill="#fff" opacity="0.55" />
+            <circle cx="38" cy="-8" r="16" fill="#fff" opacity="0.5" />
+            <circle cx="50" cy="6" r="13" fill="#fff" opacity="0.45" />
+            <circle cx="-34" cy="12" r="12" fill="#fff" opacity="0.45" />
+            <circle cx="0" cy="4" r="22" fill="#fff" opacity="0.4" />
+            <circle cx="26" cy="12" r="14" fill="#fff" opacity="0.45" />
+            <circle cx="-16" cy="-6" r="13" fill="#fff" opacity="0.5" />
           </g>
         </motion.g>
 
         {/* ── spool + worker (in front of the rig) ── */}
         <motion.g style={{ opacity: appear }}>
-          {/* cable spool (side view) — rotates as it's cranked */}
+          {/* cable spool (side view) — a reel full of white cable the whole time, rotates as cranked */}
           <motion.g style={{ rotate: spoolRotate, transformBox: "fill-box", transformOrigin: "center" }}>
+            {/* rim */}
             <circle cx={SPOOL.x} cy={SPOOL.y} r={SPOOL.r} fill="#fff" stroke="var(--ink)" strokeWidth="5" />
-            {[26, 19, 12].map((r) => (
-              <circle key={r} cx={SPOOL.x} cy={SPOOL.y} r={r} fill="none" stroke="var(--ink)" strokeWidth="2" opacity="0.55" />
+            {/* wound white cable filling the reel (bright, always present) */}
+            {[30, 25, 20, 15].map((r) => (
+              <circle key={r} cx={SPOOL.x} cy={SPOOL.y} r={r} fill="none" stroke="#fff" strokeWidth="3.5" />
             ))}
-            <circle cx={SPOOL.x} cy={SPOOL.y} r="7" fill="var(--ink)" />
+            {[27.5, 22.5, 17.5, 12.5].map((r) => (
+              <circle key={r} cx={SPOOL.x} cy={SPOOL.y} r={r} fill="none" stroke="var(--ink)" strokeWidth="0.75" opacity="0.5" />
+            ))}
+            <circle cx={SPOOL.x} cy={SPOOL.y} r="6" fill="var(--ink)" />
             {/* crank handle on the rim */}
             <circle cx={SPOOL.x} cy={SPOOL.y - SPOOL.r} r="6" fill="var(--accent-2)" stroke="var(--ink)" strokeWidth="3" />
           </motion.g>
