@@ -6,7 +6,6 @@ import { ArrowRight, CheckCircle2, MapPin, Megaphone, Repeat2, Share2, ShoppingB
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/SectionHeading";
-import { StatCounter } from "@/components/StatCounter";
 import { getStat, pricing } from "@/site.config";
 import { cn } from "@/lib/utils";
 
@@ -103,7 +102,17 @@ export function CampusAttentionJourney() {
 
           <div className="mt-8 grid grid-cols-3 gap-3">
             {stats.map((s) => (
-              <StatCounter key={s.label} value={s.value} label={s.label} className="bg-ink p-3" />
+              <div
+                key={s.label}
+                className="flex flex-col items-center justify-center rounded-[3px] border-2 border-ink bg-ink px-2 py-4 text-center shadow-[3px_3px_0_var(--accent)]"
+              >
+                <div className="font-display text-2xl font-bold leading-none tracking-tight text-[color:var(--accent-2)] sm:text-3xl">
+                  {s.value}
+                </div>
+                <div className="mono-label mt-2 text-[9px] leading-tight text-[color:var(--muted-on-dark)]">
+                  {s.label}
+                </div>
+              </div>
             ))}
           </div>
 
