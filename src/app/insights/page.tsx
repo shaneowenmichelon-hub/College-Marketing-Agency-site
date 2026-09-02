@@ -5,8 +5,8 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/SectionHeading";
-import { PlaceholderImage } from "@/components/Placeholders";
 import { CTASection } from "@/components/CTASection";
+import { ArticleArt } from "@/components/insights/ArticleArt";
 import { posts, formatDate } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -34,11 +34,11 @@ export default function InsightsPage() {
             href={`/insights/${featured.slug}`}
             className="group grid overflow-hidden rounded-3xl border border-[color:var(--border-on-light)] bg-surface shadow-soft transition-all hover:shadow-soft-lg lg:grid-cols-2"
           >
-            <PlaceholderImage
-              label={featured.category}
-              index={0}
-              aspect="aspect-[16/10]"
-              className="rounded-none"
+            <ArticleArt
+              slug={featured.slug}
+              category={featured.category}
+              rounded="rounded-none"
+              className="aspect-[16/10] w-full border-0 border-b border-[color:var(--border-on-light)] lg:border-b-0 lg:border-r"
             />
             <div className="flex flex-col justify-center p-8 lg:p-10">
               <div className="flex items-center gap-3 text-xs text-[color:var(--muted-on-light)]">

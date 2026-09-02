@@ -9,17 +9,9 @@ import { CTASection } from "@/components/CTASection";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/site.config";
 import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/content";
+import { ArticleArt } from "@/components/insights/ArticleArt";
 
 type Params = Promise<{ slug: string }>;
-
-// Hero gradients keyed by category so each article reads as finished, not templated.
-const HERO_GRADIENT: Record<string, string> = {
-  Ambassadors: "from-[#0B0B0F] via-[#3a2a4a] to-[#FF3D9A]",
-  "Brand Ambassadors": "from-[#0B0B0F] via-[#3a2a4a] to-[#FF3D9A]",
-  Events: "from-[#0B0B0F] via-[#2a2340] to-[#FF6A2B]",
-  "Product Placement": "from-[#0B0B0F] via-[#162f2d] to-[#2F5BFF]",
-  "Campus Strategy": "from-[#2F5BFF] to-[#0B0B0F]",
-};
 
 // Closing CTA copy per service.
 const SERVICE_CTA: Record<Post["ctaService"], { label: string; href: string; blurb: string }> = {
@@ -98,7 +90,6 @@ export default async function InsightArticle({ params }: { params: Params }) {
   if (!post) notFound();
 
   const author = post.author ?? siteConfig.companyName;
-  const gradient = HERO_GRADIENT[post.category] ?? HERO_GRADIENT["Campus Strategy"];
   const cta = SERVICE_CTA[post.ctaService];
 
   return (
@@ -141,11 +132,9 @@ export default async function InsightArticle({ params }: { params: Params }) {
             </p>
           </Container>
           <Container className="mt-10 max-w-4xl px-0">
-            <div
-              className={`relative flex aspect-[16/8] items-end overflow-hidden rounded-2xl bg-gradient-to-br ${gradient}`}
-            >
-              <div aria-hidden className="grain absolute inset-0" />
-              <span className="relative z-10 m-6 rounded-full bg-black/25 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
+            <div className="relative">
+              <ArticleArt slug={post.slug} category={post.category} className="aspect-[16/8] w-full" />
+              <span className="absolute bottom-4 left-4 z-20 rounded-full border-2 border-ink bg-white/90 px-3 py-1 text-xs font-bold text-ink">
                 {post.category}
               </span>
             </div>
