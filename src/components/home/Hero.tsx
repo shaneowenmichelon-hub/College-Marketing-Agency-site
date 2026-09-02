@@ -124,25 +124,25 @@ const GROUND_Y = 452;
 function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
   const [stage, setStage] = useState(0);
 
-  const appear = useTransform(progress, [0, 0.06], [0, 1]);
-  // Coin center Y: reeled straight down in 3 steps (with holds), then a fast drop
-  // to the ground on the last beat.
+  const appear = useTransform(progress, [0, 0.08], [0, 1]);
+  // Coin center Y: reeled straight down in 2 steps (with holds), then a fast drop
+  // to the ground, after which the page scrolls on.
   const coinY = useTransform(
     progress,
-    [0.06, 0.26, 0.32, 0.5, 0.56, 0.74, 0.8, 0.92, 1],
-    [150, 205, 205, 260, 260, 300, 300, GROUND_Y - COIN_R, GROUND_Y - COIN_R],
+    [0.08, 0.32, 0.42, 0.66, 0.74, 0.9, 1],
+    [150, 220, 220, 290, 290, GROUND_Y - COIN_R, GROUND_Y - COIN_R],
   );
   const ropeEndY = useTransform(coinY, (v) => v - COIN_R); // hang-rope meets coin top
-  const hangRopeOpacity = useTransform(progress, [0, 0.06, 0.8, 0.86], [0, 1, 1, 0]);
-  const dustOpacity = useTransform(progress, [0.8, 0.86, 0.99], [0, 1, 0]);
-  const dustScale = useTransform(progress, [0.8, 1], [0.3, 3.2]);
-  const hintOpacity = useTransform(progress, [0, 0.04, 0.12], [0, 1, 0]);
-  const labelOpacity = useTransform(progress, [0.08, 0.12, 0.9, 0.96], [0, 1, 1, 0]);
+  const hangRopeOpacity = useTransform(progress, [0, 0.08, 0.74, 0.8], [0, 1, 1, 0]);
+  const dustOpacity = useTransform(progress, [0.74, 0.8, 0.98], [0, 1, 0]);
+  const dustScale = useTransform(progress, [0.74, 1], [0.3, 3.2]);
+  const hintOpacity = useTransform(progress, [0, 0.05, 0.15], [0, 1, 0]);
+  const labelOpacity = useTransform(progress, [0.1, 0.14, 0.84, 0.9], [0, 1, 1, 0]);
 
   useMotionValueEvent(progress, "change", (v) => {
-    setStage(v < 0.06 ? 0 : v < 0.32 ? 1 : v < 0.56 ? 2 : v < 0.8 ? 3 : v < 0.92 ? 4 : 5);
+    setStage(v < 0.08 ? 0 : v < 0.42 ? 1 : v < 0.74 ? 2 : v < 0.9 ? 3 : 4);
   });
-  const label = stage === 0 ? "" : stage <= 3 ? `Reel ${stage} / 3` : stage === 4 ? "Drop!" : "";
+  const label = stage === 0 ? "" : stage <= 2 ? `Reel ${stage} / 2` : stage === 3 ? "Drop!" : "";
 
   return (
     <div className="relative mx-auto w-full max-w-[240px] justify-self-center sm:max-w-[300px] lg:max-w-[360px]">
@@ -283,7 +283,7 @@ export function Hero() {
   };
 
   return (
-    <div ref={wrapRef} className={active ? "relative h-[240vh] sm:h-[300vh]" : "relative"}>
+    <div ref={wrapRef} className={active ? "relative h-[180vh] sm:h-[210vh]" : "relative"}>
       <section
         className={`grain relative overflow-hidden border-b-2 border-ink bg-ink text-white ${
           active ? "sticky top-0 flex min-h-[100svh] flex-col justify-center" : ""
