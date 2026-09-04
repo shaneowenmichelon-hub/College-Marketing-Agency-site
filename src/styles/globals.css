@@ -34,13 +34,13 @@
   html {
     max-width: 100%;
     overflow-x: clip;
-    scroll-behavior: smooth;
+    /* NOTE: no `scroll-behavior: smooth` here — it makes the App Router's
+       scroll reset animate from the previous page's position, which strands you
+       at the bottom of a shorter page (e.g. opening an article from far down the
+       home page). Smooth in-page anchor scrolling is handled per-click instead. */
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
     *,
     *::before,
     *::after {

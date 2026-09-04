@@ -5,6 +5,7 @@ import { Inter, Space_Grotesk, Space_Mono, Instrument_Serif } from "next/font/go
 import "@/styles/globals.css";
 import { siteConfig } from "@/site.config";
 import { AppShell } from "@/components/AppShell";
+import { ScrollManager } from "@/components/ScrollManager";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 
 const inter = Inter({
@@ -73,6 +74,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <OrganizationJsonLd />
+        <ScrollManager />
         <AppShell>{children}</AppShell>
         <VercelAnalytics />
         <SpeedInsights />

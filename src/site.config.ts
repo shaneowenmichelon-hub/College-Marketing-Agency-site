@@ -427,12 +427,6 @@ export const team: TeamMember[] = [
     title: "Head of Partnerships, ZMM & Night School Tour",
     photo: "/team/ronan-rolstan.png",
   },
-  {
-    // Photo intentionally left blank for now - shows a clean initials avatar.
-    // Title intentionally blank - show name only.
-    name: "Elizabeth",
-    title: "",
-  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
