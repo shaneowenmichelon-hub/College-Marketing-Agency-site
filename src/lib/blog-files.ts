@@ -163,6 +163,7 @@ export function loadMdxPosts(): Post[] {
         excerpt: asString(data, "excerpt"),
         date: asString(data, "date"),
         author: typeof data.author === "string" ? data.author : undefined,
+        art: typeof data.art === "string" ? data.art : undefined,
         ctaService: asString(data, "ctaService") as Post["ctaService"],
         body: parsedBody,
         readingTime: "",

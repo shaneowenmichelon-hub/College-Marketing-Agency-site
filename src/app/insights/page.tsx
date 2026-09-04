@@ -37,6 +37,7 @@ export default function InsightsPage() {
             <ArticleArt
               slug={featured.slug}
               category={featured.category}
+              art={featured.art}
               rounded="rounded-none"
               className="aspect-[16/10] w-full border-0 border-b border-[color:var(--border-on-light)] lg:border-b-0 lg:border-r"
             />
@@ -66,6 +67,12 @@ export default function InsightsPage() {
                 href={`/insights/${p.slug}`}
                 className="group flex h-full flex-col rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-soft-lg"
               >
+                <ArticleArt
+                  slug={p.slug}
+                  category={p.category}
+                  art={p.art}
+                  className="mb-5 aspect-[16/7] w-full"
+                />
                 <div className="flex items-center gap-3 text-xs text-[color:var(--muted-on-light)]">
                   <Badge>{p.category}</Badge>
                   <span>{formatDate(p.date)}</span>

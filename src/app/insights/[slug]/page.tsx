@@ -133,7 +133,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
           </Container>
           <Container className="mt-10 max-w-4xl px-0">
             <div className="relative">
-              <ArticleArt slug={post.slug} category={post.category} className="aspect-[16/8] w-full" />
+              <ArticleArt slug={post.slug} category={post.category} art={post.art} className="aspect-[16/8] w-full" />
               <span className="absolute bottom-4 left-4 z-20 rounded-full border-2 border-ink bg-white/90 px-3 py-1 text-xs font-bold text-ink">
                 {post.category}
               </span>

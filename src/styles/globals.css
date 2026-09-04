@@ -226,6 +226,26 @@ body {
   animation: ticker-rtl 26s linear infinite;
 }
 
+/* ── Animated article cover art (CSS-only, per-element SVG motion) ──
+   Every animated shape spins/floats around its own box, so we set
+   transform-box + origin on the shared helper and let each class supply the
+   keyframes. Kept subtle so covers feel alive without being distracting. */
+.art-anim { transform-box: fill-box; transform-origin: center; will-change: transform; }
+@keyframes art-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes art-float-lg { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes art-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.16); } }
+@keyframes art-spin { to { transform: rotate(360deg); } }
+@keyframes art-sway { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+@keyframes art-bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(-4deg); } }
+@keyframes art-grow { 0%, 100% { transform: scaleY(0.86); } 50% { transform: scaleY(1); } }
+.art-float   { animation: art-float 3.2s ease-in-out infinite; }
+.art-float-lg{ animation: art-float-lg 4s ease-in-out infinite; }
+.art-pulse   { animation: art-pulse 2.4s ease-in-out infinite; }
+.art-spin    { animation: art-spin 14s linear infinite; }
+.art-sway    { animation: art-sway 3.6s ease-in-out infinite; }
+.art-bob     { animation: art-bob 2.8s ease-in-out infinite; }
+.art-grow    { transform-origin: bottom; animation: art-grow 3s ease-in-out infinite; }
+
 /* Marquee + all decorative motion: fully disabled under reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
@@ -242,6 +262,15 @@ body {
   }
   .ch-fade-in,
   .ticker-track {
+    animation: none !important;
+  }
+  .art-float,
+  .art-float-lg,
+  .art-pulse,
+  .art-spin,
+  .art-sway,
+  .art-bob,
+  .art-grow {
     animation: none !important;
   }
 }

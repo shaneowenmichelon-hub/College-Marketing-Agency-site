@@ -44,6 +44,8 @@ export type Post = {
   author?: string;
   /** Per-article social image; falls back to the site default. */
   ogImage?: string;
+  /** Optional explicit cover-art scene; otherwise inferred from slug/category. */
+  art?: string;
   /** The service page the closing CTA points at. */
   ctaService: ServiceSlug;
   /** Full article body. */
