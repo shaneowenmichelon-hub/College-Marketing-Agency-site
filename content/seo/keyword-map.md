@@ -40,3 +40,11 @@ Method: seed keyword research from Collegiate Agency positioning plus live DuckD
 - 2026-08-16 - `university activations` - `/insights/university-activations`
 - 2026-08-18 - `campus product launch` - `/insights/campus-product-launch`
 - 2026-08-20 - `college marketing strategy` - `/insights/college-marketing-strategy`
+- 2026-08-22 - `Gen Z experiential marketing` - `/insights/gen-z-experiential-marketing`
+- 2026-08-24 - `college brand ambassador program` - `/insights/college-brand-ambassador-program`
+- 2026-08-26 - `campus product sampling ideas` - `/insights/campus-product-sampling-ideas`
+- 2026-08-28 - `student influencer marketing` - `/insights/student-influencer-marketing`
+- 2026-08-30 - `college festival sponsorship` - `/insights/college-festival-sponsorship`
+- 2026-09-01 - `how to market to college students` - `/insights/how-to-market-to-college-students`
+- 2026-09-03 - `campus activation ideas` - `/insights/campus-activation-ideas`
+- 2026-09-05 - `student ambassador marketing` - `/insights/student-ambassador-marketing`
