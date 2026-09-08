@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return { title: "Article not found" };
-  const image = post.ogImage ?? "/og.svg";
+  const image = post.image ?? post.ogImage ?? "/og.svg";
   return {
     title: post.metaTitle ?? post.title,
     description: post.metaDescription ?? post.excerpt,
@@ -99,7 +99,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
         description={post.excerpt}
         slug={post.slug}
         date={post.date}
-        image={post.ogImage ?? "/og.svg"}
+        image={post.image ?? post.ogImage ?? "/og.svg"}
         author={author}
       />
       <BreadcrumbJsonLd
@@ -133,11 +133,18 @@ export default async function InsightArticle({ params }: { params: Params }) {
           </Container>
           <Container className="mt-10 max-w-4xl px-0">
             <div className="relative">
-              <ArticleArt slug={post.slug} category={post.category} art={post.art} className="aspect-[16/8] w-full" />
+              <ArticleArt slug={post.slug} category={post.category} art={post.art} image={post.image} imageAlt={post.imageAlt} className="aspect-[16/8] w-full" />
               <span className="absolute bottom-4 left-4 z-20 rounded-full border-2 border-ink bg-white/90 px-3 py-1 text-xs font-bold text-ink">
                 {post.category}
               </span>
             </div>
+            {post.image && post.imageCredit && (
+              <p className="mt-3 text-xs text-[color:var(--muted-on-light)]">
+                Photo: <a href={post.imageSource} className="underline" rel="noopener noreferrer">{post.imageCredit}</a>
+                {post.imageLicense && <> · <a href={post.imageLicense} className="underline" rel="noopener noreferrer">License</a></>}
+                . Illustrative campus photograph, not a Collegiate Agency activation or endorsement.
+              </p>
+            )}
           </Container>
         </Section>
 

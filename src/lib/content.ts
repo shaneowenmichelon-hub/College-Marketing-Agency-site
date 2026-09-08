@@ -44,6 +44,12 @@ export type Post = {
   author?: string;
   /** Per-article social image; falls back to the site default. */
   ogImage?: string;
+  /** Licensed/owned editorial photograph and visible attribution. */
+  image?: string;
+  imageAlt?: string;
+  imageCredit?: string;
+  imageSource?: string;
+  imageLicense?: string;
   /** Optional explicit cover-art scene; otherwise inferred from slug/category. */
   art?: string;
   /** The service page the closing CTA points at. */

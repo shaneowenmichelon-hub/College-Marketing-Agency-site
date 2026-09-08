@@ -48,3 +48,5 @@ Method: seed keyword research from Collegiate Agency positioning plus live DuckD
 - 2026-09-01 - `how to market to college students` - `/insights/how-to-market-to-college-students`
 - 2026-09-03 - `campus activation ideas` - `/insights/campus-activation-ideas`
 - 2026-09-05 - `student ambassador marketing` - `/insights/student-ambassador-marketing`
+
+- 2026-09-08 - `campus marketing agency rfp` - `/insights/campus-marketing-agency-rfp`

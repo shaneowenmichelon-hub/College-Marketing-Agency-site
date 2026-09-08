@@ -36,6 +36,8 @@ export default function InsightsPage() {
           >
             <ArticleArt
               slug={featured.slug}
+              image={featured.image}
+              imageAlt={featured.imageAlt}
               category={featured.category}
               art={featured.art}
               rounded="rounded-none"
@@ -69,6 +71,8 @@ export default function InsightsPage() {
               >
                 <ArticleArt
                   slug={p.slug}
+                  image={p.image}
+                  imageAlt={p.imageAlt}
                   category={p.category}
                   art={p.art}
                   className="mb-5 aspect-[16/7] w-full"

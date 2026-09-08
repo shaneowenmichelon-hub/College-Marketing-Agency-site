@@ -154,6 +154,8 @@ export function ArticleArt({
   slug,
   category,
   art,
+  image,
+  imageAlt,
   className,
   rounded = "rounded-2xl",
 }: {
@@ -161,9 +163,20 @@ export function ArticleArt({
   category: string;
   /** Optional explicit scene override (frontmatter / cron manifest). */
   art?: string;
+  image?: string;
+  imageAlt?: string;
   className?: string;
   rounded?: string;
 }) {
+  if (image) {
+    return (
+      <div className={cn("relative overflow-hidden border-2 border-ink", rounded, className)}>
+        {/* Local licensed photos are deliberately served directly for verifiable byte identity. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={image} alt={imageAlt ?? ""} width={1600} height={900} className="h-full w-full object-cover" />
+      </div>
+    );
+  }
   const scene = resolveScene(slug, category, art);
   const SceneEl = SCENES_MAP[scene];
   return (
