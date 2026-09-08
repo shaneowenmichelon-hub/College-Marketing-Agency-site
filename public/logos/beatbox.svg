@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="196" height="48" viewBox="0 0 196 48" role="img" aria-label="BeatBox Beverages">
+  <g fill="#0B0B0F">
+    <!-- carton / box mark -->
+    <path d="M8 16 L18 8 L30 12 L30 34 L18 40 L8 34 Z"/>
+    <path d="M18 8 L18 40" stroke="#fff" stroke-width="2" fill="none"/>
+  </g>
+  <text x="42" y="31" font-family="'Space Grotesk', Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.3" fill="#0B0B0F">BeatBox</text>
+</svg>

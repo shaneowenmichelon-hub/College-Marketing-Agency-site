@@ -392,6 +392,12 @@ export const clients: Client[] = [
   }),
   // Polymarket - self-hosted SVG wordmark (see /public/logos/polymarket.svg).
   { name: "Polymarket", file: "polymarket.svg", url: "https://polymarket.com" },
+  // Beverage/energy brands - self-hosted SVG wordmarks. Drop a real logo file at
+  // the same /public/logos path (any format) to upgrade from the wordmark.
+  { name: "NÜTRL", file: "nutrl.svg" },
+  { name: "Cutwater Spirits", file: "cutwater.svg" },
+  { name: "Phorm Energy", file: "phorm-energy.svg" },
+  { name: "BeatBox", file: "beatbox.svg" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────

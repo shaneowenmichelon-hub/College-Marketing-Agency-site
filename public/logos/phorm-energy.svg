@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="244" height="48" viewBox="0 0 244 48" role="img" aria-label="Phorm Energy">
+  <g fill="#0B0B0F">
+    <!-- lightning bolt mark -->
+    <path d="M20 4 L8 26 h9 l-4 18 16 -24 h-9 z"/>
+  </g>
+  <text x="38" y="31" font-family="'Space Grotesk', Arial, Helvetica, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.3" fill="#0B0B0F">Phorm Energy</text>
+</svg>
