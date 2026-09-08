@@ -1,13 +1,32 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2, MapPin, Megaphone, Repeat2, Share2, ShoppingBag, Sparkles, Users } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/SectionHeading";
-import { getStat, pricing } from "@/site.config";
+import { useCountUp } from "@/components/StatCounter";
+import { pricing, siteConfig } from "@/site.config";
 import { cn } from "@/lib/utils";
+
+/** Compact stat cell that counts up when scrolled into view (small game-side variant). */
+function StatCell({ value, label }: { value: string; label: string }) {
+  const { ref, display } = useCountUp(value);
+  return (
+    <div
+      ref={ref}
+      className="flex flex-col items-center justify-center rounded-[3px] border-2 border-ink bg-ink px-2 py-4 text-center shadow-[3px_3px_0_var(--accent)]"
+    >
+      <div className="font-display text-2xl font-bold leading-none tracking-tight text-[color:var(--accent-2)] sm:text-3xl">
+        {display}
+      </div>
+      <div className="mono-label mt-2 text-[9px] leading-tight text-[color:var(--muted-on-dark)]">
+        {label}
+      </div>
+    </div>
+  );
+}
 
 const journey = [
   {
@@ -81,15 +100,6 @@ export function CampusAttentionJourney() {
   const current = journey[active];
   const ActiveIcon = current.icon;
 
-  const stats = useMemo(
-    () => [
-      { value: getStat("campuses"), label: "campus markets" },
-      { value: getStat("ambassadors"), label: "student ambassadors" },
-      { value: getStat("studentsReached"), label: "students reached" },
-    ],
-    [],
-  );
-
   return (
     <Section tone="light" id="campus-attention-journey" className="border-y-2 border-ink bg-surface">
       <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
@@ -101,18 +111,8 @@ export function CampusAttentionJourney() {
           />
 
           <div className="mt-8 grid grid-cols-3 gap-3">
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className="flex flex-col items-center justify-center rounded-[3px] border-2 border-ink bg-ink px-2 py-4 text-center shadow-[3px_3px_0_var(--accent)]"
-              >
-                <div className="font-display text-2xl font-bold leading-none tracking-tight text-[color:var(--accent-2)] sm:text-3xl">
-                  {s.value}
-                </div>
-                <div className="mono-label mt-2 text-[9px] leading-tight text-[color:var(--muted-on-dark)]">
-                  {s.label}
-                </div>
-              </div>
+            {siteConfig.stats.map((s) => (
+              <StatCell key={s.key} value={s.value} label={s.label} />
             ))}
           </div>
 

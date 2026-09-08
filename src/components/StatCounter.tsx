@@ -5,31 +5,19 @@ import { useInView, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /**
- * Animated stat that counts up when scrolled into view.
+ * Count-up-on-scroll hook. Returns a ref to attach to the container (it triggers
+ * when scrolled into view) and the display string.
  *
- * Values are placeholder tokens like "[X]M+" or "[X]+". We only animate the
- * numeric part when present; token values that contain no digits (the common
- * case here) render statically. This keeps the placeholders honest - nothing
- * fabricated - while still supporting real numbers once they're dropped in.
+ * Values are tokens like "1,200", "1.44M+", "100K+", or "[X]+". We animate only
+ * the leading numeric part; tokens with no leading number render statically.
+ * This keeps placeholders honest while supporting real numbers.
  */
-export function StatCounter({
-  value,
-  label,
-  className,
-}: {
-  value: string;
-  label: string;
-  className?: string;
-}) {
+export function useCountUp(value: string) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const reduce = useReducedMotion();
   const [display, setDisplay] = useState(value);
 
-  // Parse a leading number (commas + decimals ok) plus a suffix, e.g.
-  //   "1,200" -> 1200 ""        "1.44M+" -> 1.44 "M+"
-  //   "100K+" -> 100 "K+"       "20+"    -> 20 "+"
-  // Tokens like "[X]+" have no leading number and render statically.
   const match = value.match(/^([\d.,]+)(.*)$/);
   const numericStr = match ? match[1].replace(/,/g, "") : "";
   const target = match ? parseFloat(numericStr) : 0;
@@ -61,6 +49,23 @@ export function StatCounter({
     return () => cancelAnimationFrame(raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView, reduce, value]);
+
+  return { ref, display };
+}
+
+/**
+ * Animated stat that counts up when scrolled into view (large, dark-band style).
+ */
+export function StatCounter({
+  value,
+  label,
+  className,
+}: {
+  value: string;
+  label: string;
+  className?: string;
+}) {
+  const { ref, display } = useCountUp(value);
 
   return (
     <div

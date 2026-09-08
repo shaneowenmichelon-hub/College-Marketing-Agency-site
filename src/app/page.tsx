@@ -22,7 +22,6 @@ import { CampusAttentionJourney } from "@/components/home/CampusAttentionJourney
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProcessStep } from "@/components/ProcessStep";
-import { StatCounter } from "@/components/StatCounter";
 import { CampusGrid } from "@/components/CampusGrid";
 import { ClientMarquee } from "@/components/ClientMarquee";
 import { TestimonialMarquee } from "@/components/TestimonialMarquee";
@@ -141,20 +140,6 @@ export default function HomePage() {
       </Section>
 
       <CampusAttentionJourney />
-
-      {/* Stats band */}
-      <Section tone="dark" grain>
-        <SectionHeading
-          eyebrow="The reach"
-          onDark
-          title="Built to scale across campus."
-        />
-        <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-6">
-          {siteConfig.stats.map((s) => (
-            <StatCounter key={s.label} value={s.value} label={s.label} />
-          ))}
-        </div>
-      </Section>
 
       {/* Services */}
       <Section tone="light">
