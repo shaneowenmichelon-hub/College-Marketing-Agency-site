@@ -395,6 +395,41 @@ export const clients: Client[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
+// TESTIMONIALS - rendered in the slow-scrolling marquee right below the brand
+// logos on the home page (see TestimonialMarquee). A testimonial with an empty
+// `quote` is skipped automatically, so a name/title can be staged now and the
+// quote pasted in later.
+// ─────────────────────────────────────────────────────────────────────────────
+export type Testimonial = { name: string; title: string; quote: string };
+
+export const testimonials: Testimonial[] = [
+  {
+    name: "Troy Osinoff",
+    title: "Founder, Zagged",
+    quote:
+      "Shane runs a tight ship when it comes to in-person campaigns for brands. I always offer his services to my clients since I know I can trust him to deliver.",
+  },
+  {
+    name: "Ryland",
+    title: "Head of Marketing, Stripz",
+    quote:
+      "Shane has successfully run a few event-focused campaigns for my brand and has delivered on the KPIs we wanted each time. Will continue to use his team's services in the future.",
+  },
+  {
+    name: "Christopher Culnane",
+    title: "Founder, Culnane Creative Agency",
+    quote:
+      "Shane, Zach, and their team go above and beyond to make sure they deliver on what they promise for my clients. They have successfully run a few campaigns with us, and we will be doing many more in the future. Anything college-focused marketing, these are your guys.",
+  },
+  {
+    // Quote to be added later - card stays hidden until `quote` is filled in.
+    name: "Katie Frommelt",
+    title: "Trade & Activation Marketing, Beyond Beer (Anheuser-Busch)",
+    quote: "",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
 // TEAM - rendered on /about. Drop a headshot at the `photo` path (e.g.
 // public/team/shane-michelon.jpg) to show it; until then a clean initials avatar
 // is shown. Optionally add a `linkedin` URL to link the card.

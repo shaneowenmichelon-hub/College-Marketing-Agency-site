@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Rocket,
 } from "lucide-react";
-import { siteConfig, pricing, clients } from "@/site.config";
+import { siteConfig, pricing, clients, testimonials } from "@/site.config";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
@@ -25,6 +25,7 @@ import { ProcessStep } from "@/components/ProcessStep";
 import { StatCounter } from "@/components/StatCounter";
 import { CampusGrid } from "@/components/CampusGrid";
 import { ClientMarquee } from "@/components/ClientMarquee";
+import { TestimonialMarquee } from "@/components/TestimonialMarquee";
 import { EventImage } from "@/components/EventImage";
 import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
@@ -106,6 +107,22 @@ export default function HomePage() {
         </Reveal>
         <div className="mt-8">
           <ClientMarquee clients={clients} />
+        </div>
+      </Section>
+
+      {/* Testimonials - slow marquee right below the brand wall */}
+      <Section tone="muted" className="py-12 sm:py-16">
+        <Reveal className="text-center">
+          <span className="sticker mono-label bg-[color:var(--accent-2)] px-3 py-1.5 text-[11px] font-bold text-ink">
+            <Sparkles className="h-3.5 w-3.5" />
+            Word on campus
+          </span>
+          <h2 className="mt-5 font-display text-2xl font-bold text-ink sm:text-3xl">
+            Don&rsquo;t just take our word for it.
+          </h2>
+        </Reveal>
+        <div className="mt-10">
+          <TestimonialMarquee testimonials={testimonials} />
         </div>
       </Section>
 
