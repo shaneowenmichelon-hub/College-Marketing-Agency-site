@@ -422,10 +422,10 @@ export const testimonials: Testimonial[] = [
       "Shane, Zach, and their team go above and beyond to make sure they deliver on what they promise for my clients. They have successfully ran a few campaigns with us, and we will be doing many more in the future. One highlight from our collaboration is their brand-focused Super Bowl show. Anything college-focused marketing too, these are your guys!",
   },
   {
-    // Quote to be added later - card stays hidden until `quote` is filled in.
     name: "Katie Frommelt",
     title: "Trade & Activation Marketing, Beyond Beer (Anheuser-Busch)",
-    quote: "",
+    quote:
+      "The Beyond Beer team at Anheuser-Busch has greatly enjoyed working with ZMM for the past two Super Bowls and are already planning our third. Because of their strategic partnerships, connection to talent, and overall organization, they are also doing a country-wide live music “Night School” Tour with Beyond Beer. We keep finding more reasons to work with them because they are the best of the best!",
   },
 ];
 
