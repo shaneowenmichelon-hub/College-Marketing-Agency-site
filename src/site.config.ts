@@ -427,6 +427,12 @@ export const testimonials: Testimonial[] = [
     quote:
       "The Beyond Beer team at Anheuser-Busch has greatly enjoyed working with ZMM for the past two Super Bowls and are already planning our third. Because of their strategic partnerships, connection to talent, and overall organization, they are also doing a country-wide live music “Night School” Tour with Beyond Beer. We keep finding more reasons to work with them because they are the best of the best!",
   },
+  {
+    name: "Dylan Ander",
+    title: "Founder, Mentionstack",
+    quote:
+      "Shane and his team of marketing wizards have an understanding of the college markets like no other and just know when to double down, and when to pull back. Would refer Collegiate Agency to any of my clients at Mentionstack if they needed help reaching Gen Z/College Students.",
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
