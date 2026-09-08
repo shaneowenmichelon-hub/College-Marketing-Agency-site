@@ -419,7 +419,7 @@ export const testimonials: Testimonial[] = [
     name: "Christopher Culnane",
     title: "Founder, Culnane Creative Agency",
     quote:
-      "Shane, Zach, and their team go above and beyond to make sure they deliver on what they promise for my clients. They have successfully run a few campaigns with us, and we will be doing many more in the future. Anything college-focused marketing, these are your guys.",
+      "Shane, Zach, and their team go above and beyond to make sure they deliver on what they promise for my clients. They have successfully ran a few campaigns with us, and we will be doing many more in the future. One highlight from our collaboration is their brand-focused Super Bowl show. Anything college-focused marketing too, these are your guys!",
   },
   {
     // Quote to be added later - card stays hidden until `quote` is filled in.
