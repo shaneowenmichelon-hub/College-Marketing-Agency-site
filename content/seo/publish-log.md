@@ -24,3 +24,4 @@
 | 19 | 2026-08-20 | 12:00 CDT | college-marketing-strategy | college marketing strategy | 1577 | published |
 
 | 20 | 2026-09-08 | manual repair | campus-marketing-agency-rfp | campus marketing agency rfp | 1465 | prepared for production; success recorded only after independent live verification |
+| 21 | 2026-09-10 | 07:06 CDT | college-welcome-bag-inserts | college welcome bag inserts | 1556 | prepared; live receipt in publisher state |
