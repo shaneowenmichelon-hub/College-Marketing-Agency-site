@@ -54,3 +54,5 @@ Method: seed keyword research from Collegiate Agency positioning plus live DuckD
 - 2026-09-10 - `college welcome bag inserts` - `/insights/college-welcome-bag-inserts`
 
 - 2026-09-11 - `campus event staffing agency` - `/insights/campus-event-staffing-agency`
+
+- 2026-09-13 - `campus bookstore product placement` - `/insights/campus-bookstore-product-placement`
