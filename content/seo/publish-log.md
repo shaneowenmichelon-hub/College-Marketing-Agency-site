@@ -27,3 +27,4 @@
 | 21 | 2026-09-10 | 07:06 CDT | college-welcome-bag-inserts | college welcome bag inserts | 1556 | prepared; live receipt in publisher state |
 | 22 | 2026-09-11 | 19:36 CDT | campus-event-staffing-agency | campus event staffing agency | 1515 | prepared; live receipt in publisher state |
 | 23 | 2026-09-13 | 07:45 CDT | campus-bookstore-product-placement | campus bookstore product placement | 1552 | prepared; live receipt in publisher state |
+| 24 | 2026-09-14 | 20:19 CDT | switching-campus-marketing-agencies | switching campus marketing agencies | 1563 | prepared; live receipt in publisher state |
