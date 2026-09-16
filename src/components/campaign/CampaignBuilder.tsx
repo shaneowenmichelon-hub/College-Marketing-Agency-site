@@ -8,6 +8,7 @@ import {
   CalendarHeart,
   Check,
   Coins,
+  Lightbulb,
   Loader2,
   MapPin,
   Minus,
@@ -276,6 +277,25 @@ export function CampaignBuilder() {
   };
   const meta = stepMeta[step];
 
+  const guide: Record<string, string> = {
+    services:
+      "Tap the marketing channels you want to run — pick one or stack all three. For example, tap “Event sponsorships” to get in front of students at a show, or “Ambassadors” to put students to work repping your brand. Selected cards turn colored with a checkmark. Hit Continue when you're set.",
+    schools: services.ambassadors
+      ? "Tap a school to add it, then use – / + to set how many ambassadors you want there (e.g. 10 at Ohio State). Flip on “Product placement” for any campus where you also want product placed ($2,500 each). Set your total campaign length in months up top."
+      : "Tap each campus where you want product placed — that's $2,500 per campus. For example, add Ohio State and LSU.",
+    events:
+      "Tap any event or trip to add it to your plan — for example, pick “Night School Tour.” The price on each card is the minimum base fee to get in the door. Tap again to remove. Add as many as you like.",
+    review:
+      "Here's your whole campaign with a running estimate. Want to name a different number? Edit the target budget. Add anything else in the notes, drop your email, then hit “Send my campaign” — we'll follow up within one business day.",
+  };
+
+  const howItWorks = [
+    "Pick your services",
+    "Choose campuses & ambassadors",
+    "Pick your events",
+    "Review & send",
+  ];
+
   return (
     <div>
       {/* Progress + running total */}
@@ -308,10 +328,38 @@ export function CampaignBuilder() {
       </div>
 
       {/* Step header */}
-      <div className="mb-8">
+      <div className="mb-5">
         <span className="mono-label text-[11px] font-bold text-accent">{meta.eyebrow}</span>
         <h1 className="mt-2 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">{meta.title}</h1>
         <p className="mt-3 max-w-2xl text-[color:var(--muted-on-light)]">{meta.intro}</p>
+      </div>
+
+      {/* How it works — only on the first step */}
+      {step === "services" && (
+        <ol className="mb-5 grid gap-2 sm:grid-cols-4">
+          {howItWorks.map((label, i) => (
+            <li
+              key={label}
+              className="flex items-center gap-2 rounded-[3px] border-2 border-ink bg-white px-3 py-2 shadow-[3px_3px_0_var(--ink)]"
+            >
+              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-ink bg-[color:var(--accent-2)] font-display text-[11px] font-bold text-ink">
+                {i + 1}
+              </span>
+              <span className="text-xs font-bold text-ink">{label}</span>
+            </li>
+          ))}
+        </ol>
+      )}
+
+      {/* Per-step guidance */}
+      <div className="mb-8 flex items-start gap-3 rounded-[4px] border-2 border-ink bg-[color:var(--surface-muted)] p-4">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)]">
+          <Lightbulb className="h-4 w-4 text-ink" />
+        </span>
+        <p className="text-sm leading-relaxed text-ink">
+          <span className="font-bold">How to: </span>
+          {guide[step]}
+        </p>
       </div>
 
       <AnimatePresence mode="wait">
