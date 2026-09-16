@@ -1,7 +1,7 @@
 import { NextResponse, after } from "next/server";
 import { ageFromDOB, isEduEmail } from "@/lib/utils";
 import { sendEmail, AGENCY_INBOX } from "@/lib/email";
-import { studentConfirmation, internalNotification, type SecureLink } from "@/lib/email-templates";
+import { studentConfirmation, internalNotification } from "@/lib/email-templates";
 import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
 import { ATTRIBUTION_KEYS, type Attribution, type StudentLead } from "@/lib/leads";
 import { classifySource, clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
@@ -47,14 +47,9 @@ export async function POST(request: Request) {
   const dob = str("dob");
   const school = str("school");
   const schoolEmail = str("schoolEmail");
+  const phone = str("phone");
   const why = str("why");
   const agreements = (body.agreements ?? {}) as Record<string, unknown>;
-
-  // ID references (Blob URLs uploaded client-side; may be empty if storage unset).
-  const idFrontUrl = str("idFrontUrl");
-  const idBackUrl = str("idBackUrl");
-  const idFrontName = str("idFrontName");
-  const idBackName = str("idBackName");
 
   const errors: Record<string, string> = {};
   if (!fullName) errors.fullName = "Your name is required.";
@@ -64,19 +59,10 @@ export async function POST(request: Request) {
   if (!school) errors.school = "Your school is required.";
   if (!schoolEmail) errors.schoolEmail = "School email is required.";
   else if (!isEduEmail(schoolEmail)) errors.schoolEmail = "Use a valid .edu email.";
-  if (!why) errors.why = "Tell us a little about why you want to join.";
+  if (!phone) errors.phone = "Your phone number is required.";
   if (!agreements.age) errors.age = "You must confirm you're 18+.";
   if (!agreements.terms) errors.terms = "You must accept the terms.";
   if (!agreements.ftc) errors.ftc = "Please acknowledge the disclosure requirement.";
-  // ID is required at the file-selection level (client sends the filename even if
-  // the upload was skipped because storage isn't configured).
-  if (!idFrontName) errors.idFront = "Front of your ID is required.";
-  if (!idBackName) errors.idBack = "Back of your ID is required.";
-  // Only accept our own Blob URLs.
-  const okUrl = (u: string) => u === "" || /^https:\/\/[a-z0-9.-]*\.?blob\.vercel-storage\.com\//i.test(u);
-  if (!okUrl(idFrontUrl) || !okUrl(idBackUrl)) {
-    errors.idFront = "Invalid ID upload.";
-  }
 
   if (Object.keys(errors).length > 0) {
     return NextResponse.json({ ok: false, errors }, { status: 422 });
@@ -88,19 +74,6 @@ export async function POST(request: Request) {
     const v = rawAttr[k];
     if (typeof v === "string" && v) attribution[k] = v;
   }
-
-  const secureLinks: SecureLink[] = [
-    {
-      label: "Government ID - front",
-      url: idFrontUrl || null,
-      note: idFrontUrl ? undefined : "not uploaded - storage not configured",
-    },
-    {
-      label: "Government ID - back",
-      url: idBackUrl || null,
-      note: idBackUrl ? undefined : "not uploaded - storage not configured",
-    },
-  ];
 
   const lead: StudentLead = {
     kind: "student_application",
@@ -122,16 +95,8 @@ export async function POST(request: Request) {
     attribution,
   };
 
-  // Structured record - NO ID URLs in logs, just whether they were stored.
-  console.log(
-    "[lead]",
-    JSON.stringify({
-      at: new Date().toISOString(),
-      ...lead,
-      idFrontStored: !!idFrontUrl,
-      idBackStored: !!idBackUrl,
-    }),
-  );
+  // Structured record - the capture fallback (never lose a lead).
+  console.log("[lead]", JSON.stringify({ at: new Date().toISOString(), ...lead }));
 
   const ipForAnalytics = analyticsClientIp(request);
   const source = classifySource(attribution.referrer, attribution.utm_source);
@@ -163,15 +128,13 @@ export async function POST(request: Request) {
       ttFollowers: lead.ttFollowers,
       niche: lead.niche,
       why: lead.why,
-      idFrontStored: !!idFrontUrl,
-      idBackStored: !!idBackUrl,
     },
   });
 
   // Send both emails AFTER the response is returned so the applicant isn't kept
   // waiting on Resend's round-trip (Vercel keeps the function alive for after()).
   const confirmation = studentConfirmation(lead);
-  const internal = internalNotification("student_application", lead, secureLinks);
+  const internal = internalNotification("student_application", lead);
   // Attempt the TEAM notification WITHIN the request (awaited) so it never
   // depends on after() keep-alive — this is the email you must receive.
   // sendEmail never throws; it returns {ok:false} on failure / {skipped:true}

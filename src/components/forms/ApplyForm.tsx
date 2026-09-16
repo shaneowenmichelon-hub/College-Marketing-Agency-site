@@ -8,8 +8,6 @@ import { trackEvent } from "@/lib/analytics";
 import { useAttribution, useElapsed } from "@/lib/client-forms";
 import { celebrate } from "@/lib/confetti";
 import { cn } from "@/lib/utils";
-import { validateUpload } from "@/lib/uploads";
-import { uploadToBlob, newSubmissionId, idPath } from "@/lib/blob-upload";
 import {
   FormField,
   Input,
@@ -17,8 +15,6 @@ import {
   Textarea,
   Checkbox,
 } from "@/components/form/Fields";
-import { IdUpload } from "@/components/forms/IdUpload";
-import { ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { AmbassadorQuestPanel, AmbassadorCard, type Badge } from "./AmbassadorQuestPanel";
 
@@ -57,8 +53,6 @@ function SectionTitle({ n, title, done = false }: { n: number; title: string; do
 
 export function ApplyForm() {
   const [dob, setDob] = useState("");
-  const [idFront, setIdFront] = useState<File | null>(null);
-  const [idBack, setIdBack] = useState<File | null>(null);
   const [agreements, setAgreements] = useState({ age: false, terms: false, ftc: false });
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -82,7 +76,7 @@ export function ApplyForm() {
     you: !!w("fullName") && age !== null && age >= 18,
     school: !!w("school") && eduVerified,
     socials: socialsLinked,
-    more: !!w("why"),
+    contact: !!w("phone"),
     agreements: trustEarned,
   };
   const questsDone = Object.values(questFlags).filter(Boolean).length;
@@ -128,6 +122,7 @@ export function ApplyForm() {
       fullName: String(data.get("fullName") ?? "").trim(),
       school: String(data.get("school") ?? "").trim(),
       schoolEmail: String(data.get("schoolEmail") ?? "").trim(),
+      phone: String(data.get("phone") ?? "").trim(),
       why: String(data.get("why") ?? "").trim(),
     };
 
@@ -138,14 +133,10 @@ export function ApplyForm() {
     if (!values.school) next.school = "Your school is required.";
     if (!values.schoolEmail) next.schoolEmail = "School email is required.";
     else if (!isEduEmail(values.schoolEmail)) next.schoolEmail = "Use a valid .edu email.";
-    if (!values.why) next.why = "Tell us a little about why you want to join.";
+    if (!values.phone) next.phone = "Your phone number is required.";
     if (!agreements.age) next.age = "Please confirm you're 18 or older.";
     if (!agreements.terms) next.terms = "You must accept the terms.";
     if (!agreements.ftc) next.ftc = "Please acknowledge the disclosure requirement.";
-    if (!idFront) next.idFront = "Front of your ID is required.";
-    else { const e1 = validateUpload(idFront); if (e1) next.idFront = e1; }
-    if (!idBack) next.idBack = "Back of your ID is required.";
-    else { const e2 = validateUpload(idBack); if (e2) next.idBack = e2; }
 
     setErrors(next);
     if (Object.keys(next).length > 0) {
@@ -155,20 +146,6 @@ export function ApplyForm() {
     }
 
     setStatus("loading");
-
-    // Upload ID photos straight to Blob (browser -> Blob), then POST JSON with
-    // just the URLs - the large files never hit our serverless function.
-    const submissionId = newSubmissionId();
-    let frontUp = { url: null as string | null };
-    let backUp = { url: null as string | null };
-    try {
-      [frontUp, backUp] = await Promise.all([
-        idFront ? uploadToBlob(idPath(submissionId, "front", idFront.name), idFront) : Promise.resolve({ url: null }),
-        idBack ? uploadToBlob(idPath(submissionId, "back", idBack.name), idBack) : Promise.resolve({ url: null }),
-      ]);
-    } catch {
-      /* uploadToBlob never throws, but guard anyway */
-    }
 
     const fields = [
       "phone", "city", "state", "gradYear", "major",
@@ -185,10 +162,6 @@ export function ApplyForm() {
       nickname: String(data.get("nickname") ?? ""),
       agreements,
       attribution,
-      idFrontUrl: frontUp.url ?? "",
-      idBackUrl: backUp.url ?? "",
-      idFrontName: idFront?.name ?? "",
-      idBackName: idBack?.name ?? "",
     };
     for (const f of fields) payload[f] = String(data.get(f) ?? "");
 
@@ -278,8 +251,8 @@ export function ApplyForm() {
               className="min-h-[3.25rem] [color-scheme:light] [&::-webkit-calendar-picker-indicator]:h-5 [&::-webkit-calendar-picker-indicator]:w-5 [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-date-and-time-value]:text-left"
             />
           </FormField>
-          <FormField label="Phone" htmlFor="phone">
-            <Input id="phone" name="phone" type="tel" autoComplete="tel" />
+          <FormField label="Phone" htmlFor="phone" required error={errors.phone}>
+            <Input id="phone" name="phone" type="tel" autoComplete="tel" error={errors.phone} />
           </FormField>
           <FormField label="City" htmlFor="city">
             <Input id="city" name="city" autoComplete="address-level2" />
@@ -399,60 +372,23 @@ export function ApplyForm() {
         )}
       </section>
 
-      {/* More */}
+      {/* Optional: a little more */}
       <section>
-        <SectionTitle n={4} title="A little more" done={questFlags.more} />
+        <SectionTitle n={4} title="A little more (optional)" />
         <div className="grid gap-5">
-          <FormField label="Why do you want to join?" htmlFor="why" required error={errors.why}>
+          <FormField label="Why do you want to join?" htmlFor="why">
             <Textarea
               id="why"
               name="why"
               placeholder="What brands do you love? Why would you be a great campus rep?"
-              error={errors.why}
             />
           </FormField>
         </div>
       </section>
 
-      {/* Photo ID */}
-      <section>
-        <SectionTitle
-          n={5}
-          title="Verify your ID"
-          done={!!idFront && !!idBack && !errors.idFront && !errors.idBack}
-        />
-        <p className="mb-4 text-sm text-[color:var(--muted-on-light)]">
-          We verify identity and age so you can be matched to brand campaigns - including
-          21+ campaigns. Upload a clear photo of the front and back of a government photo ID.
-        </p>
-        <div className="grid gap-5 sm:grid-cols-2">
-          <IdUpload
-            id="idFront"
-            label="Government photo ID - front"
-            file={idFront}
-            onFile={setIdFront}
-            error={errors.idFront}
-            required
-          />
-          <IdUpload
-            id="idBack"
-            label="Government photo ID - back"
-            file={idBack}
-            onFile={setIdBack}
-            error={errors.idBack}
-            required
-          />
-        </div>
-        <p className="mt-3 flex items-start gap-2 rounded-[3px] border-2 border-ink bg-surface-muted px-3 py-2 text-xs text-ink">
-          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden />
-          Your ID is encrypted, access-restricted, and used only for verification. It&apos;s
-          never posted or shared, and it&apos;s deleted once you&apos;re verified.
-        </p>
-      </section>
-
       {/* Agreements */}
       <section>
-        <SectionTitle n={6} title="Final boss: the agreements" done={questFlags.agreements} />
+        <SectionTitle n={5} title="Final boss: the agreements" done={questFlags.agreements} />
         <div className="space-y-4">
           <Checkbox
             checked={agreements.age}
@@ -503,7 +439,6 @@ export function ApplyForm() {
         )}
       </Button>
       <p className="text-center text-xs text-[color:var(--muted-on-light)]">
-        {/* TODO: connect to the student portal / marketplace for onboarding hand-off. */}
         We review on a rolling basis and reach out when there&apos;s a brand match.
       </p>
       </form>
