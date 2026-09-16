@@ -121,24 +121,25 @@ export async function POST(request: Request) {
   // on Resend. Failures are logged inside sendEmail and never surface to the user.
   const confirmation = brandConfirmation(lead);
   const internal = internalNotification(kind, lead);
+  // Attempt the TEAM notification within the request (awaited) so it's reliably
+  // sent and doesn't depend on after() keep-alive; the sender confirmation goes
+  // after the response so they aren't kept waiting. sendEmail never throws.
+  const notified = await sendEmail({
+    to: AGENCY_INBOX,
+    subject: internal.subject,
+    html: internal.html,
+    text: internal.text,
+    replyTo: email,
+  });
   after(async () => {
-    await Promise.allSettled([
-      sendEmail({
-        to: email,
-        subject: confirmation.subject,
-        html: confirmation.html,
-        text: confirmation.text,
-        replyTo: AGENCY_INBOX,
-      }),
-      sendEmail({
-        to: AGENCY_INBOX,
-        subject: internal.subject,
-        html: internal.html,
-        text: internal.text,
-        replyTo: email,
-      }),
-    ]);
+    await sendEmail({
+      to: email,
+      subject: confirmation.subject,
+      html: confirmation.html,
+      text: confirmation.text,
+      replyTo: AGENCY_INBOX,
+    });
   });
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, emailed: notified.ok && !notified.skipped });
 }

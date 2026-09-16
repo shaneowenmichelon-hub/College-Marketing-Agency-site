@@ -115,24 +115,24 @@ export async function POST(request: Request) {
   const internalHtml = `<h2>New campaign build</h2><p><strong>${esc(who)}</strong>${company ? ` @ ${esc(company)}` : ""}<br/>${esc(email)}${phone ? ` · ${esc(phone)}` : ""}</p><pre style="font-family:ui-monospace,monospace;white-space:pre-wrap;background:#f4f4f6;padding:16px;border-radius:8px">${esc(summaryText)}</pre>`;
   const confirmHtml = `<p>Hi${firstName ? ` ${esc(firstName)}` : ""},</p><p>Thanks for building a campaign with Collegiate Agency! Our team will review it and get back to you within one business day with a tailored plan and firm pricing.</p><p>Here's what you sent:</p><pre style="font-family:ui-monospace,monospace;white-space:pre-wrap;background:#f4f4f6;padding:16px;border-radius:8px">${esc(summaryText)}</pre><p>— The Collegiate Agency team</p>`;
 
+  // Attempt the TEAM notification within the request (awaited) so it's reliably
+  // sent; the sender confirmation goes after the response. sendEmail never throws.
+  const notified = await sendEmail({
+    to: AGENCY_INBOX,
+    subject: internalSubject,
+    html: internalHtml,
+    text: contactText,
+    replyTo: email,
+  });
   after(async () => {
-    await Promise.allSettled([
-      sendEmail({
-        to: AGENCY_INBOX,
-        subject: internalSubject,
-        html: internalHtml,
-        text: contactText,
-        replyTo: email,
-      }),
-      sendEmail({
-        to: email,
-        subject: "Your Collegiate Agency campaign build",
-        html: confirmHtml,
-        text: `Thanks for building a campaign with Collegiate Agency!\n\n${summaryText}\n\n— The Collegiate Agency team`,
-        replyTo: AGENCY_INBOX,
-      }),
-    ]);
+    await sendEmail({
+      to: email,
+      subject: "Your Collegiate Agency campaign build",
+      html: confirmHtml,
+      text: `Thanks for building a campaign with Collegiate Agency!\n\n${summaryText}\n\n— The Collegiate Agency team`,
+      replyTo: AGENCY_INBOX,
+    });
   });
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, emailed: notified.ok && !notified.skipped });
 }

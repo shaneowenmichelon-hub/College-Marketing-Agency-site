@@ -172,24 +172,27 @@ export async function POST(request: Request) {
   // waiting on Resend's round-trip (Vercel keeps the function alive for after()).
   const confirmation = studentConfirmation(lead);
   const internal = internalNotification("student_application", lead, secureLinks);
+  // Attempt the TEAM notification WITHIN the request (awaited) so it never
+  // depends on after() keep-alive — this is the email you must receive.
+  // sendEmail never throws; it returns {ok:false} on failure / {skipped:true}
+  // when email isn't configured. The applicant's confirmation is sent after the
+  // response so they aren't kept waiting.
+  const notified = await sendEmail({
+    to: AGENCY_INBOX,
+    subject: internal.subject,
+    html: internal.html,
+    text: internal.text,
+    replyTo: schoolEmail,
+  });
   after(async () => {
-    await Promise.allSettled([
-      sendEmail({
-        to: schoolEmail,
-        subject: confirmation.subject,
-        html: confirmation.html,
-        text: confirmation.text,
-        replyTo: AGENCY_INBOX,
-      }),
-      sendEmail({
-        to: AGENCY_INBOX,
-        subject: internal.subject,
-        html: internal.html,
-        text: internal.text,
-        replyTo: schoolEmail,
-      }),
-    ]);
+    await sendEmail({
+      to: schoolEmail,
+      subject: confirmation.subject,
+      html: confirmation.html,
+      text: confirmation.text,
+      replyTo: AGENCY_INBOX,
+    });
   });
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, emailed: notified.ok && !notified.skipped });
 }
