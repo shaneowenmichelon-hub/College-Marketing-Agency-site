@@ -222,7 +222,7 @@ export const pricing: Record<string, ServicePricing> = {
     note: "5 of the top Greek-life organizations per campus, with dedicated media deliverables · add more organizations at extra cost.",
   },
   "brand-ambassadors": {
-    range: "$250",
+    range: "$150",
     unit: "/ ambassador / month",
     included: "Ambassador program",
     note: "2 dedicated social posts (flyers or videos) with links + brand tags · add-ons: localized paid media, product placement.",

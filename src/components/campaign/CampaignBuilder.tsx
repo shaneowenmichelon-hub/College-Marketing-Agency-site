@@ -50,7 +50,7 @@ const SERVICES: { key: ServiceKey; label: string; icon: typeof Users; blurb: str
     key: "ambassadors",
     label: "Ambassadors",
     icon: Users,
-    blurb: "Vetted students repping your brand where peers actually listen. $250 / ambassador / month.",
+    blurb: `Vetted students repping your brand where peers actually listen. ${formatUSD(AMBASSADOR_MONTHLY)} / ambassador / month.`,
     accent: "var(--accent-2)",
     textOn: "text-ink",
   },
