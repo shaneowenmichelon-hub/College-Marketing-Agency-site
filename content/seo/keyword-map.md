@@ -58,3 +58,5 @@ Method: seed keyword research from Collegiate Agency positioning plus live DuckD
 - 2026-09-13 - `campus bookstore product placement` - `/insights/campus-bookstore-product-placement`
 
 - 2026-09-14 - `switching campus marketing agencies` - `/insights/switching-campus-marketing-agencies`
+
+- 2026-09-16 - `campus event cancellation policy` - `/insights/campus-event-cancellation-policy`
