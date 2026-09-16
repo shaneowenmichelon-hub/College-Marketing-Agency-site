@@ -18,11 +18,14 @@ export function AudienceTabs({
   tabs,
   defaultId,
   anchorTab,
+  afterTabs,
 }: {
   tabs: AudienceTab[];
   defaultId?: string;
   /** Maps a block-anchor id (e.g. "events") → the tab id to activate for it. */
   anchorTab?: Record<string, string>;
+  /** Optional content rendered directly below the toggle, above the panels. */
+  afterTabs?: ReactNode;
 }) {
   const initial = defaultId ?? tabs[0]?.id;
   const [active, setActive] = useState(initial);
@@ -119,6 +122,8 @@ export function AudienceTabs({
           );
         })}
       </div>
+
+      {afterTabs && <div className="mt-6">{afterTabs}</div>}
 
       {/* Panels - both mounted; inactive is hidden. Fade in on show. */}
       <div className="mt-12">

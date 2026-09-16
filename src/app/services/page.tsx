@@ -7,6 +7,8 @@ import { AudienceTabs } from "@/components/services/AudienceTabs";
 import { CapabilityBlock } from "@/components/services/CapabilityBlock";
 import { IconCardGrid } from "@/components/services/IconCardGrid";
 import { servicesHub } from "@/site.config";
+import { Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Services - For brands and for students",
@@ -97,6 +99,20 @@ export default function ServicesPage() {
               "brand-ambassadors": "for-brands",
               "product-placement": "for-brands",
             }}
+            afterTabs={
+              <Link
+                href="/build-a-campaign"
+                className="group mx-auto flex w-full max-w-md items-center justify-between gap-4 rounded-[4px] border-2 border-ink bg-[color:var(--accent-2)] px-5 py-4 shadow-[5px_5px_0_var(--ink)] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--ink)]"
+              >
+                <span className="flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-ink" />
+                  <span className="font-display text-base font-bold text-ink sm:text-lg">Create a Campaign</span>
+                </span>
+                <span className="mono-label text-[11px] font-bold text-ink/70 transition-transform group-hover:translate-x-1">
+                  Build it →
+                </span>
+              </Link>
+            }
           />
         </div>
       </Section>

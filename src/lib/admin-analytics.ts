@@ -4,6 +4,7 @@ import { list, put } from "@vercel/blob";
 export type AdminEventType =
   | "page_view"
   | "brand_inquiry"
+  | "campaign_builder"
   | "student_application"
   | "lead_magnet"
   | "portal_signup"
