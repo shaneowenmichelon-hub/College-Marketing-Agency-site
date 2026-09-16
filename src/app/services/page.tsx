@@ -106,7 +106,7 @@ export default function ServicesPage() {
               >
                 <span className="flex items-center gap-2">
                   <Sparkles className="h-5 w-5 text-ink" />
-                  <span className="font-display text-base font-bold text-ink sm:text-lg">Create a Campaign</span>
+                  <span className="font-display text-base font-bold text-ink sm:text-lg">Build a Campaign</span>
                 </span>
                 <span className="mono-label text-[11px] font-bold text-ink/70 transition-transform group-hover:translate-x-1">
                   Build it →

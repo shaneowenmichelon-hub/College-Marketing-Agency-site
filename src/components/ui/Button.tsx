@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "ghost-dark" | "lime";
+type Variant = "primary" | "secondary" | "ghost-dark" | "lime" | "magenta";
 type Size = "sm" | "md" | "lg";
 
 // Elevated-Brutalism buttons: sharp, hard ink border, stamped offset shadow that
@@ -22,6 +22,9 @@ const variants: Record<Variant, string> = {
     "border-white bg-transparent text-white shadow-[4px_4px_0_var(--accent)] hover:-translate-x-0.5 hover:-translate-y-0.5",
   // acid lime accent
   lime: "bg-[color:var(--accent-2)] text-ink shadow-[4px_4px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--ink)]",
+  // magenta fill
+  magenta:
+    "bg-[color:var(--magenta)] text-white shadow-[4px_4px_0_var(--ink)] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0_var(--ink)]",
 };
 
 const sizes: Record<Size, string> = {
