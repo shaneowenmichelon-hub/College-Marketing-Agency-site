@@ -29,13 +29,14 @@ import { cn } from "@/lib/utils";
 
 type ServiceKey = "events" | "product-placement" | "ambassadors";
 
-const SERVICES: { key: ServiceKey; label: string; icon: typeof Users; blurb: string; accent: string }[] = [
+const SERVICES: { key: ServiceKey; label: string; icon: typeof Users; blurb: string; accent: string; textOn: string }[] = [
   {
     key: "events",
     label: "Event sponsorships",
     icon: CalendarHeart,
     blurb: "Put your brand inside the shows, tours, festivals, and trips students plan their year around.",
     accent: "var(--accent)",
+    textOn: "text-white",
   },
   {
     key: "product-placement",
@@ -43,6 +44,7 @@ const SERVICES: { key: ServiceKey; label: string; icon: typeof Users; blurb: str
     icon: PackageOpen,
     blurb: "Place product directly with the top Greek-life orgs and campus leaders. $2,500 per campus.",
     accent: "var(--magenta)",
+    textOn: "text-white",
   },
   {
     key: "ambassadors",
@@ -50,6 +52,7 @@ const SERVICES: { key: ServiceKey; label: string; icon: typeof Users; blurb: str
     icon: Users,
     blurb: "Vetted students repping your brand where peers actually listen. $250 / ambassador / month.",
     accent: "var(--accent-2)",
+    textOn: "text-ink",
   },
 ];
 
@@ -276,14 +279,14 @@ export function CampaignBuilder() {
   return (
     <div>
       {/* Progress + running total */}
-      <div className="sticky top-16 z-30 -mx-4 mb-8 border-b-2 border-ink bg-surface/95 px-4 py-3 backdrop-blur sm:mx-0 sm:rounded-[4px] sm:border-2 sm:shadow-[5px_5px_0_var(--ink)]">
-        <div className="flex items-center justify-between gap-4">
-          <ol className="flex items-center gap-2">
+      <div className="sticky top-16 z-30 mb-8 rounded-[4px] border-2 border-ink bg-surface/95 px-3 py-2.5 shadow-[4px_4px_0_var(--ink)] backdrop-blur sm:px-4 sm:py-3 lg:top-20">
+        <div className="flex items-center justify-between gap-3">
+          <ol className="flex min-w-0 items-center gap-1 sm:gap-2">
             {steps.map((s, i) => (
-              <li key={s} className="flex items-center gap-2">
+              <li key={s} className="flex items-center gap-1 sm:gap-2">
                 <span
                   className={cn(
-                    "flex h-7 w-7 items-center justify-center rounded-full border-2 border-ink font-display text-xs font-bold",
+                    "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-ink font-display text-[11px] font-bold sm:h-7 sm:w-7 sm:text-xs",
                     i < stepIndex && "bg-ink text-[color:var(--accent-2)]",
                     i === stepIndex && "bg-[color:var(--accent-2)] text-ink",
                     i > stepIndex && "bg-white text-ink",
@@ -291,12 +294,12 @@ export function CampaignBuilder() {
                 >
                   {i < stepIndex ? <Check className="h-3.5 w-3.5" /> : i + 1}
                 </span>
-                {i < steps.length - 1 && <span className="h-0.5 w-4 bg-ink/30 sm:w-6" />}
+                {i < steps.length - 1 && <span className="h-0.5 w-2 bg-ink/30 sm:w-6" />}
               </li>
             ))}
           </ol>
-          <div className="flex items-center gap-2 rounded-[3px] border-2 border-ink bg-ink px-3 py-1.5">
-            <Coins className="h-4 w-4 text-[color:var(--accent-2)]" />
+          <div className="flex shrink-0 items-center gap-1.5 rounded-[3px] border-2 border-ink bg-ink px-2.5 py-1.5 sm:gap-2 sm:px-3">
+            <Coins className="h-4 w-4 shrink-0 text-[color:var(--accent-2)]" />
             <span className="font-display text-sm font-bold text-[color:var(--accent-2)] sm:text-base">
               {formatUSD(estimate)}
             </span>
@@ -333,8 +336,8 @@ export function CampaignBuilder() {
                     className={cn(
                       "brutal-press group flex flex-col rounded-[4px] border-2 border-ink p-6 text-left transition-all",
                       on
-                        ? "-translate-y-1 text-ink shadow-[8px_8px_0_var(--ink)]"
-                        : "bg-white shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1",
+                        ? `-translate-y-1 ${svc.textOn} shadow-[8px_8px_0_var(--ink)]`
+                        : "bg-white text-ink shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1",
                     )}
                     style={on ? { backgroundColor: svc.accent } : undefined}
                   >
