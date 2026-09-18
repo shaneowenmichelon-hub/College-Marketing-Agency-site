@@ -1,16 +1,19 @@
 "use client";
 
-import { sitePhotos } from "@/site.config";
+import { sitePhotos, heroCollage } from "@/site.config";
 
 /**
  * Scrolling image collage for the hero. Two rows drifting in opposite directions
- * so 10-15 photos are on screen at once. Pulls from `sitePhotos` in site.config,
- * so swapping in real ZMM/event photos there updates this automatically. Pauses
- * on hover; static under reduced motion (via the shared `.marquee-track` rule).
+ * so 10-15 photos are on screen at once. Uses `heroCollage` from site.config when
+ * populated (real ZMM/event photos in /public/images/hero), else falls back to
+ * the stock `sitePhotos`. Pauses on hover; static under reduced motion (via the
+ * shared `.marquee-track` rule).
  */
 
-const ROW_A = sitePhotos.slice(0, 8);
-const ROW_B = sitePhotos.slice(8, 16);
+const PHOTOS = heroCollage.length ? heroCollage : sitePhotos;
+const HALF = Math.ceil(PHOTOS.length / 2);
+const ROW_A = PHOTOS.slice(0, HALF).slice(0, 8);
+const ROW_B = PHOTOS.slice(HALF).slice(0, 8);
 
 function Row({
   items,

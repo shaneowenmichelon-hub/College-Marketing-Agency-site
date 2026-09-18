@@ -527,6 +527,15 @@ export const sitePhotos: SitePhoto[] = [
   { src: unsplash("1533105079780-92b9be482077"), alt: "Hands up at a concert", seed: "concert-3" },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// HERO COLLAGE - real event/activation photos for the homepage hero reel.
+// Drop web-ready images (ideally <500KB each, ~1200px wide, .jpg/.webp) in
+// /public/images/hero/ and list them here. Leave empty to fall back to the
+// stock sitePhotos above. This is the single swap point for real ZMM photos.
+// Example: { src: "/images/hero/nutrl-tailgate.jpg", alt: "NÜTRL campus tailgate", seed: "nutrl-1" }
+// ─────────────────────────────────────────────────────────────────────────────
+export const heroCollage: SitePhoto[] = [];
+
 /** Guaranteed real-photo fallback (rights-safe, always resolves). */
 export function photoFallback(seed: string, w = 1200, h = 900): string {
   return `https://picsum.photos/seed/ch-${seed}/${w}/${h}`;
