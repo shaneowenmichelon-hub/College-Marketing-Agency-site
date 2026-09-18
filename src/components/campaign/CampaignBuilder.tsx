@@ -298,8 +298,8 @@ export function CampaignBuilder() {
 
   return (
     <div>
-      {/* Progress + running total */}
-      <div className="sticky top-16 z-30 mb-8 rounded-[4px] border-2 border-ink bg-surface px-3 py-2.5 shadow-[4px_4px_0_var(--ink)] sm:px-4 sm:py-3 lg:top-20">
+      {/* Progress + running total (scrolls with the page so it never overlaps the heading) */}
+      <div className="mb-8 rounded-[4px] border-2 border-ink bg-surface px-3 py-2.5 shadow-[4px_4px_0_var(--ink)] sm:px-4 sm:py-3">
         <div className="flex items-center justify-between gap-3">
           <ol className="flex min-w-0 items-center gap-1 sm:gap-2">
             {steps.map((s, i) => (
