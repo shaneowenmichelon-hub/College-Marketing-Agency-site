@@ -7,7 +7,7 @@ import { testimonials } from "@/site.config";
 
 /**
  * Rotating client review for the contact ("Book a Call") page. Cycles through the
- * testimonials every 6 seconds with a soft fade. Reduced motion shows a static
+ * testimonials every 8 seconds with a soft fade. Reduced motion shows a static
  * one and does not auto-advance.
  */
 const REVIEWS = testimonials.filter((t) => t.quote.trim().length > 0);
@@ -18,7 +18,7 @@ export function RotatingReview() {
 
   useEffect(() => {
     if (reduce || REVIEWS.length <= 1) return;
-    const id = setInterval(() => setI((n) => (n + 1) % REVIEWS.length), 6000);
+    const id = setInterval(() => setI((n) => (n + 1) % REVIEWS.length), 8000);
     return () => clearInterval(id);
   }, [reduce]);
 
