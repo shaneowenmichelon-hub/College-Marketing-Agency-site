@@ -9,10 +9,11 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { siteConfig, getStat } from "@/site.config";
+import { siteConfig, clients } from "@/site.config";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { MotionTicker } from "@/components/home/MotionTicker";
+import { ClientMarquee } from "@/components/ClientMarquee";
+import { HeroCollage } from "@/components/home/HeroCollage";
 
 /**
  * Fallback coin (reduced motion / pre-hydration): the tappable CS-3D CA coin,
@@ -121,18 +122,18 @@ const SPOOL = { x: 214, y: 392, r: 34 };
 const GROUND_Y = 452;
 
 function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
-  const appear = useTransform(progress, [0, 0.08], [0, 1]);
-  // Coin center Y: reeled straight down in 2 steps (with holds), then a fast drop
-  // to the ground, after which the page scrolls on.
+  const appear = useTransform(progress, [0, 0.1], [0, 1]);
+  // One scroll: the coin is reeled straight down, then drops to the ground with a
+  // dust burst near the end, after which the page scrolls on.
   const coinY = useTransform(
     progress,
-    [0.08, 0.32, 0.42, 0.66, 0.74, 0.9, 1],
-    [150, 220, 220, 290, 290, GROUND_Y - COIN_R, GROUND_Y - COIN_R],
+    [0.15, 0.7, 0.88, 1],
+    [150, 300, GROUND_Y - COIN_R, GROUND_Y - COIN_R],
   );
   const ropeEndY = useTransform(coinY, (v) => v - COIN_R); // hang-rope meets coin top
-  const hangRopeOpacity = useTransform(progress, [0, 0.08, 0.74, 0.8], [0, 1, 1, 0]);
-  const dustOpacity = useTransform(progress, [0.74, 0.8, 0.98], [0, 1, 0]);
-  const dustScale = useTransform(progress, [0.74, 1], [0.3, 3.2]);
+  const hangRopeOpacity = useTransform(progress, [0, 0.1, 0.8, 0.88], [0, 1, 1, 0]);
+  const dustOpacity = useTransform(progress, [0.8, 0.88, 0.99], [0, 1, 0]);
+  const dustScale = useTransform(progress, [0.8, 1], [0.3, 3.2]);
 
   return (
     <div className="relative mx-auto w-full max-w-[240px] justify-self-center sm:max-w-[300px] lg:max-w-[360px]">
@@ -259,10 +260,10 @@ export function Hero() {
   };
 
   return (
-    <div ref={wrapRef} className={active ? "relative h-[180vh] sm:h-[210vh]" : "relative"}>
+    <div ref={wrapRef} className={active ? "relative h-[150vh] sm:h-[160vh]" : "relative"}>
       <section
         className={`grain relative overflow-hidden border-b-2 border-ink bg-ink text-white ${
-          active ? "sticky top-0 flex min-h-[100svh] flex-col justify-center" : ""
+          active ? "sticky top-0 flex min-h-[100svh] flex-col justify-between" : ""
         }`}
       >
         <div aria-hidden className="mesh pointer-events-none absolute inset-0" />
@@ -292,7 +293,7 @@ export function Hero() {
                 className="mt-6 max-w-4xl text-balance font-display text-display-lg font-bold leading-[0.95]"
               >
                 Where brands meet{" "}
-                <span className="font-serif font-normal italic text-[color:var(--accent-2)]">campus culture.</span>
+                <span className="text-[color:var(--accent-2)]">campus culture.</span>
               </motion.h1>
 
               <motion.p
@@ -300,20 +301,20 @@ export function Hero() {
                 className="mt-6 max-w-2xl text-lg leading-relaxed text-[color:var(--muted-on-dark)] sm:text-xl"
               >
                 We put your brand in front of college students through events, brand
-                ambassadors, and product placement — on the campuses where they live,
-                study, and go out.
+                ambassadors, and product placement. We reach them on the campuses where
+                they live, study, and go out.
               </motion.p>
 
-              <motion.div variants={item} className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <motion.div variants={item} className="mt-9 flex w-full max-w-xs flex-col gap-3">
                 <Button href="/contact" variant="lime" size="lg">
-                  Get Started
+                  Book a Call
                   <ArrowRight className="h-4 w-4" />
-                </Button>
-                <Button href="/build-a-campaign" variant="magenta" size="lg">
-                  Build a Campaign
                 </Button>
                 <Button href="/become-an-ambassador" variant="ghost-dark" size="lg">
                   Become an Ambassador
+                </Button>
+                <Button href="/build-a-campaign" variant="magenta" size="lg">
+                  Build a Campaign
                 </Button>
               </motion.div>
             </motion.div>
@@ -322,9 +323,21 @@ export function Hero() {
           </div>
         </Container>
 
-        <MotionTicker
-          items={["EVENTS", "BRAND AMBASSADORS", "PRODUCT PLACEMENT", `${getStat("campuses")}+ MARKETS`]}
-        />
+        {/* Scrolling event collage + brand logos (before you scroll).
+            Swap sitePhotos in site.config for real event photos. */}
+        <div className="relative mt-8 sm:mt-10">
+          <Container>
+            <HeroCollage />
+          </Container>
+          <div className="mt-6 border-t-2 border-white/10 pt-5">
+            <Container>
+              <p className="mb-3 text-center text-[11px] font-medium uppercase tracking-widest text-[color:var(--muted-on-dark)]">
+                Brands we&apos;ve worked with
+              </p>
+            </Container>
+            <ClientMarquee clients={clients} onDark />
+          </div>
+        </div>
       </section>
     </div>
   );

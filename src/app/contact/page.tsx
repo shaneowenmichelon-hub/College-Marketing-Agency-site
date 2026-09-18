@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { siteConfig } from "@/site.config";
+import { Mail, MapPin, Phone, Star } from "lucide-react";
+import { siteConfig, testimonials, clients } from "@/site.config";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { ContactForm } from "@/components/forms/ContactForm";
+import { ClientMarquee } from "@/components/ClientMarquee";
 
 export const metadata: Metadata = {
   title: "Contact - Let's reach students together",
@@ -19,14 +20,41 @@ export default function ContactPage() {
       <div className="grid gap-12 lg:grid-cols-2">
         {/* Left: pitch + info */}
         <Reveal>
-          <Badge className="mb-4">Get Started</Badge>
+          <Badge className="mb-4">Book a Call</Badge>
           <h1 className="text-balance font-display text-4xl font-bold leading-[1.05] text-ink sm:text-5xl">
             Let&apos;s put your brand on campus.
           </h1>
           <p className="mt-4 max-w-md text-lg text-[color:var(--muted-on-light)]">
             Tell us your goal and we&apos;ll come back with a plan across events, brand
-            ambassadors, and product placement - mapped to the campuses that matter for you.
+            ambassadors, and product placement, mapped to the campuses that matter for you.
           </p>
+
+          {/* Social proof: brands + a review, on the form's left side */}
+          <div className="mt-8 max-w-md">
+            <p className="mono-label text-[11px] font-bold text-[color:var(--muted-on-light)]">
+              Trusted by brands like
+            </p>
+            <div className="mt-3">
+              <ClientMarquee clients={clients} />
+            </div>
+            {testimonials.filter((t) => t.quote.trim()).slice(0, 1).map((t) => (
+              <figure
+                key={t.name}
+                className="mt-6 rounded-[4px] border-2 border-ink bg-surface p-5 shadow-[5px_5px_0_var(--accent-2)]"
+              >
+                <div className="flex gap-0.5" aria-label="5 out of 5 stars">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-[color:var(--accent-2)] text-ink" aria-hidden />
+                  ))}
+                </div>
+                <blockquote className="mt-3 text-sm leading-relaxed text-ink">{t.quote}</blockquote>
+                <figcaption className="mt-3 text-xs font-bold text-ink">
+                  {t.name}
+                  <span className="font-normal text-[color:var(--muted-on-light)]"> · {t.title}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
 
           <dl className="mt-10 space-y-5">
             <div className="flex items-center gap-3">

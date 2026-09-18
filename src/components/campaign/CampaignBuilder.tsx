@@ -307,8 +307,8 @@ export function CampaignBuilder() {
                 <span
                   className={cn(
                     "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-ink font-display text-[11px] font-bold sm:h-7 sm:w-7 sm:text-xs",
-                    i < stepIndex && "bg-ink text-[color:var(--accent-2)]",
-                    i === stepIndex && "bg-[color:var(--accent-2)] text-ink",
+                    i < stepIndex && "bg-[color:var(--accent-2)] text-ink",
+                    i === stepIndex && "bg-[color:var(--accent-2)] text-ink ring-2 ring-ink ring-offset-1",
                     i > stepIndex && "bg-white text-ink",
                   )}
                 >
@@ -340,27 +340,14 @@ export function CampaignBuilder() {
           {howItWorks.map((label, i) => (
             <li
               key={label}
-              className="flex items-center gap-2 rounded-[3px] border-2 border-ink bg-white px-3 py-2 shadow-[3px_3px_0_var(--ink)]"
+              className="flex items-center gap-2 rounded-[3px] border border-[color:var(--border-on-light)] bg-[color:var(--surface-muted)] px-3 py-2"
             >
-              <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-ink bg-[color:var(--accent-2)] font-display text-[11px] font-bold text-ink">
-                {i + 1}
-              </span>
-              <span className="text-xs font-bold text-ink">{label}</span>
+              <span className="font-display text-sm font-bold text-accent">{i + 1}.</span>
+              <span className="text-xs font-medium text-[color:var(--muted-on-light)]">{label}</span>
             </li>
           ))}
         </ol>
       )}
-
-      {/* Per-step guidance */}
-      <div className="mb-8 flex items-start gap-3 rounded-[4px] border-2 border-ink bg-[color:var(--surface-muted)] p-4">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)]">
-          <Lightbulb className="h-4 w-4 text-ink" />
-        </span>
-        <p className="text-sm leading-relaxed text-ink">
-          <span className="font-bold">How to: </span>
-          {guide[step]}
-        </p>
-      </div>
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -685,6 +672,17 @@ export function CampaignBuilder() {
           )}
         </motion.div>
       </AnimatePresence>
+
+      {/* Per-step guidance (kept at the bottom, under the choices) */}
+      <div className="mt-8 flex items-start gap-3 rounded-[4px] border border-[color:var(--border-on-light)] bg-[color:var(--surface-muted)] p-4">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)]">
+          <Lightbulb className="h-4 w-4 text-ink" />
+        </span>
+        <p className="text-sm leading-relaxed text-ink">
+          <span className="font-bold">How to: </span>
+          {guide[step]}
+        </p>
+      </div>
 
       {/* Nav */}
       <div className="mt-10 flex items-center justify-between gap-4">

@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Rocket,
 } from "lucide-react";
-import { siteConfig, pricing, clients, testimonials } from "@/site.config";
+import { siteConfig, pricing, testimonials } from "@/site.config";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
@@ -23,7 +23,6 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProcessStep } from "@/components/ProcessStep";
 import { CampusGrid } from "@/components/CampusGrid";
-import { ClientMarquee } from "@/components/ClientMarquee";
 import { TestimonialMarquee } from "@/components/TestimonialMarquee";
 import { EventImage } from "@/components/EventImage";
 import { LeadMagnet } from "@/components/LeadMagnet";
@@ -44,7 +43,7 @@ const serviceIcons = {
 const process = [
   {
     title: "Understand the goal",
-    body: "We start with the outcome you're after - awareness, trial, sign-ups, sales - and work backward from there.",
+    body: "We start with the outcome you're after, whether that's awareness, trial, sign-ups, or sales, then work backward from there.",
     icon: Target,
   },
   {
@@ -54,7 +53,7 @@ const process = [
   },
   {
     title: "Stretch the budget",
-    body: "We map spend to impact so every dollar shows up on the ground and online - no waste, no vanity metrics.",
+    body: "We map spend to impact so every dollar shows up on the ground and online, with no waste and no vanity metrics.",
     icon: Wallet,
   },
   {
@@ -67,7 +66,7 @@ const process = [
 const whyUs = [
   {
     title: "Culturally native",
-    body: "We don't study campus culture from the outside - we run it. Your brand shows up fluent, not forced.",
+    body: "We don't study campus culture from the outside. We run it, so your brand shows up fluent, not forced.",
     icon: Sparkles,
   },
   {
@@ -77,7 +76,7 @@ const whyUs = [
   },
   {
     title: "A vetted student network",
-    body: "Real students, screened and trained - not a spreadsheet of random handles.",
+    body: "Real students, screened and trained, not a spreadsheet of random handles.",
     icon: ShieldCheck,
   },
   {
@@ -92,24 +91,7 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* Trust bar */}
-      <Section tone="light" className="py-10 sm:py-12">
-        <Reveal className="text-center">
-          {siteConfig.showCredibility && (
-            <p className="text-sm font-medium text-[color:var(--muted-on-light)]">
-              {siteConfig.credibilityLine}
-            </p>
-          )}
-          <p className="mt-2 text-xs uppercase tracking-widest text-[color:var(--muted-on-light)]/70">
-            Brands the team has partnered with
-          </p>
-        </Reveal>
-        <div className="mt-8">
-          <ClientMarquee clients={clients} />
-        </div>
-      </Section>
-
-      {/* Testimonials - slow marquee right below the brand wall */}
+      {/* Testimonials - slow marquee (brand logos now live in the hero) */}
       <Section tone="muted" className="py-12 sm:py-16">
         <Reveal className="text-center">
           <span className="sticker mono-label bg-[color:var(--accent-2)] px-3 py-1.5 text-[11px] font-bold text-ink">
@@ -131,7 +113,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="What we do"
             title="A modern college-marketing agency built for how students actually live."
-            intro="Legacy campus-media shops sell you posters and email blasts. We connect your brand to students through the things they show up for - the events they go to, the friends they trust, and the feeds they scroll. It's marketing that feels native to campus, because it is."
+            intro="Legacy campus-media shops sell you posters and email blasts. We connect your brand to students through the things they show up for: the events they go to, the friends they trust, and the feeds they scroll. It's marketing that feels native to campus, because it is."
           />
           <Reveal delay={0.1}>
             <EventImage index={1} aspect="aspect-[5/4]" />
@@ -145,7 +127,7 @@ export default function HomePage() {
       <Section tone="light">
         <SectionHeading
           eyebrow="Services"
-          title="Three ways to reach students - one integrated plan."
+          title="Three ways to reach students, one integrated plan."
           intro="Run them on their own or stack them together. Either way, it's one team and one plan."
         />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -168,7 +150,7 @@ export default function HomePage() {
         <SectionHeading
           eyebrow="Our process"
           title="How a campaign comes together."
-          intro="A simple, repeatable path from goal to plan - designed to make your budget work harder."
+          intro="A simple, repeatable path from goal to plan, designed to make your budget work harder."
         />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((p, i) => (
@@ -188,7 +170,7 @@ export default function HomePage() {
         <SectionHeading
           eyebrow="Campus network"
           title="On the campuses that matter."
-          intro="The markets our network spans and is launching across - big-ten towns, SEC country, and major metros where students live, study, and go out."
+          intro="The markets our network spans and is launching across: big-ten towns, SEC country, and major metros where students live, study, and go out."
         />
         <div className="mt-12">
           <CampusGrid />
@@ -201,7 +183,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Work"
             title="The playbook, proven."
-            intro="How events, ambassadors, and product placement move brands - shown through real campaign case studies and selected industry references."
+            intro="How events, ambassadors, and product placement move brands, shown through real campaign case studies and selected industry references."
           />
           <Reveal>
             <Link
