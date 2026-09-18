@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { siteConfig } from "@/site.config";
 import { Container } from "./ui/Container";
 import { Logo } from "./Logo";
@@ -98,10 +98,6 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 shrink-0" aria-hidden />
                 <span>{siteConfig.contact.email}</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 shrink-0" aria-hidden />
-                <span>{siteConfig.contact.phone}</span>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 shrink-0" aria-hidden />

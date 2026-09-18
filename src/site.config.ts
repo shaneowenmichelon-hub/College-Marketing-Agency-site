@@ -61,7 +61,7 @@ export const siteConfig = {
   /** Primary contact info - sourced from Shane's ZMM email signature. */
   contact: {
     email: "shane@zmmevents.com",
-    phone: "847-420-9553",
+    phone: "",
     location: "New York, NY",
   },
 
@@ -70,7 +70,7 @@ export const siteConfig = {
     {
       name: "New York",
       address: "Brand partnerships and campus activations",
-      phone: "847-420-9553",
+      phone: "",
     },
   ] as Office[],
 

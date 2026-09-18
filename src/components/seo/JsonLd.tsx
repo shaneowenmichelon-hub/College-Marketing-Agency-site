@@ -40,7 +40,6 @@ export function OrganizationJsonLd() {
           "@id": `${siteConfig.url}/#localbusiness`,
           name: siteConfig.companyName,
           url: siteConfig.url,
-          telephone: siteConfig.contact.phone,
           email: siteConfig.contact.email,
           address: siteConfig.offices.map((o) => ({
             "@type": "PostalAddress",
