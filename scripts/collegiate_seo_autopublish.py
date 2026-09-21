@@ -103,9 +103,21 @@ licensed/owned photograph documented in content/seo/public-photo-library.md, not
 art. Never imply stock photos depict a Collegiate campaign, client or endorsement.
 Write 1200-1800 words, 4-6 H2s, direct second-person advice, an actionable checklist,
 short title including the keyword, metaTitle <60 chars and metaDescription <155 chars.
-Include at least 2 service links (events, brand-ambassadors, or product-placement)
-and /contact. Valid ctaService: events, brand-ambassadors, product-placement.
-Do not use the removed /services/influencers URL. Banned: leverage, synergy,
+Include AT LEAST THREE distinct contextual body-link destinations: >=2 internal
+and >=1 credible, topic-relevant external article, guidance, video, or public social
+reference. Preserve the stronger existing requirement: TWO DISTINCT service links
+chosen from /services/events, /services/brand-ambassadors, /services#product-placement,
+PLUS /contact, PLUS at least one external reference (normally >=4 destinations).
+Use descriptive anchors naturally within relevant paragraphs or substantive lists,
+not a boilerplate links block. Do not repeat a destination. Photo credits, image
+licenses, menus, footer links, headings and bare link lists do NOT count.
+Research and READ each external source with web tools before citing it; verify it
+is publicly accessible, free, relevant to the surrounding claim, and not broken,
+login-only or paywalled. Prefer primary/regulatory/institutional sources. Never
+imply a general reference verifies unrelated Collegiate client results. Use HTTPS
+and specific reference pages, not generic homepages. Keep all useful requirements.
+Valid ctaService: events, brand-ambassadors, product-placement.
+Do not use the removed /services/influencers or /services/product-placement URL. Banned: leverage, synergy,
 in today's fast-paced world. Do not invent statistics, clients, quotes, outcomes,
 pricing or company claims. Avoid em dashes. Give practical recommendations, not hype.
 Use today's date in America/Chicago. Only write the article. Return its path.
@@ -142,6 +154,53 @@ def frontmatter(path: Path) -> tuple[dict, str]:
     return data, match[2].strip()
 
 
+def validate_contextual_links(body: str) -> list[dict]:
+    """Count only descriptive links embedded in rendered prose, never credits/code."""
+    from urllib.parse import urlsplit
+    pattern = r"(?<!!)\[([^\]\n]+)\]\(([^)\s]+)\)"
+    prose = re.sub(r"```.*?```|~~~.*?~~~|`[^`]*`", "", body, flags=re.S)
+    prose = "\n".join(line for line in prose.splitlines() if not line.lstrip().startswith("#"))
+    links = []
+    seen = set()
+    for paragraph in prose.split("\n\n"):
+        if re.match(r"\s*(?:photo|image|credit|license)\s*:", paragraph, re.I):
+            continue
+        for match in re.finditer(pattern, paragraph):
+            anchor, href = match.groups()
+            if len(re.findall(r"[A-Za-z]+", re.sub(pattern, "", paragraph))) < 3:
+                raise ValueError("link-without-context")
+            if len(anchor.strip()) < 4 or anchor.casefold() in ("here", "click here", "source", "link"):
+                raise ValueError("link-anchor")
+            if re.search(r'[<>"\'\\\\\s]', href) or re.search(r'%0[ad]|%22|%27|%3[ce]', href, re.I):
+                raise ValueError("invalid-link")
+            parsed = urlsplit(href)
+            internal = href.startswith("/") and not href.startswith("//")
+            if internal:
+                if not re.fullmatch(r"/[a-z0-9/-]+(?:#[a-z0-9-]+)?", href) or '/services/influencers' in href or href == '/services/product-placement':
+                    raise ValueError("invalid-internal-link")
+                destination = href.rstrip("/")
+            else:
+                host = parsed.hostname or ""
+                if parsed.scheme != "https" or parsed.username or parsed.password or parsed.port not in (None, 443) or not re.fullmatch(r"[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}", host) or host.endswith((".local", ".localhost", ".internal")) or parsed.path in ("", "/"):
+                    raise ValueError("invalid-external-link")
+                if host in ("collegiateagency.com", "www.collegiateagency.com"):
+                    raise ValueError("use-relative-internal-link")
+                destination = f"https://{host}{parsed.path.rstrip('/')}"  # fragments/UTMs cannot inflate destination counts
+            if destination in seen:
+                raise ValueError("duplicate-link-destination")
+            seen.add(destination)
+            links.append({"anchor": anchor, "href": href, "kind": "internal" if internal else "external"})
+    internals = {link["href"] for link in links if link["kind"] == "internal"}
+    if not any(link["kind"] == "external" for link in links):
+        raise ValueError("contextual-external-link")
+    services = {"/services/events", "/services/brand-ambassadors", "/services#product-placement"}
+    if len(internals) < 2 or len(internals & services) < 2 or "/contact" not in internals:
+        raise ValueError("contextual-internal-service-contact-links")
+    if len(links) < 3:
+        raise ValueError("contextual-three-destinations")
+    return links
+
+
 def validate_article(path: Path, worktree: Path) -> dict:
     data, body = frontmatter(path)
     required = "slug title metaTitle metaDescription primaryKeyword category services excerpt date ctaService image imageAlt imageCredit imageSource imageLicense".split()
@@ -166,7 +225,8 @@ def validate_article(path: Path, worktree: Path) -> dict:
         raise ValueError("editorial-length")
     if re.search(r"\b(leverage|synergy)\b|in today's fast-paced world|/services/influencers", body, re.I):
         raise ValueError("banned-copy")
-    if body.count("](/services/") < 2 or "](/contact)" not in body or not re.search(r"^[-\d].*", body, re.M):
+    body_links = validate_contextual_links(body)
+    if not re.search(r"^[-\d].*", body, re.M):
         raise ValueError("links-checklist")
     for prior in path.parent.glob("*.mdx"):
         if prior == path:
@@ -192,10 +252,10 @@ def validate_article(path: Path, worktree: Path) -> dict:
         raise ValueError("photo-license-provenance")
     if any(not data[k].startswith("https://") for k in ("imageSource", "imageLicense")):
         raise ValueError("photo-credit-url")
-    return {**data, "word_count": count,
+    return {**data, "word_count": count, "body_links": body_links,
             "article_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "image_sha256": hashlib.sha256(photo.read_bytes()).hexdigest(),
-            "body_sentinel": re.sub(r"\s+", " ", body.split("\n\n")[0]).strip()[:100]}
+            "body_sentinel": re.sub(r"\s+", " ", re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", body.split("\n\n")[0]).replace("**", "")).strip()[:100]}
 
 
 def prepare(state: dict, run_no: int) -> dict:
@@ -233,6 +293,16 @@ def prepare(state: dict, run_no: int) -> dict:
         raise RuntimeError("generator-edited-existing-files")
     artifact = validate_article(articles[0], worktree)
     return {**artifact, **{k: prep[k] for k in ("worktree", "base", "run_no")}}
+
+
+def preflight_links(artifact: dict) -> None:
+    result = subprocess.run(
+        ["node", str(Path(__file__).with_name("verify-seo-live.mjs")), LIVE_BASE, "--targets"],
+        cwd=Path(artifact["worktree"]), input=json.dumps(artifact), text=True,
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=180,
+    )
+    if result.returncode:
+        raise ValueError("link-target-preflight")
 
 
 def publish_prepared(artifact: dict) -> None:
@@ -275,6 +345,8 @@ def publish_prepared(artifact: dict) -> None:
     command(["npx", "playwright", "install", "chromium"], worktree, 300)
     if git(worktree, "diff", "--name-only", "HEAD"):
         raise ValueError("build-modified-tracked-files")
+    if artifact.get("body_links"):
+        preflight_links(artifact)
     artifact["commit"] = git(worktree, "rev-parse", "HEAD")
     git(worktree, "push", "origin", f"HEAD:{BRANCH}")
     git(worktree, "fetch", "origin", BRANCH)
@@ -286,7 +358,7 @@ def verify_live(artifact: dict) -> bool:
     deadline = time.monotonic() + 300
     while time.monotonic() < deadline:
         try:
-            result = subprocess.run(["node", "scripts/verify-seo-live.mjs", LIVE_BASE],
+            result = subprocess.run(["node", str(Path(__file__).with_name("verify-seo-live.mjs")), LIVE_BASE],
                                     cwd=worktree, input=json.dumps(artifact), text=True,
                                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                     timeout=min(90, max(1, deadline - time.monotonic())))

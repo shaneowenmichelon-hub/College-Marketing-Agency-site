@@ -87,7 +87,7 @@ const sosInsightBody: ArticleBlock[] = [
   { type: "h2", text: "The strategy: combine trusted student distribution with localized paid media" },
   {
     type: "p",
-    html: "Ambassador posts gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears.",
+    html: "<a href=\"/services/brand-ambassadors\">Ambassador posts</a> gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears. For brands planning a similar ambassador brief, the <a href=\"https://www.law.cornell.edu/cfr/text/16/255.5\">FTC guidance on disclosing paid brand relationships</a> is a compliance reference, not independent verification of the campaign results reported here.",
   },
   {
     type: "p",
@@ -134,7 +134,7 @@ const nutrlInsightBody: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: "This is exactly what product placement should do in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.",
+    html: "This is exactly what <a href=\"/services#product-placement\">product placement should do</a> in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.",
   },
   { type: "h2", text: "Why presenting sponsor status mattered" },
   {
@@ -143,7 +143,7 @@ const nutrlInsightBody: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: "The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports.",
+    html: "The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports. For future alcohol campaigns, review the <a href=\"https://www.ttb.gov/public-information/industry-circulars/ttb-industry-circular-2024-1\">TTB guidance on alcohol advertising in social media</a> with counsel; it addresses advertising requirements, not verification of the results in this case study.",
   },
   { type: "h2", text: "The result: product placement with measurable media value" },
   {
@@ -177,7 +177,7 @@ const welcomeWeekBody: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: "And here's the part most brands miss: this isn't a once-a-year event. Both fall and spring open with a welcome-week window, which makes it a <strong>one-to-two-times-per-school-year</strong> opportunity to plant that first impression. Miss the fall, and there's a second front door in January.",
+    html: "And here's the part most brands miss: this isn't a once-a-year event. Both fall and spring open with a <a href=\"/insights/college-welcome-bag-inserts\">welcome-week window</a>, which makes it a <strong>one-to-two-times-per-school-year</strong> opportunity to plant that first impression. Miss the fall, and there's a second front door in January.",
   },
   { type: "h2", text: "The cost of showing up late" },
   {
@@ -222,7 +222,7 @@ const welcomeWeekBody: ArticleBlock[] = [
   { type: "h2", text: "How a brand plugs in" },
   {
     type: "p",
-    html: "Once you're inside a welcome-week show, the ways to integrate are concrete and stack on top of each other:",
+    html: "Once you're inside a welcome-week show, the ways to integrate are concrete and stack on top of each other: If ambassadors or creators post about those integrations, include the <a href=\"https://www.law.cornell.edu/cfr/text/16/255.5\">FTC disclosure guidance for paid or gifted posts</a> in the brief so a familiar campus voice does not obscure the brand relationship.",
   },
   {
     type: "ul",
@@ -351,7 +351,7 @@ const sosConsultantsArticle: ArticleBlock[] = [
   { type: "h2", text: "The strategy: combine trusted student distribution with localized paid media" },
   {
     type: "p",
-    html: "Ambassador posts gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears.",
+    html: "<a href=\"/services/brand-ambassadors\">Ambassador posts</a> gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears. For brands planning a similar ambassador brief, the <a href=\"https://www.law.cornell.edu/cfr/text/16/255.5\">FTC guidance on disclosing paid brand relationships</a> is a compliance reference, not independent verification of the campaign results reported here.",
   },
   {
     type: "p",
@@ -398,7 +398,7 @@ const nutrlNightSchoolArticle: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: "This is exactly what product placement should do in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.",
+    html: "This is exactly what <a href=\"/services#product-placement\">product placement should do</a> in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.",
   },
   { type: "h2", text: "Why presenting sponsor status mattered" },
   {
@@ -407,7 +407,7 @@ const nutrlNightSchoolArticle: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: "The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports.",
+    html: "The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports. For future alcohol campaigns, review the <a href=\"https://www.ttb.gov/public-information/industry-circulars/ttb-industry-circular-2024-1\">TTB guidance on alcohol advertising in social media</a> with counsel; it addresses advertising requirements, not verification of the results in this case study.",
   },
   { type: "h2", text: "The result: product placement with measurable media value" },
   {

@@ -27,6 +27,7 @@ class PublisherTests(unittest.TestCase):
         with patch.object(p.subprocess,"run",side_effect=[subprocess.CompletedProcess([],1,"not live"),subprocess.CompletedProcess([],0,"verified")]) as run, patch("time.sleep"):
             self.assertTrue(p.verify_live({"worktree":str(self.root)}))
         self.assertEqual(run.call_count,2)
+        self.assertEqual(run.call_args.args[0][1], str(Path(p.__file__).with_name('verify-seo-live.mjs')), 'Must use installed verifier, not stale draft worktree code')
 
     def test_missing_operational_state_migrates_existing_cadence_without_touching_repo(self):
         self.state.unlink()
@@ -116,11 +117,21 @@ imageLicense: https://unsplash.com/license
 ---
 """
         body="Plan a campus pilot with clear responsibilities.\n\n" + "\n\n".join("## Section " + str(i) + "\n\n" + "Practical campus planning advice. "*75 for i in range(4))
-        body += "\n\n- Checklist item\n\n[Events](/services/events) [Ambassadors](/services/brand-ambassadors) [Contact](/contact)"
+        body += "\n\n- Checklist item\n\nPlan [campus events](/services/events) with [student ambassadors](/services/brand-ambassadors), and [contact the team](/contact) before committing the final scope."
+        external = "\n\nBrief paid creators with the [FTC disclosure guide](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) before any posts go live."
+        body += external
         article=blog/"campus-pilot.mdx"; article.write_text(front+body)
         valid=p.validate_article(article,self.root)
         self.assertEqual(valid["slug"],"campus-pilot")
         self.assertTrue(valid["image_sha256"])
+        self.assertEqual(len(valid.get("body_links", [])), 4, 'Link destinations absent from artifact')
+        article.write_text(front+body.replace('Plan a campus pilot with clear responsibilities.', '[Plan a campus pilot](/insights/campus-guide) with clear responsibilities.'))
+        self.assertEqual(p.validate_article(article,self.root)['body_sentinel'], 'Plan a campus pilot with clear responsibilities.')
+        linked_intro = body.replace('Plan a campus pilot with clear responsibilities.', 'Plan a [campus pilot](/insights/college-marketing-agency) with clear responsibilities.')
+        article.write_text(front+linked_intro)
+        self.assertEqual(p.validate_article(article,self.root)['body_sentinel'], 'Plan a campus pilot with clear responsibilities.')
+        article.write_text(front+body.replace(external,''))
+        with self.assertRaisesRegex(ValueError, 'external'): p.validate_article(article,self.root)
         article.write_text((front+body).replace("image: /images/blog/campus.jpg\n",""))
         with self.assertRaises(ValueError): p.validate_article(article,self.root)
         article.write_text(front+body+'\n<script>alert(1)</script>')

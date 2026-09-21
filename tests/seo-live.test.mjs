@@ -26,5 +26,6 @@ test('live verifier rejects false success and checks exact article, sitemap and 
       mode=m; await assert.rejects(()=>verify(a,base),undefined,m+' must fail');
     }
     mode='ok'; await assert.rejects(()=>verify({...a,image_sha256:'0'.repeat(64)},base));
+    await assert.rejects(()=>verify({...a,body_links:[{href:'/services/events',anchor:'events'},{href:'/contact',anchor:'contact'},{href:'https://www.ftc.gov/reference',anchor:'reference'}]},base),undefined,'missing rendered contextual links must fail');
   } finally {server.close();}
 });

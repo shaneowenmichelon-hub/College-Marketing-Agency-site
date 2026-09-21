@@ -1,0 +1,1472 @@
+{
+  "policy": "Exactly two NEW contextual destinations per published article; preserve existing useful links, including pre-existing repeats.",
+  "base_commit": "9e0e74d",
+  "entries": [
+    {
+      "url": "https://collegiateagency.com/insights/campus-activation-ideas",
+      "path": "/insights/campus-activation-ideas",
+      "slug": "campus-activation-ideas",
+      "scope": "insights",
+      "source_file": "content/blog/campus-activation-ideas.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-event-staffing-agency",
+          "anchor": "Staff for the real peak",
+          "kind": "internal"
+        },
+        {
+          "href": "https://csrc.nist.gov/pubs/sp/800/122/final",
+          "anchor": "NIST guidance on protecting personal information",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Sort the boring logistics before the creative expands. Get the permits and space approvals in writing rather than assuming access. Confirm power, water, shade, tables, and load-in and load-out timing. Staff for the real peak, not the average, and brief every person on what the brand is, what the offer is, and what to do when someone asks a hard question. Students can tell instantly whether the person at the table cares, and that impression sticks to the brand.\n",
+          "new": "Sort the boring logistics before the creative expands. Get the permits and space approvals in writing rather than assuming access. Confirm power, water, shade, tables, and load-in and load-out timing. [Staff for the real peak](/insights/campus-event-staffing-agency), not the average, and brief every person on what the brand is, what the offer is, and what to do when someone asks a hard question. Students can tell instantly whether the person at the table cares, and that impression sticks to the brand.\n"
+        },
+        {
+          "old": "Then use what you captured. This is where most campus activations quietly fail. The email list sits untouched, the followers never hear from the brand again, the great photos never get repurposed. The point of collecting sign-ups and scans is the follow-up: a message, an offer, an invite to the next thing. Warn yourself off the pure gimmick here — a viral-looking moment with no capture and no follow-up feels great on the day and produces nothing you can build on. A modest activation with clean capture and a real follow-up plan will beat it every time.\n",
+          "new": "Then use what you captured. This is where most campus activations quietly fail. The email list sits untouched, the followers never hear from the brand again, the great photos never get repurposed. The point of collecting sign-ups and scans is the follow-up: a message, an offer, an invite to the next thing. Warn yourself off the pure gimmick here — a viral-looking moment with no capture and no follow-up feels great on the day and produces nothing you can build on. A modest activation with clean capture and a real follow-up plan will beat it every time. Before using those sign-ups, assign access and retention responsibilities using the [NIST guidance on protecting personal information](https://csrc.nist.gov/pubs/sp/800/122/final).\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassadors"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/insights/college-festival-sponsorship",
+          "anchor": "college festival sponsorship"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send the brief here"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/campus-bookstore-product-placement",
+      "path": "/insights/campus-bookstore-product-placement",
+      "slug": "campus-bookstore-product-placement",
+      "scope": "insights",
+      "source_file": "content/blog/campus-bookstore-product-placement.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/on-campus-product-sampling",
+          "anchor": "a short demonstration",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.gs1us.org/upcs-barcodes-prefixes/guide-to-upcs",
+          "anchor": "GS1 US guide to UPC product identifiers",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Start with the transaction you want students to complete. If you want an ongoing place to buy your product, a temporary display without replenishment is not enough. If you want a short demonstration, a shelf listing may not include the space or staff you need. Use this guide to evaluate a bookstore opportunity, define the commercial terms, and set up a retail test you can actually interpret.\n",
+          "new": "Start with the transaction you want students to complete. If you want an ongoing place to buy your product, a temporary display without replenishment is not enough. If you want [a short demonstration](/insights/on-campus-product-sampling), a shelf listing may not include the space or staff you need. Use this guide to evaluate a bookstore opportunity, define the commercial terms, and set up a retail test you can actually interpret.\n"
+        },
+        {
+          "old": "Present the exact items you want considered. Include product identifiers, retail packaging dimensions, case quantities, labeling, storage conditions, usable shelf life where applicable, and your ordering process. Ask the retailer which identifiers and product data its systems require. Check that individual units can be displayed, scanned, and sold in the form you intend to deliver.\n",
+          "new": "Present the exact items you want considered. Include product identifiers, retail packaging dimensions, case quantities, labeling, storage conditions, usable shelf life where applicable, and your ordering process. Ask the retailer which identifiers and product data its systems require. Check that individual units can be displayed, scanned, and sold in the form you intend to deliver. The [GS1 US guide to UPC product identifiers](https://www.gs1us.org/upcs-barcodes-prefixes/guide-to-upcs) explains how a retail barcode relates to product identification and checkout.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services#product-placement",
+          "anchor": "product placement options"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events plan"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassadors"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send your product placement brief"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/campus-event-cancellation-policy",
+      "path": "/insights/campus-event-cancellation-policy",
+      "slug": "campus-event-cancellation-policy",
+      "scope": "insights",
+      "source_file": "content/blog/campus-event-cancellation-policy.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-event-staffing-agency",
+          "anchor": "staffing provider",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.weather.gov/safety/lightning-sports",
+          "anchor": "National Weather Service guidance on lightning safety plans",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Ask who contracts with the venue, staffing provider, production supplier, and any student organization involved. Your agency agreement may not use the same cancellation deadlines as the underlying supplier agreements. Request an explanation of which obligations pass through to your brand and which require your approval before they become binding.\n",
+          "new": "Ask who contracts with the venue, [staffing provider](/insights/campus-event-staffing-agency), production supplier, and any student organization involved. Your agency agreement may not use the same cancellation deadlines as the underlying supplier agreements. Request an explanation of which obligations pass through to your brand and which require your approval before they become binding.\n"
+        },
+        {
+          "old": "Set planning checkpoints around your actual commitments: freight release, installation, staff travel, and public opening. At each checkpoint, identify what must be confirmed and who receives the update. Ask the venue and production professionals to establish applicable operating limits. Do not substitute a marketer's improvised weather threshold for their safety plan.\n",
+          "new": "Set planning checkpoints around your actual commitments: freight release, installation, staff travel, and public opening. At each checkpoint, identify what must be confirmed and who receives the update. Ask the venue and production professionals to establish applicable operating limits. Do not substitute a marketer's improvised weather threshold for their safety plan. Use the [National Weather Service guidance on lightning safety plans](https://www.weather.gov/safety/lightning-sports) to frame questions about monitoring, stopping activity, shelter, and resumption; it does not determine contract refund rights.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassadors"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send your event brief"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/campus-event-staffing-agency",
+      "path": "/insights/campus-event-staffing-agency",
+      "slug": "campus-event-staffing-agency",
+      "scope": "insights",
+      "source_file": "content/blog/campus-event-staffing-agency.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-event-cancellation-policy",
+          "anchor": "cancellation, weather changes",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.cdc.gov/niosh/publications/numbered/2022-126.html",
+          "anchor": "NIOSH best practices for protecting temporary workers",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "- **Commercial exceptions:** Review minimum hours, overtime treatment, travel, training, cancellation, weather changes, and who may authorize added charges.\n",
+          "new": "- **Commercial exceptions:** Review minimum hours, overtime treatment, travel, training, [cancellation, weather changes](/insights/campus-event-cancellation-policy), and who may authorize added charges.\n"
+        },
+        {
+          "old": "Confirm who is responsible for employment arrangements, required insurance, payroll, and applicable workplace obligations. Have your procurement or legal team review the proposed arrangement rather than assuming every worker can be treated as an independent contractor. Ask the vendor to identify subcontracting and explain who remains accountable for delivery.\n",
+          "new": "Confirm who is responsible for employment arrangements, required insurance, payroll, and applicable workplace obligations. Have your procurement or legal team review the proposed arrangement rather than assuming every worker can be treated as an independent contractor. Ask the vendor to identify subcontracting and explain who remains accountable for delivery. Review the [NIOSH best practices for protecting temporary workers](https://www.cdc.gov/niosh/publications/numbered/2022-126.html) with the staffing provider and host so safety responsibilities and training are not left between teams.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "event services brief"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassador program"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact Collegiate Agency"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/campus-influencers",
+      "path": "/insights/campus-influencers",
+      "slug": "campus-influencers",
+      "scope": "insights",
+      "source_file": "content/blog/campus-influencers.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/student-influencer-marketing",
+          "anchor": "disclosure requirements",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC rules on disclosing endorsement relationships",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Give creators the campaign context in plain language. Tell them who the brand is trying to reach, what students should know, what action matters, what claims are approved, what cannot be said, and when the post needs to go live. Include product facts, event details, offer terms, disclosure requirements, and any visual must-haves.\n",
+          "new": "Give creators the campaign context in plain language. Tell them who the brand is trying to reach, what students should know, what action matters, what claims are approved, what cannot be said, and when the post needs to go live. Include product facts, event details, offer terms, [disclosure requirements](/insights/student-influencer-marketing), and any visual must-haves. Use the [FTC rules on disclosing endorsement relationships](https://www.law.cornell.edu/cfr/text/16/255.5) when translating those requirements into the creator brief.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "college brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencer marketing"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact Collegiate Agency"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/campus-marketing-agency-rfp",
+      "path": "/insights/campus-marketing-agency-rfp",
+      "slug": "campus-marketing-agency-rfp",
+      "scope": "insights",
+      "source_file": "content/blog/campus-marketing-agency-rfp.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-event-cancellation-policy",
+          "anchor": "cancellation terms",
+          "kind": "internal"
+        },
+        {
+          "href": "https://csrc.nist.gov/pubs/sp/800/122/final",
+          "anchor": "set a retention plan with your privacy team",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "- **Commercial terms:** Separate agency fees, labor, production, travel, venue costs, and optional items. Explain payment timing, cancellation terms, change requests, and contingencies.\n",
+          "new": "- **Commercial terms:** Separate agency fees, labor, production, travel, venue costs, and optional items. Explain payment timing, [cancellation terms](/insights/campus-event-cancellation-policy), change requests, and contingencies.\n"
+        },
+        {
+          "old": "Define how data and content move between teams. Collect only the information the campaign needs, make consent and access responsibilities explicit, and set a retention plan with your privacy team. If you want to reuse student-created content in paid advertising, confirm the scope and duration of those rights before production. Permission to post an image once does not automatically grant every future use.\n",
+          "new": "Define how data and content move between teams. Collect only the information the campaign needs, make consent and access responsibilities explicit, and [set a retention plan with your privacy team](https://csrc.nist.gov/pubs/sp/800/122/final). If you want to reuse student-created content in paid advertising, confirm the scope and duration of those rights before production. Permission to post an image once does not automatically grant every future use.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassadors"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send your pilot brief"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/campus-product-launch",
+      "path": "/insights/campus-product-launch",
+      "slug": "campus-product-launch",
+      "scope": "insights",
+      "source_file": "content/blog/campus-product-launch.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/college-marketing-strategy",
+          "anchor": "A campus product launch",
+          "kind": "internal"
+        },
+        {
+          "href": "https://csrc.nist.gov/pubs/sp/800/122/final",
+          "anchor": "NIST guidance on limiting and protecting personal data",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "A campus product launch is not just a smaller version of a national launch. Students move through tight social circles, crowded weekly routines, group chats, nightlife plans, club meetings, class schedules, and campus traditions. If your product shows up in the wrong place, students ignore it. If it shows up through the right people at the right moment, it can feel like it belongs.\n",
+          "new": "[A campus product launch](/insights/college-marketing-strategy) is not just a smaller version of a national launch. Students move through tight social circles, crowded weekly routines, group chats, nightlife plans, club meetings, class schedules, and campus traditions. If your product shows up in the wrong place, students ignore it. If it shows up through the right people at the right moment, it can feel like it belongs.\n"
+        },
+        {
+          "old": "Fourth, extend the launch with peer proof. Ambassadors can keep talking after the event. Creators can post recap content. Student organizations can share reminders. Your team can retarget or follow up if you have permission-based data. The launch should not disappear the moment the table folds up.\n",
+          "new": "Fourth, extend the launch with peer proof. Ambassadors can keep talking after the event. Creators can post recap content. Student organizations can share reminders. Your team can retarget or follow up if you have permission-based data. The launch should not disappear the moment the table folds up. Plan the collection and access controls around the [NIST guidance on limiting and protecting personal data](https://csrc.nist.gov/pubs/sp/800/122/final), rather than keeping every student detail by default.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "college brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/contact",
+          "anchor": "talk with Collegiate Agency"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/campus-product-sampling-ideas",
+      "path": "/insights/campus-product-sampling-ideas",
+      "slug": "campus-product-sampling-ideas",
+      "scope": "insights",
+      "source_file": "content/blog/campus-product-sampling-ideas.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/college-welcome-bag-inserts",
+          "anchor": "Move-in kit or drop",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.cdc.gov/food-safety/prevention/index.html",
+          "anchor": "CDC guidance on clean, separate, cook, and chill",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "| Move-in kit or drop | Dorm move-in, off-campus housing | Reaching new students early, pairing multiple products in one useful bundle |\n",
+          "new": "| [Move-in kit or drop](/insights/college-welcome-bag-inserts) | Dorm move-in, off-campus housing | Reaching new students early, pairing multiple products in one useful bundle |\n"
+        },
+        {
+          "old": "The best sampling idea falls apart on logistics. Two things quietly ruin activations: understaffing and missing permissions. Solve both before the date.\n",
+          "new": "The best sampling idea falls apart on logistics. Two things quietly ruin activations: understaffing and missing permissions. Solve both before the date. For food samples, use the [CDC guidance on clean, separate, cook, and chill](https://www.cdc.gov/food-safety/prevention/index.html) as a handling reference alongside the venue rules and your product-specific safety plan.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassadors"
+        },
+        {
+          "href": "/services#product-placement",
+          "anchor": "product placement"
+        },
+        {
+          "href": "/insights/gen-z-experiential-marketing",
+          "anchor": "Gen Z experiential marketing"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send the brief here"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/college-brand-ambassador-program",
+      "path": "/insights/college-brand-ambassador-program",
+      "slug": "college-brand-ambassador-program",
+      "scope": "insights",
+      "source_file": "content/blog/college-brand-ambassador-program.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/college-brand-ambassadors",
+          "anchor": "a simple scorecard",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "the disclosure rules for paid or gifted posts",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Use a simple scorecard so recruitment stays consistent across campuses instead of running on gut feel:\n",
+          "new": "Use [a simple scorecard](/insights/college-brand-ambassadors) so recruitment stays consistent across campuses instead of running on gut feel:\n"
+        },
+        {
+          "old": "Pair every role with message guardrails. Ambassadors should sound like themselves, not like a press release, but they still need to know the handful of things that matter: what the product is, the key points to get right, the disclosure rules for paid or gifted posts, what not to claim, and who to ask when they are unsure. Guardrails protect the brand without flattening the authentic voice that made you recruit students in the first place.\n",
+          "new": "Pair every role with message guardrails. Ambassadors should sound like themselves, not like a press release, but they still need to know the handful of things that matter: what the product is, the key points to get right, [the disclosure rules for paid or gifted posts](https://www.law.cornell.edu/cfr/text/16/255.5), what not to claim, and who to ask when they are unsure. Guardrails protect the brand without flattening the authentic voice that made you recruit students in the first place.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/insights/student-ambassador-marketing",
+          "anchor": "student ambassador marketing"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassadors"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send the brief here"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/college-brand-ambassadors",
+      "path": "/insights/college-brand-ambassadors",
+      "slug": "college-brand-ambassadors",
+      "scope": "insights",
+      "source_file": "content/blog/college-brand-ambassadors.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/college-brand-ambassador-program",
+          "anchor": "a first wave",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC guidance for paid and gifted endorsements",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "For a first wave, compare campuses on practical criteria. Does the school have the communities you care about? Are there student organizations, apartments, nightlife venues, gyms, creator circles, tailgates, or events that match the campaign? Can product arrive on time? Are there restrictions around tabling, sampling, photography, or on-campus promotion? Is there a local manager or student lead who can keep the work moving?\n",
+          "new": "For [a first wave](/insights/college-brand-ambassador-program), compare campuses on practical criteria. Does the school have the communities you care about? Are there student organizations, apartments, nightlife venues, gyms, creator circles, tailgates, or events that match the campaign? Can product arrive on time? Are there restrictions around tabling, sampling, photography, or on-campus promotion? Is there a local manager or student lead who can keep the work moving?\n"
+        },
+        {
+          "old": "Keep talking points short. Students should understand what the brand does, why it matters to their classmates, what claim is approved, and what they cannot say. Avoid loading them with a script that sounds nothing like a student conversation. The brief should guide them, not erase their voice.\n",
+          "new": "Keep talking points short. Students should understand what the brand does, why it matters to their classmates, what claim is approved, and what they cannot say. Avoid loading them with a script that sounds nothing like a student conversation. The brief should guide them, not erase their voice. For social posts, include clear relationship disclosures using the [FTC guidance for paid and gifted endorsements](https://www.law.cornell.edu/cfr/text/16/255.5).\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassador services"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "campus event"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact page"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/college-event-sponsorship",
+      "path": "/insights/college-event-sponsorship",
+      "slug": "college-event-sponsorship",
+      "scope": "insights",
+      "source_file": "content/blog/college-event-sponsorship.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/college-festival-sponsorship",
+          "anchor": "sponsor rights",
+          "kind": "internal"
+        },
+        {
+          "href": "https://csrc.nist.gov/pubs/sp/800/122/final",
+          "anchor": "NIST guide to protecting personal information",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Use this guide to pressure-test sponsorship opportunities before you approve spend. The goal is not to make every event complicated. The goal is to make sure the campus moment, sponsor rights, staffing, creative, and recap all support the business decision you need to make next.\n",
+          "new": "Use this guide to pressure-test sponsorship opportunities before you approve spend. The goal is not to make every event complicated. The goal is to make sure the campus moment, [sponsor rights](/insights/college-festival-sponsorship), staffing, creative, and recap all support the business decision you need to make next.\n"
+        },
+        {
+          "old": "If the event is part of a larger campus rollout, make sure the sponsorship connects to what happens before and after. A single night can create attention. The follow-up turns that attention into learning.\n",
+          "new": "If the event is part of a larger campus rollout, make sure the sponsorship connects to what happens before and after. A single night can create attention. The follow-up turns that attention into learning. If that follow-up uses registration data, consult the [NIST guide to protecting personal information](https://csrc.nist.gov/pubs/sp/800/122/final) before deciding what the sponsor and organizer may retain or access.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "College brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/college-festival-sponsorship",
+      "path": "/insights/college-festival-sponsorship",
+      "slug": "college-festival-sponsorship",
+      "scope": "insights",
+      "source_file": "content/blog/college-festival-sponsorship.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-event-staffing-agency",
+          "anchor": "trained people to cover breaks and peak hours",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.weather.gov/safety/lightning-sports",
+          "anchor": "National Weather Service lightning planning guidance",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Before the event, lock down the run of show, the setup and teardown windows, and the inventory plan — how much product, restock timing, and cold storage if needed. Confirm power, water, wifi, and any structures with the organizer in writing, not by assumption. Staff the booth with enough trained people to cover breaks and peak hours, brief them on the product and the offer, and give one person clear ownership of the footprint for the day.\n",
+          "new": "Before the event, lock down the run of show, the setup and teardown windows, and the inventory plan — how much product, restock timing, and cold storage if needed. Confirm power, water, wifi, and any structures with the organizer in writing, not by assumption. Staff the booth with enough [trained people to cover breaks and peak hours](/insights/campus-event-staffing-agency), brief them on the product and the offer, and give one person clear ownership of the footprint for the day.\n"
+        },
+        {
+          "old": "Have a weather plan, a cash-and-credentials plan for your team, and a designated person capturing content throughout the event rather than scrambling for photos at the end. The unglamorous checklist is what protects the money you already spent on the sponsorship itself.\n",
+          "new": "Have a weather plan, a cash-and-credentials plan for your team, and a designated person capturing content throughout the event rather than scrambling for photos at the end. The unglamorous checklist is what protects the money you already spent on the sponsorship itself. The [National Weather Service lightning planning guidance](https://www.weather.gov/safety/lightning-sports) gives organizers specific questions about monitoring, shelter, stop decisions, and restarting outdoor activity.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassador"
+        },
+        {
+          "href": "/insights/campus-activation-ideas",
+          "anchor": "campus activation ideas"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send the brief here"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/college-marketing-agency",
+      "path": "/insights/college-marketing-agency",
+      "slug": "college-marketing-agency",
+      "scope": "insights",
+      "source_file": "content/blog/college-marketing-agency.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-marketing-agency-rfp",
+          "anchor": "buyer checklist",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.1",
+          "anchor": "FTC endorsement guidance on substantiating claims",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Here is a simple buyer checklist you can use in agency calls.\n",
+          "new": "Here is a simple [buyer checklist](/insights/campus-marketing-agency-rfp) you can use in agency calls.\n"
+        },
+        {
+          "old": "Ask for the source behind every performance claim. If the agency cannot cite it, treat it as a directional estimate at best. If it is presented as proof, move carefully.\n",
+          "new": "Ask for the source behind every performance claim. If the agency cannot cite it, treat it as a directional estimate at best. If it is presented as proof, move carefully. The [FTC endorsement guidance on substantiating claims](https://www.law.cornell.edu/cfr/text/16/255.1) explain advertiser responsibilities for claims made through endorsements; check that an agency proposal accounts for that review.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "college brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassador"
+        },
+        {
+          "href": "/services",
+          "anchor": "influencer"
+        },
+        {
+          "href": "/contact",
+          "anchor": "tell us what you are launching"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/college-marketing-strategy",
+      "path": "/insights/college-marketing-strategy",
+      "slug": "college-marketing-strategy",
+      "scope": "insights",
+      "source_file": "content/blog/college-marketing-strategy.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-marketing-agency-rfp",
+          "anchor": "brief an agency",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC guidance on disclosing endorsement relationships",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Use this guide as a practical planning framework before you brief an agency, approve a test, or ask your internal team to build a campus calendar.\n",
+          "new": "Use this guide as a practical planning framework before you [brief an agency](/insights/campus-marketing-agency-rfp), approve a test, or ask your internal team to build a campus calendar.\n"
+        },
+        {
+          "old": "Use creators to extend the moment into social proof. Student creators can make the campaign feel familiar before an event and visible afterward. Vet them for school fit, audience location, content style, reliability, and disclosure standards. Do not buy follower count without understanding who actually sees the content.\n",
+          "new": "Use creators to extend the moment into social proof. Student creators can make the campaign feel familiar before an event and visible afterward. Vet them for school fit, audience location, content style, reliability, and disclosure standards. Do not buy follower count without understanding who actually sees the content. Make the [FTC guidance on disclosing endorsement relationships](https://www.law.cornell.edu/cfr/text/16/255.5) part of the creator briefing so native content still identifies paid or gifted relationships.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "college brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassador"
+        },
+        {
+          "href": "/services",
+          "anchor": "influencer"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send the brief here"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/college-tour-marketing",
+      "path": "/insights/college-tour-marketing",
+      "slug": "college-tour-marketing",
+      "scope": "insights",
+      "source_file": "content/blog/college-tour-marketing.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/on-campus-product-sampling",
+          "anchor": "sampling, inventory, storage, handoff, and student feedback",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.weather.gov/safety/lightning-sports",
+          "anchor": "National Weather Service outdoor lightning safety guidance",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "If the goal is product trial, the tour needs a plan for sampling, inventory, storage, handoff, and student feedback. If the goal is event attendance, the tour needs local promotion, RSVP support, hosts, day-of flow, and recap content. If the goal is creator content, the tour needs campus-specific shot lists, creator approvals, posting windows, and brand safety review. If the goal is sign-ups or downloads, the tour needs a clean student offer and a way to capture interest without slowing down the experience.\n",
+          "new": "If the goal is product trial, the tour needs a plan for [sampling, inventory, storage, handoff, and student feedback](/insights/on-campus-product-sampling). If the goal is event attendance, the tour needs local promotion, RSVP support, hosts, day-of flow, and recap content. If the goal is creator content, the tour needs campus-specific shot lists, creator approvals, posting windows, and brand safety review. If the goal is sign-ups or downloads, the tour needs a clean student offer and a way to capture interest without slowing down the experience.\n"
+        },
+        {
+          "old": "This timeline is not about making the process slow. It is about removing avoidable surprises. Campus work has real-world friction: weather, venue changes, delayed shipments, student schedules, local rules, and staff availability. A tour plan should make those risks visible early.\n",
+          "new": "This timeline is not about making the process slow. It is about removing avoidable surprises. Campus work has real-world friction: weather, venue changes, delayed shipments, student schedules, local rules, and staff availability. A tour plan should make those risks visible early. For outdoor stops, use the [National Weather Service outdoor lightning safety guidance](https://www.weather.gov/safety/lightning-sports) when checking who monitors conditions and where the audience can shelter.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "college brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events and sponsorships"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "student ambassador support"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact the Collegiate Agency team"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/college-welcome-bag-inserts",
+      "path": "/insights/college-welcome-bag-inserts",
+      "slug": "college-welcome-bag-inserts",
+      "scope": "insights",
+      "source_file": "content/blog/college-welcome-bag-inserts.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/on-campus-product-sampling",
+          "anchor": "staffed sampling booth",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.cdc.gov/food-safety/prevention/index.html",
+          "anchor": "CDC safe handling and refrigeration guidance",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Treat this as a placement and fulfillment purchase, not a smaller version of a staffed sampling booth. Your product may arrive without anyone explaining it. Packaging, assembly instructions, and the handoff process therefore belong in your buying decision. Use this guide to qualify an opportunity, specify the work, and approve shipment without confusing packed inventory with student engagement.\n",
+          "new": "Treat this as a placement and fulfillment purchase, not a smaller version of a [staffed sampling booth](/insights/on-campus-product-sampling). Your product may arrive without anyone explaining it. Packaging, assembly instructions, and the handoff process therefore belong in your buying decision. Use this guide to qualify an opportunity, specify the work, and approve shipment without confusing packed inventory with student engagement.\n"
+        },
+        {
+          "old": "Check compatibility with the full kit. Liquids need a plan for leakage. Fragile items need protection. Scented products may affect neighboring contents. Food and personal care samples need appropriate labeling and handling review. Have your product safety or legal team resolve category-specific questions; do not rely on an assembler to interpret them. Avoid products requiring conditions the fulfillment location cannot maintain.\n",
+          "new": "Check compatibility with the full kit. Liquids need a plan for leakage. Fragile items need protection. Scented products may affect neighboring contents. Food and personal care samples need appropriate labeling and handling review. Have your product safety or legal team resolve category-specific questions; do not rely on an assembler to interpret them. Avoid products requiring conditions the fulfillment location cannot maintain. For perishable food inserts, check the [CDC safe handling and refrigeration guidance](https://www.cdc.gov/food-safety/prevention/index.html) before assuming an assembled kit can sit unrefrigerated until distribution.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services#product-placement",
+          "anchor": "product placement options"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassador role"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send your placement brief"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/gen-z-experiential-marketing",
+      "path": "/insights/gen-z-experiential-marketing",
+      "slug": "gen-z-experiential-marketing",
+      "scope": "insights",
+      "source_file": "content/blog/gen-z-experiential-marketing.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-event-staffing-agency",
+          "anchor": "staffing shifts",
+          "kind": "internal"
+        },
+        {
+          "href": "https://csrc.nist.gov/pubs/sp/800/122/final",
+          "anchor": "NIST guidance on collecting only the information you need",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Build a run of show that covers setup, staffing shifts, product handling, restocking, teardown, and who owns each. Confirm the practical details early — power, placement, permits, weather backup, storage, and how product gets to and from the site. These are the things that quietly sink activations when they are left vague. A simple checklist the day-of team can follow prevents most of it.\n",
+          "new": "Build a run of show that covers setup, [staffing shifts](/insights/campus-event-staffing-agency), product handling, restocking, teardown, and who owns each. Confirm the practical details early — power, placement, permits, weather backup, storage, and how product gets to and from the site. These are the things that quietly sink activations when they are left vague. A simple checklist the day-of team can follow prevents most of it.\n"
+        },
+        {
+          "old": "Then remove friction from that action. If the action is a scan, the code should be large, well-placed, and fast to load. If it is a sample, the handoff should be quick and the reason to try it clear. If it is a sign-up, ask for the minimum and give an honest reason to bother. Every extra step you add is a place students drop off.\n",
+          "new": "Then remove friction from that action. If the action is a scan, the code should be large, well-placed, and fast to load. If it is a sample, the handoff should be quick and the reason to try it clear. If it is a sign-up, ask for the minimum and give an honest reason to bother. Every extra step you add is a place students drop off. The [NIST guidance on collecting only the information you need](https://csrc.nist.gov/pubs/sp/800/122/final) is a useful check on the form fields and retention plan, not just the length of the queue.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/insights/college-festival-sponsorship",
+          "anchor": "college festival sponsorship"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/insights/campus-activation-ideas",
+          "anchor": "campus activation ideas"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "Brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "Campus influencers"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassador"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencer"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send the brief here"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/gen-z-marketing",
+      "path": "/insights/gen-z-marketing",
+      "slug": "gen-z-marketing",
+      "scope": "insights",
+      "source_file": "content/blog/gen-z-marketing.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/college-tour-marketing",
+          "anchor": "a sampling tour",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC guidance on disclosing brand relationships",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "A brand awareness program does not need the same plan as a product trial program. A sign-up campaign does not need the same field team as an event sponsorship. A content program does not need the same proof as a sampling tour.\n",
+          "new": "A brand awareness program does not need the same plan as a product trial program. A sign-up campaign does not need the same field team as an event sponsorship. A content program does not need the same proof as [a sampling tour](/insights/college-tour-marketing).\n"
+        },
+        {
+          "old": "Student creators translate the campaign into content that feels native to campus. The right [campus influencers](/services) can show the product or event in a way a brand account usually cannot. They know the jokes, locations, formats, and social cues that make a post feel real to their classmates.\n",
+          "new": "Student creators translate the campaign into content that feels native to campus. The right [campus influencers](/services) can show the product or event in a way a brand account usually cannot. They know the jokes, locations, formats, and social cues that make a post feel real to their classmates. Keep that local voice while following the [FTC guidance on disclosing brand relationships](https://www.law.cornell.edu/cfr/text/16/255.5); familiar content should not hide sponsorship.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "college brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact Collegiate Agency"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/how-to-market-to-college-students",
+      "path": "/insights/how-to-market-to-college-students",
+      "slug": "how-to-market-to-college-students",
+      "scope": "insights",
+      "source_file": "content/blog/how-to-market-to-college-students.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/college-marketing-strategy",
+          "anchor": "connecting channels into a journey",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC guidance for social media endorsements",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "This guide walks through how to reach college students without burning money on channels that do not move them: understanding who they actually are, finding where their attention lives, timing campaigns to the academic calendar, building an offer worth acting on, connecting channels into a journey, and measuring the whole thing with inputs you can defend.\n",
+          "new": "This guide walks through how to reach college students without burning money on channels that do not move them: understanding who they actually are, finding where their attention lives, timing campaigns to the academic calendar, building an offer worth acting on, [connecting channels into a journey](/insights/college-marketing-strategy), and measuring the whole thing with inputs you can defend.\n"
+        },
+        {
+          "old": "Then there are student creators. [Campus influencers](/services) make your brand look familiar in the feeds students already scroll, in a voice that matches their school. Vet them for real campus context, not just follower count. A creator with a modest but genuinely local audience will usually outperform a larger account with no connection to the campus you care about.\n",
+          "new": "Then there are student creators. [Campus influencers](/services) make your brand look familiar in the feeds students already scroll, in a voice that matches their school. Vet them for real campus context, not just follower count. A creator with a modest but genuinely local audience will usually outperform a larger account with no connection to the campus you care about. Include the [FTC guidance for social media endorsements](https://www.law.cornell.edu/cfr/text/16/255.5) in their brief so students can recognize paid or gifted recommendations.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassadors"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "Campus events"
+        },
+        {
+          "href": "/insights/gen-z-experiential-marketing",
+          "anchor": "Gen Z experiential marketing"
+        },
+        {
+          "href": "/services",
+          "anchor": "Campus influencers"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send the brief here"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/nutrl-night-school-tour-product-placement",
+      "path": "/insights/nutrl-night-school-tour-product-placement",
+      "slug": "nutrl-night-school-tour-product-placement",
+      "scope": "insights",
+      "source_file": "src/lib/content.ts",
+      "source_constant": "nutrlInsightBody",
+      "added_links": [
+        {
+          "href": "/services#product-placement",
+          "anchor": "product placement should do",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.ttb.gov/public-information/industry-circulars/ttb-industry-circular-2024-1",
+          "anchor": "TTB guidance on alcohol advertising in social media",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "    html: \"This is exactly what product placement should do in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.\",\n",
+          "new": "    html: \"This is exactly what <a href=\\\"/services#product-placement\\\">product placement should do</a> in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.\",\n"
+        },
+        {
+          "old": "    html: \"The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports.\",\n",
+          "new": "    html: \"The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports. For future alcohol campaigns, review the <a href=\\\"https://www.ttb.gov/public-information/industry-circulars/ttb-industry-circular-2024-1\\\">TTB guidance on alcohol advertising in social media</a> with counsel; it addresses advertising requirements, not verification of the results in this case study.\",\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/contact",
+          "anchor": "Tell us the markets you want"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/on-campus-product-sampling",
+      "path": "/insights/on-campus-product-sampling",
+      "slug": "on-campus-product-sampling",
+      "scope": "insights",
+      "source_file": "content/blog/on-campus-product-sampling.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-product-sampling-ideas",
+          "anchor": "sampling settings",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.cdc.gov/food-safety/prevention/index.html",
+          "anchor": "CDC food handling and temperature guidance",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "**Week 1: Plan the campaign.** Choose the campuses, define the target student, pick the sampling settings, assign the next action, and confirm what the recap must include. If the activation connects to a larger event, lock the event details before you recruit the field team.\n",
+          "new": "**Week 1: Plan the campaign.** Choose the campuses, define the target student, pick the [sampling settings](/insights/campus-product-sampling-ideas), assign the next action, and confirm what the recap must include. If the activation connects to a larger event, lock the event details before you recruit the field team.\n"
+        },
+        {
+          "old": "This checklist is intentionally operational. Campus marketing breaks down when teams treat the last mile as a detail. The last mile is the campaign.\n",
+          "new": "This checklist is intentionally operational. Campus marketing breaks down when teams treat the last mile as a detail. The last mile is the campaign. If the samples are food, review the [CDC food handling and temperature guidance](https://www.cdc.gov/food-safety/prevention/index.html) with the responsible operator before approving storage and handoff conditions.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "college brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/sos-consultants-nola-campus-leasing-ambassadors",
+      "path": "/insights/sos-consultants-nola-campus-leasing-ambassadors",
+      "slug": "sos-consultants-nola-campus-leasing-ambassadors",
+      "scope": "insights",
+      "source_file": "src/lib/content.ts",
+      "source_constant": "sosInsightBody",
+      "added_links": [
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "Ambassador posts",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC guidance on disclosing paid brand relationships",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "    html: \"Ambassador posts gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears.\",\n",
+          "new": "    html: \"<a href=\\\"/services/brand-ambassadors\\\">Ambassador posts</a> gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears. For brands planning a similar ambassador brief, the <a href=\\\"https://www.law.cornell.edu/cfr/text/16/255.5\\\">FTC guidance on disclosing paid brand relationships</a> is a compliance reference, not independent verification of the campaign results reported here.\",\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/contact",
+          "anchor": "Tell us the campus and the goal"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/student-ambassador-marketing",
+      "path": "/insights/student-ambassador-marketing",
+      "slug": "student-ambassador-marketing",
+      "scope": "insights",
+      "source_file": "content/blog/student-ambassador-marketing.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/student-brand-reps",
+          "anchor": "proof-of-work",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "how to handle disclosure",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Build proof-of-work into the role from the start so it feels normal rather than like surveillance. Ask for the outputs that show real activity: posts and links, event photos, sign-up counts, samples distributed, codes redeemed, and short notes on what students were saying and asking. These are the signals that tell you what happened on the ground, in the students' own words.\n",
+          "new": "Build [proof-of-work](/insights/student-brand-reps) into the role from the start so it feels normal rather than like surveillance. Ask for the outputs that show real activity: posts and links, event photos, sign-up counts, samples distributed, codes redeemed, and short notes on what students were saying and asking. These are the signals that tell you what happened on the ground, in the students' own words.\n"
+        },
+        {
+          "old": "Then set message guardrails so students can sound like themselves without going off the rails. Tell them what the product does, what is true, what claims to avoid, how to handle disclosure, and who to ask when something comes up. Guardrails are not a script. They are the boundaries that let you trust an ambassador to speak in their own voice.\n",
+          "new": "Then set message guardrails so students can sound like themselves without going off the rails. Tell them what the product does, what is true, what claims to avoid, [how to handle disclosure](https://www.law.cornell.edu/cfr/text/16/255.5), and who to ask when something comes up. Guardrails are not a script. They are the boundaries that let you trust an ambassador to speak in their own voice.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassadors"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/insights/college-brand-ambassador-program",
+          "anchor": "college brand ambassador program"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send the brief here"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/student-brand-reps",
+      "path": "/insights/student-brand-reps",
+      "slug": "student-brand-reps",
+      "scope": "insights",
+      "source_file": "content/blog/student-brand-reps.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/student-influencer-marketing",
+          "anchor": "disclosure expectations",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC disclosure rules for student reps posting endorsements",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "Do not overpromise the opportunity. Tell students what the job is, what the time commitment looks like, how communication works, and what they can and cannot say about the brand. If posting is part of the role, include disclosure expectations from the start.\n",
+          "new": "Do not overpromise the opportunity. Tell students what the job is, what the time commitment looks like, how communication works, and what they can and cannot say about the brand. If posting is part of the role, include [disclosure expectations](/insights/student-influencer-marketing) from the start. Use the [FTC disclosure rules for student reps posting endorsements](https://www.law.cornell.edu/cfr/text/16/255.5) to make paid and gifted relationships clear rather than relying on an ambiguous ambassador label.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "college brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/student-influencer-marketing",
+      "path": "/insights/student-influencer-marketing",
+      "slug": "student-influencer-marketing",
+      "scope": "insights",
+      "source_file": "content/blog/student-influencer-marketing.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-influencers",
+          "anchor": "a simple scorecard",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC disclosure",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "From there, judge school fit, content style, and reliability. Use a simple scorecard so you are comparing candidates on the same terms:\n",
+          "new": "From there, judge school fit, content style, and reliability. Use [a simple scorecard](/insights/campus-influencers) so you are comparing candidates on the same terms:\n"
+        },
+        {
+          "old": "- **Disclosure literacy:** Do they already tag partnerships clearly? A creator who understands FTC disclosure is a lower-risk partner.\n",
+          "new": "- **Disclosure literacy:** Do they already tag partnerships clearly? A creator who understands [FTC disclosure](https://www.law.cornell.edu/cfr/text/16/255.5) is a lower-risk partner.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassadors"
+        },
+        {
+          "href": "/insights/student-ambassador-marketing",
+          "anchor": "student ambassador marketing"
+        },
+        {
+          "href": "/contact",
+          "anchor": "send the brief here"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/switching-campus-marketing-agencies",
+      "path": "/insights/switching-campus-marketing-agencies",
+      "slug": "switching-campus-marketing-agencies",
+      "scope": "insights",
+      "source_file": "content/blog/switching-campus-marketing-agencies.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-event-cancellation-policy",
+          "anchor": "cancellation conditions",
+          "kind": "internal"
+        },
+        {
+          "href": "https://csrc.nist.gov/pubs/sp/800/122/final",
+          "anchor": "NIST guidance on controlling access to personal information",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "For each booked activity, verify the contracting party, venue contact, approved format, deposit status, supplier commitments, staffing owner, and cancellation conditions. Confirm who can authorize changes and who receives the final event report. Ask the venue and affected suppliers to acknowledge any revised instructions through their normal business channels.\n",
+          "new": "For each booked activity, verify the contracting party, venue contact, approved format, deposit status, supplier commitments, staffing owner, and [cancellation conditions](/insights/campus-event-cancellation-policy). Confirm who can authorize changes and who receives the final event report. Ask the venue and affected suppliers to acknowledge any revised instructions through their normal business channels.\n"
+        },
+        {
+          "old": "Handle systems through your approved access process. Add authorized users with appropriate roles, verify they can perform required tasks, and remove former access when obligations end. Do not pass shared passwords around as a shortcut. Keep sensitive records in approved systems and give each vendor only the information necessary for its assigned work.\n",
+          "new": "Handle systems through your approved access process. Add authorized users with appropriate roles, verify they can perform required tasks, and remove former access when obligations end. Do not pass shared passwords around as a shortcut. Keep sensitive records in approved systems and give each vendor only the information necessary for its assigned work. Use the [NIST guidance on controlling access to personal information](https://csrc.nist.gov/pubs/sp/800/122/final) to review access during the handover and remove permissions that are no longer needed.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassador program"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services",
+          "anchor": "product placement"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact Collegiate Agency"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/university-activations",
+      "path": "/insights/university-activations",
+      "slug": "university-activations",
+      "scope": "insights",
+      "source_file": "content/blog/university-activations.mdx",
+      "source_constant": null,
+      "added_links": [
+        {
+          "href": "/insights/campus-event-staffing-agency",
+          "anchor": "Staff call times, roles, training, and backup coverage",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.cdc.gov/niosh/publications/numbered/2022-126.html",
+          "anchor": "NIOSH guidance on host-employer safety responsibilities",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "- Staff call times, roles, training, and backup coverage\n",
+          "new": "- [Staff call times, roles, training, and backup coverage](/insights/campus-event-staffing-agency)\n"
+        },
+        {
+          "old": "University activations move fast once the team is on the ground. Clear ownership prevents small issues from turning into vague post-event excuses.\n",
+          "new": "University activations move fast once the team is on the ground. Clear ownership prevents small issues from turning into vague post-event excuses. Where temporary workers are involved, review the [NIOSH guidance on host-employer safety responsibilities](https://www.cdc.gov/niosh/publications/numbered/2022-126.html) rather than assuming safety training belongs entirely to the other party.\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "college brand ambassadors"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencers"
+        },
+        {
+          "href": "/services/events",
+          "anchor": "campus events"
+        },
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "brand ambassador"
+        },
+        {
+          "href": "/services",
+          "anchor": "campus influencer"
+        },
+        {
+          "href": "/contact",
+          "anchor": "contact Collegiate Agency"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/insights/why-welcome-week-is-the-highest-leverage-moment-on-campus",
+      "path": "/insights/why-welcome-week-is-the-highest-leverage-moment-on-campus",
+      "slug": "why-welcome-week-is-the-highest-leverage-moment-on-campus",
+      "scope": "insights",
+      "source_file": "src/lib/content.ts",
+      "source_constant": "welcomeWeekBody",
+      "added_links": [
+        {
+          "href": "/insights/college-welcome-bag-inserts",
+          "anchor": "welcome-week window",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC disclosure guidance for paid or gifted posts",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "    html: \"And here's the part most brands miss: this isn't a once-a-year event. Both fall and spring open with a welcome-week window, which makes it a <strong>one-to-two-times-per-school-year</strong> opportunity to plant that first impression. Miss the fall, and there's a second front door in January.\",\n",
+          "new": "    html: \"And here's the part most brands miss: this isn't a once-a-year event. Both fall and spring open with a <a href=\\\"/insights/college-welcome-bag-inserts\\\">welcome-week window</a>, which makes it a <strong>one-to-two-times-per-school-year</strong> opportunity to plant that first impression. Miss the fall, and there's a second front door in January.\",\n"
+        },
+        {
+          "old": "    html: \"Once you're inside a welcome-week show, the ways to integrate are concrete and stack on top of each other:\",\n",
+          "new": "    html: \"Once you're inside a welcome-week show, the ways to integrate are concrete and stack on top of each other: If ambassadors or creators post about those integrations, include the <a href=\\\"https://www.law.cornell.edu/cfr/text/16/255.5\\\">FTC disclosure guidance for paid or gifted posts</a> in the brief so a familiar campus voice does not obscure the brand relationship.\",\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/services/events",
+          "anchor": "events page"
+        },
+        {
+          "href": "/contact",
+          "anchor": "tell us which markets you want"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/work/nutrl-night-school-tour-product-placement",
+      "path": "/work/nutrl-night-school-tour-product-placement",
+      "slug": "nutrl-night-school-tour-product-placement",
+      "scope": "work-longform",
+      "source_file": "src/lib/content.ts",
+      "source_constant": "nutrlNightSchoolArticle",
+      "added_links": [
+        {
+          "href": "/services#product-placement",
+          "anchor": "product placement should do",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.ttb.gov/public-information/industry-circulars/ttb-industry-circular-2024-1",
+          "anchor": "TTB guidance on alcohol advertising in social media",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "    html: \"This is exactly what product placement should do in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.\",\n",
+          "new": "    html: \"This is exactly what <a href=\\\"/services#product-placement\\\">product placement should do</a> in college marketing. The product cannot just appear in a recap photo after the fact. It has to be present in the room, attached to the hosts, seen by the crowd, and reinforced by the students who have real distribution power on campus. Night School gave NÜTRL that structure: a live event series with existing attention, local partners with social credibility, and ambassadors capable of pushing the same message before and after each stop.\",\n"
+        },
+        {
+          "old": "    html: \"The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports.\",\n",
+          "new": "    html: \"The social layer extended that ownership beyond the room. Across tour socials and ambassador posts, the campaign received roughly 5 million social insights. That reach was not isolated from the event footprint; it was built from the same ecosystem. Students saw the brand in content about the shows, through ambassador posts, through partner organizations, and through the venues where the product was actually being moved. The result was a campaign where the online attention and offline product movement supported each other instead of living in separate reports. For future alcohol campaigns, review the <a href=\\\"https://www.ttb.gov/public-information/industry-circulars/ttb-industry-circular-2024-1\\\">TTB guidance on alcohol advertising in social media</a> with counsel; it addresses advertising requirements, not verification of the results in this case study.\",\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/contact",
+          "anchor": "Tell us the markets you want"
+        }
+      ]
+    },
+    {
+      "url": "https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors",
+      "path": "/work/sos-consultants-nola-campus-leasing-ambassadors",
+      "slug": "sos-consultants-nola-campus-leasing-ambassadors",
+      "scope": "work-longform",
+      "source_file": "src/lib/content.ts",
+      "source_constant": "sosConsultantsArticle",
+      "added_links": [
+        {
+          "href": "/services/brand-ambassadors",
+          "anchor": "Ambassador posts",
+          "kind": "internal"
+        },
+        {
+          "href": "https://www.law.cornell.edu/cfr/text/16/255.5",
+          "anchor": "FTC guidance on disclosing paid brand relationships",
+          "kind": "external"
+        }
+      ],
+      "edits": [
+        {
+          "old": "    html: \"Ambassador posts gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears.\",\n",
+          "new": "    html: \"<a href=\\\"/services/brand-ambassadors\\\">Ambassador posts</a> gave SOS a peer-to-peer entry point. Instead of relying only on brand-owned ads, the campaign started with students who could place the message inside real campus social circles. For a leasing agency, that trust layer is important. Students are not just buying a drink or downloading an app; they are deciding where to live, who to call, and which local operators feel legitimate. A flyer or video posted by a student ambassador helps make the brand familiar before the paid ad ever appears. For brands planning a similar ambassador brief, the <a href=\\\"https://www.law.cornell.edu/cfr/text/16/255.5\\\">FTC guidance on disclosing paid brand relationships</a> is a compliance reference, not independent verification of the campaign results reported here.\",\n"
+        }
+      ],
+      "baseline_body_links": [
+        {
+          "href": "/contact",
+          "anchor": "Tell us the campus and the goal"
+        }
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "url": "https://collegiateagency.com/work/celsius-campus-sampling",
+      "reason": "Commercial industry-example summary: no ArticleBlock longform body; preserved without rewrite."
+    }
+  ]
+}
