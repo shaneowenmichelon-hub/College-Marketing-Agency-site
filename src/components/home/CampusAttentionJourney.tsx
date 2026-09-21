@@ -117,11 +117,11 @@ export function CampusAttentionJourney() {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button href="/contact" variant="primary">
-              Build my campus plan <ArrowRight className="h-4 w-4" />
+            <Button href="/build-a-campaign" variant="magenta">
+              Build a Campaign <ArrowRight className="h-4 w-4" />
             </Button>
-            <Button href="/services" variant="secondary">
-              See services
+            <Button href="/contact" variant="secondary">
+              Book a Call
             </Button>
           </div>
         </div>
