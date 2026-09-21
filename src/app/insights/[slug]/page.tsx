@@ -41,7 +41,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return { title: "Article not found" };
-  const image = post.image ?? post.ogImage ?? "/og.svg";
+  // Only set a per-article image when the post has a real raster photo; otherwise
+  // omit it so the generated site OG PNG (app/opengraph-image.tsx) is inherited
+  // (avoids falling back to an SVG, which social platforms don't render well).
+  const image = post.image ?? post.ogImage;
   return {
     title: post.metaTitle ?? post.title,
     description: post.metaDescription ?? post.excerpt,
@@ -53,9 +56,14 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       url: `${siteConfig.url}/insights/${slug}`,
       publishedTime: post.date,
       authors: [post.author ?? siteConfig.companyName],
-      images: [{ url: image, width: 1200, height: 630, alt: post.title }],
+      ...(image ? { images: [{ url: image, width: 1200, height: 630, alt: post.title }] } : {}),
     },
-    twitter: { card: "summary_large_image", title: post.title, description: post.excerpt, images: [image] },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      ...(image ? { images: [image] } : {}),
+    },
   };
 }
 

@@ -9,6 +9,7 @@ export function SectionHeading({
   align = "left",
   onDark = false,
   className,
+  as: HeadingTag = "h2",
 }: {
   eyebrow?: string;
   title: ReactNode;
@@ -16,6 +17,8 @@ export function SectionHeading({
   align?: "left" | "center";
   onDark?: boolean;
   className?: string;
+  /** Heading level for the title. Use "h1" when this is the page's primary heading. */
+  as?: "h1" | "h2";
 }) {
   return (
     <Reveal
@@ -36,14 +39,14 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2
+      <HeadingTag
         className={cn(
           "text-balance font-display text-display-sm font-bold",
           onDark ? "text-white" : "text-ink",
         )}
       >
         {title}
-      </h2>
+      </HeadingTag>
       {intro && (
         <p
           className={cn(

@@ -44,9 +44,10 @@ export default function AboutPage() {
       <Section tone="light">
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <SectionHeading
+            as="h1"
             eyebrow="About"
             title="A campus agency built by people who run the culture."
-            intro="We're not a legacy campus-media shop dusting off the same posters and email lists. We're the team that plans the events, knows the promoters, and understands why students show up - building the modern, culturally-native way for brands to reach campus."
+            intro="We're not a legacy campus-media shop dusting off the same posters and email lists. We're the team that plans the events, knows the promoters, and understands why students show up. It's the modern, culturally-native way for brands to reach campus."
           />
           <Reveal delay={0.1}>
             <EventImage index={13} aspect="aspect-[5/4]" />

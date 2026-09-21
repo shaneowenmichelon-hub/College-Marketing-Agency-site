@@ -24,6 +24,7 @@ export default function InsightsPage() {
     <>
       <Section tone="light">
         <SectionHeading
+          as="h1"
           eyebrow="Insights"
           title="Notes from the ground."
           intro="Practical, brand-facing perspective on campus marketing: case studies, product placement, ambassador campaigns, and event strategy that actually move students."

@@ -82,6 +82,7 @@ export default function ServicesPage() {
       />
       <Section tone="light">
         <SectionHeading
+          as="h1"
           eyebrow="Services"
           title="One team. Two sides of campus."
           intro={servicesHub.intro}

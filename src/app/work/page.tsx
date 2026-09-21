@@ -28,9 +28,10 @@ export default function WorkPage() {
       />
       <Section tone="light">
         <SectionHeading
+          as="h1"
           eyebrow="Work"
           title="The three tactics, proven on campus."
-          intro="How events, brand ambassadors, and product placement actually move brands - shown through client case studies and public reference examples."
+          intro="How events, brand ambassadors, and product placement actually move brands, shown through client case studies and public reference examples."
         />
       </Section>
 

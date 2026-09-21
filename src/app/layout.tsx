@@ -50,13 +50,13 @@ export const metadata: Metadata = {
     title: `${siteConfig.companyName} - ${siteConfig.tagline}`,
     description: siteConfig.description,
     url: siteConfig.url,
-    images: [{ url: "/og.svg", width: 1200, height: 630, alt: siteConfig.companyName }],
+    // og:image is provided by app/opengraph-image.tsx (generated PNG).
   },
   twitter: {
     card: "summary_large_image",
     title: `${siteConfig.companyName} - ${siteConfig.tagline}`,
     description: siteConfig.description,
-    images: ["/og.svg"],
+    // twitter:image is provided by app/twitter-image.tsx.
   },
   robots: { index: true, follow: true },
 };
