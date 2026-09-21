@@ -1,16 +1,14 @@
-# Hero collage photos
+# Hero collage photos (drag-and-drop)
 
-Drop the real event/activation photos for the homepage hero reel here, then list
-them in `src/site.config.ts` under `heroCollage`.
+Any image you drop in THIS folder (`public/images/hero/`) automatically appears
+in the homepage hero collage — no code change needed. Files are read at build
+time and served optimized (AVIF/WebP, resized, lazy) via next/image.
 
 Guidelines:
-- Web-ready: ~1200px wide, JPG or WebP, ideally under ~500KB each (the originals
-  in Drive are 15–27MB, which is far too large to serve directly).
-- 10–15 images works best for the two-row scrolling collage.
-- Landscape or square crop reads best in the reel tiles.
+- Formats: `.jpg`, `.jpeg`, `.png`, `.webp`, or `.avif`.
+- 10–15 landscape/square photos works best for the two scrolling rows.
+- Any resolution is fine (next/image resizes for you), but keep originals under
+  ~8MB each so the repo stays lean.
+- They render in filename order — prefix with `01-`, `02-`, … to control order.
 
-Then add entries like:
-
-    { src: "/images/hero/nutrl-tailgate.jpg", alt: "NÜTRL campus tailgate", seed: "nutrl-1" }
-
-Leaving `heroCollage` empty falls back to the stock event photos.
+When this folder has no images, the collage falls back to stock event photos.

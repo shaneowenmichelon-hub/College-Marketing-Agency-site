@@ -17,6 +17,7 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { Hero } from "@/components/home/Hero";
+import { getHeroPhotos } from "@/lib/hero-photos";
 import { StickyMobileCTA } from "@/components/home/StickyMobileCTA";
 import { CampusAttentionJourney } from "@/components/home/CampusAttentionJourney";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -89,7 +90,7 @@ const whyUs = [
 export default function HomePage() {
   return (
     <>
-      <Hero />
+      <Hero heroPhotos={getHeroPhotos()} />
 
       {/* Testimonials - slow marquee (brand logos now live in the hero) */}
       <Section tone="muted" className="py-12 sm:py-16">

@@ -241,7 +241,7 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
   );
 }
 
-export function Hero() {
+export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }[] }) {
   const reduce = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -327,7 +327,7 @@ export function Hero() {
             Swap sitePhotos in site.config for real event photos. */}
         <div className="relative mt-8 sm:mt-10">
           <Container>
-            <HeroCollage />
+            <HeroCollage photos={heroPhotos} />
           </Container>
           <div className="mt-6 border-t-2 border-white/10 pt-5">
             <Container>
