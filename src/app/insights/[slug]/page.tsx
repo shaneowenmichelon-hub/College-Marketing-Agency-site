@@ -10,6 +10,7 @@ import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/site.config";
 import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/content";
 import { ArticleArt } from "@/components/insights/ArticleArt";
+import { PreferredSourceBadge } from "@/components/seo/PreferredSourceBadge";
 
 type Params = Promise<{ slug: string }>;
 
@@ -165,6 +166,10 @@ export default async function InsightArticle({ params }: { params: Params }) {
               >
                 {cta.label} <ArrowRight className="h-4 w-4" />
               </Link>
+            </div>
+
+            <div className="mt-8">
+              <PreferredSourceBadge variant="compact" />
             </div>
           </Container>
         </Section>
