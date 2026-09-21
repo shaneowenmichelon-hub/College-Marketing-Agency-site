@@ -68,7 +68,7 @@ export function EventImage({
               fill
               sizes={sizes}
               priority={priority}
-              className="object-cover"
+              className="object-cover object-[50%_32%]"
               onError={() => setStage((s) => (s < 2 ? ((s + 1) as 0 | 1 | 2) : s))}
             />
           ) : (

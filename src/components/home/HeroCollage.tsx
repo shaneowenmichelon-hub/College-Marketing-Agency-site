@@ -41,7 +41,13 @@ function Row({
               aria-hidden={!first}
               className="relative h-20 w-32 shrink-0 overflow-hidden rounded-[4px] border-2 border-white/20 sm:h-24 sm:w-40"
             >
-              <Image src={p.src} alt={first ? p.alt : ""} fill sizes="160px" className="object-cover" />
+              <Image
+                src={p.src}
+                alt={first ? p.alt : ""}
+                fill
+                sizes="160px"
+                className="object-cover object-[50%_32%]"
+              />
             </li>
           );
         })}

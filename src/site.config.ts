@@ -508,19 +508,24 @@ export type SitePhoto = { src: string; alt: string; seed: string };
 // is deliberately out of this rotation.
 export const sitePhotos: SitePhoto[] = [
   {
-    src: "/images/hero/01-night-school-tour-attendees.jpg",
-    alt: "Students at a Night School Tour campus activation",
-    seed: "night-school-attendees",
+    src: "/images/hero/01-beatbox-festival-crowd.jpg",
+    alt: "Student in the crowd with a BeatBox at a sponsored festival activation",
+    seed: "beatbox-festival",
   },
   {
-    src: "/images/hero/02-campus-nightlife-attendee.jpg",
-    alt: "Student at a sponsored campus nightlife activation",
-    seed: "campus-nightlife",
-  },
-  {
-    src: "/images/hero/03-nutrl-bar-cart-activation.jpg",
+    src: "/images/hero/02-nutrl-bar-cart-activation.jpg",
     alt: "Branded NUTRL bar cart staffed at a campus event activation",
     seed: "nutrl-cart",
+  },
+  {
+    src: "/images/hero/03-beatbox-green-room.jpg",
+    alt: "Student with a BeatBox in the green room at a sponsored event",
+    seed: "beatbox-green-room",
+  },
+  {
+    src: "/images/hero/04-stiizy-event-staffing.jpg",
+    alt: "Staffer running a giant-dice game beside a branded STIIZY inflatable",
+    seed: "stiizy-staffing",
   },
 ];
 
