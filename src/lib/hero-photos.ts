@@ -16,11 +16,15 @@ const IMG = /\.(jpe?g|png|webp|avif)$/i;
 const ALT: Record<string, string> = {
   "01-beatbox-festival-crowd.jpg":
     "Student in the crowd with a BeatBox at a sponsored festival activation",
-  "02-nutrl-bar-cart-activation.jpg":
+  "02-night-school-tour-pair.jpg":
+    "Two students with sponsor product at a Night School Tour activation",
+  "03-nutrl-bar-cart-activation.jpg":
     "Branded NUTRL bar cart staffed at a campus event activation",
-  "03-beatbox-green-room.jpg":
+  "04-campus-nightlife-pair.jpg":
+    "Two students with sponsor product at a campus nightlife activation",
+  "05-beatbox-green-room.jpg":
     "Student with a BeatBox in the green room at a sponsored event",
-  "04-stiizy-event-staffing.jpg":
+  "06-stiizy-event-staffing.jpg":
     "Staffer running a giant-dice game beside a branded STIIZY inflatable",
 };
 

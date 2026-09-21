@@ -513,17 +513,27 @@ export const sitePhotos: SitePhoto[] = [
     seed: "beatbox-festival",
   },
   {
-    src: "/images/hero/02-nutrl-bar-cart-activation.jpg",
+    src: "/images/hero/02-night-school-tour-pair.jpg",
+    alt: "Two students with sponsor product at a Night School Tour activation",
+    seed: "night-school-pair",
+  },
+  {
+    src: "/images/hero/03-nutrl-bar-cart-activation.jpg",
     alt: "Branded NUTRL bar cart staffed at a campus event activation",
     seed: "nutrl-cart",
   },
   {
-    src: "/images/hero/03-beatbox-green-room.jpg",
+    src: "/images/hero/04-campus-nightlife-pair.jpg",
+    alt: "Two students with sponsor product at a campus nightlife activation",
+    seed: "campus-nightlife-pair",
+  },
+  {
+    src: "/images/hero/05-beatbox-green-room.jpg",
     alt: "Student with a BeatBox in the green room at a sponsored event",
     seed: "beatbox-green-room",
   },
   {
-    src: "/images/hero/04-stiizy-event-staffing.jpg",
+    src: "/images/hero/06-stiizy-event-staffing.jpg",
     alt: "Staffer running a giant-dice game beside a branded STIIZY inflatable",
     seed: "stiizy-staffing",
   },
