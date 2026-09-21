@@ -11,4 +11,8 @@ Guidelines:
   ~8MB each so the repo stays lean.
 - They render in filename order — prefix with `01-`, `02-`, … to control order.
 
-When this folder has no images, the collage falls back to stock event photos.
+Add alt text for a new file in `src/lib/hero-photos.ts` (the `ALT` map); files
+not listed there get a generic description.
+
+When this folder has no images, the collage falls back to `sitePhotos` in
+`src/site.config.ts`.

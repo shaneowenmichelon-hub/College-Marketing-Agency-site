@@ -493,45 +493,48 @@ export function eventPhotoRemote(file: string): string {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SITE PHOTOS - online imagery used across the site and in the homepage photo
-// carousel. Rights-safe (Unsplash). `src` is the topical photo; if it ever fails
-// to load, the component falls back to a guaranteed real photo via `photoFallback`
-// (Picsum, seeded so it's stable), then a gradient. Swap any `src` here anytime -
-// drop in your own /images/events/*.jpg and point `src` at "/images/events/x.jpg".
-// NOTE: these load on the live site / browser; this build sandbox blocks image
-// hosts, so they won't render inside CI - verify on the Vercel deploy.
+// SITE PHOTOS - real Collegiate Agency activation photography used across the
+// site and in the homepage photo carousel. Files are self-hosted under
+// /public/images/hero/, so they are served (and optimized) from our own domain
+// instead of a stock host. `seed` only feeds the seeded `photoFallback` used if
+// a file ever 404s; a gradient is the final fallback. To swap a photo, drop the
+// new file in /public/images/hero/ and point `src` at it.
 // ─────────────────────────────────────────────────────────────────────────────
 export type SitePhoto = { src: string; alt: string; seed: string };
 
-const unsplash = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1200&q=70`;
-
 export const sitePhotos: SitePhoto[] = [
-  { src: unsplash("1516450360452-9312f5e86fc7"), alt: "Crowd at a live campus event", seed: "crowd-1" },
-  { src: unsplash("1459749411175-04bf5292ceea"), alt: "Concert lights and crowd", seed: "concert-1" },
-  { src: unsplash("1470229722913-7c0e2dbbafd3"), alt: "Live music crowd", seed: "concert-2" },
-  { src: unsplash("1492684223066-81342ee5ff30"), alt: "Celebration with confetti", seed: "party-1" },
-  { src: unsplash("1533174072545-7a4b6ad7a6c3"), alt: "Festival crowd", seed: "festival-1" },
-  { src: unsplash("1524368535928-5b5e00ddc76b"), alt: "DJ performing at an event", seed: "dj-1" },
-  { src: unsplash("1506157786151-b8491531f063"), alt: "Cheering crowd", seed: "crowd-2" },
-  { src: unsplash("1540575467063-178a50c2df87"), alt: "Audience at an event", seed: "audience-1" },
-  { src: unsplash("1511578314322-379afb476865"), alt: "Event audience seated", seed: "audience-2" },
-  { src: unsplash("1523240795612-9a054b0db644"), alt: "Students collaborating", seed: "students-1" },
-  { src: unsplash("1517457373958-b7bdd4587205"), alt: "Students studying together", seed: "students-2" },
-  { src: unsplash("1523050854058-8df90110c9f1"), alt: "College graduates", seed: "students-3" },
-  { src: unsplash("1541339907198-e08756dedf3f"), alt: "University campus", seed: "campus-1" },
-  { src: unsplash("1470753937643-efeb931202a9"), alt: "Friends at a party", seed: "friends-1" },
-  { src: unsplash("1543007630-9710e4a00a20"), alt: "Festival hands in the air", seed: "festival-2" },
-  { src: unsplash("1493225457124-a3eb161ffa5f"), alt: "Nightlife crowd", seed: "nightlife-1" },
-  { src: unsplash("1414235077428-338989a2e8c0"), alt: "Social gathering", seed: "social-1" },
-  { src: unsplash("1533105079780-92b9be482077"), alt: "Hands up at a concert", seed: "concert-3" },
+  {
+    src: "/images/hero/01-stripz-night-school-attendees.jpg",
+    alt: "Students holding STRIPZ product at a Night School Tour campus activation",
+    seed: "stripz-attendees",
+  },
+  {
+    src: "/images/hero/03-nutrl-bar-cart-activation.jpg",
+    alt: "Branded NUTRL bar cart staffed at a campus event activation",
+    seed: "nutrl-cart",
+  },
+  {
+    src: "/images/hero/02-stripz-neon-attendee.jpg",
+    alt: "Student showing a STRIPZ Neon pack at a campus nightlife activation",
+    seed: "stripz-neon",
+  },
+  {
+    src: "/images/hero/05-stripz-product-lineup.jpg",
+    alt: "STRIPZ product lineup displayed at a sponsored campus event",
+    seed: "stripz-lineup",
+  },
+  {
+    src: "/images/hero/04-stripz-rainbow-sampling.jpg",
+    alt: "STRIPZ Rainbow pack handed out during on-site product sampling",
+    seed: "stripz-rainbow",
+  },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// HERO COLLAGE - real event/activation photos for the homepage hero reel.
-// Drop web-ready images (ideally <500KB each, ~1200px wide, .jpg/.webp) in
-// /public/images/hero/ and list them here. Leave empty to fall back to the
-// stock sitePhotos above. This is the single swap point for real ZMM photos.
+// HERO COLLAGE - optional manual override for the homepage hero reel. By
+// default the reel reads every image in /public/images/hero/ automatically (see
+// src/lib/hero-photos.ts), so dropping a file in that folder is enough. Only
+// list photos here to pin a specific subset or order for the hero alone.
 // Example: { src: "/images/hero/nutrl-tailgate.jpg", alt: "NÜTRL campus tailgate", seed: "nutrl-1" }
 // ─────────────────────────────────────────────────────────────────────────────
 export const heroCollage: SitePhoto[] = [];

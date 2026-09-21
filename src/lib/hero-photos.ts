@@ -12,6 +12,20 @@ export type HeroPhoto = { src: string; alt: string };
 const DIR = path.join(process.cwd(), "public", "images", "hero");
 const IMG = /\.(jpe?g|png|webp|avif)$/i;
 
+/** Per-file alt text. Files not listed fall back to a generic description. */
+const ALT: Record<string, string> = {
+  "01-stripz-night-school-attendees.jpg":
+    "Students holding STRIPZ product at a Night School Tour campus activation",
+  "02-stripz-neon-attendee.jpg":
+    "Student showing a STRIPZ Neon pack at a campus nightlife activation",
+  "03-nutrl-bar-cart-activation.jpg":
+    "Branded NUTRL bar cart staffed at a campus event activation",
+  "04-stripz-rainbow-sampling.jpg":
+    "STRIPZ Rainbow pack handed out during on-site product sampling",
+  "05-stripz-product-lineup.jpg":
+    "STRIPZ product lineup displayed at a sponsored campus event",
+};
+
 export function getHeroPhotos(): HeroPhoto[] {
   try {
     return fs
@@ -20,7 +34,7 @@ export function getHeroPhotos(): HeroPhoto[] {
       .sort()
       .map((f) => ({
         src: `/images/hero/${f}`,
-        alt: "Collegiate Agency campus brand activation",
+        alt: ALT[f] ?? "Collegiate Agency campus brand activation",
       }));
   } catch {
     return [];

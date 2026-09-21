@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { sitePhotos, photoFallback } from "@/site.config";
 
@@ -13,9 +14,10 @@ const gradients = [
 
 /**
  * A real photo with staged fallback:
- *   1. topical online photo (Unsplash)  →  2. guaranteed real photo (Picsum, seeded)
- *   →  3. brand gradient (only if the network is unreachable entirely)
+ *   1. our own activation photo (self-hosted, served through next/image)
+ *   →  2. seeded remote placeholder  →  3. brand gradient
  * `index` picks from the curated `sitePhotos` set; pass `src` to override.
+ * `sizes` should describe the rendered width so next/image ships the right file.
  */
 export function EventImage({
   index = 0,
@@ -24,6 +26,7 @@ export function EventImage({
   className,
   aspect = "aspect-[4/3]",
   priority = false,
+  sizes = "(min-width: 1024px) 33vw, 100vw",
 }: {
   index?: number;
   src?: string;
@@ -31,6 +34,7 @@ export function EventImage({
   className?: string;
   aspect?: string;
   priority?: boolean;
+  sizes?: string;
 }) {
   const photo = sitePhotos[index % sitePhotos.length];
   const primary = srcOverride ?? photo.src;
@@ -57,14 +61,28 @@ export function EventImage({
         </div>
       ) : (
         <>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt={label || photo.alt}
-            loading={priority ? "eager" : "lazy"}
-            className="h-full w-full object-cover"
-            onError={() => setStage((s) => (s < 2 ? ((s + 1) as 0 | 1 | 2) : s))}
-          />
+          {src.startsWith("/") ? (
+            <Image
+              src={src}
+              alt={label || photo.alt}
+              fill
+              sizes={sizes}
+              priority={priority}
+              className="object-cover"
+              onError={() => setStage((s) => (s < 2 ? ((s + 1) as 0 | 1 | 2) : s))}
+            />
+          ) : (
+            // Remote fallback only — left as a plain <img> so a 404 keeps
+            // triggering onError instead of failing the optimizer.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={src}
+              alt={label || photo.alt}
+              loading={priority ? "eager" : "lazy"}
+              className="h-full w-full object-cover"
+              onError={() => setStage((s) => (s < 2 ? ((s + 1) as 0 | 1 | 2) : s))}
+            />
+          )}
           {label && (
             <span className="absolute bottom-3 left-3 z-10 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
               {label}

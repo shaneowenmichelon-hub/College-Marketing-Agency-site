@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Mail, MapPin } from "lucide-react";
-import { siteConfig, clients } from "@/site.config";
+import { siteConfig, clients, sitePhotos } from "@/site.config";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
     "Tell us what you're launching and we'll build a plan to put it in front of the right campuses through events, brand ambassadors, and product placement.",
   alternates: { canonical: "/contact" },
 };
+
+/** Lead activation photo for the left column (first entry in the shared set). */
+const leadPhoto = sitePhotos[0];
 
 export default function ContactPage() {
   return (
@@ -29,6 +33,20 @@ export default function ContactPage() {
             Tell us your goal and we&apos;ll come back with a plan across events, brand
             ambassadors, and product placement, mapped to the campuses that matter for you.
           </p>
+
+          {/* Real activation photo: sits left of the form on desktop, above it on mobile */}
+          <figure className="mt-8 max-w-md">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[3px] border-2 border-ink shadow-[8px_8px_0_var(--ink)]">
+              <Image
+                src={leadPhoto.src}
+                alt={leadPhoto.alt}
+                fill
+                sizes="(min-width: 1024px) 28rem, 100vw"
+                className="object-cover"
+                priority
+              />
+            </div>
+          </figure>
 
           {/* Social proof: brands + a review, on the form's left side */}
           <div className="mt-8 max-w-md">
