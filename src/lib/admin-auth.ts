@@ -13,21 +13,48 @@ function sha256(value: string): string {
   return crypto.createHash("sha256").update(value).digest("hex");
 }
 
+/**
+ * Key used to sign session cookies.
+ *
+ * There is deliberately NO production fallback. The previous default derived
+ * the key from FALLBACK_ADMIN_CODE_SHA256 — a constant sitting ten lines above
+ * this one — so anyone who could read this file could mint a valid session
+ * cookie and skip the access code entirely. With the pipeline board behind this
+ * gate that is a hole, not a convenience, so an unset secret now fails closed:
+ * callers surface "not configured" rather than quietly trusting a public key.
+ */
 function sessionSecret(): string {
-  // Production should override this with ADMIN_SESSION_SECRET in Vercel.
-  // Until Shane can access Vercel, this fallback lets the private portal open
-  // with the starter code while encrypted cross-session storage remains gated.
-  return process.env.ADMIN_SESSION_SECRET || `starter-session:${FALLBACK_ADMIN_CODE_SHA256}`;
+  const configured = process.env.ADMIN_SESSION_SECRET?.trim();
+  if (configured) return configured;
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "ADMIN_SESSION_SECRET is not set. Generate one (openssl rand -hex 32) and add it in Vercel → Settings → Environment Variables.",
+    );
+  }
+  return `dev-only-session:${FALLBACK_ADMIN_CODE_SHA256}`;
 }
 
 function hmac(payload: string): string {
   return crypto.createHmac("sha256", sessionSecret()).update(payload).digest("hex");
 }
 
+/**
+ * Constant-time compare that tolerates a length mismatch.
+ *
+ * crypto.timingSafeEqual THROWS when the two buffers differ in length, and both
+ * call sites below compare against attacker-supplied input — so a short cookie
+ * or a misconfigured hash raised a 500 instead of cleanly failing the check.
+ */
+function safeEqual(a: string, b: string): boolean {
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) return false;
+  return crypto.timingSafeEqual(bufA, bufB);
+}
+
 export function verifyAdminCode(code: string): boolean {
-  const expected = process.env.ADMIN_ACCESS_CODE_SHA256 || FALLBACK_ADMIN_CODE_SHA256;
-  const actual = sha256(code.trim());
-  return crypto.timingSafeEqual(Buffer.from(actual), Buffer.from(expected));
+  const expected = process.env.ADMIN_ACCESS_CODE_SHA256?.trim() || FALLBACK_ADMIN_CODE_SHA256;
+  return safeEqual(sha256(code.trim()), expected);
 }
 
 export function createAdminSession(): string {
@@ -47,9 +74,10 @@ export function verifyAdminSession(value?: string | null): boolean {
   try {
     expected = hmac(payload);
   } catch {
+    // No session secret configured — reject rather than trust anything.
     return false;
   }
-  if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected))) return false;
+  if (!safeEqual(sig, expected)) return false;
   const issuedAt = Number(issuedAtRaw);
   if (!Number.isFinite(issuedAt)) return false;
   // 14-day admin session.

@@ -4,6 +4,7 @@ import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { brandConfirmation, internalNotification } from "@/lib/email-templates";
 import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
 import { ATTRIBUTION_KEYS, type Attribution, type BrandLead } from "@/lib/leads";
+import { captureDeal } from "@/lib/crm/capture";
 import { classifySource, clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
 
 // Email SDK needs the Node runtime (not edge).
@@ -115,6 +116,16 @@ export async function POST(request: Request) {
       howHeard: lead.howHeard,
       resource: lead.resource,
     },
+  });
+
+  // Put the brand on the pipeline board. Never throws - see captureDeal.
+  await captureDeal({
+    source: kind === "lead_magnet" ? "lead_magnet" : "brand_inquiry",
+    email: lead.email,
+    company: lead.company || null,
+    contactName: [lead.firstName, lead.lastName].filter(Boolean).join(" ") || null,
+    phone: lead.phone || null,
+    payload: lead as unknown as Record<string, unknown>,
   });
 
   // Fire both emails AFTER the response returns so the sender isn't kept waiting

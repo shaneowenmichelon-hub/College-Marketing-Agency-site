@@ -3,6 +3,7 @@ import { isValidEmail } from "@/lib/utils";
 import { sendEmail, AGENCY_INBOX } from "@/lib/email";
 import { rateLimit, clientIp } from "@/lib/rate-limit";
 import { classifySource, clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
+import { captureDeal } from "@/lib/crm/capture";
 import { formatUSD } from "@/lib/campaign-inventory";
 
 // Email SDK needs the Node runtime (not edge).
@@ -97,6 +98,16 @@ export async function POST(request: Request) {
     userAgent: request.headers.get("user-agent") || undefined,
     ipHash: hashIp(analyticsClientIp(request)),
     data: { firstName, lastName, company, email, phone, services, months, schools, events, totals, budget, notes },
+  });
+
+  // Put the brand on the pipeline board. Never throws - see captureDeal.
+  await captureDeal({
+    source: "campaign",
+    email,
+    company: company || null,
+    contactName: who !== "A brand" ? who : null,
+    phone: phone || null,
+    payload: { services, months, schools, events, totals, budget, notes },
   });
 
   const internalSubject = `New campaign build — ${who}${company ? ` @ ${company}` : ""} (${budget || formatUSD(totals.estimate ?? 0)})`;
