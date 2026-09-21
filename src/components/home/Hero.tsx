@@ -243,9 +243,21 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
 
 export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }[] }) {
   const reduce = useReducedMotion();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const active = mounted && !reduce;
+  // The pinned coin-reel is a DESKTOP-only interaction. On mobile/tablet it would
+  // cram the reel + photo collage + logos into one pinned screen, so there we
+  // fall back to a normal stacked hero (tappable coin, then photos, then logos).
+  const [active, setActive] = useState(false);
+  useEffect(() => {
+    if (reduce) {
+      setActive(false);
+      return;
+    }
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setActive(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, [reduce]);
 
   const wrapRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end end"] });
