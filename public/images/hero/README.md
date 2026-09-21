@@ -4,6 +4,10 @@ Any image you drop in THIS folder (`public/images/hero/`) automatically appears
 in the homepage hero collage — no code change needed. Files are read at build
 time and served optimized (AVIF/WebP, resized, lazy) via next/image.
 
+Lead with **people at the activation** — attendees, ambassadors, staffed booths.
+Close-up product shots belong in `../activations/`, which is not read
+automatically, so one sponsor's product never dominates the site.
+
 Guidelines:
 - Formats: `.jpg`, `.jpeg`, `.png`, `.webp`, or `.avif`.
 - 10–15 landscape/square photos works best for the two scrolling rows.

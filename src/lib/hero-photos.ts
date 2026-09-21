@@ -14,16 +14,12 @@ const IMG = /\.(jpe?g|png|webp|avif)$/i;
 
 /** Per-file alt text. Files not listed fall back to a generic description. */
 const ALT: Record<string, string> = {
-  "01-stripz-night-school-attendees.jpg":
-    "Students holding STRIPZ product at a Night School Tour campus activation",
-  "02-stripz-neon-attendee.jpg":
-    "Student showing a STRIPZ Neon pack at a campus nightlife activation",
+  "01-night-school-tour-attendees.jpg":
+    "Students at a Night School Tour campus activation",
+  "02-campus-nightlife-attendee.jpg":
+    "Student at a sponsored campus nightlife activation",
   "03-nutrl-bar-cart-activation.jpg":
     "Branded NUTRL bar cart staffed at a campus event activation",
-  "04-stripz-rainbow-sampling.jpg":
-    "STRIPZ Rainbow pack handed out during on-site product sampling",
-  "05-stripz-product-lineup.jpg":
-    "STRIPZ product lineup displayed at a sponsored campus event",
 };
 
 export function getHeroPhotos(): HeroPhoto[] {

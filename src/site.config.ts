@@ -502,31 +502,25 @@ export function eventPhotoRemote(file: string): string {
 // ─────────────────────────────────────────────────────────────────────────────
 export type SitePhoto = { src: string; alt: string; seed: string };
 
+// Order matters: the first entry leads the hero carousel and is the photo the
+// Book a Call page shows. Lead with people at the activation, not with product
+// shots - close-up product photography stays in /public/images/activations/ and
+// is deliberately out of this rotation.
 export const sitePhotos: SitePhoto[] = [
   {
-    src: "/images/hero/01-stripz-night-school-attendees.jpg",
-    alt: "Students holding STRIPZ product at a Night School Tour campus activation",
-    seed: "stripz-attendees",
+    src: "/images/hero/01-night-school-tour-attendees.jpg",
+    alt: "Students at a Night School Tour campus activation",
+    seed: "night-school-attendees",
+  },
+  {
+    src: "/images/hero/02-campus-nightlife-attendee.jpg",
+    alt: "Student at a sponsored campus nightlife activation",
+    seed: "campus-nightlife",
   },
   {
     src: "/images/hero/03-nutrl-bar-cart-activation.jpg",
     alt: "Branded NUTRL bar cart staffed at a campus event activation",
     seed: "nutrl-cart",
-  },
-  {
-    src: "/images/hero/02-stripz-neon-attendee.jpg",
-    alt: "Student showing a STRIPZ Neon pack at a campus nightlife activation",
-    seed: "stripz-neon",
-  },
-  {
-    src: "/images/hero/05-stripz-product-lineup.jpg",
-    alt: "STRIPZ product lineup displayed at a sponsored campus event",
-    seed: "stripz-lineup",
-  },
-  {
-    src: "/images/hero/04-stripz-rainbow-sampling.jpg",
-    alt: "STRIPZ Rainbow pack handed out during on-site product sampling",
-    seed: "stripz-rainbow",
   },
 ];
 
