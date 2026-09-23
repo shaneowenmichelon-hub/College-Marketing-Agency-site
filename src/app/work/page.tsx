@@ -6,6 +6,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/SectionHeading";
 import { EventImage } from "@/components/EventImage";
+import { CaseStudyCover } from "@/components/work/CaseStudyCover";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { caseStudies } from "@/lib/content";
@@ -43,11 +44,12 @@ export default function WorkPage() {
                 href={`/work/${c.slug}`}
                 className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[color:var(--border-on-light)] bg-surface shadow-soft transition-all hover:-translate-y-1 hover:shadow-soft-lg"
               >
-                <EventImage
+                <CaseStudyCover
+                  scene={c.cover}
+                  image={c.image}
+                  imageAlt={c.imageAlt}
                   label={c.type}
-                  index={i + 2}
-                  aspect="aspect-[16/10]"
-                  className="rounded-none"
+                  className="aspect-[16/10] w-full"
                 />
                 <div className="flex flex-1 flex-col p-6">
                   <div className="flex items-center gap-2">

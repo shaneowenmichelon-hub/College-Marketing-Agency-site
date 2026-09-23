@@ -26,6 +26,7 @@ import { ProcessStep } from "@/components/ProcessStep";
 import { CampusGrid } from "@/components/CampusGrid";
 import { TestimonialMarquee } from "@/components/TestimonialMarquee";
 import { EventImage } from "@/components/EventImage";
+import { CaseStudyCover } from "@/components/work/CaseStudyCover";
 import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
 import { caseStudies, posts, formatDate } from "@/lib/content";
@@ -202,11 +203,12 @@ export default function HomePage() {
                 href={`/work/${c.slug}`}
                 className="group block h-full overflow-hidden rounded-2xl border border-[color:var(--border-on-light)] bg-surface shadow-soft transition-all hover:-translate-y-1 hover:shadow-soft-lg"
               >
-                <EventImage
+                <CaseStudyCover
+                  scene={c.cover}
+                  image={c.image}
+                  imageAlt={c.imageAlt}
                   label={c.type}
-                  index={i + 2}
-                  aspect="aspect-[16/10]"
-                  className="rounded-none"
+                  className="aspect-[16/10] w-full"
                 />
                 <div className="p-6">
                   <Badge>{c.type}</Badge>

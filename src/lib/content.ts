@@ -327,6 +327,14 @@ export type CaseStudy = {
   sample?: boolean;
   /** Public sources for the factual program description (industry references). */
   sources?: { label: string; url: string }[];
+  /**
+   * Card artwork. `image` is a real activation photo; otherwise `cover` names
+   * an illustrated scene. Set here rather than per page so the homepage, the
+   * work index and the detail page can never drift apart.
+   */
+  cover?: "apartment" | "bolt";
+  image?: string;
+  imageAlt?: string;
   /** Optional long-form case-study article rendered on the work detail page. */
   article?: ArticleBlock[];
 };
@@ -427,6 +435,8 @@ const nutrlNightSchoolArticle: ArticleBlock[] = [
 export const caseStudies: CaseStudy[] = [
   {
     slug: "sos-consultants-nola-campus-leasing-ambassadors",
+    cover: "apartment",
+    imageAlt: "Illustration of an apartment block with units filling up and a LEASED sign",
     brand: "SOS Consultants Nola",
     type: "Brand Ambassadors",
     headline: "How a New Orleans leasing agency turned campus ambassadors and Meta ads into 11x ROAS",
@@ -447,6 +457,8 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "celsius-campus-sampling",
+    cover: "bolt",
+    imageAlt: "Illustration of a lightning bolt with energy rings",
     brand: "Celsius",
     type: "Events",
     headline: "Campus sampling that built an energy-drink challenger",
@@ -471,6 +483,8 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "nutrl-night-school-tour-product-placement",
+    image: "/images/work/nutrl-can-activation.jpg",
+    imageAlt: "Staffer holding a NUTRL can at the branded NUTRL bar cart",
     brand: "NÜTRL",
     type: "Product Placement",
     headline: "How NÜTRL turned Night School Tour sponsorship into 425 cases and 5M social insights",
