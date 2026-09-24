@@ -16,9 +16,16 @@ export function AppShell({ children }: { children: ReactNode }) {
     pathname?.startsWith("/private-ops-7f3a") ||
     pathname?.startsWith("/zmm-affiliate-command") ||
     pathname?.startsWith("/api/admin");
+  // Never interrupt a page whose whole job is to capture a lead. The modal is
+  // full-screen and locks body scroll, so on /contact and /build-a-campaign it
+  // was covering the form 1.5s after load — trading a brand enquiry for a
+  // newsletter signup. The ambassador page was already exempt; these two are
+  // the revenue pages and matter more.
   const showNewsletterModal =
     !pathname?.startsWith("/portal") &&
     !pathname?.startsWith("/become-an-ambassador") &&
+    !pathname?.startsWith("/contact") &&
+    !pathname?.startsWith("/build-a-campaign") &&
     !pathname?.startsWith("/terms") &&
     !pathname?.startsWith("/privacy");
 

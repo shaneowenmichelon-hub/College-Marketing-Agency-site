@@ -8,6 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { siteConfig, clients } from "@/site.config";
 import { Container } from "@/components/ui/Container";
@@ -241,6 +242,9 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
   );
 }
 
+/** Stats shown above the fold: scale, coverage, reach — what a brand buys. */
+const HERO_STAT_KEYS = ["ambassadors", "campuses", "socialReach"] as const;
+
 export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }[] }) {
   const reduce = useReducedMotion();
   // The pinned coin-reel is a DESKTOP-only interaction. On mobile/tablet it would
@@ -317,17 +321,55 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
                 they live, study, and go out.
               </motion.p>
 
-              <motion.div variants={item} className="mt-9 flex w-full max-w-xs flex-col gap-3">
+              {/*
+                Two brand CTAs at full weight, the student one as a text link.
+                Three equal buttons to three destinations made the first screen a
+                choice rather than an action, and gave the supply side the same
+                billing as the revenue side. Students still have the header, the
+                footer, the mobile drawer and a whole section further down, so
+                the path is demoted here, not removed.
+              */}
+              <motion.div variants={item} className="mt-9 flex w-full flex-col gap-3 sm:max-w-md sm:flex-row">
                 <Button href="/contact" variant="lime" size="lg">
                   Book a Call
                   <ArrowRight className="h-4 w-4" />
                 </Button>
-                <Button href="/become-an-ambassador" variant="ghost-dark" size="lg">
-                  Become an Ambassador
-                </Button>
                 <Button href="/build-a-campaign" variant="magenta" size="lg">
                   Build a Campaign
                 </Button>
+              </motion.div>
+
+              {/*
+                Scale, on the first screen. These are the numbers a brand
+                marketer is actually deciding on, and they used to sit four
+                sections down. One compact line, so it costs almost no height on
+                a phone.
+              */}
+              <motion.ul
+                variants={item}
+                className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[color:var(--muted-on-dark)]"
+              >
+                {HERO_STAT_KEYS.map((key) => {
+                  const stat = siteConfig.stats.find((s) => s.key === key);
+                  if (!stat) return null;
+                  return (
+                    <li key={key} className="flex items-baseline gap-1.5">
+                      <span className="font-display text-base font-bold text-[color:var(--accent-2)]">
+                        {stat.value}
+                      </span>
+                      {stat.label}
+                    </li>
+                  );
+                })}
+              </motion.ul>
+
+              <motion.div variants={item} className="mt-5">
+                <Link
+                  href="/become-an-ambassador"
+                  className="text-sm font-semibold text-[color:var(--muted-on-dark)] underline decoration-2 underline-offset-4 transition-colors hover:text-[color:var(--accent-2)]"
+                >
+                  Student? Become an ambassador
+                </Link>
               </motion.div>
             </motion.div>
 

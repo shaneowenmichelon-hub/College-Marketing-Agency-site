@@ -81,6 +81,19 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/contact" className="text-[color:var(--muted-on-dark)] hover:text-white">
+                  Book a Call
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/build-a-campaign"
+                  className="text-[color:var(--muted-on-dark)] hover:text-white"
+                >
+                  Build a Campaign
+                </Link>
+              </li>
+              <li>
                 <Link
                   href="/become-an-ambassador"
                   className="text-[color:var(--muted-on-dark)] hover:text-white"
@@ -97,7 +110,9 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm text-[color:var(--muted-on-dark)]">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 shrink-0" aria-hidden />
-                <span>{siteConfig.contact.email}</span>
+                <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-white">
+                  {siteConfig.contact.email}
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 shrink-0" aria-hidden />

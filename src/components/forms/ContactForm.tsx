@@ -52,8 +52,10 @@ export function ContactForm() {
     if (!payload.company) nextErrors.company = "Company is required.";
     if (!payload.email) nextErrors.email = "Work email is required.";
     else if (!isValidEmail(payload.email)) nextErrors.email = "Enter a valid email.";
-    if (!payload.budget) nextErrors.budget = "Please select a budget range.";
-    if (!payload.howHeard) nextErrors.howHeard = "Please let us know how you found us.";
+    // Budget and attribution are deliberately NOT required. Forcing a prospect
+    // to name a number before they've spoken to anyone loses the ones who don't
+    // have one yet, and "how did you find us?" serves our reporting, not them.
+    // Both still submit when filled in.
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
@@ -179,11 +181,9 @@ export function ContactForm() {
       </fieldset>
 
       <div className="mt-5 grid gap-5">
-        <FormField label="Budget range" htmlFor="budget" required error={errors.budget}>
+        <FormField label="Budget range" htmlFor="budget" error={errors.budget}>
           <Select id="budget" name="budget" defaultValue="" error={errors.budget}>
-            <option value="" disabled>
-              Select a range
-            </option>
+            <option value="">Not sure yet</option>
             {siteConfig.budgetRanges.map((b) => (
               <option key={b} value={b}>
                 {b}
@@ -200,7 +200,7 @@ export function ContactForm() {
             key={`msg-${prefill.message ?? ""}`}
           />
         </FormField>
-        <FormField label="How did you find us?" htmlFor="howHeard" required error={errors.howHeard}>
+        <FormField label="How did you find us?" htmlFor="howHeard" error={errors.howHeard}>
           <Input
             id="howHeard"
             name="howHeard"
@@ -222,7 +222,7 @@ export function ContactForm() {
             <Loader2 className="h-4 w-4 animate-spin" /> Sending…
           </>
         ) : (
-          "Get Started"
+          "Book a Call"
         )}
       </Button>
     </form>
