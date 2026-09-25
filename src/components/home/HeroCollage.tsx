@@ -29,12 +29,14 @@ function Row({
   duration,
   tileW,
   tileH,
+  compact = false,
 }: {
   items: Photo[];
   reverse?: boolean;
   duration: string;
   tileW: number;
   tileH: number;
+  compact?: boolean;
 }) {
   // The second copy is what makes the -50% translate loop seamless; it is a
   // mechanical duplicate, so each photo is described to screen readers once.
@@ -52,7 +54,10 @@ function Row({
               key={`${p.src}-${i}`}
               aria-hidden={!first}
               // Capped in vw so big tiles stay phone-sized on a narrow screen.
-              style={{ width: `min(${tileW}px, 52vw)`, height: `min(${tileH}px, 32vw)` }}
+              style={{
+                width: `min(${tileW}px, 52vw)`,
+                height: compact ? `min(${tileH}px, 32vw, 11svh)` : `min(${tileH}px, 32vw)`,
+              }}
               className="relative shrink-0 overflow-hidden rounded-[4px] border-2 border-white/20"
             >
               <Image
@@ -75,7 +80,7 @@ function tileWidth(count: number): number {
   return Math.min(320, Math.max(160, Math.ceil(ROW_SPAN / count)));
 }
 
-export function HeroCollage({ photos }: { photos?: Photo[] }) {
+export function HeroCollage({ photos, compact = false }: { photos?: Photo[]; compact?: boolean }) {
   const source: Photo[] =
     photos && photos.length ? photos : heroCollage.length ? heroCollage : sitePhotos;
 
@@ -85,7 +90,7 @@ export function HeroCollage({ photos }: { photos?: Photo[] }) {
     const w = tileWidth(source.length);
     return (
       <div role="region" aria-label="Recent campus events and activations">
-        <Row items={source} duration="46s" tileW={w} tileH={Math.round(w * 0.58)} />
+        <Row items={source} duration="46s" tileW={w} tileH={Math.round(w * (compact ? 0.4 : 0.58))} compact={compact} />
       </div>
     );
   }
@@ -96,8 +101,8 @@ export function HeroCollage({ photos }: { photos?: Photo[] }) {
 
   return (
     <div className="space-y-3" role="region" aria-label="Recent campus events and activations">
-      <Row items={rowA} duration="42s" tileW={160} tileH={96} />
-      <Row items={rowB} reverse duration="50s" tileW={160} tileH={96} />
+      <Row items={rowA} duration="42s" tileW={160} tileH={compact ? 78 : 96} compact={compact} />
+      <Row items={rowB} reverse duration="50s" tileW={160} tileH={compact ? 78 : 96} compact={compact} />
     </div>
   );
 }

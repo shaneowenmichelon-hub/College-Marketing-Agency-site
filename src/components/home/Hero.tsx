@@ -251,6 +251,25 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
   // cram the reel + photo collage + logos into one pinned screen, so there we
   // fall back to a normal stacked hero (tappable coin, then photos, then logos).
   const [active, setActive] = useState(false);
+  /**
+   * Height of the sticky header. The hero pins below it, so the screen it
+   * actually gets is 100svh MINUS this. Sizing it to a full 100svh pushed the
+   * bottom of the hero — the brand logo strip — off the screen by exactly the
+   * header's height, and a sticky box taller than its slot can never reveal
+   * its own bottom. Measured rather than hardcoded: the header restyles on
+   * scroll and differs across breakpoints.
+   */
+  const [headerH, setHeaderH] = useState(0);
+
+  useEffect(() => {
+    const header = document.querySelector("header");
+    if (!header) return;
+    const measure = () => setHeaderH(header.getBoundingClientRect().height);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(header);
+    return () => ro.disconnect();
+  }, []);
   useEffect(() => {
     if (reduce) {
       setActive(false);
@@ -279,8 +298,9 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
     <div ref={wrapRef} className={active ? "relative h-[150vh] sm:h-[160vh]" : "relative"}>
       <section
         className={`grain relative overflow-hidden border-b-2 border-ink bg-ink text-white ${
-          active ? "sticky top-0 flex min-h-[100svh] flex-col justify-between" : ""
+          active ? "sticky flex flex-col justify-between" : ""
         }`}
+        style={active ? { top: headerH, height: `calc(100svh - ${headerH}px)` } : undefined}
       >
         <div aria-hidden className="mesh pointer-events-none absolute inset-0" />
         <div
@@ -292,8 +312,8 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
             backgroundSize: "64px 64px",
           }}
         />
-        <Container className="relative">
-          <div className={`grid items-center gap-8 lg:grid-cols-[1.3fr_1fr] ${active ? "py-10 sm:py-14 lg:py-16" : "py-20 sm:py-28 lg:py-36"}`}>
+        <Container className={`relative ${active ? "flex min-h-0 flex-1 items-center" : ""}`}>
+          <div className={`grid w-full items-center gap-6 lg:grid-cols-[1.3fr_1fr] ${active ? "py-4" : "py-20 sm:py-28 lg:py-36"}`}>
             <motion.div variants={container} initial="hidden" animate="show" className="flex flex-col items-start">
               {siteConfig.showCredibility && (
                 <motion.div variants={item}>
@@ -306,7 +326,11 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
 
               <motion.h1
                 variants={item}
-                className="mt-6 max-w-4xl text-balance font-display text-display-lg font-bold leading-[0.95]"
+                className={`max-w-4xl text-balance font-display font-bold leading-[0.95] ${
+                  active
+                    ? "mt-4 text-[clamp(2.25rem,min(8.5svh,5.2vw),5rem)] leading-[0.92] tracking-[-0.035em]"
+                    : "mt-6 text-display-lg"
+                }`}
               >
                 Where brands meet{" "}
                 <span className="text-[color:var(--accent-2)]">campus culture.</span>
@@ -314,7 +338,9 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
 
               <motion.p
                 variants={item}
-                className="mt-6 max-w-2xl text-lg leading-relaxed text-[color:var(--muted-on-dark)] sm:text-xl"
+                className={`max-w-2xl leading-relaxed text-[color:var(--muted-on-dark)] ${
+                  active ? "mt-4 text-lg" : "mt-6 text-lg sm:text-xl"
+                }`}
               >
                 We put your brand in front of college students through events, brand
                 ambassadors, and product placement. We reach them on the campuses where
@@ -329,7 +355,7 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
                 footer, the mobile drawer and a whole section further down, so
                 the path is demoted here, not removed.
               */}
-              <motion.div variants={item} className="mt-9 flex w-full flex-col gap-3 sm:max-w-md sm:flex-row">
+              <motion.div variants={item} className={`flex w-full flex-col gap-3 sm:max-w-md sm:flex-row ${active ? "mt-6" : "mt-9"}`}>
                 <Button href="/contact" variant="lime" size="lg">
                   Book a Call
                   <ArrowRight className="h-4 w-4" />
@@ -347,7 +373,9 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
               */}
               <motion.ul
                 variants={item}
-                className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[color:var(--muted-on-dark)]"
+                className={`flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[color:var(--muted-on-dark)] ${
+                  active ? "mt-4" : "mt-6"
+                }`}
               >
                 {HERO_STAT_KEYS.map((key) => {
                   const stat = siteConfig.stats.find((s) => s.key === key);
@@ -363,7 +391,7 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
                 })}
               </motion.ul>
 
-              <motion.div variants={item} className="mt-5">
+              <motion.div variants={item} className={active ? "mt-3" : "mt-5"}>
                 <Link
                   href="/become-an-ambassador"
                   className="text-sm font-semibold text-[color:var(--muted-on-dark)] underline decoration-2 underline-offset-4 transition-colors hover:text-[color:var(--accent-2)]"
@@ -379,13 +407,13 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
 
         {/* Scrolling event collage + brand logos (before you scroll).
             Swap sitePhotos in site.config for real event photos. */}
-        <div className="relative mt-8 sm:mt-10">
+        <div className={`relative shrink-0 ${active ? "mt-4" : "mt-8 sm:mt-10"}`}>
           <Container>
-            <HeroCollage photos={heroPhotos} />
+            <HeroCollage photos={heroPhotos} compact={active} />
           </Container>
-          <div className="mt-6 border-t-2 border-white/10 pt-5">
+          <div className={`border-t-2 border-white/10 ${active ? "mt-3 pt-3" : "mt-6 pt-5"}`}>
             <Container>
-              <p className="mb-3 text-center text-[11px] font-medium uppercase tracking-widest text-[color:var(--muted-on-dark)]">
+              <p className={`text-center text-[11px] ${active ? "mb-2" : "mb-3"} font-medium uppercase tracking-widest text-[color:var(--muted-on-dark)]`}>
                 Brands we&apos;ve worked with
               </p>
             </Container>
