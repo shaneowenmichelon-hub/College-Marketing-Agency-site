@@ -22,7 +22,26 @@ export type ArticleBlock =
   | { type: "p"; html: string }
   | { type: "h2"; text: string }
   | { type: "ul"; items: string[] }
-  | { type: "ol"; items: string[] };
+  | { type: "ol"; items: string[] }
+  | ArticleTableBlock;
+
+/**
+ * A real data table. Authored as a GitHub-flavoured markdown pipe table in the
+ * MDX source and rendered as semantic <table> markup — never an image, and
+ * never raw HTML in the body (the publisher rejects that outright).
+ *
+ * `columns` are the header cells, `rows` the body cells, both already
+ * converted to inline HTML so links and bold survive. `align` is per column,
+ * taken from the markdown separator row.
+ */
+export type ArticleTableBlock = {
+  type: "table";
+  /** Optional <caption>, authored as a "Table: ..." line above the table. */
+  caption?: string;
+  columns: string[];
+  rows: string[][];
+  align?: ("left" | "center" | "right")[];
+};
 
 export type Post = {
   slug: string;
@@ -66,6 +85,11 @@ export function estimateReadingTime(body: ArticleBlock[]): string {
     .map((b) => {
       if (b.type === "p") return b.html;
       if (b.type === "h2") return b.text;
+      // Tables count toward reading time too — a dense comparison table is
+      // often the slowest part of an article to actually read.
+      if (b.type === "table") {
+        return [b.caption ?? "", ...b.columns, ...b.rows.flat()].join(" ");
+      }
       return b.items.join(" ");
     })
     .join(" ")

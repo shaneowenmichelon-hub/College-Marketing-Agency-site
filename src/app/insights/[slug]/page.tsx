@@ -6,6 +6,7 @@ import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { CTASection } from "@/components/CTASection";
+import { ArticleTable } from "@/components/article/ArticleTable";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/site.config";
 import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/content";
@@ -90,6 +91,8 @@ function Block({ block }: { block: ArticleBlock }) {
           ))}
         </ol>
       );
+    case "table":
+      return <ArticleTable block={block} />;
   }
 }
 

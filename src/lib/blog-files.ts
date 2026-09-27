@@ -64,11 +64,51 @@ function paragraphToHtml(text: string): string {
     .trim();
 }
 
+/** A markdown row: `| a | b |` → ["a", "b"]. Escaped \| stays literal. */
+function splitTableRow(line: string): string[] {
+  const inner = line.trim().replace(/^\|/, "").replace(/\|$/, "");
+  const cells: string[] = [];
+  let cur = "";
+  for (let i = 0; i < inner.length; i++) {
+    const ch = inner[i];
+    if (ch === "\\" && inner[i + 1] === "|") {
+      cur += "|";
+      i++;
+    } else if (ch === "|") {
+      cells.push(cur.trim());
+      cur = "";
+    } else {
+      cur += ch;
+    }
+  }
+  cells.push(cur.trim());
+  return cells;
+}
+
+/** True for a GFM separator row: `| --- | :---: |`. This is what marks a table. */
+function isTableSeparator(line: string): boolean {
+  const t = line.trim();
+  if (!t.startsWith("|") || !t.includes("-")) return false;
+  return splitTableRow(t).every((c) => /^:?-{1,}:?$/.test(c));
+}
+
+function alignmentsFrom(separator: string): ("left" | "center" | "right")[] {
+  return splitTableRow(separator).map((c) => {
+    const left = c.startsWith(":");
+    const right = c.endsWith(":");
+    if (left && right) return "center";
+    if (right) return "right";
+    return "left";
+  });
+}
+
 function parseMarkdownBody(markdown: string): ArticleBlock[] {
   const blocks: ArticleBlock[] = [];
   const lines = markdown.split("\n");
   let paragraph: string[] = [];
   let list: { type: "ul" | "ol"; items: string[] } | null = null;
+  /** Set by a "Table: ..." line, consumed by the next table. */
+  let pendingCaption: string | undefined;
 
   const flushParagraph = () => {
     if (!paragraph.length) return;
@@ -83,11 +123,55 @@ function parseMarkdownBody(markdown: string): ArticleBlock[] {
     list = null;
   };
 
-  for (const raw of lines) {
+  for (let i = 0; i < lines.length; i++) {
+    const raw = lines[i];
     const line = raw.trim();
     if (!line) {
       flushParagraph();
       flushList();
+      continue;
+    }
+
+    // A pipe row followed by a separator row starts a GFM table. Checking the
+    // separator is what distinguishes a table from a paragraph that merely
+    // contains pipes.
+    if (line.startsWith("|") && i + 1 < lines.length && isTableSeparator(lines[i + 1])) {
+      flushParagraph();
+      flushList();
+
+      const columns = splitTableRow(line).map(paragraphToHtml);
+      const align = alignmentsFrom(lines[i + 1]);
+      const rows: string[][] = [];
+
+      let j = i + 2;
+      for (; j < lines.length; j++) {
+        const rowLine = lines[j].trim();
+        if (!rowLine.startsWith("|")) break;
+        const cells = splitTableRow(rowLine).map(paragraphToHtml);
+        // Ragged rows are padded rather than dropped, so a stray missing cell
+        // never silently loses data from a published article.
+        while (cells.length < columns.length) cells.push("");
+        rows.push(cells.slice(0, columns.length));
+      }
+
+      blocks.push({
+        type: "table",
+        ...(pendingCaption ? { caption: pendingCaption } : {}),
+        columns,
+        rows,
+        align: align.slice(0, columns.length),
+      });
+      pendingCaption = undefined;
+      i = j - 1;
+      continue;
+    }
+
+    // "Table: ..." on its own line becomes the next table's <caption>.
+    const caption = line.match(/^Table:\s+(.+)$/i);
+    if (caption) {
+      flushParagraph();
+      flushList();
+      pendingCaption = caption[1].trim();
       continue;
     }
 

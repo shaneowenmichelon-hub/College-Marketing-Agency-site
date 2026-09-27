@@ -201,6 +201,40 @@ def validate_contextual_links(body: str) -> list[dict]:
     return links
 
 
+def validate_tables(body: str) -> int:
+    """Tabular data must ship as a real markdown pipe table, never an image and
+    never raw HTML (see the unsafe-markup gate). Returns the table count.
+
+    Rejects the shapes that render as literal pipes on the page: a pipe row
+    with no separator beneath it, ragged rows, or a header with no body."""
+    lines = body.split("\n")
+    tables = 0
+    i = 0
+    sep = re.compile(r"^\s*\|?\s*:?-{1,}:?\s*(\|\s*:?-{1,}:?\s*)*\|?\s*$")
+    while i < len(lines):
+        line = lines[i].strip()
+        if line.startswith("|") and line.endswith("|"):
+            if i + 1 >= len(lines) or not sep.match(lines[i + 1].strip()):
+                raise ValueError("table-missing-separator")
+            width = len([c for c in line.strip("|").split("|")])
+            j, rows = i + 2, 0
+            while j < len(lines) and lines[j].strip().startswith("|"):
+                cells = len([c for c in lines[j].strip().strip("|").split("|")])
+                if cells != width:
+                    raise ValueError("table-ragged-rows")
+                rows += 1
+                j += 1
+            if rows == 0:
+                raise ValueError("table-no-rows")
+            if width < 2:
+                raise ValueError("table-single-column")
+            tables += 1
+            i = j
+            continue
+        i += 1
+    return tables
+
+
 def validate_article(path: Path, worktree: Path) -> dict:
     data, body = frontmatter(path)
     required = "slug title metaTitle metaDescription primaryKeyword category services excerpt date ctaService image imageAlt imageCredit imageSource imageLicense".split()
@@ -225,6 +259,7 @@ def validate_article(path: Path, worktree: Path) -> dict:
         raise ValueError("editorial-length")
     if re.search(r"\b(leverage|synergy)\b|in today's fast-paced world|/services/influencers", body, re.I):
         raise ValueError("banned-copy")
+    table_count = validate_tables(body)
     body_links = validate_contextual_links(body)
     if not re.search(r"^[-\d].*", body, re.M):
         raise ValueError("links-checklist")
@@ -252,7 +287,7 @@ def validate_article(path: Path, worktree: Path) -> dict:
         raise ValueError("photo-license-provenance")
     if any(not data[k].startswith("https://") for k in ("imageSource", "imageLicense")):
         raise ValueError("photo-credit-url")
-    return {**data, "word_count": count, "body_links": body_links,
+    return {**data, "word_count": count, "body_links": body_links, "tables": table_count,
             "article_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "image_sha256": hashlib.sha256(photo.read_bytes()).hexdigest(),
             "body_sentinel": re.sub(r"\s+", " ", re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", body.split("\n\n")[0]).replace("**", "")).strip()[:100]}
