@@ -12,6 +12,7 @@ import {
   Loader2,
   MapPin,
   Minus,
+  MousePointer2,
   PackageOpen,
   PartyPopper,
   Plus,
@@ -483,20 +484,28 @@ export function CampaignBuilder() {
 
           {step === "events" && (
             <div className="space-y-8">
+              {/* Only shown where hovering is possible; on touch the same
+                  description sits inline under each card instead. */}
+              <p className="hover-hint mono-label -mt-2 flex items-center gap-1.5 text-[11px] text-[color:var(--muted-on-light)]">
+                <MousePointer2 className="h-3.5 w-3.5 text-accent" aria-hidden />
+                Hover an event to see what it is
+              </p>
               {campaignEvents.map((group) => (
                 <div key={group.group}>
                   <h3 className="mono-label mb-3 text-[11px] font-bold text-accent">{group.group}</h3>
                   <div className="grid gap-3 sm:grid-cols-2">
                     {group.events.map((e) => {
                       const on = !!selectedEvents[e.id];
+                      const tipId = `event-tip-${e.id}`;
                       return (
+                        <div key={e.id} className="group relative">
                         <button
-                          key={e.id}
                           type="button"
                           onClick={() => setSelectedEvents((prev) => ({ ...prev, [e.id]: !prev[e.id] }))}
                           aria-pressed={on}
+                          aria-describedby={e.blurb ? tipId : undefined}
                           className={cn(
-                            "brutal-press flex flex-col rounded-[4px] border-2 border-ink p-4 text-left transition-all",
+                            "brutal-press flex w-full flex-col rounded-[4px] border-2 border-ink p-4 text-left transition-all",
                             on
                               ? "-translate-y-0.5 bg-[color:var(--accent)] text-white shadow-[6px_6px_0_var(--ink)]"
                               : "bg-white text-ink shadow-[3px_3px_0_var(--ink)] hover:-translate-y-0.5",
@@ -522,6 +531,16 @@ export function CampaignBuilder() {
                             <Coins className="h-3 w-3" /> {e.feeLabel}
                           </span>
                         </button>
+                        {e.blurb && (
+                          <span
+                            id={tipId}
+                            role="note"
+                            className="event-tip rounded-[3px] border-2 border-ink bg-ink px-3 py-2 text-xs leading-snug text-white shadow-[4px_4px_0_var(--accent)]"
+                          >
+                            {e.blurb}
+                          </span>
+                        )}
+                        </div>
                       );
                     })}
                   </div>

@@ -274,3 +274,53 @@ body {
     animation: none !important;
   }
 }
+
+/* ── Event description reveal (campaign builder) ─────────────────────────────
+   Hover is not available on touch, and a description that only exists on
+   hover is simply missing for those users. So the description is inline by
+   default and only becomes a hover/focus tooltip on devices with a real
+   pointer. Same markup, same single element, two presentations.
+   Opacity rather than visibility/display, so the text stays in the
+   accessibility tree for the aria-describedby on the card. */
+.event-tip {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* Anchored INSIDE the card, over its lower half, rather than floating
+     below it. Floating below covered the title of the card in the next grid
+     row, which read as a rendering glitch rather than a tooltip. This way the
+     reveal never touches a neighbour, the hovered card's own title stays
+     visible above it, and there is no layout shift. Inset by the 2px border
+     so it sits within the card's outline. */
+  .event-tip {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    z-index: 20;
+    margin-top: 0;
+    border-radius: 0 0 2px 2px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+  .group:hover > .event-tip,
+  .group:focus-within > .event-tip {
+    opacity: 1;
+  }
+}
+
+/* The "hover for details" prompt is meaningless without a pointer. */
+@media (hover: none) {
+  .hover-hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-tip {
+    transition: none;
+  }
+}
