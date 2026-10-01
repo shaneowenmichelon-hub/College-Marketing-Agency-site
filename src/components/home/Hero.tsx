@@ -283,7 +283,20 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
   }, [reduce]);
 
   const wrapRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "end end"] });
+  /**
+   * Progress runs 0 → 1 over the first HALF of the hero scrolling past. The
+   * page moves normally throughout and the reel plays against that movement.
+   *
+   * Half, not the whole hero, because the coin can only travel the height of
+   * its own artwork: spread over a full hero height it descends at roughly a
+   * third of the scroll rate, so the hero carries it off the top of the screen
+   * before the drop reads. Over half, it falls fast enough to actually watch.
+   *
+   * It used to pin the hero inside a 150vh spacer, so the first screen-and-a-
+   * half of scrolling moved nothing but the coin — the page looked frozen,
+   * which is the opposite of scrolling.
+   */
+  const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "center start"] });
 
   const container = {
     hidden: {},
@@ -295,12 +308,15 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
   };
 
   return (
-    <div ref={wrapRef} className={active ? "relative h-[150vh] sm:h-[160vh]" : "relative"}>
+    <div ref={wrapRef} className="relative">
       <section
         className={`grain relative overflow-hidden border-b-2 border-ink bg-ink text-white ${
-          active ? "sticky flex flex-col justify-between" : ""
+          active ? "flex flex-col justify-between" : ""
         }`}
-        style={active ? { top: headerH, height: `calc(100svh - ${headerH}px)` } : undefined}
+        // Still exactly the screen below the header, so the brand logo strip
+        // lands at the bottom of the first view — it just scrolls away with
+        // everything else now instead of being held in place.
+        style={active ? { height: `calc(100svh - ${headerH}px)` } : undefined}
       >
         <div aria-hidden className="mesh pointer-events-none absolute inset-0" />
         <div
