@@ -62,3 +62,5 @@ Method: seed keyword research from Collegiate Agency positioning plus live DuckD
 - 2026-09-16 - `campus event cancellation policy` - `/insights/campus-event-cancellation-policy`
 
 - 2026-10-01 - `campus ambassador content rights` - `/insights/campus-ambassador-content-rights`
+
+- 2026-10-03 - `campus event accessibility checklist` - `/insights/campus-event-accessibility-checklist`

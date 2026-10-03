@@ -30,3 +30,4 @@
 | 24 | 2026-09-14 | 20:19 CDT | switching-campus-marketing-agencies | switching campus marketing agencies | 1563 | prepared; live receipt in publisher state |
 | 25 | 2026-09-16 | 08:32 CDT | campus-event-cancellation-policy | campus event cancellation policy | 1614 | prepared; live receipt in publisher state |
 | 26 | 2026-10-01 | 16:50 CDT | campus-ambassador-content-rights | campus ambassador content rights | 1532 | prepared; live receipt in publisher state |
+| 27 | 2026-10-03 | 12:24 CDT | campus-event-accessibility-checklist | campus event accessibility checklist | 1583 | prepared; live receipt in publisher state |
