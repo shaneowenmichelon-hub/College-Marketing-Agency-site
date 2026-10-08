@@ -31,8 +31,8 @@ export default function WorkPage() {
         <SectionHeading
           as="h1"
           eyebrow="Work"
-          title="The three tactics, proven on campus."
-          intro="How events, brand ambassadors, and product placement actually move brands, shown through client case studies and public reference examples."
+          title="What a campus campaign actually looks like."
+          intro="Events, brand ambassadors, and product placement on real campuses - the brief, the roster, the run of show, and what came back, shown through client case studies and public reference examples."
         />
       </Section>
 
