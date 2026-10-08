@@ -59,6 +59,23 @@ export const metadata: Metadata = {
     // twitter:image is provided by app/twitter-image.tsx.
   },
   robots: { index: true, follow: true },
+  /**
+   * Search-engine ownership verification via meta tag — the alternative to
+   * the DNS record method, for when DNS is slow or awkward to reach.
+   *
+   * Emits nothing unless the env var is set, so an unconfigured deploy stays
+   * clean. NOTE: these are the HTML-tag tokens, which are NOT the same
+   * strings as the DNS TXT/CNAME values. Copy them from the "HTML tag"
+   * option in Search Console / Bing Webmaster Tools, not from the DNS one.
+   */
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+      : {}),
+    ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+      ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } }
+      : {}),
+  },
 };
 
 export default function RootLayout({
