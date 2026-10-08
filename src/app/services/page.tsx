@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbJsonLd, ServicesJsonLd } from "@/components/seo/JsonLd";
 import { AudienceTabs } from "@/components/services/AudienceTabs";
 import { CapabilityBlock } from "@/components/services/CapabilityBlock";
 import { IconCardGrid } from "@/components/services/IconCardGrid";
@@ -74,6 +74,7 @@ function StudentsPanel() {
 export default function ServicesPage() {
   return (
     <>
+      <ServicesJsonLd />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "/" },

@@ -111,7 +111,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
         description={post.excerpt}
         slug={post.slug}
         date={post.date}
-        image={post.image ?? post.ogImage ?? "/og.svg"}
+        image={post.image ?? post.ogImage}
         author={author}
       />
       <BreadcrumbJsonLd
