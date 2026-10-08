@@ -1,71 +1,42 @@
 # SEO Keyword Map
 
-Last updated: 2026-08-10
+Last updated: 2026-10-08
 
-Method: seed keyword research from Collegiate Agency positioning plus live DuckDuckGo Lite, Bing, Google, and Startpage result checks where accessible on 2026-08-10. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed search results where parseable, or retained from the prior live-search pass when the current live result set was blocked, empty, or materially mixed. Competing URLs are not endorsed sources.
+Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
 ## Ranking logic
 
-1. Buyer intent: terms a brand marketer would search when looking for an agency or vendor.
-2. Fit to services: events, ambassadors, influencers, product sampling, campus activations.
-3. Ability to write practical, original posts without fabricating performance statistics.
-4. Avoid reusing a primary keyword within 60 days.
+1. Buyer intent: terms a brand marketer, field marketing lead, shopper marketer, CPG/beverage marketer, agency strategist, or growth team would search when looking for a vendor.
+2. Fit to services: campus events, product placement, product sampling, campus activations, brand ambassadors as managed execution, and student creator support.
+3. Avoid student-job intent: de-prioritize keywords where the likely searcher is a student looking for ambassador work rather than a brand buying campus reach.
+4. Ability to write practical, original posts without fabricating performance statistics.
+5. Avoid reusing a primary keyword within 60 days.
 
-## Brand-side backlog (pull from here first)
-
-The site sells to brands; students are supply, and we currently get more student
-applicants than we can place. Editorial exists to bring BRAND leads, so the
-publisher targets what a marketer with a budget searches, and the
-`student-intent-keyword` gate rejects job-seeker queries outright.
-
-Unused buyer-intent candidates, roughly highest intent first:
-
-- college marketing agency pricing
-- campus marketing cost per campus
-- how to brief a campus marketing agency
-- campus marketing agency vs in-house
-- best college marketing agencies
-- campus marketing proposal template
-- how to measure a campus campaign
-- college marketing agency contract terms
-- campus activation budget breakdown
-- Greek life marketing for brands
-- university sponsorship packages explained
-- campus media kit what to ask for
-- spring break brand sponsorship
-- college tour sponsorship cost
-- how brands pick campuses to launch in
-- campus sampling ROI measurement
-- student org sponsorship outreach for brands
-- campus marketing agency onboarding checklist
-
-Where a term is searched by both audiences (for example "college brand
-ambassadors"), write it squarely for the buyer: selection, cost, management,
-measurement, risk. Never for the applicant.
-
-## Active keyword list
+## Active brand-buyer keyword list
 
 | Rank | Primary keyword | Intent | Difficulty signal | Long-tail variants | Competing URLs currently observed |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Gen Z marketing | Brand marketer researching broad strategy for reaching college-age consumers | ESTIMATE: high; broad query with publishers, reports, and agencies ranking | Gen Z marketing agency; Gen Z experiential marketing; how to market to Gen Z college students | https://www.youngurbanproject.com/gen-z-marketing-strategies/; https://www.contentgrip.com/brands-thriving-with-gen-z/; https://nielseniq.com/global/en/insights/analysis/2025/connecting-with-gen-z/ |
-| 2 | campus marketing agency | Brand marketer looking for campus-specific execution | ESTIMATE: high relevance; established agency/category pages ranking, but current Bing parsing returned mixed non-US campus results | campus marketing agency for Gen Z; campus advertising agency; college campus marketing company | https://thecampusagency.com/; https://oncampusadvertising.com/; https://www.campusmarketing.com/28/about-us.htm |
-| 3 | college brand ambassadors | Brand marketer researching student rep programs | ESTIMATE: medium/high; informational and vendor pages mixed, with some search ambiguity around student jobs | college brand ambassador program; student ambassador marketing; campus ambassador agency | https://www.campusbooks.com/blog/campus-ambassador-programs/; https://bookscouter.com/blog/campus-ambassador-programs/; https://upperclass.app/college-ambassador-programs |
-| 4 | student brand reps | Brand marketer comparing student rep and ambassador models | ESTIMATE: medium; job boards, ambassador lists, and vendor pages mixed | student brand representatives; college student reps for brands; student rep program | https://www.indeed.com/q-Student-Brand-Representative-jobs.html; https://www.campusbooks.com/blog/campus-ambassador-programs/; https://jobs.redbull.com/us-en/microsite/student-marketeer |
-| 5 | on-campus product sampling | Brand marketer planning product trial on campus | ESTIMATE: medium; niche buyer intent with specialist/vendor pages ranking, though current Bing results were mixed with the brand On | campus product sampling; college sampling campaign; student product trial activation | https://oncampusnation.com/mastering-on-campus-product-sampling-how-to-sample-product-at-colleges/; https://thecampusagency.com/college-product-sampling/; https://www.refuelagency.com/blog/college/on-campus-product-sampling-campaign/ |
-| 6 | college event sponsorship | Brand marketer looking for sponsorship opportunities | ESTIMATE: medium; mixed student-org sponsorship and broader event sponsorship results | sponsor college events; college festival sponsorship; campus event sponsorship packages | https://www.joincampuslink.com/blog/how-to-get-sponsors-for-your-college-event; https://www.tapsponsorapp.com/; https://www.joincampuslink.com/blog/how-to-get-college-event-sponsorships-step-by-step-guide-for-student-orgs |
-| 7 | campus influencers | Brand marketer researching student creators | ESTIMATE: medium; creator lists, student publications, and ambassador/influencer pages mixed | college influencers; student influencers; campus creator marketing | https://www.amraandelma.com/college-influencers-with-huge-followings/; https://www.hercampus.com/culture/new-college-influencers-follow-2025-school-year/; https://campus-group.com/student-influencers/ |
-| 8 | college tour marketing | Brand marketer evaluating multi-market campus tours | ESTIMATE: medium; query overlaps admissions tours, music tours, and brand tours | college tour sponsorship; campus tour marketing; college nightlife tour marketing | Live search was accessible but current results were materially mixed with admissions/education results on 2026-08-10; no clean 3-URL competitor set recorded |
-| 9 | university activations | Brand marketer looking for activation ideas | ESTIMATE: medium; terminology varies by institution and brand, with mixed non-marketing results | university brand activations; campus activations for brands; college campus activation ideas | Live search was accessible but current results were materially mixed with university directory/event results on 2026-08-10; no clean 3-URL competitor set recorded |
-| 10 | college marketing agency | Brand marketer evaluating an agency partner | ESTIMATE: high commercial intent; agency homepages and service pages ranking; current Bing result parsing returned multiple relevant agency pages | best college marketing agency; college marketing agency for brands; college student marketing agency | https://thecampusagency.com/; https://collegemarketingpros.com/; https://www.refuelagency.com/college-marketing/ |
-| 11 | college marketing strategy | Brand marketer planning how to reach college students before choosing vendors or tactics | ESTIMATE: medium/high; broad education and marketing-advice results compete with agency/vendor content | marketing to college students; campus marketing plan; student ambassador strategy; college event marketing | https://www.business.com/articles/marketing-to-college-students/; https://www.sheerid.com/business/blog/marketing-to-college-students-the-2026-guide-for-brands/; https://newbridgemarketing.com/news/how-to-market-to-college-students |
+| 1 | campus brand activation agency | Brand or agency buyer looking for a partner to execute branded campus experiences | ESTIMATE: high commercial fit; agency/service pages rank but query is more buyer-specific than generic campus marketing | college brand activation agency; university brand activation agency; campus activation agency for brands | https://collegemarketing.co/services/brand-activations; https://thecampusagency.com/on-campus-experiential-events/; https://campuscommandos.com/on-campus-experiential-marketing/ |
+| 2 | college experiential marketing agency | Brand marketer looking for real-world Gen Z experiences, pop-ups, tours, and campus events | ESTIMATE: high commercial intent; established agency pages and rankings compete | college experiential marketing company; campus experiential marketing agency; Gen Z experiential marketing agency | https://thecampusagency.com/on-campus-experiential-events/; https://newbridgemarketing.com/college-marketing-and-media; https://flytedesk.com/blog/top-college-engagement-marketing-agencies |
+| 3 | campus product sampling agency | CPG, beverage, beauty, health, or app marketer seeking product trial on campus | ESTIMATE: strong buyer intent; narrower than generic product sampling and aligned with Collegiate product placement | college product sampling agency; university product sampling; campus sampling campaign | https://www.airfreshmarketing.com/college-campus-marketing; https://streetteamsco.com/services/college-campus; https://thecampusagency.com/on-campus-experiential-events/ |
+| 4 | college event marketing agency | Brand marketer seeking campus events as the distribution/activation channel | ESTIMATE: strong commercial fit; overlaps event sponsorship and campus event staffing but buyer is clear | college event activation agency; campus event marketing company; university event marketing agency | https://oncampusadvertising.com/; https://thecampusagency.com/; https://americanguerrillamarketing.com/articles/college-advertising-agency |
+| 5 | campus field marketing agency | Field marketing team looking for local execution across schools | ESTIMATE: medium; less crowded than campus marketing agency and more likely to attract operator/buyer searches | college field marketing agency; campus street team agency; university field marketing teams | https://www.airfreshmarketing.com/college-campus-marketing; https://streetteamsco.com/campus-marketing-agency; https://americanguerrillamarketing.com/articles/college-advertising-agency |
+| 6 | Gen Z brand activation agency | Brand marketer looking for activation, not generic Gen Z thought leadership | ESTIMATE: medium/high; broader than campus-only but better buyer fit than generic Gen Z marketing | Gen Z experiential agency; Gen Z activation agency; youth brand activation agency | https://newbridgemarketing.com/college-marketing-and-media; https://campuscommandos.com/; https://thecampusagency.com/ |
+| 7 | campus marketing RFP | Enterprise or agency-side buyer preparing vendor criteria | ESTIMATE: medium; high qualification value even if lower volume | campus marketing agency RFP; college marketing RFP checklist; campus activation RFP | https://flytedesk.com/blog/top-college-engagement-marketing-agencies; https://thecampusagency.com/; https://oncampusadvertising.com/ |
+| 8 | back-to-school campus activation | Brand marketer planning move-in, welcome week, or first-month campaigns | ESTIMATE: medium; seasonal but high value for CPG/app/retail brands | move-in week brand activation; welcome week brand activation; back to school campus marketing | https://collegemarketing.co/; https://www.airfreshmarketing.com/college-campus-marketing; https://streetteamsco.com/services/college-campus |
+| 9 | campus pop-up activation | Brand marketer evaluating pop-ups, installs, sampling tents, or experiential stops | ESTIMATE: medium; specific execution intent and good service fit | college pop-up activation; university pop-up event; campus pop-up marketing | https://collegemarketing.co/services/brand-activations; https://thecampusagency.com/on-campus-experiential-events/; https://campuscommandos.com/on-campus-experiential-marketing/ |
+| 10 | campus retail product placement | CPG/retail buyer looking for bookstore, dining, Greek life, or event product placement | ESTIMATE: medium; niche but close to Collegiate differentiation | college bookstore product placement; campus retail sampling; Greek life product placement | https://thecampusagency.com/; https://reachprojects.co/marketing/college; https://newbridgemarketing.com/college-marketing-and-media |
+| 11 | campus ambassador program management | Brand buyer who wants ambassador execution managed by an agency, not a student looking for work | ESTIMATE: medium/high; guard copy toward buyers to avoid student-job traffic | college ambassador program management; student ambassador program agency; managed campus ambassador program | https://reachprojects.co/marketing/college; https://streetteamsco.com/college-marketing-agency; https://www.airfreshmarketing.com/college-campus-marketing |
+| 12 | college creator marketing agency | Brand marketer seeking student creators/UGC with campus distribution | ESTIMATE: medium; overlaps influencer searches but can be framed for buyer intent | campus UGC agency; student creator marketing; college influencer marketing agency | https://reachprojects.co/marketing/college; https://newbridgemarketing.com/college-marketing-and-media; https://thecampusagency.com/ |
+
+## Lower-priority / avoid as primary for next runs
+
+- `student brand reps`, `student ambassador marketing`, `college brand ambassador jobs`, `brand ambassador jobs college students`: likely student/job-seeker intent unless framed as managed program pages.
+- Generic `Gen Z marketing`: useful but broad and already used.
+- Generic `college marketing agency`: core term but already used; new posts should target sharper buying moments and link back to the core page/article.
 
 ## 60-day primary keyword lockout
 
-- 2026-07-29 - `college marketing agency` - `/insights/college-marketing-agency`
-- 2026-07-31 - `on-campus product sampling` - `/insights/on-campus-product-sampling`
-- 2026-08-03 - `student brand reps` - `/insights/student-brand-reps`
-- 2026-08-05 - `college event sponsorship` - `/insights/college-event-sponsorship`
-- 2026-08-07 - `campus influencers` - `/insights/campus-influencers`
 - 2026-08-10 - `Gen Z marketing` - `/insights/gen-z-marketing`
 - 2026-08-12 - `college brand ambassadors` - `/insights/college-brand-ambassadors`
 - 2026-08-14 - `college tour marketing` - `/insights/college-tour-marketing`
@@ -80,19 +51,11 @@ measurement, risk. Never for the applicant.
 - 2026-09-01 - `how to market to college students` - `/insights/how-to-market-to-college-students`
 - 2026-09-03 - `campus activation ideas` - `/insights/campus-activation-ideas`
 - 2026-09-05 - `student ambassador marketing` - `/insights/student-ambassador-marketing`
-
 - 2026-09-08 - `campus marketing agency rfp` - `/insights/campus-marketing-agency-rfp`
-
 - 2026-09-10 - `college welcome bag inserts` - `/insights/college-welcome-bag-inserts`
-
 - 2026-09-11 - `campus event staffing agency` - `/insights/campus-event-staffing-agency`
-
 - 2026-09-13 - `campus bookstore product placement` - `/insights/campus-bookstore-product-placement`
-
 - 2026-09-14 - `switching campus marketing agencies` - `/insights/switching-campus-marketing-agencies`
-
 - 2026-09-16 - `campus event cancellation policy` - `/insights/campus-event-cancellation-policy`
-
 - 2026-10-01 - `campus ambassador content rights` - `/insights/campus-ambassador-content-rights`
-
 - 2026-10-03 - `campus event accessibility checklist` - `/insights/campus-event-accessibility-checklist`
