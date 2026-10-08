@@ -20,6 +20,8 @@ const ALT: Record<string, string> = {
     "Two students with sponsor product at a Night School Tour activation",
   "03-nutrl-bar-cart-activation.jpg":
     "Branded NUTRL bar cart staffed at a campus event activation",
+  "07-beatbox-trio-venue.jpg":
+    "Three attendees holding BEATBOX cartons outside a sponsored venue event",
   "04-campus-nightlife-pair.jpg":
     "Two students with sponsor product at a campus nightlife activation",
   "05-beatbox-green-room.jpg":

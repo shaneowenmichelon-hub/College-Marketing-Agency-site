@@ -80,3 +80,36 @@ case these were cleared into.
 - Suggested alt: Attendees wearing branded Dazed hats at a campus activation
 - Suitable topics: experiential marketing, branded merch, campus activations.
 - Three identifiable people. They are attendees wearing merch, NOT our ambassadors - do not caption them as staff or reps.
+
+## NUTRL koozies and sunglasses giveaway
+
+- Local asset: `/images/blog/nutrl-koozies-sunglasses-giveaway.jpg`
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 923 x 620, JPEG, cropped out of a letterboxed 923 x 2000 screen capture.
+- Suggested alt: NUTRL koozies and branded sunglasses laid out as giveaways on a lit activation cart
+- Suitable topics: product launch kits, branded giveaways, merch, sampling setups.
+- No people in frame, so no release question on this one.
+
+## BEATBOX trio, venue activation
+
+- Local asset: `/images/blog/beatbox-trio-venue-activation.jpg`
+- Also in the hero rotation as `/images/hero/07-beatbox-trio-venue.jpg` (full frame).
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Suggested alt: Three attendees holding BEATBOX cartons outside a sponsored venue event
+- Suitable topics: festival and venue sponsorship, nightlife activations, beverage brands.
+- Three identifiable people. Attendees, not our staff.
+
+## NUTRL bar takeover
+
+- Local asset: `/images/blog/nutrl-bar-takeover.jpg`
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Cropped high on purpose, to frame the NUTRL banner, the stocked shelves and the can rather than the bartender's body. Do not re-crop lower; the wider original reads as nightlife rather than as agency capability, which is the opposite of what a brand buyer needs to see.
+- Suggested alt: NUTRL branded bar takeover with signage, stocked cans and a bartender holding a can
+- Suitable topics: venue takeovers, bar activations, beverage brands.
+- One identifiable person, working behind the bar. She is a bartender at the venue; do not caption her as Collegiate Agency staff or an ambassador unless that is verified.
+

@@ -528,6 +528,11 @@ export const sitePhotos: SitePhoto[] = [
     seed: "campus-nightlife-pair",
   },
   {
+    src: "/images/hero/07-beatbox-trio-venue.jpg",
+    alt: "Three attendees holding BEATBOX cartons outside a sponsored venue event",
+    seed: "beatbox-trio",
+  },
+  {
     src: "/images/hero/05-beatbox-green-room.jpg",
     alt: "Student with a BeatBox in the green room at a sponsored event",
     seed: "beatbox-green-room",
