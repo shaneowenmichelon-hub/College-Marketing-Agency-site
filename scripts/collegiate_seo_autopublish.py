@@ -273,7 +273,7 @@ def validate_brand_intent(data: dict) -> None:
 
 def validate_article(path: Path, worktree: Path) -> dict:
     data, body = frontmatter(path)
-    required = "slug title metaTitle metaDescription primaryKeyword category services excerpt date ctaService image imageAlt imageCredit imageSource imageLicense".split()
+    required = "slug title metaTitle metaDescription primaryKeyword category services excerpt date ctaService image imageAlt imageCredit".split()
     if any(not data.get(k) for k in required):
         raise ValueError("required-fields")
     slug = data["slug"]
@@ -320,10 +320,19 @@ def validate_article(path: Path, worktree: Path) -> dict:
     if not photo.is_file() or photo.is_symlink():
         raise ValueError("photo-file")
     library = (worktree / "content/seo/public-photo-library.md").read_text()
-    if any(data[k] not in library for k in ("image", "imageSource", "imageLicense")):
-        raise ValueError("photo-license-provenance")
-    if any(not data[k].startswith("https://") for k in ("imageSource", "imageLicense")):
-        raise ValueError("photo-credit-url")
+    # Two legitimate provenance paths, each fully checked. Owned photography
+    # has no third-party licence to cite, so demanding a licence URL for it
+    # would force a false citation rather than prevent one.
+    if str(data.get("imageRights", "")).strip().lower() == "owned":
+        if data["image"] not in library:
+            raise ValueError("photo-provenance")
+    else:
+        if any(not data.get(k) for k in ("imageSource", "imageLicense")):
+            raise ValueError("required-fields")
+        if any(data[k] not in library for k in ("image", "imageSource", "imageLicense")):
+            raise ValueError("photo-license-provenance")
+        if any(not data[k].startswith("https://") for k in ("imageSource", "imageLicense")):
+            raise ValueError("photo-credit-url")
     return {**data, "word_count": count, "body_links": body_links, "tables": table_count,
             "article_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "image_sha256": hashlib.sha256(photo.read_bytes()).hexdigest(),

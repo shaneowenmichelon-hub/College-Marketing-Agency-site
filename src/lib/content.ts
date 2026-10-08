@@ -63,6 +63,13 @@ export type Post = {
   author?: string;
   /** Per-article social image; falls back to the site default. */
   ogImage?: string;
+  /**
+   * "owned" = our own activation photography; "licensed" (default) = a
+   * third-party photo that needs a source and licence URL. This drives both
+   * the credit line and the publisher's provenance gate, because the two
+   * cases have genuinely different obligations.
+   */
+  imageRights?: "owned" | "licensed";
   /** Licensed/owned editorial photograph and visible attribution. */
   image?: string;
   imageAlt?: string;

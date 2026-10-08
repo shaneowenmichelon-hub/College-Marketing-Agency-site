@@ -253,6 +253,7 @@ export function loadMdxPosts(): Post[] {
         imageCredit: typeof data.imageCredit === "string" ? data.imageCredit : undefined,
         imageSource: typeof data.imageSource === "string" ? data.imageSource : undefined,
         imageLicense: typeof data.imageLicense === "string" ? data.imageLicense : undefined,
+        imageRights: data.imageRights === "owned" ? "owned" : undefined,
         ctaService: asString(data, "ctaService") as Post["ctaService"],
         body: parsedBody,
         readingTime: "",

@@ -178,9 +178,26 @@ export default async function InsightArticle({ params }: { params: Params }) {
             </div>
             {post.image && post.imageCredit && (
               <p className="mt-3 text-xs text-[color:var(--muted-on-light)]">
-                Photo: <a href={post.imageSource} className="underline" rel="noopener noreferrer">{post.imageCredit}</a>
-                {post.imageLicense && <> · <a href={post.imageLicense} className="underline" rel="noopener noreferrer">License</a></>}
-                . Illustrative campus photograph, not a Collegiate Agency activation or endorsement.
+                Photo:{" "}
+                {post.imageSource ? (
+                  <a href={post.imageSource} className="underline" rel="noopener noreferrer">
+                    {post.imageCredit}
+                  </a>
+                ) : (
+                  post.imageCredit
+                )}
+                {post.imageLicense && (
+                  <>
+                    {" "}
+                    · <a href={post.imageLicense} className="underline" rel="noopener noreferrer">License</a>
+                  </>
+                )}
+                .{" "}
+                {/* The disclaimer is only true of licensed stock. Printing it
+                    under our own activation photography would be false. */}
+                {post.imageRights === "owned"
+                  ? "Photographed at a Collegiate Agency activation."
+                  : "Illustrative campus photograph, not a Collegiate Agency activation or endorsement."}
               </p>
             )}
           </Container>
