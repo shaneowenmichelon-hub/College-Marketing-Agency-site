@@ -94,9 +94,18 @@ def publish_with_hermes(run_no: int, worktree: Path) -> subprocess.CompletedProc
 Work ONLY in {worktree}. Read content/blog and content/seo/keyword-map.md first.
 Write exactly one NEW content/blog/<keyword-kebab-case>.mdx; do not edit existing files.
 Do NOT commit, push, deploy, schedule, run agents, or modify Hermes settings/skills.
-Choose a distinct high-intent buyer keyword not used in any existing article or the
-60-day keyword lockout. Prefer agency selection, campus events, ambassador programs,
-or product placement. No near-duplicate topics, catch-up posts, or invented research.
+Choose a distinct keyword not used in any existing article or the 60-day keyword
+lockout. The READER IS A BRAND-SIDE BUYER: a brand or agency marketer deciding who
+to hire, what it costs, and how to run it. Write for the person with the budget.
+Target their searches: agency selection and comparison, what campus marketing costs,
+how to brief/scope/measure a campus campaign, procurement and contracting, campus
+event sponsorship, product placement, and running an ambassador PROGRAM as a buyer.
+Do NOT target what a STUDENT searches - how to become an ambassador, ambassador jobs,
+pay, applications, campus rep gigs. Those queries bring student applicants, and we
+already have more of those than we can use; they do not bring clients. Where a
+keyword is searched by both (for example "college brand ambassadors"), write it
+squarely for the buyer: selection, cost, management, measurement, risk.
+No near-duplicate topics, catch-up posts, or invented research.
 Follow the existing frontmatter schema plus REQUIRED image, imageAlt, imageCredit,
 imageSource and imageLicense fields. Use ONLY a relevant existing, locally downloaded
 licensed/owned photograph documented in content/seo/public-photo-library.md, not SVG
@@ -235,6 +244,33 @@ def validate_tables(body: str) -> int:
     return tables
 
 
+# Searches made by students looking for work, not by brands looking to hire.
+# Matched against the primary keyword and title only - body text may legitimately
+# discuss these things from the buyer's side.
+# Kept narrow on purpose. An early, blunter version rejected "Campus Event
+# Staffing Agency: Hiring Guide" - a brand hiring an agency, which is exactly
+# the buyer we want - because it matched a bare "hiring". Every pattern here
+# needs the job-seeker framing, not just a word that can appear on both sides.
+STUDENT_INTENT = re.compile(
+    r"(how to become\b|how do i become\b|apply to be\b|applying to be\b|"
+    r"\b(ambassador|rep|campus|student)s? (job|gig|position|opening)s?\b|"
+    r"\bbrand ambassador (salary|pay|salaries)\b|"
+    r"how much (do|does) .{0,30}(ambassador|rep)s? (make|earn|get paid)|"
+    r"\bget paid to\b|\bside hustle\b)",
+    re.I,
+)
+
+
+def validate_brand_intent(data: dict) -> None:
+    """The site sells to brands; students are supply. Editorial that targets
+    student job-seekers brings applicants we already have a surplus of, so the
+    publisher refuses it at the gate rather than relying on prompt wording."""
+    for field in ("primaryKeyword", "title", "metaTitle"):
+        value = str(data.get(field, ""))
+        if STUDENT_INTENT.search(value):
+            raise ValueError("student-intent-keyword")
+
+
 def validate_article(path: Path, worktree: Path) -> dict:
     data, body = frontmatter(path)
     required = "slug title metaTitle metaDescription primaryKeyword category services excerpt date ctaService image imageAlt imageCredit imageSource imageLicense".split()
@@ -259,6 +295,7 @@ def validate_article(path: Path, worktree: Path) -> dict:
         raise ValueError("editorial-length")
     if re.search(r"\b(leverage|synergy)\b|in today's fast-paced world|/services/influencers", body, re.I):
         raise ValueError("banned-copy")
+    validate_brand_intent(data)
     table_count = validate_tables(body)
     body_links = validate_contextual_links(body)
     if not re.search(r"^[-\d].*", body, re.M):

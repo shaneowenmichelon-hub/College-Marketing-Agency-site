@@ -15,21 +15,48 @@ import { ArticleArt } from "@/components/insights/ArticleArt";
 type Params = Promise<{ slug: string }>;
 
 // Closing CTA copy per service.
-const SERVICE_CTA: Record<Post["ctaService"], { label: string; href: string; blurb: string }> = {
+/**
+ * The closing call to action on every article.
+ *
+ * It used to send readers to a service page with no conversion step, and the
+ * ambassador variant read "Explore our ambassador program" — so a student
+ * searching "college brand ambassador program" landed on the article and was
+ * funnelled to the one page with two Become an Ambassador buttons on it. That
+ * is a direct pipe from editorial traffic to the lead type we get too many of.
+ *
+ * Now: the primary action is always a brand conversion, the service page is
+ * demoted to a secondary link, and students get an explicit way out so they
+ * self-select instead of travelling down the brand funnel.
+ */
+const SERVICE_CTA: Record<
+  Post["ctaService"],
+  {
+    heading: string;
+    blurb: string;
+    primary: { label: string; href: string };
+    secondary: { label: string; href: string };
+  }
+> = {
   "brand-ambassadors": {
-    label: "Explore our ambassador program",
-    href: "/services/brand-ambassadors",
-    blurb: "We screen, verify, and manage campus ambassadors so brands get reliable representation - not a gamble.",
+    heading: "Want ambassadors on your campuses?",
+    blurb:
+      "We screen, verify and manage campus ambassadors, so brands get reliable representation rather than a gamble. Price a program in about a minute.",
+    primary: { label: "Build a campaign", href: "/build-a-campaign" },
+    secondary: { label: "How the program works", href: "/services/brand-ambassadors" },
   },
   events: {
-    label: "Explore campus events",
-    href: "/services/events",
-    blurb: "Plug into the Night School Tour and our welcome-week network across campus markets.",
+    heading: "Planning a campus activation?",
+    blurb:
+      "Plug into the Night School Tour and our welcome-week network across campus markets. Tell us the goal and we will come back with a plan and firm pricing.",
+    primary: { label: "Book a call", href: "/contact" },
+    secondary: { label: "How events work", href: "/services/events" },
   },
   "product-placement": {
-    label: "Explore product placement",
-    href: "/services#product-placement",
-    blurb: "Place product directly into campus events, student organizations, venues, and ambassador-led content.",
+    heading: "Want product in students' hands?",
+    blurb:
+      "Place product directly into campus events, student organizations, venues and ambassador-led content. Price a run across the campuses you care about.",
+    primary: { label: "Build a campaign", href: "/build-a-campaign" },
+    secondary: { label: "How placement works", href: "/services#product-placement" },
   },
 };
 
@@ -167,18 +194,33 @@ export default async function InsightArticle({ params }: { params: Params }) {
               ))}
             </div>
 
-            {/* Closing service CTA */}
-            <div className="mt-12 flex flex-col gap-4 rounded-2xl border border-[color:var(--border-on-light)] bg-surface-muted p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
-              <p className="max-w-md text-sm text-[color:var(--muted-on-light)]">{cta.blurb}</p>
-              <Link
-                href={cta.href}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
-              >
-                {cta.label} <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="mt-8">
+            {/* Closing CTA: brand conversion first, service page second. */}
+            <div className="mt-12 rounded-[4px] border-2 border-ink bg-[color:var(--accent)] p-6 text-white shadow-[8px_8px_0_var(--ink)] sm:p-8">
+              <h2 className="font-display text-2xl font-bold">{cta.heading}</h2>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/90">{cta.blurb}</p>
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Link
+                  href={cta.primary.href}
+                  className="brutal-press inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)] px-5 py-2.5 text-sm font-bold text-ink shadow-[4px_4px_0_var(--ink)]"
+                >
+                  {cta.primary.label} <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href={cta.secondary.href}
+                  className="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-white underline decoration-2 underline-offset-4"
+                >
+                  {cta.secondary.label}
+                </Link>
+              </div>
+              {/* Students searching these same terms get a door of their own,
+                  rather than being pushed through the brand funnel. */}
+              <p className="mt-5 border-t-2 border-white/20 pt-4 text-xs text-white/70">
+                Student, not a brand?{" "}
+                <Link href="/become-an-ambassador" className="font-semibold text-white underline underline-offset-4">
+                  Apply to the ambassador network
+                </Link>
+                .
+              </p>
             </div>
           </Container>
         </Section>

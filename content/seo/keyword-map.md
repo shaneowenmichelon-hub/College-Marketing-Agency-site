@@ -11,6 +11,38 @@ Method: seed keyword research from Collegiate Agency positioning plus live DuckD
 3. Ability to write practical, original posts without fabricating performance statistics.
 4. Avoid reusing a primary keyword within 60 days.
 
+## Brand-side backlog (pull from here first)
+
+The site sells to brands; students are supply, and we currently get more student
+applicants than we can place. Editorial exists to bring BRAND leads, so the
+publisher targets what a marketer with a budget searches, and the
+`student-intent-keyword` gate rejects job-seeker queries outright.
+
+Unused buyer-intent candidates, roughly highest intent first:
+
+- college marketing agency pricing
+- campus marketing cost per campus
+- how to brief a campus marketing agency
+- campus marketing agency vs in-house
+- best college marketing agencies
+- campus marketing proposal template
+- how to measure a campus campaign
+- college marketing agency contract terms
+- campus activation budget breakdown
+- Greek life marketing for brands
+- university sponsorship packages explained
+- campus media kit what to ask for
+- spring break brand sponsorship
+- college tour sponsorship cost
+- how brands pick campuses to launch in
+- campus sampling ROI measurement
+- student org sponsorship outreach for brands
+- campus marketing agency onboarding checklist
+
+Where a term is searched by both audiences (for example "college brand
+ambassadors"), write it squarely for the buyer: selection, cost, management,
+measurement, risk. Never for the applicant.
+
 ## Active keyword list
 
 | Rank | Primary keyword | Intent | Difficulty signal | Long-tail variants | Competing URLs currently observed |
