@@ -410,14 +410,17 @@ export function CampaignBuilder() {
                 </div>
               )}
               <div className="grid gap-3">
-                {campaignSchools.map(({ school, city }) => {
+                {campaignSchools.map(({ school, city, color }) => {
                   const s = schoolOf(school);
                   return (
                     <div
                       key={school}
+                      // Picking a campus lights it up in that school's own
+                      // colour, so a long list of selections stays scannable.
+                      style={{ ["--school" as string]: color }}
                       className={cn(
-                        "rounded-[4px] border-2 border-ink transition-all",
-                        s.selected ? "bg-white shadow-[4px_4px_0_var(--accent)]" : "bg-white",
+                        "overflow-hidden rounded-[4px] border-2 border-ink bg-white transition-all",
+                        s.selected && "shadow-[4px_4px_0_var(--school)]",
                       )}
                     >
                       <button
@@ -427,10 +430,11 @@ export function CampaignBuilder() {
                         className="flex w-full items-center gap-3 p-4 text-left"
                       >
                         <span
-                          className={cn(
-                            "flex h-6 w-6 shrink-0 items-center justify-center rounded-[3px] border-2 border-ink",
-                            s.selected ? "bg-[color:var(--accent-2)] text-ink" : "bg-white text-transparent",
-                          )}
+                          className="flex h-6 w-6 shrink-0 items-center justify-center rounded-[3px] border-2 border-ink text-white"
+                          style={{
+                            background: s.selected ? color : "#fff",
+                            color: s.selected ? "#fff" : "transparent",
+                          }}
                         >
                           <Check className="h-4 w-4" />
                         </span>

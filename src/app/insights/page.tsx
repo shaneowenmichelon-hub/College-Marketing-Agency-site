@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { ArticleArt } from "@/components/insights/ArticleArt";
-import { PreferredSourceBadge } from "@/components/seo/PreferredSourceBadge";
 import { posts, formatDate } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -29,10 +28,6 @@ export default function InsightsPage() {
           title="Notes from the ground."
           intro="Practical, brand-facing perspective on campus marketing: case studies, product placement, ambassador campaigns, and event strategy that actually move students."
         />
-
-        <Reveal className="mt-8">
-          <PreferredSourceBadge />
-        </Reveal>
 
         {/* Featured */}
         <Reveal className="mt-12">

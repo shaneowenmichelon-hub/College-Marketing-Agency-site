@@ -61,4 +61,5 @@ export const campaignEventById: Record<string, CampaignEvent> = Object.fromEntri
 export const campaignSchools = siteConfig.campuses.map((c) => ({
   school: c.school,
   city: c.city,
+  color: c.color,
 }));
