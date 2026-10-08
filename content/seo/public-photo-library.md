@@ -113,3 +113,45 @@ case these were cleared into.
 - Suitable topics: venue takeovers, bar activations, beverage brands.
 - One identifiable person, working behind the bar. She is a bartender at the venue; do not caption her as Collegiate Agency staff or an ambassador unless that is verified.
 
+
+## BEATBOX, film premiere step-and-repeat
+
+- Local asset: `/images/blog/beatbox-premiere-step-and-repeat.jpg`
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Suggested alt: Two attendees holding BEATBOX cartons at a sponsored film premiere step-and-repeat
+- Suitable topics: tour and premiere activations, venue sponsorship, beverage brands.
+- Two identifiable people. Attendees, not our staff.
+- **The step-and-repeat behind them is a third party's film artwork and names its cast.** The backdrop is tiled with the title treatment and billing, so no tighter crop removes it. The film, its studio and the named cast are not clients, sponsors or endorsers of Collegiate Agency, and nothing on the site may describe or imply otherwise. Keep this frame off `/insights/college-marketing-agency` and off any page selling agency capability directly, where the adjacency would read as a client logo. Editorial use only; not for paid media.
+
+## BEATBOX poured behind the bar
+
+- Local asset: `/images/blog/beatbox-poured-behind-bar.jpg`
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Cropped low on purpose, onto the two cartons, the pour and the glass. The wider original centres the bartender's torso with her face cut off; that framing sells the wrong thing to a brand buyer and should not be restored. Do not re-crop higher.
+- Suggested alt: BEATBOX poured from two cartons into a glass at a sponsored bar activation
+- Suitable topics: bar activations, venue takeovers, product trial, beverage brands.
+- One person, not identifiable in this crop. Do not caption her as Collegiate Agency staff or an ambassador unless that is verified.
+
+## NUTRL crowd, campus event
+
+- Local asset: `/images/blog/nutrl-crowd-campus-event.jpg`
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Suggested alt: Two attendees holding a NUTRL can in the crowd at a sponsored campus event
+- Suitable topics: Gen Z marketing, event sponsorship, nightlife activations, beverage brands.
+- Two identifiable people, plus crowd. Attendees, not our staff.
+
+## NUTRL toast, tent activation
+
+- Local asset: `/images/blog/nutrl-toast-tent-activation.jpg`
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Suggested alt: Two attendees toasting NUTRL cans under the tent at a sponsored campus event
+- Suitable topics: campus events, product trial, outdoor activations, beverage brands.
+- Two identifiable people, plus crowd. Attendees, not our staff.
