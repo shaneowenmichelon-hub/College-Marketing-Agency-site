@@ -123,7 +123,7 @@ case these were cleared into.
 - Suggested alt: Two attendees holding BEATBOX cartons at a sponsored film premiere step-and-repeat
 - Suitable topics: tour and premiere activations, venue sponsorship, beverage brands.
 - Two identifiable people. Attendees, not our staff.
-- **The step-and-repeat behind them is a third party's film artwork and names its cast.** The backdrop is tiled with the title treatment and billing, so no tighter crop removes it. The film, its studio and the named cast are not clients, sponsors or endorsers of Collegiate Agency, and nothing on the site may describe or imply otherwise. Keep this frame off `/insights/college-marketing-agency` and off any page selling agency capability directly, where the adjacency would read as a client logo. Editorial use only; not for paid media.
+- **The step-and-repeat behind them is a third party's film artwork and names its cast.** The backdrop is tiled with the title treatment and billing, so no tighter crop removes it. The film, its studio and the named cast are not clients, sponsors or endorsers of Collegiate Agency, and nothing on the site may describe or imply otherwise. Keep this frame off `/insights/college-marketing-agency` and off any page selling agency capability directly, where the adjacency would read as a client logo. It now runs on `/insights/campus-influencers`, an editorial topic page, which that constraint allows. Editorial use only; not for paid media.
 
 ## BEATBOX poured behind the bar
 
@@ -155,3 +155,34 @@ case these were cleared into.
 - Suggested alt: Two attendees toasting NUTRL cans under the tent at a sponsored campus event
 - Suitable topics: campus events, product trial, outdoor activations, beverage brands.
 - Two identifiable people, plus crowd. Attendees, not our staff.
+
+## BEATBOX held up to the stage
+
+- Local asset: `/images/blog/beatbox-stage-crowd-festival.jpg`
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Suggested alt: BEATBOX carton held up toward the stage and crowd at a sponsored live event
+- Suitable topics: agency capability, festival and venue sponsorship, live events, beverage brands.
+- No identifiable faces and no third-party branding in frame. That is why this one carries the money-keyword page, `/insights/college-marketing-agency`, where the premiere frame could not go.
+
+## BEATBOX, performer on stage
+
+- Local asset: `/images/blog/beatbox-performer-on-stage.jpg`
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Suggested alt: Performer on stage holding a BEATBOX carton at a sponsored tour stop
+- Suitable topics: tour marketing, product placement, talent moments, venue sponsorship.
+- One identifiable performer, plus crowd. He performed at an event we ran. Do not describe him as a client, a sponsor, an endorser or an ambassador, and do not name him on the site, unless that is separately verified and released. Editorial use only; not for paid media.
+
+## BEATBOX, two attendees at a venue
+
+- Local asset: `/images/blog/beatbox-attendees-venue-pair.jpg`
+- Credit: Collegiate Agency
+- Rights: owned. Photographed at our own activation; no external licence.
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Suggested alt: Two attendees holding BEATBOX cartons at a sponsored venue event
+- Suitable topics: venue activations, agency selection and RFP, event sponsorship, beverage brands.
+- Two identifiable people. Attendees, not our staff or ambassadors.
+- Replaced the shared licensed library placeholder on `/insights/campus-marketing-agency-rfp`.
