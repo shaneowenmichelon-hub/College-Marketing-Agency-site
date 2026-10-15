@@ -60,3 +60,5 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-10-01 - `campus ambassador content rights` - `/insights/campus-ambassador-content-rights`
 - 2026-10-03 - `campus event accessibility checklist` - `/insights/campus-event-accessibility-checklist`
 - 2026-10-13 - `campus brand activation agency` - `/insights/campus-brand-activation-agency`
+
+- 2026-10-15 - `campus field marketing agency` - `/insights/campus-field-marketing-agency`
