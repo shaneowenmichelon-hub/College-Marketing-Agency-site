@@ -12,10 +12,11 @@ import fcntl
 import difflib
 import json
 import os
+import random
 import re
 import subprocess
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -66,9 +67,14 @@ def log_run_numbers() -> list[int]:
 
 def schedule_next_interval(state: dict, base: datetime | None = None) -> None:
     base = base or now_ct()
-    dt = base + timedelta(hours=INTERVAL_HOURS)
+    jitter_seconds = random.randint(0, 1800)
+    # Elapsed hours, including across Central daylight-saving transitions.
+    dt = (base.astimezone(timezone.utc) + timedelta(hours=INTERVAL_HOURS, seconds=jitter_seconds)).astimezone(TZ)
     state.update({
         "next_run_at": dt.isoformat(),
+        "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility",
+        "schedule_anchor": base.isoformat(),
+        "schedule_jitter_seconds": jitter_seconds,
         "retry_run_no": None,
         "retry_count": 0,
         "retry_at": None,
@@ -94,22 +100,25 @@ def publish_with_hermes(run_no: int, worktree: Path) -> subprocess.CompletedProc
 Work ONLY in {worktree}. Read content/blog and content/seo/keyword-map.md first.
 Write exactly one NEW content/blog/<keyword-kebab-case>.mdx; do not edit existing files.
 Do NOT commit, push, deploy, schedule, run agents, or modify Hermes settings/skills.
-Choose a distinct keyword not used in any existing article or the 60-day keyword
-lockout. The READER IS A BRAND-SIDE BUYER: a brand or agency marketer deciding who
-to hire, what it costs, and how to run it. Write for the person with the budget.
-Target their searches: agency selection and comparison, what campus marketing costs,
-how to brief/scope/measure a campus campaign, procurement and contracting, campus
-event sponsorship, product placement, and running an ambassador PROGRAM as a buyer.
-Do NOT target what a STUDENT searches - how to become an ambassador, ambassador jobs,
-pay, applications, campus rep gigs. Those queries bring student applicants, and we
-already have more of those than we can use; they do not bring clients. Where a
-keyword is searched by both (for example "college brand ambassadors"), write it
-squarely for the buyer: selection, cost, management, measurement, risk.
-No near-duplicate topics, catch-up posts, or invented research.
-Follow the existing frontmatter schema plus REQUIRED image, imageAlt, imageCredit,
-imageSource and imageLicense fields. Use ONLY a relevant existing, locally downloaded
-licensed/owned photograph documented in content/seo/public-photo-library.md, not SVG
-art. Never imply stock photos depict a Collegiate campaign, client or endorsement.
+Choose a distinct high-intent BRAND BUYER keyword not used in any existing article or the
+60-day keyword lockout. Optimize for brand/agency-side searches from CPG, beverage,
+app, retail, entertainment, field-marketing, shopper-marketing, experiential,
+and growth teams buying campus reach; do not optimize for students looking for
+ambassador jobs. Prefer these buyer-intent clusters, in order: campus brand
+activation agency, college experiential marketing agency, campus product sampling
+agency, college event marketing agency, campus field marketing agency, Gen Z brand
+activation agency, campus marketing RFP, university event activation, college
+consumer sampling, campus retail product placement, back-to-school campus
+activation, welcome week brand activation, campus pop-up activation, college
+sports tailgate activation, Greek life product placement, student organization
+sponsorship for brands, campus ambassador program management, college creator
+marketing agency, campus UGC program, and multi-campus brand activation. No
+near-duplicate topics, catch-up posts, student-career/job-search posts, or invented research.
+Follow the existing frontmatter schema plus REQUIRED image, imageAlt and imageCredit fields.
+Set imageRights: owned and imageCredit: Collegiate Agency. Use only existing, locally
+downloaded owned photography documented in content/seo/public-photo-library.md.
+Do not use stock or generated images. Omit imageSource and imageLicense for owned photos;
+never invent license URLs or source strings. Follow the exact photo's caption restrictions.
 Write 1200-1800 words, 4-6 H2s, direct second-person advice, an actionable checklist,
 short title including the keyword, metaTitle <60 chars and metaDescription <155 chars.
 Include AT LEAST THREE distinct contextual body-link destinations: >=2 internal
@@ -131,17 +140,49 @@ in today's fast-paced world. Do not invent statistics, clients, quotes, outcomes
 pricing or company claims. Avoid em dashes. Give practical recommendations, not hype.
 Use today's date in America/Chicago. Only write the article. Return its path.
 """
+    # Cron can run under Hermes' staged runtime venv. Invoke the stable venv
+    # console script directly and strip inherited venv variables so compiled
+    # packages such as pydantic_core load from the matching interpreter.
+    env = os.environ.copy()
+    for key in ("PYTHONPATH", "PYTHONHOME", "VIRTUAL_ENV", "CONDA_PREFIX"):
+        env.pop(key, None)
+    venv_bin = "/Users/jamesmadison/.hermes/hermes-agent/venv/bin"
+    env["PATH"] = venv_bin + ":" + env.get("PATH", "")
     return subprocess.run(
-        [HERMES, "-p", "nik", "chat", "-Q", "-q", prompt,
+        [venv_bin + "/hermes", "-p", "nik", "chat", "-Q", "-m", "gpt-6-astra",
+         "--provider", "openai-codex", "-q", prompt,
          "--toolsets", "file,web", "--max-turns", "30", "--run-budget", "480"],
         cwd=worktree, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        timeout=540,
+        timeout=540, env=env,
     )
+
+
+def safe_generation_summary(output: str, limit: int = 1800) -> str:
+    """Keep enough generator failure evidence to debug without relaying secrets."""
+    text = re.sub(r"(?i)(authorization\s*:\s*bearer[ \t]+)[A-Za-z0-9._~+/=-]+", r"\1[REDACTED]", output or "")
+    text = re.sub(r"(?i)(api[_-]?key|token|secret|password|authorization)\s*[:=]\s*\S+", r"\1=[REDACTED]", text)
+    text = re.sub(r"(?i)(bearer[ \t]+)[A-Za-z0-9._~+/=-]+", r"\1[REDACTED]", text)
+    text = re.sub(r"\x1b\[[0-9;]*[A-Za-z]", "", text)
+    lines = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith(("╭", "╰", "┌", "└", "│", "─")):
+            continue
+        lines.append(stripped)
+    return "\n".join(lines)[-limit:]
+
+
+def execution_env() -> dict:
+    env = os.environ.copy()
+    for key in ("PYTHONPATH", "PYTHONHOME", "VIRTUAL_ENV", "CONDA_PREFIX"):
+        env.pop(key, None)
+    env["PATH"] = "/Users/jamesmadison/.hermes/node/bin:" + env.get("PATH", "")
+    return env
 
 
 def command(args: list[str], cwd: Path, timeout: int = 120) -> str:
     result = subprocess.run(args, cwd=cwd, text=True, stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT, timeout=timeout)
+                            stderr=subprocess.STDOUT, timeout=timeout, env=execution_env())
     if result.returncode:
         raise RuntimeError("command-failed")
     return result.stdout.strip()
@@ -244,31 +285,40 @@ def validate_tables(body: str) -> int:
     return tables
 
 
-# Searches made by students looking for work, not by brands looking to hire.
-# Matched against the primary keyword and title only - body text may legitimately
-# discuss these things from the buyer's side.
-# Kept narrow on purpose. An early, blunter version rejected "Campus Event
-# Staffing Agency: Hiring Guide" - a brand hiring an agency, which is exactly
-# the buyer we want - because it matched a bare "hiring". Every pattern here
-# needs the job-seeker framing, not just a word that can appear on both sides.
 STUDENT_INTENT = re.compile(
     r"(how to become\b|how do i become\b|apply to be\b|applying to be\b|"
     r"\b(ambassador|rep|campus|student)s? (job|gig|position|opening)s?\b|"
     r"\bbrand ambassador (salary|pay|salaries)\b|"
     r"how much (do|does) .{0,30}(ambassador|rep)s? (make|earn|get paid)|"
-    r"\bget paid to\b|\bside hustle\b)",
-    re.I,
-)
+    r"\bget paid to\b|\bside hustle\b)", re.I)
 
 
 def validate_brand_intent(data: dict) -> None:
-    """The site sells to brands; students are supply. Editorial that targets
-    student job-seekers brings applicants we already have a surplus of, so the
-    publisher refuses it at the gate rather than relying on prompt wording."""
     for field in ("primaryKeyword", "title", "metaTitle"):
-        value = str(data.get(field, ""))
-        if STUDENT_INTENT.search(value):
+        if STUDENT_INTENT.search(str(data.get(field, ""))):
             raise ValueError("student-intent-keyword")
+
+
+def validate_photo_provenance(data: dict, library: str) -> None:
+    # Bind rights, credit and URLs to THIS asset's section, not another photo.
+    sections = re.split(r"(?m)^#{1,6} ", library)
+    entries = [s for s in sections if re.search(
+        r"(?m)^- Local asset: `" + re.escape(data["image"]) + r"`\s*$", s)]
+    if len(entries) != 1:
+        raise ValueError("photo-provenance")
+    entry = entries[0]
+    if data.get("imageRights", "").lower() == "owned":
+        if not re.search(r"(?m)^- Rights: owned\.", entry) or data.get("imageCredit") != "Collegiate Agency":
+            raise ValueError("photo-owned-provenance")
+        if data.get("imageSource") or data.get("imageLicense"):
+            raise ValueError("owned-photo-fake-license")
+    else:
+        for key, label in (("imageSource", "Source"), ("imageLicense", "License")):
+            value = data.get(key, "")
+            if not value.startswith("https://"):
+                raise ValueError("photo-credit-url")
+            if not re.search(r"(?m)^- " + label + r": " + re.escape(value) + r"\s*$", entry):
+                raise ValueError("photo-license-provenance")
 
 
 def validate_article(path: Path, worktree: Path) -> dict:
@@ -320,19 +370,7 @@ def validate_article(path: Path, worktree: Path) -> dict:
     if not photo.is_file() or photo.is_symlink():
         raise ValueError("photo-file")
     library = (worktree / "content/seo/public-photo-library.md").read_text()
-    # Two legitimate provenance paths, each fully checked. Owned photography
-    # has no third-party licence to cite, so demanding a licence URL for it
-    # would force a false citation rather than prevent one.
-    if str(data.get("imageRights", "")).strip().lower() == "owned":
-        if data["image"] not in library:
-            raise ValueError("photo-provenance")
-    else:
-        if any(not data.get(k) for k in ("imageSource", "imageLicense")):
-            raise ValueError("required-fields")
-        if any(data[k] not in library for k in ("image", "imageSource", "imageLicense")):
-            raise ValueError("photo-license-provenance")
-        if any(not data[k].startswith("https://") for k in ("imageSource", "imageLicense")):
-            raise ValueError("photo-credit-url")
+    validate_photo_provenance(data, library)
     return {**data, "word_count": count, "body_links": body_links, "tables": table_count,
             "article_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "image_sha256": hashlib.sha256(photo.read_bytes()).hexdigest(),
@@ -360,19 +398,41 @@ def prepare(state: dict, run_no: int) -> dict:
     baseline = set(git(worktree, "ls-tree", "-r", "--name-only", prep["base"], "content/blog").splitlines())
     articles = [p for p in (worktree / "content/blog").glob("*.mdx") if str(p.relative_to(worktree)) not in baseline]
     if not articles:
-        if prep.get("generation_started"):
-            # A timed-out/crashed agent may have failed before writing. Require explicit
-            # operator recovery rather than silently minting a second artifact.
+        prior = prep.get("generation_result") or {}
+        if prep.get("generation_started") and prior.get("status") not in {"failed", "completed-no-article"}:
+            # A timed-out/crashed/unknown agent may still be writing or may have
+            # produced an artifact outside our detection path. Require explicit
+            # operator recovery rather than silently minting a second article.
             raise RuntimeError("generation-incomplete")
         prep["generation_started"] = True
+        prep["generation_attempts"] = int(prep.get("generation_attempts") or 0) + 1
+        prep["generation_result"] = {"returncode": None, "status": "running", "attempt": prep["generation_attempts"]}
         save_state(state)
-        publish_with_hermes(prep["run_no"], worktree)  # Exit 0 is not a publication receipt.
+        try:
+            result = publish_with_hermes(prep["run_no"], worktree)
+        except subprocess.TimeoutExpired:
+            prep["generation_result"] = {"returncode": None, "status": "timeout", "attempt": prep["generation_attempts"]}
+            save_state(state)
+            raise RuntimeError("generation-timeout") from None
+        summary = safe_generation_summary(result.stdout)
+        prep["generation_result"] = {"returncode": result.returncode,
+                                     "status": "completed" if result.returncode == 0 else "failed",
+                                     "attempt": prep["generation_attempts"],
+                                     "summary": summary}
+        save_state(state)
+        if result.returncode:
+            raise RuntimeError("generation-failed")
         articles = [p for p in (worktree / "content/blog").glob("*.mdx") if str(p.relative_to(worktree)) not in baseline]
+        if not articles:
+            prep["generation_result"] = {**prep["generation_result"], "status": "completed-no-article"}
+            save_state(state)
     if len(articles) != 1:
         raise RuntimeError("expected-one-article")
     if git(worktree, "diff", "--name-only", prep["base"]):
         raise RuntimeError("generator-edited-existing-files")
     artifact = validate_article(articles[0], worktree)
+    if artifact.get("imageRights") != "owned":
+        raise ValueError("new-publication-requires-owned-photo")
     return {**artifact, **{k: prep[k] for k in ("worktree", "base", "run_no")}}
 
 
@@ -380,7 +440,7 @@ def preflight_links(artifact: dict) -> None:
     result = subprocess.run(
         ["node", str(Path(__file__).with_name("verify-seo-live.mjs")), LIVE_BASE, "--targets"],
         cwd=Path(artifact["worktree"]), input=json.dumps(artifact), text=True,
-        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=180,
+        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=180, env=execution_env(),
     )
     if result.returncode:
         raise ValueError("link-target-preflight")
@@ -442,7 +502,7 @@ def verify_live(artifact: dict) -> bool:
             result = subprocess.run(["node", str(Path(__file__).with_name("verify-seo-live.mjs")), LIVE_BASE],
                                     cwd=worktree, input=json.dumps(artifact), text=True,
                                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                    timeout=min(90, max(1, deadline - time.monotonic())))
+                                    timeout=min(90, max(1, deadline - time.monotonic())), env=execution_env())
             if result.returncode == 0:
                 return True
         except subprocess.TimeoutExpired:
@@ -472,7 +532,8 @@ def tick() -> int:
     is_due, _ = due_run(state, n)
     if not is_due:
         return 0
-    run_no = int(state.get("retry_run_no") or (max(log_run_numbers(), default=0) + 1))
+    run_no = int((state.get("pending") or state.get("preparing") or {}).get("run_no")
+                 or state.get("retry_run_no") or (max(log_run_numbers(), default=0) + 1))
     phase = "preparation"
     try:
         if not state.get("pending"):
@@ -489,7 +550,7 @@ def tick() -> int:
         state["pending"] = None
         state.pop("preparing", None)
         state.pop("last_error_phase", None)
-        schedule_next_interval(state, now_ct())
+        schedule_next_interval(state, datetime.fromisoformat(state["last_success"]["verified_at"]))
         print(f"SEO article verified live: {LIVE_BASE}/insights/{artifact['slug']}")
     except Exception:
         # Never relay child stdout, exception messages, URLs with tokens, or credentials.

@@ -41,7 +41,53 @@ export async function verifyBodyLinks(page, links, base) {
   for (const link of links) {
     assert.ok(actual.some(a => a.href === link.href && a.anchor === link.anchor), 'contextual anchor missing from body');
   }
-  return verifyTargets(page.request, links, base);
+  // Match preflight: target checks use a fresh HTTP context, not browser cookies
+  // or its UA. Some public institutional sites reject the Chromium UA even
+  // while serving the same URL normally to the HTTP client.
+  const client = await request.newContext();
+  try { return await verifyTargets(client, links, base); }
+  finally { await client.dispose(); }
+}
+
+export async function verifyTables(page, expected) {
+  const evidence = [];
+  for (const width of [1280, 390, 320]) {
+    await page.setViewportSize({width, height: 900});
+    const result = await page.locator('article .prose-custom').evaluate((body) => {
+      const tables = [...body.querySelectorAll('table')].map(table => {
+        const wrapper = table.parentElement;
+        const cells = [...table.querySelectorAll('tbody td, tbody th')];
+        const overflow = wrapper.scrollWidth > wrapper.clientWidth;
+        wrapper.scrollLeft = wrapper.scrollWidth;
+        const scrolls = wrapper.scrollLeft > 0;
+        wrapper.scrollLeft = 0;
+        return {
+          columns: table.querySelectorAll('thead th[scope="col"]').length,
+          rows: table.querySelectorAll('tbody tr').length,
+          rowHeaders: table.querySelectorAll('tbody th[scope="row"]').length,
+          dataCells: table.querySelectorAll('tbody td').length,
+          fontSize: Math.min(...cells.map(c => parseFloat(getComputedStyle(c).fontSize))),
+          lineHeight: Math.min(...cells.map(c => parseFloat(getComputedStyle(c).lineHeight))),
+          overflowX: getComputedStyle(wrapper).overflowX,
+          focusable: wrapper.tabIndex === 0, overflow, scrolls,
+          wrapperWidth: wrapper.clientWidth, tableWidth: table.getBoundingClientRect().width,
+        };
+      });
+      return {tables, rawPipes: [...body.querySelectorAll('p')].some(p => /^\s*\|/m.test(p.textContent)),
+        pageWidth: document.documentElement.scrollWidth, viewport: innerWidth};
+    });
+    assert.equal(result.tables.length, expected, 'semantic table count');
+    assert.equal(result.rawPipes, false, 'raw markdown pipes');
+    assert.ok(result.pageWidth <= width + 1, 'horizontal page overflow');
+    for (const t of result.tables) {
+      assert.ok(t.columns >= 2 && t.rows > 0 && t.dataCells > 0 && t.rowHeaders === t.rows, 'table semantics');
+      assert.ok(t.fontSize >= 14 && t.lineHeight >= 18, 'readable table typography');
+      assert.ok(['auto','scroll'].includes(t.overflowX) && t.focusable, 'accessible table scroller');
+      if (t.overflow) assert.ok(t.scrolls, 'table scroll interaction');
+    }
+    evidence.push({width, ...result});
+  }
+  return evidence;
 }
 
 /** Independent verification: never parse the publishing agent's claims. */
@@ -66,11 +112,14 @@ export async function verify(artifact, base = 'https://collegiateagency.com') {
     await image.scrollIntoViewIfNeeded();
     const dimensions = await image.evaluate(async img => {
       await img.decode();
-      return {width: img.naturalWidth, height: img.naturalHeight, alt: img.alt, src: img.currentSrc};
+      return {width: img.naturalWidth, height: img.naturalHeight, alt: img.alt, src: img.getAttribute('src'), currentSrc: img.currentSrc};
     });
     assert.ok(dimensions.width > 0 && dimensions.height > 0, 'photo decoding');
     assert.equal(dimensions.alt, artifact.imageAlt, 'image alt');
-    const photo = await page.request.get(dimensions.src);
+    // Verify the canonical source asset, not a Next/Image optimized derivative.
+    // Optimized derivatives can differ in dimensions and bytes while the source
+    // file at `src` remains the publication receipt the autopublisher hashed.
+    const photo = await page.request.get(new URL(dimensions.src, base).href);
     assert.equal(photo.status(), 200, 'photo status');
     assert.match(photo.headers()['content-type'], /^image\/(jpeg|png|webp)/);
     assert.equal(createHash('sha256').update(await photo.body()).digest('hex'), artifact.image_sha256, 'photo bytes');
@@ -80,7 +129,8 @@ export async function verify(artifact, base = 'https://collegiateagency.com') {
     assert.ok(locations.includes(artifact.canonical ?? url), 'exact sitemap URL');
     // Historical receipts predate body_links; every newly validated artifact carries it.
     const body_links = artifact.body_links ? await verifyBodyLinks(page, artifact.body_links, base) : undefined;
-    return {url, sitemap: `${base}/sitemap.xml`, ...dimensions, image_sha256: artifact.image_sha256, body_links};
+    const tables = artifact.tables !== undefined ? await verifyTables(page, artifact.tables) : undefined;
+    return {url, sitemap: `${base}/sitemap.xml`, ...dimensions, image_sha256: artifact.image_sha256, body_links, tables};
   } finally { await browser.close(); }
 }
 

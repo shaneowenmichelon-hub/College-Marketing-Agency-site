@@ -96,7 +96,7 @@ class PublisherTests(unittest.TestCase):
         photos=self.root/"public/images/blog"; photos.mkdir(parents=True)
         (photos/"campus.jpg").write_bytes(b"test-photo-bytes")
         seo=self.root/"content/seo"; seo.mkdir(parents=True)
-        (seo/"public-photo-library.md").write_text("/images/blog/campus.jpg https://unsplash.com/photos/example https://unsplash.com/license")
+        (seo/"public-photo-library.md").write_text("## Licensed fixture\n\n- Local asset: `/images/blog/campus.jpg`\n- Source: https://unsplash.com/photos/example\n- License: https://unsplash.com/license\n")
         front = """---
 slug: campus-pilot
 title: Campus Pilot: A Buyer Checklist
@@ -167,7 +167,7 @@ imageLicense: https://unsplash.com/license
             self.assertEqual((worktree/"keep.txt").read_text(),"remote baseline")
             (worktree/"content/blog/campus-pilot.mdx").write_text("prepared")
             return subprocess.CompletedProcess([],0,"credential must not escape")
-        artifact={"slug":"campus-pilot","title":"Campus Pilot"}
+        artifact={"slug":"campus-pilot","title":"Campus Pilot","imageRights":"owned"}
         with patch.object(p,"REPO",repo), patch.object(p,"BRANCH","deploy"), patch.object(p,"OPS",self.root/"ops"), patch.object(p,"publish_with_hermes",side_effect=generate), patch.object(p,"validate_article",return_value=artifact.copy(),create=True):
             state=json.loads(self.state.read_text())
             first=p.prepare(state,1)
