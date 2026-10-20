@@ -4,10 +4,22 @@ const plan=JSON.parse(fs.readFileSync(path.join(__dirname,'../content/seo/link-b
 test('all live-source MDX and hardcoded longform bodies preserve old anchors and add exactly two',()=>{
  const {posts,caseStudies}=load(path.join(__dirname,'../src/lib/content.ts'));
  const urls=[...posts.map(p=>'/insights/'+p.slug),...caseStudies.filter(c=>c.article?.length).map(c=>'/work/'+c.slug)].sort();
+ // These two insight URLs 301 to the matching /work case study. The write-up
+ // still has to be present; it is checked on the work entry below.
+ const movedToWork=new Set([
+  '/insights/sos-consultants-nola-campus-leasing-ambassadors',
+  '/insights/nutrl-night-school-tour-product-placement',
+ ]);
  // The frozen September migration inventory is not a cap on future publishing.
  // Every migrated URL must remain present; newer posts have publisher link gates.
- for(const entry of plan.entries) assert.ok(urls.includes(entry.path),entry.path+' migrated URL retained');
- for(const e of plan.entries){const record=(e.scope==='insights'?posts:caseStudies).find(p=>p.slug===e.slug);const blocks=e.scope==='insights'?record.body:record.article;const html=blocks.map(b=>b.html??b.items?.join(' ')??(b.type==='table'?[...b.columns,...b.rows.flat()].join(' '):'')).join('\n');const links=[...html.matchAll(/<a href="([^"]+)">([\s\S]*?)<\/a>/g)].map(m=>({href:m[1],anchor:m[2].replace(/<[^>]+>/g,'')}));
+ for(const entry of plan.entries){
+  if(movedToWork.has(entry.path)){
+   assert.ok(urls.includes(entry.path.replace('/insights/','/work/')),entry.path+' retained at /work');
+   continue;
+  }
+  assert.ok(urls.includes(entry.path),entry.path+' migrated URL retained');
+ }
+ for(const e of plan.entries){if(movedToWork.has(e.path))continue;const record=(e.scope==='insights'?posts:caseStudies).find(p=>p.slug===e.slug);const blocks=e.scope==='insights'?record.body:record.article;const html=blocks.map(b=>b.html??b.items?.join(' ')??(b.type==='table'?[...b.columns,...b.rows.flat()].join(' '):'')).join('\n');const links=[...html.matchAll(/<a href="([^"]+)">([\s\S]*?)<\/a>/g)].map(m=>({href:m[1],anchor:m[2].replace(/<[^>]+>/g,'')}));
   assert.equal(links.length,e.baseline_body_links.length+2,e.path+' exact additional two');
   for(const a of [...e.baseline_body_links,...e.added_links])assert.ok(links.some(l=>l.href===a.href&&l.anchor===a.anchor),e.path+' '+a.anchor);
   for(const a of e.added_links)assert.equal(links.filter(l=>l.href===a.href).length,1,e.path+' new target unique');
