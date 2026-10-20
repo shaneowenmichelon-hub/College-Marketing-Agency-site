@@ -1,10 +1,15 @@
 import type { ReactNode } from "react";
 import snapshot from "../../../content/affiliate-command/snapshot.json";
 
-export const metadata = {
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
   title: "ZMM Affiliate Command Center",
-  robots: { index: false, follow: false },
-};
+  description: "Internal affiliate reporting.",
+  path: "/zmm-affiliate-command",
+  index: false,
+  follow: false,
+});
 
 type MetricMap = Record<string, number>;
 

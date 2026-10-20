@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Rocket,
 } from "lucide-react";
-import { siteConfig, pricing, testimonials } from "@/site.config";
+import { pricing, siteConfig, testimonials } from "@/site.config";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
@@ -30,11 +30,13 @@ import { CaseStudyCover } from "@/components/work/CaseStudyCover";
 import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
 import { caseStudies, posts, formatDate } from "@/lib/content";
-import type { Metadata } from "next";
+import { HOME_TITLE_LEAD, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-};
+export const metadata = pageMetadata({
+  title: HOME_TITLE_LEAD,
+  description: siteConfig.description,
+  path: "/",
+});
 
 const serviceIcons = {
   events: CalendarHeart,

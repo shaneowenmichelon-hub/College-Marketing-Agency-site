@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   Banknote,
   CalendarClock,
@@ -17,13 +16,14 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ApplyForm } from "@/components/forms/ApplyForm";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Become an Ambassador - Get paid to rep brands you love",
+export const metadata = pageMetadata({
+  title: "Become a campus ambassador",
   description:
     "Join the student ambassador network. Apply, get matched with brands, post and activate on campus, and get paid - cash, free product, and real resume experience.",
-  alternates: { canonical: "/become-an-ambassador" },
-};
+  path: "/become-an-ambassador",
+});
 
 const steps = [
   { icon: Send, title: "Apply", body: "Fill out the application below. Takes about 5 minutes." },

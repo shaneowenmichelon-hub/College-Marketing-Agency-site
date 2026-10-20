@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { Mail, MapPin } from "lucide-react";
 import { siteConfig, clients, sitePhotos } from "@/site.config";
+import { pageMetadata } from "@/lib/seo";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
@@ -9,12 +9,12 @@ import { ContactForm } from "@/components/forms/ContactForm";
 import { ClientMarquee } from "@/components/ClientMarquee";
 import { RotatingReview } from "@/components/RotatingReview";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Contact - Let's reach students together",
   description:
     "Tell us what you're launching and we'll build a plan to put it in front of the right campuses through events, brand ambassadors, and product placement.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 /** Lead activation photo for the left column (first entry in the shared set). */
 const leadPhoto = sitePhotos[0];

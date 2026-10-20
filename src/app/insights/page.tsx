@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/ui/Section";
@@ -8,13 +7,14 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { ArticleArt } from "@/components/insights/ArticleArt";
 import { posts, formatDate } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Insights - Notes on campus marketing & culture",
+export const metadata = pageMetadata({
+  title: "Campus marketing insights",
   description:
     "Practical, brand-facing perspective on campus marketing: product placement, ambassador campaigns, and winning welcome week.",
-  alternates: { canonical: "/insights" },
-};
+  path: "/insights",
+});
 
 export default function InsightsPage() {
   const [featured, ...rest] = posts;

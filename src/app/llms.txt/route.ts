@@ -24,7 +24,17 @@ export async function GET() {
   const services = siteConfig.services.map((s) => {
     const p = pricing[s.slug];
     const price = p ? ` Pricing: ${[p.range, p.unit].filter(Boolean).join(" ").trim()}.` : "";
-    return L(s.label, s.href, `${s.blurb}${price}`);
+    // Events and brand ambassadors have their own pages. Product placement
+    // does not; it is a section of /services, not a hash URL of its own.
+    if (s.slug === "events") return L(s.label, "/services/events", `${s.blurb}${price}`);
+    if (s.slug === "brand-ambassadors") {
+      return L(s.label, "/services/brand-ambassadors", `${s.blurb}${price}`);
+    }
+    return L(
+      s.label,
+      "/services",
+      `${s.blurb} Described on the services page; there is no separate product-placement URL.${price}`,
+    );
   });
 
   const work = caseStudies.map((c) =>
@@ -43,11 +53,9 @@ export async function GET() {
 
   const body = `# ${siteConfig.companyName}
 
-> ${siteConfig.description}
+> ${siteConfig.definition}
 
-${siteConfig.companyName} is a college marketing and events agency. It puts brands in front of
-university students through three channels: event sponsorships and campus activations, a vetted
-student brand-ambassador network, and product placement into Greek life and student organisations.
+It puts brands in front of university students through three channels: campus events and activations, a vetted student brand-ambassador network, and product placement into Greek life and student organisations.
 
 ## Key facts
 

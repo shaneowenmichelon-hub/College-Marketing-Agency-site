@@ -246,6 +246,7 @@ export function loadMdxPosts(): Post[] {
         services: asStringArray(data, "services") as Post["services"],
         excerpt: asString(data, "excerpt"),
         date: asString(data, "date"),
+        dateModified: typeof data.dateModified === "string" ? data.dateModified : undefined,
         author: typeof data.author === "string" ? data.author : undefined,
         art: typeof data.art === "string" ? data.art : undefined,
         image: typeof data.image === "string" ? data.image : undefined,

@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
 import { Users } from "lucide-react";
 import { ServicePage } from "@/components/services/ServicePage";
 import { getStat } from "@/site.config";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Brand Ambassadors - Student reps and campus leaders",
+export const metadata = pageMetadata({
+  title: "Brand ambassador programs",
   description:
     "A vetted student rep network for sampling, flyering, product distribution, tabling, pop-ups, and campus leaders posting monthly Instagram and TikTok stories to real peers.",
-  alternates: { canonical: "/services/brand-ambassadors" },
-};
+  path: "/services/brand-ambassadors",
+});
 
 export default function BrandAmbassadorsPage() {
   return (

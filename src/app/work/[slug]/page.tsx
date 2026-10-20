@@ -11,6 +11,7 @@ import { ArticleTable } from "@/components/article/ArticleTable";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { caseStudies, getCaseStudy } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
 type Params = Promise<{ slug: string }>;
 
@@ -21,12 +22,19 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
   const c = getCaseStudy(slug);
-  if (!c) return { title: "Case study not found" };
-  return {
-    title: `${c.headline} - Work`,
+  if (!c) {
+    return pageMetadata({
+      title: "Case study not found",
+      description: "That case study does not exist.",
+      index: false,
+    });
+  }
+  return pageMetadata({
+    title: `${c.brand} case study`,
     description: `${c.type} case study: ${c.headline}. ${c.stat} ${c.statLabel}${c.sample ? " (sample)." : "."}`,
-    alternates: { canonical: `/work/${slug}` },
-  };
+    path: `/work/${slug}`,
+    index: !c.sample,
+  });
 }
 
 const sections = [

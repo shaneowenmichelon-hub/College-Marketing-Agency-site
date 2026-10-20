@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Terms of Service",
   description: "Terms of Service - placeholder.",
-  robots: { index: false, follow: true },
-};
+  path: "/terms",
+  index: false,
+});
 
 export default function TermsPage() {
   return (

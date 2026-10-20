@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProcessStep } from "@/components/ProcessStep";
 import { EventImage } from "@/components/EventImage";
-import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbJsonLd, ServiceJsonLd } from "@/components/seo/JsonLd";
+import { serviceBreadcrumbItems } from "@/lib/seo";
 import { RelatedInsights } from "@/components/RelatedInsights";
 import { postsForService } from "@/lib/content";
 
@@ -54,12 +55,8 @@ export function ServicePage({
   const price = pricing[slug];
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", path: "/" },
-          { name: eyebrow, path: `/services/${slug}` },
-        ]}
-      />
+      <ServiceJsonLd slug={slug} />
+      <BreadcrumbJsonLd items={serviceBreadcrumbItems(slug, eyebrow)} />
       {/* Hero */}
       <section className="grain relative overflow-hidden bg-ink text-white">
         <div aria-hidden className="mesh pointer-events-none absolute inset-0" />

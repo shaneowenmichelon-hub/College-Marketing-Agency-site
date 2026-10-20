@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { CTASection } from "@/components/CTASection";
 import { ArticleTable } from "@/components/article/ArticleTable";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/site.config";
 import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/content";
 import { ArticleArt } from "@/components/insights/ArticleArt";
@@ -67,31 +68,28 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
   const post = getPost(slug);
-  if (!post) return { title: "Article not found" };
+  if (!post) {
+    return pageMetadata({
+      title: "Article not found",
+      description: "That article does not exist.",
+      index: false,
+    });
+  }
   // Only set a per-article image when the post has a real raster photo; otherwise
   // omit it so the generated site OG PNG (app/opengraph-image.tsx) is inherited
   // (avoids falling back to an SVG, which social platforms don't render well).
   const image = post.image ?? post.ogImage;
-  return {
+  const description = post.metaDescription ?? post.excerpt;
+  return pageMetadata({
     title: post.metaTitle ?? post.title,
-    description: post.metaDescription ?? post.excerpt,
-    alternates: { canonical: `/insights/${slug}` },
-    openGraph: {
-      title: post.metaTitle ?? post.title,
-      description: post.metaDescription ?? post.excerpt,
-      type: "article",
-      url: `${siteConfig.url}/insights/${slug}`,
-      publishedTime: post.date,
-      authors: [post.author ?? siteConfig.companyName],
-      ...(image ? { images: [{ url: image, width: 1200, height: 630, alt: post.title }] } : {}),
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
-      ...(image ? { images: [image] } : {}),
-    },
-  };
+    description,
+    path: `/insights/${slug}`,
+    type: "article",
+    publishedTime: post.date,
+    modifiedTime: post.dateModified ?? post.date,
+    authors: [post.author ?? siteConfig.companyName],
+    ...(image ? { images: [{ url: image, width: 1200, height: 630, alt: post.title }] } : {}),
+  });
 }
 
 /** Render one article body block. Content is our own (trusted) copy. */
@@ -137,6 +135,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
         description={post.excerpt}
         slug={post.slug}
         date={post.date}
+        dateModified={post.dateModified}
         image={post.image ?? post.ogImage}
         author={author}
       />

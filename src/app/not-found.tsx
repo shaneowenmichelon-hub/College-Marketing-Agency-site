@@ -1,5 +1,12 @@
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Page not found",
+  description: "That page doesn't exist or has moved. Browse services, work, and insights instead.",
+  index: false,
+});
 
 export default function NotFound() {
   return (

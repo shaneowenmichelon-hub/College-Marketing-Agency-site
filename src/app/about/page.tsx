@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import { Compass, Flame, HeartHandshake, Zap } from "lucide-react";
 import { siteConfig, team } from "@/site.config";
+import { pageMetadata } from "@/lib/seo";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -8,12 +8,12 @@ import { EventImage } from "@/components/EventImage";
 import { TeamAvatar } from "@/components/TeamAvatar";
 import { CTASection } from "@/components/CTASection";
 
-export const metadata: Metadata = {
-  title: "About - Built by people who run campus culture",
+export const metadata = pageMetadata({
+  title: "About the agency",
   description:
     "A modern college-marketing agency built by people who actually run campus and nightlife culture - the fresh alternative to legacy campus-media shops.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 const values = [
   {

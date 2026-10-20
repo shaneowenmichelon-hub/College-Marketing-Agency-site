@@ -24,8 +24,12 @@ export type StatToken = {
 
 export type Office = {
   name: string;
+  /** Public line on the contact page. Not a street address. */
   address: string;
   phone: string;
+  addressLocality: string;
+  addressRegion: string;
+  addressCountry: string;
 };
 
 export const siteConfig = {
@@ -42,10 +46,16 @@ export const siteConfig = {
   /** Root domain (no protocol) - used to build email addresses and canonical URLs. */
   companyDomain: "collegiateagency.com",
 
-  /** Used for <title> templates, OG, and general voice. */
+  /**
+   * Brand line used in the hero and social-image artwork.
+   * The homepage <title> is the category title in src/lib/seo.ts, not this line.
+   */
   tagline: "Where brands meet campus culture.",
+  /** One sentence for llms.txt and other machine-readable summaries. */
+  definition:
+    "Collegiate Agency is a college and campus marketing agency for campus events and brand ambassador programs.",
   description:
-    "A college marketing & events agency connecting brands with students through events, brand ambassadors, and product placement - on the campuses where they live, study, and go out.",
+    "A college and campus marketing agency for campus events and brand ambassador programs, connecting brands with students where they live, study, and go out.",
 
   /** Canonical URL for SEO/sitemap. Update to your production domain before launch. */
   url: "https://collegiateagency.com",
@@ -71,6 +81,11 @@ export const siteConfig = {
       name: "New York",
       address: "Brand partnerships and campus activations",
       phone: "",
+      // City-level only. contact.location is already "New York, NY"; there is
+      // no street address on file, so schema must not invent one.
+      addressLocality: "New York",
+      addressRegion: "NY",
+      addressCountry: "US",
     },
   ] as Office[],
 

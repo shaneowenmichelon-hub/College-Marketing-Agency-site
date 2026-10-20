@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/Button";
@@ -7,15 +6,16 @@ import { AudienceTabs } from "@/components/services/AudienceTabs";
 import { CapabilityBlock } from "@/components/services/CapabilityBlock";
 import { IconCardGrid } from "@/components/services/IconCardGrid";
 import { servicesHub } from "@/site.config";
+import { pageMetadata } from "@/lib/seo";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Services - For brands and for students",
   description:
     "Campus presence for brands through events, ambassadors, and product placement - and paid opportunities for students. One team, run end to end.",
-  alternates: { canonical: "/services" },
-};
+  path: "/services",
+});
 
 const { brands, students } = servicesHub;
 

@@ -1,4 +1,9 @@
-import { pricing, siteConfig } from "@/site.config";
+import { siteConfig } from "@/site.config";
+import {
+  ORGANIZATION_ID,
+  organizationStructuredData,
+  serviceStructuredData,
+} from "@/lib/seo";
 
 /**
  * Structured data (JSON-LD). Server components - rendered inline as
@@ -15,40 +20,16 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
   );
 }
 
-/** Site-wide Organization + LocalBusiness. Rendered once in the root layout. */
+/**
+ * One Organization + ProfessionalService node (LocalBusiness subtype) and a
+ * WebSite node. Rendered once in the root layout.
+ */
 export function OrganizationJsonLd() {
-  const sameAs = siteConfig.socials.map((s) => s.href).filter(Boolean);
-
   return (
     <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: siteConfig.companyName,
-          legalName: siteConfig.companyLegalName,
-          url: siteConfig.url,
-          description: siteConfig.description,
-          email: siteConfig.contact.email,
-          ...(sameAs.length ? { sameAs } : {}),
-        }}
-      />
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          "@id": `${siteConfig.url}/#localbusiness`,
-          name: siteConfig.companyName,
-          url: siteConfig.url,
-          email: siteConfig.contact.email,
-          address: siteConfig.offices.map((o) => ({
-            "@type": "PostalAddress",
-            name: o.name,
-            streetAddress: o.address,
-          })),
-          areaServed: siteConfig.campuses.map((c) => c.city),
-        }}
-      />
+      {organizationStructuredData().map((data) => (
+        <JsonLd key={String(data["@id"])} data={data} />
+      ))}
     </>
   );
 }
@@ -115,8 +96,19 @@ export function ArticleJsonLd({
           "@type": "WebPage",
           "@id": `${siteConfig.url}/insights/${slug}`,
         },
-        author: { "@type": "Organization", name: authorName },
-        publisher: { "@type": "Organization", name: siteConfig.companyName },
+        author:
+          authorName === siteConfig.companyName
+            ? { "@id": ORGANIZATION_ID }
+            : { "@type": "Organization", name: authorName },
+        publisher: {
+          "@type": "Organization",
+          "@id": ORGANIZATION_ID,
+          name: siteConfig.companyName,
+          logo: {
+            "@type": "ImageObject",
+            url: `${siteConfig.url}/logo.svg`,
+          },
+        },
       }}
     />
   );
@@ -130,58 +122,18 @@ export function ArticleJsonLd({
  * would be a claim the site does not make. Every value comes from the single
  * pricing source in site.config, so schema and page can never disagree.
  */
+/** Service schema for one offering. Detail pages emit their own node. */
+export function ServiceJsonLd({ slug }: { slug: string }) {
+  return <JsonLd data={serviceStructuredData(slug)} />;
+}
+
+/** Service schema for every offering, rendered on the services hub. */
 export function ServicesJsonLd() {
-  const provider = {
-    "@type": "Organization",
-    name: siteConfig.companyName,
-    url: siteConfig.url,
-  };
-
-  const minPrice: Record<string, number | undefined> = {
-    events: 500,
-    "brand-ambassadors": 150,
-    "product-placement": 2500,
-  };
-
   return (
     <>
-      {siteConfig.services.map((service) => {
-        const price = minPrice[service.slug];
-        const note = pricing[service.slug];
-        return (
-          <JsonLd
-            key={service.slug}
-            data={{
-              "@context": "https://schema.org",
-              "@type": "Service",
-              "@id": `${siteConfig.url}/services#${service.slug}`,
-              name: service.label,
-              description: service.blurb,
-              serviceType: service.label,
-              provider,
-              areaServed: siteConfig.campuses.map((c) => ({
-                "@type": "City",
-                name: c.city,
-              })),
-              url: `${siteConfig.url}${service.href}`,
-              ...(price
-                ? {
-                    offers: {
-                      "@type": "Offer",
-                      priceCurrency: "USD",
-                      priceSpecification: {
-                        "@type": "PriceSpecification",
-                        minPrice: price,
-                        priceCurrency: "USD",
-                        ...(note?.unit ? { unitText: note.unit.replace(/^\//, "").trim() } : {}),
-                      },
-                    },
-                  }
-                : {}),
-            }}
-          />
-        );
-      })}
+      {siteConfig.services.map((service) => (
+        <ServiceJsonLd key={service.slug} slug={service.slug} />
+      ))}
     </>
   );
 }

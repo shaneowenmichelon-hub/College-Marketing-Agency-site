@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import { siteConfig } from "@/site.config";
 import { LegalPage } from "@/components/LegalPage";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Privacy Policy",
   description: "How we collect, use, and protect your data - including student applicant data.",
-  alternates: { canonical: "/privacy" },
-  robots: { index: false, follow: true },
-};
+  path: "/privacy",
+  index: false,
+});
 
 // TODO: have counsel review before launch. This describes actual data flows in the
 // app but is not a substitute for a lawyer-reviewed policy.

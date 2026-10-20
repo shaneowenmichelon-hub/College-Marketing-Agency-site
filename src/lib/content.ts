@@ -58,6 +58,8 @@ export type Post = {
   services: ServiceSlug[];
   excerpt: string;
   date: string;
+  /** Optional revision date from frontmatter. Sitemap lastmod prefers this. */
+  dateModified?: string;
   readingTime: string;
   /** Byline. Defaults to the company name when omitted. */
   author?: string;
@@ -328,7 +330,21 @@ const filePosts = loadMdxPosts().map((post) => ({
   readingTime: post.readingTime || estimateReadingTime(post.body),
 }));
 
-export const posts: Post[] = [...filePosts, ...legacyPosts];
+/**
+ * These write-ups are the same campaigns as the /work case studies. /work is
+ * the canonical URL; the /insights copies are permanently redirected and are
+ * not listed as articles.
+ */
+export const CASE_STUDIES_CANONICAL_ON_WORK = [
+  "sos-consultants-nola-campus-leasing-ambassadors",
+  "nutrl-night-school-tour-product-placement",
+] as const;
+
+const canonicalOnWork = new Set<string>(CASE_STUDIES_CANONICAL_ON_WORK);
+
+export const posts: Post[] = [...filePosts, ...legacyPosts].filter(
+  (post) => !canonicalOnWork.has(post.slug),
+);
 
 export function getPost(slug: string): Post | undefined {
   return posts.find((p) => p.slug === slug);
@@ -356,6 +372,8 @@ export type CaseStudy = {
   results: string;
   /** True when the numbers are an illustrative example, not a verified client result. */
   sample?: boolean;
+  /** Publish date of the write-up, when one already exists in this file. */
+  date?: string;
   /** Public sources for the factual program description (industry references). */
   sources?: { label: string; url: string }[];
   /**
@@ -466,6 +484,7 @@ const nutrlNightSchoolArticle: ArticleBlock[] = [
 export const caseStudies: CaseStudy[] = [
   {
     slug: "sos-consultants-nola-campus-leasing-ambassadors",
+    date: "2026-08-03",
     cover: "apartment",
     imageAlt: "Illustration of an apartment block with units filling up and a LEASED sign",
     brand: "SOS Consultants Nola",
@@ -514,6 +533,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "nutrl-night-school-tour-product-placement",
+    date: "2026-08-02",
     image: "/images/work/nutrl-can-activation.jpg",
     imageAlt: "Staffer holding a NUTRL can at the branded NUTRL bar cart",
     brand: "NÜTRL",

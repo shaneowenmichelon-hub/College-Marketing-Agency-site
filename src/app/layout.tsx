@@ -4,6 +4,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter, Space_Grotesk, Space_Mono, Instrument_Serif } from "next/font/google";
 import "@/styles/globals.css";
 import { siteConfig } from "@/site.config";
+import { HOME_TITLE_LEAD, resolveDocumentTitle } from "@/lib/seo";
 import { AppShell } from "@/components/AppShell";
 import { ScrollManager } from "@/components/ScrollManager";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
@@ -39,23 +40,20 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.companyName} - ${siteConfig.tagline}`,
-    template: `%s · ${siteConfig.companyName}`,
+    default: resolveDocumentTitle(HOME_TITLE_LEAD).text,
+    template: `%s | ${siteConfig.companyName}`,
   },
   description: siteConfig.description,
   applicationName: siteConfig.companyName,
+  // Title, description, and url are set per page. Leaving them off here stops
+  // every route from inheriting the homepage Open Graph tags.
   openGraph: {
     type: "website",
     siteName: siteConfig.companyName,
-    title: `${siteConfig.companyName} - ${siteConfig.tagline}`,
-    description: siteConfig.description,
-    url: siteConfig.url,
     // og:image is provided by app/opengraph-image.tsx (generated PNG).
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.companyName} - ${siteConfig.tagline}`,
-    description: siteConfig.description,
     // twitter:image is provided by app/twitter-image.tsx.
   },
   robots: { index: true, follow: true },

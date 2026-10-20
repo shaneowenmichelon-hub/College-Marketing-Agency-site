@@ -21,6 +21,18 @@ const nextConfig = {
     return [
       { source: "/services/influencers", destination: "/services", permanent: true },
       { source: "/services/product-placement", destination: "/services", permanent: true },
+      // Same campaigns as the /work case studies. Keep in sync with
+      // CASE_STUDIES_CANONICAL_ON_WORK in src/lib/content.ts.
+      {
+        source: "/insights/sos-consultants-nola-campus-leasing-ambassadors",
+        destination: "/work/sos-consultants-nola-campus-leasing-ambassadors",
+        statusCode: 301,
+      },
+      {
+        source: "/insights/nutrl-night-school-tour-product-placement",
+        destination: "/work/nutrl-night-school-tour-product-placement",
+        statusCode: 301,
+      },
     ];
   },
 };

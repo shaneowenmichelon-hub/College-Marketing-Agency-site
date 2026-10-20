@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import { CalendarHeart } from "lucide-react";
 import { ServicePage } from "@/components/services/ServicePage";
 import { EventSponsorships } from "@/components/EventSponsorships";
 import { getStat } from "@/site.config";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Events - Campus activations, planned & executed",
+export const metadata = pageMetadata({
+  title: "Campus event marketing",
   description:
     "Custom campus activations planned, staffed, and executed end to end - Welcome Week takeovers, tailgates, sampling, and experiential moments students actually show up for.",
-  alternates: { canonical: "/services/events" },
-};
+  path: "/services/events",
+});
 
 export default function EventsPage() {
   return (
