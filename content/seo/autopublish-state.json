@@ -1,6 +1,16 @@
 {
-  "next_run_at": "2026-08-17T13:37:00-05:00",
+  "last_prepared": {
+    "prepared_at": "2026-10-20T16:03:19.625798-05:00",
+    "primary_keyword": "college experiential marketing agency",
+    "run_no": 30,
+    "slug": "college-experiential-marketing-agency",
+    "word_count": 1689
+  },
+  "next_run_at": "2026-10-22T04:21:43.625798-05:00",
   "retry_at": null,
   "retry_count": 0,
-  "retry_run_no": null
+  "retry_run_no": null,
+  "schedule_anchor": "2026-10-20T16:03:19.625798-05:00",
+  "schedule_jitter_seconds": 1104,
+  "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility"
 }
