@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-10-08
+Last updated: 2026-10-20
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -62,3 +62,19 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-10-13 - `campus brand activation agency` - `/insights/campus-brand-activation-agency`
 
 - 2026-10-15 - `campus field marketing agency` - `/insights/campus-field-marketing-agency`
+
+- 2026-10-20 - `college experiential marketing agency` - `/insights/college-experiential-marketing-agency`
+
+## Run 30 research note (2026-10-20)
+
+Primary chosen: `college experiential marketing agency`.
+
+Evidence used, without search-volume tools: the unused rank-2 term on this map; October 2026 public results for experiential campus-agency queries, which cite dedicated pages from Campus Commandos, The Campus Agency, Newbridge, and flytedesk's 2026 agency roundups; and the gap between those vendor pages and our Aug 22 playbook on Gen Z experiential marketing, which remains inside the 60-day exact-keyword lockout. The Oct 13 activation checklist and Oct 15 field-marketing pilot stay separate clusters. Ambassador, ambassador-program, and student-rep terms were left alone because another pass is consolidating them.
+
+Runner-ups, not locked:
+
+- `college tailgate marketing agency`: timely in football season. Street Teams Co. has a tailgate service page and a May 26, 2026 guide. Seasonal and narrower than this hiring query, so it stays available for its own article.
+- `campus product sampling agency`: strong CPG buying intent and dedicated competitor service pages. Too close to published on-campus product sampling and campus product sampling ideas.
+- `campus pop-up activation`: a format competitors sell inside experiential programs. Covered here as a scoped option, not as the primary.
+- `college event marketing agency`: commercial fit, but it overlaps published college event sponsorship and campus event staffing agency.
+- `multi-campus brand activation`: scaling intent already handled by the Oct 13 campus brand activation agency article.
