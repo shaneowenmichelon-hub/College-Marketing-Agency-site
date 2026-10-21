@@ -164,6 +164,133 @@ test("llms.txt points at real service pages and defines the agency", async () =>
   assert.match(body, /\/work\/sos-consultants-nola-campus-leasing-ambassadors/);
 });
 
+test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
+  const { servicePageSeo, faqPageStructuredData } = loadTs("lib/service-faqs.ts");
+  const { getCaseStudy, getPost } = loadTs("lib/content.ts");
+  const { pricing, getStat } = loadTs("site.config.ts");
+  const React = require("react");
+  const { renderToStaticMarkup } = require("react-dom/server");
+  const { ServiceFaq, FaqPageJsonLd } = loadTs("components/services/ServiceFaq.tsx");
+
+  const pages = {
+    "brand-ambassadors": servicePageSeo("brand-ambassadors"),
+    events: servicePageSeo("events"),
+  };
+
+  for (const [slug, seo] of Object.entries(pages)) {
+    assert.ok(seo.faqs.length >= 5 && seo.faqs.length <= 7, slug);
+    const data = faqPageStructuredData(seo.faqs, `/services/${slug}`);
+    const parsed = JSON.parse(JSON.stringify(data));
+    assert.equal(parsed["@context"], "https://schema.org");
+    assert.equal(parsed["@type"], "FAQPage");
+    assert.equal(parsed.url, `https://collegiateagency.com/services/${slug}`);
+    assert.equal(parsed.mainEntity.length, seo.faqs.length);
+    seo.faqs.forEach((item, index) => {
+      assert.match(item.answer, /Collegiate Agency/);
+      const count = item.answer.split(/(?<=[.!?])\s+/).filter(Boolean).length;
+      assert.ok(count >= 1 && count <= 3, `${item.question} (${count})`);
+      assert.equal(parsed.mainEntity[index].name, item.question);
+      assert.equal(parsed.mainEntity[index].acceptedAnswer.text, item.answer);
+      assert.equal(parsed.mainEntity[index]["@type"], "Question");
+      assert.doesNotMatch(item.answer, /Celsius|11x|ROAS|guarantee|testimonial|\$175|5M|100K|1,200/i);
+    });
+
+    const html = renderToStaticMarkup(
+      React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(FaqPageJsonLd, { items: seo.faqs, path: `/services/${slug}` }),
+        React.createElement(ServiceFaq, { items: seo.faqs }),
+      ),
+    );
+    assert.match(html, /"@type":"FAQPage"/);
+    assert.match(html, /<h3[^>]*>/);
+    for (const item of seo.faqs) {
+      assert.ok(html.includes(item.question), item.question);
+      assert.ok(html.includes(item.answer), item.answer.slice(0, 48));
+    }
+  }
+
+  const ambassadors = pages["brand-ambassadors"];
+  const events = pages.events;
+  const ambassadorText = ambassadors.faqs.map((item) => item.answer).join(" ");
+  const eventText = events.faqs.map((item) => item.answer).join(" ");
+  const rate = `${pricing["brand-ambassadors"].range} ${pricing["brand-ambassadors"].unit}`
+    .replace(/\s+/g, " ")
+    .trim();
+  assert.ok(ambassadorText.includes(rate), rate);
+  assert.ok(ambassadorText.includes("2 dedicated social posts"));
+  assert.ok(ambassadorText.includes(getStat("campuses")));
+  assert.ok(ambassadorText.includes("within one business day"));
+  const money = (text) => text.match(/\$\d{1,3}(?:,\d{3})*/g);
+  assert.deepEqual(money(ambassadorText), [pricing["brand-ambassadors"].range]);
+
+  const eventAmounts = pricing.events.range.match(/\$\d{1,3}(?:,\d{3})*/g);
+  assert.deepEqual(money(eventText), eventAmounts);
+  assert.ok(eventText.includes("results recap"));
+  assert.ok(eventText.includes("Welcome Week"));
+  assert.ok(eventText.includes(getStat("campuses")));
+  assert.ok(eventText.includes("within one business day"));
+  assert.ok(eventText.includes("does not publish a fixed number of weeks"));
+
+  function hrefs(reading) {
+    return reading.blocks.flatMap((block) => block.parts.filter((part) => part.href).map((part) => part.href));
+  }
+  function plain(reading) {
+    return reading.blocks.map((block) => block.parts.map((part) => part.text).join("")).join("\n");
+  }
+
+  const ambassadorHrefs = hrefs(ambassadors.reading);
+  assert.deepEqual(ambassadorHrefs, [
+    "/work/sos-consultants-nola-campus-leasing-ambassadors",
+    "/insights/college-brand-ambassador-program",
+    "/insights/college-brand-ambassadors",
+    "/build-a-campaign",
+    "/contact",
+  ]);
+  const eventHrefs = hrefs(events.reading);
+  assert.deepEqual(eventHrefs, [
+    "/work/nutrl-night-school-tour-product-placement",
+    "/insights/university-activations",
+    "/insights/college-event-sponsorship",
+    "/insights/campus-brand-activation-agency",
+    "/build-a-campaign",
+    "/contact",
+  ]);
+
+  for (const href of [...ambassadorHrefs, ...eventHrefs]) {
+    if (href.startsWith("/insights/")) {
+      assert.ok(getPost(href.slice("/insights/".length)), href);
+    }
+    if (href.startsWith("/work/")) {
+      const study = getCaseStudy(href.slice("/work/".length));
+      assert.ok(study && study.sample !== true, href);
+      assert.ok(plain(href.includes("sos") ? ambassadors.reading : events.reading).includes(study.approach));
+    }
+  }
+
+  const servicePage = fs.readFileSync(path.join(__dirname, "../src/components/services/ServicePage.tsx"), "utf8");
+  assert.match(servicePage, /<ServiceJsonLd slug=\{slug\} \/>/);
+  assert.match(servicePage, /<BreadcrumbJsonLd /);
+  assert.match(servicePage, /<FaqPageJsonLd items=\{pageSeo\.faqs\}/);
+  assert.match(servicePage, /<ServiceFaq items=\{pageSeo\.faqs\} \/>/);
+
+  const { default: sitemap } = loadTs("app/sitemap.ts");
+  const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
+    "2026-10-21T00:00:00.000Z",
+  );
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/services/brand-ambassadors").lastModified.toISOString(),
+    "2026-10-21T00:00:00.000Z",
+  );
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(),
+    "2026-10-20T00:00:00.000Z",
+  );
+});
+
 test("case-study insight URLs permanently redirect to /work", () => {
   const config = fs.readFileSync(path.join(__dirname, "../next.config.mjs"), "utf8");
   assert.match(config, /\/insights\/sos-consultants-nola-campus-leasing-ambassadors/);

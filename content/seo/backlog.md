@@ -1,6 +1,6 @@
 # SEO backlog
 
-Ordered list. Checked items shipped in the 2026-10-20 technical SEO pass.
+Ordered list. Checked items have shipped.
 Anything still open needs a content pass or an owner decision; it is not a
 code change this list can finish on its own.
 
@@ -14,13 +14,13 @@ code change this list can finish on its own.
 - [x] Sample case studies (`sample: true`, currently Celsius) are `noindex` and excluded from the sitemap.
 - [x] Sitemap `lastmod` uses each post's `dateModified` or `date`, case-study publish dates, and 2026-10-20 for the static routes updated in this pass.
 - [x] `llms.txt` links to `/services/events` and `/services/brand-ambassadors`, points product placement at `/services` because it has no page, and opens with a one-line definition of Collegiate Agency.
+- [x] `/services/brand-ambassadors` and `/services/events` are expanded as primary ranking pages, with a visible FAQ and FAQPage JSON-LD generated from the same questions and answers.
 
 ## Remaining
 
 - [ ] `www.collegiateagency.com` currently 302s to a Vercel login. Needs a Vercel domain change by the owner (attach `www` to the production project and redirect it to the apex).
 - [ ] Collegiate-Agency-owned `sameAs` profiles and the public contact email. The site still publishes the ZMM Events Instagram, Night School Instagram, zmm.events, and `shane@zmmevents.com`. Owner decision; do not swap these in code until the owner confirms the replacements.
 - [ ] Bing verification. Set `NEXT_PUBLIC_BING_SITE_VERIFICATION` to the HTML-tag token from Bing Webmaster Tools. The layout already emits `msvalidate.01` when the variable is present.
-- [ ] Expand `/services/brand-ambassadors` and `/services/events` into primary ranking pages, with an on-page FAQ and FAQPage schema.
 - [ ] FAQ blocks with FAQPage schema rendered from frontmatter on the commercial articles: `college-marketing-agency`, `campus-marketing-agency-rfp`, `campus-brand-activation-agency`, `college-brand-ambassador-program`.
 - [ ] Consolidate cannibalizing article clusters so one URL is the canonical page for each topic and the others support it:
   - Ambassadors: `college-brand-ambassador-program`, `college-brand-ambassadors`, `student-ambassador-marketing`, `student-brand-reps`

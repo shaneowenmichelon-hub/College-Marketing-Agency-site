@@ -7,6 +7,8 @@ import { caseStudies, posts } from "@/lib/content";
  * Article and case-study URLs use their own publish dates instead.
  */
 const STATIC_LAST_MODIFIED = "2026-10-20";
+/** Service detail pages gained their FAQ and supporting copy on this date. */
+const SERVICE_DETAIL_LAST_MODIFIED = "2026-10-21";
 
 function lastModified(iso: string): Date {
   // Date-only values are pinned to UTC so the sitemap does not shift with the build timezone.
@@ -37,7 +39,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticEntries: MetadataRoute.Sitemap = routes.map((route) => ({
     url: `${siteConfig.url}${route}`,
-    lastModified: lastModified(route === "/insights" ? latestArticle : STATIC_LAST_MODIFIED),
+    lastModified: lastModified(
+      route === "/insights"
+        ? latestArticle
+        : route === "/services/events" || route === "/services/brand-ambassadors"
+          ? SERVICE_DETAIL_LAST_MODIFIED
+          : STATIC_LAST_MODIFIED,
+    ),
     changeFrequency: "monthly",
     priority: route === "" ? 1 : 0.7,
   }));
