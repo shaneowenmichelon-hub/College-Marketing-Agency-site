@@ -11,7 +11,9 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ProcessStep } from "@/components/ProcessStep";
 import { EventImage } from "@/components/EventImage";
 import { BreadcrumbJsonLd, ServiceJsonLd } from "@/components/seo/JsonLd";
+import { FaqPageJsonLd, ServiceFaq, ServiceReading } from "@/components/services/ServiceFaq";
 import { serviceBreadcrumbItems } from "@/lib/seo";
+import { servicePageSeo } from "@/lib/service-faqs";
 import { RelatedInsights } from "@/components/RelatedInsights";
 import { postsForService } from "@/lib/content";
 
@@ -53,10 +55,12 @@ export function ServicePage({
 }: ServicePageProps) {
   const related = postsForService(slug);
   const price = pricing[slug];
+  const pageSeo = servicePageSeo(slug);
   return (
     <>
       <ServiceJsonLd slug={slug} />
       <BreadcrumbJsonLd items={serviceBreadcrumbItems(slug, eyebrow)} />
+      <FaqPageJsonLd items={pageSeo.faqs} path={`/services/${slug}`} />
       {/* Hero */}
       <section className="grain relative overflow-hidden bg-ink text-white">
         <div aria-hidden className="mesh pointer-events-none absolute inset-0" />
@@ -171,6 +175,22 @@ export function ServicePage({
             ))}
           </div>
         </div>
+      </Section>
+
+      <Section tone="muted">
+        <SectionHeading eyebrow="For brand teams" title={pageSeo.reading.title} />
+        <Reveal delay={0.08}>
+          <ServiceReading reading={pageSeo.reading} />
+        </Reveal>
+      </Section>
+
+      <Section id="faq" tone="light" className="scroll-mt-24">
+        <SectionHeading
+          eyebrow="FAQ"
+          title={pageSeo.faqTitle}
+          intro="Short answers a brand team can quote when comparing campus partners."
+        />
+        <ServiceFaq items={pageSeo.faqs} />
       </Section>
 
       {/* Proof strip */}
