@@ -9,7 +9,7 @@ import { caseStudies, posts } from "@/lib/content";
 const STATIC_LAST_MODIFIED = "2026-10-20";
 /** Service detail pages gained their FAQ and supporting copy on this date. */
 const SERVICE_DETAIL_LAST_MODIFIED = "2026-10-21";
-/** Pricing page and the product-placement service page. */
+/** Pricing, product placement, and the homepage schema/accessibility pass. */
 const SEO_BATCH_LAST_MODIFIED = "2026-10-22";
 
 function lastModified(iso: string): Date {
@@ -48,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ? latestArticle
         : route === "/services/events" || route === "/services/brand-ambassadors"
           ? SERVICE_DETAIL_LAST_MODIFIED
-          : route === "/pricing" || route === "/services/product-placement"
+          : route === "" || route === "/pricing" || route === "/services/product-placement"
             ? SEO_BATCH_LAST_MODIFIED
             : STATIC_LAST_MODIFIED,
     ),

@@ -159,6 +159,8 @@ test("IndexNow key file matches the publisher and only recent URLs are submitted
   ]);
   const instrumentation = fs.readFileSync(path.join(__dirname, "../src/instrumentation.ts"), "utf8");
   assert.doesNotMatch(instrumentation, /app\/sitemap|blog-files|node:fs/);
+  assert.doesNotMatch(instrumentation, /fetch\(`https:\/\/\$\{/);
+  assert.match(instrumentation, /siteConfig\.url\}\/sitemap\.xml/);
   assert.match(INDEXNOW_KEY, /^[a-zA-Z0-9-]{8,128}$/);
   const keyFile = fs.readFileSync(path.join(__dirname, "../public", `${INDEXNOW_KEY}.txt`), "utf8").trim();
   assert.equal(keyFile, INDEXNOW_KEY);

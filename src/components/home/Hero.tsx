@@ -45,7 +45,7 @@ function Coin({ reduce }: { reduce: boolean }) {
       <div
         role="button"
         tabIndex={0}
-        aria-label="Spin the campus coin"
+        aria-label="CA, spin the campus coin"
         onClick={spin}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
