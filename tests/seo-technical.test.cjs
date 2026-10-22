@@ -83,6 +83,7 @@ test("homepage description names the category and stays within the snippet", () 
       "https://www.instagram.com/zmmevents",
       "https://www.instagram.com/nightschooltour",
       "https://www.zmm.events",
+      "https://www.linkedin.com/company/collegiate-agency",
     ],
   );
 });
