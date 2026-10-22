@@ -94,7 +94,7 @@ case these were cleared into.
 ## BEATBOX trio, venue activation
 
 - Local asset: `/images/blog/beatbox-trio-venue-activation.jpg`
-- Also in the hero rotation as `/images/hero/07-beatbox-trio-venue.jpg` (full frame).
+- Also in the hero rotation as `/images/hero/10-beatbox-trio-venue.jpg`, cropped 3:2 for the collage tile.
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
 - Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1333 x 2000 original.

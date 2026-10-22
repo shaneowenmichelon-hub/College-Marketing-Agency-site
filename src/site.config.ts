@@ -525,37 +525,72 @@ export type SitePhoto = { src: string; alt: string; seed: string };
 // is deliberately out of this rotation.
 export const sitePhotos: SitePhoto[] = [
   {
-    src: "/images/hero/01-beatbox-festival-crowd.jpg",
-    alt: "Student in the crowd with a BeatBox at a sponsored festival activation",
-    seed: "beatbox-festival",
+    src: "/images/hero/03-nutrl-crowd-campus-event.jpg",
+    alt: "Two attendees holding a NUTRL can in the crowd at a sponsored campus event",
+    seed: "nutrl-crowd",
   },
   {
-    src: "/images/hero/02-night-school-tour-pair.jpg",
-    alt: "Two students with sponsor product at a Night School Tour activation",
-    seed: "night-school-pair",
+    src: "/images/hero/01-beatbox-stage-crowd.jpg",
+    alt: "BEATBOX carton held up toward the stage and crowd at a sponsored live event",
+    seed: "beatbox-stage",
   },
   {
-    src: "/images/hero/03-nutrl-bar-cart-activation.jpg",
-    alt: "Branded NUTRL bar cart staffed at a campus event activation",
-    seed: "nutrl-cart",
-  },
-  {
-    src: "/images/hero/04-campus-nightlife-pair.jpg",
-    alt: "Two students with sponsor product at a campus nightlife activation",
+    src: "/images/hero/02-campus-nightlife-pair.jpg",
+    alt: "Two attendees with sponsor product at a campus nightlife activation",
     seed: "campus-nightlife-pair",
   },
   {
-    src: "/images/hero/07-beatbox-trio-venue.jpg",
+    src: "/images/hero/09-nutrl-toast-tent.jpg",
+    alt: "Attendees toasting NUTRL cans under the tent at a sponsored campus event",
+    seed: "nutrl-toast",
+  },
+  {
+    src: "/images/hero/05-beatbox-performer-stage.jpg",
+    alt: "Performer on stage holding a BEATBOX carton at a sponsored tour stop",
+    seed: "beatbox-performer",
+  },
+  {
+    src: "/images/hero/06-nutrl-pair-venue.jpg",
+    alt: "Two attendees holding NUTRL cans at a sponsored venue event",
+    seed: "nutrl-pair-venue",
+  },
+  {
+    src: "/images/hero/08-dazed-staffed-table.jpg",
+    alt: "Staffed Dazed activation table with branded merchandise at an outdoor campus event",
+    seed: "dazed-table",
+  },
+  {
+    src: "/images/hero/07-beatbox-festival-crowd.jpg",
+    alt: "Attendee in the crowd with a BEATBOX carton at a sponsored festival activation",
+    seed: "beatbox-festival",
+  },
+  {
+    src: "/images/hero/10-beatbox-trio-venue.jpg",
     alt: "Three attendees holding BEATBOX cartons outside a sponsored venue event",
     seed: "beatbox-trio",
   },
   {
-    src: "/images/hero/05-beatbox-green-room.jpg",
-    alt: "Student with a BeatBox in the green room at a sponsored event",
-    seed: "beatbox-green-room",
+    src: "/images/hero/12-nutrl-can-outdoor.jpg",
+    alt: "Attendee holding a NUTRL can at an outdoor campus event",
+    seed: "nutrl-outdoor",
   },
   {
-    src: "/images/hero/06-stiizy-event-staffing.jpg",
+    src: "/images/hero/13-nutrl-bar-cart.jpg",
+    alt: "Branded NUTRL bar cart staffed at a campus event activation",
+    seed: "nutrl-cart",
+  },
+  {
+    src: "/images/hero/11-beatbox-attendees-pair.jpg",
+    alt: "Two attendees holding BEATBOX cartons at a sponsored venue event",
+    seed: "beatbox-pair",
+  },
+  {
+    src: "/images/hero/14-dazed-caps-trio.jpg",
+    alt: "Three attendees wearing branded Dazed caps at a campus activation",
+    seed: "dazed-caps",
+  },
+  {
+    src: "/images/hero/04-stiizy-event-staffing.jpg",
     alt: "Staffer running a giant-dice game beside a branded STIIZY inflatable",
     seed: "stiizy-staffing",
   },

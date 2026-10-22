@@ -202,7 +202,11 @@ test("IndexNow key file matches the publisher and only recent URLs are submitted
 test("homepage hero photos all have alt text, including the collage duplicate", () => {
   const { getHeroPhotos } = loadTs("lib/hero-photos.ts");
   const photos = getHeroPhotos();
-  assert.equal(photos.length, 7);
+  // A minimum, not an exact count: public/images/hero is drag-and-drop by
+  // design, so pinning the number means every photo added or retired
+  // fails this test. What matters is that there are enough for the
+  // marquee to loop and that each one is described.
+  assert.ok(photos.length >= 7, `only ${photos.length} hero photos`);
   for (const photo of photos) {
     assert.ok(photo.alt && photo.alt.trim().length > 12, photo.src);
   }
