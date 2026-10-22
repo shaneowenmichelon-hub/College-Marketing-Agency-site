@@ -20,6 +20,8 @@ const nextConfig = {
   async redirects() {
     return [
       { source: "/services/influencers", destination: "/services", permanent: true },
+      // Old feed path. /feed.xml is the insights RSS document.
+      { source: "/rss.xml", destination: "/feed.xml", permanent: true },
       // Same campaigns as the /work case studies. Keep in sync with
       // CASE_STUDIES_CANONICAL_ON_WORK in src/lib/content.ts.
       {

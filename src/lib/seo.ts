@@ -14,8 +14,23 @@ export const HOME_TITLE_LEAD = "College Marketing Agency";
 
 export const ORGANIZATION_ID = `${siteConfig.url}/#organization`;
 export const WEBSITE_ID = `${siteConfig.url}/#website`;
-/** Raster-scale SVG of the existing app icon, served from /public. */
-export const LOGO_PATH = "/logo.svg";
+/**
+ * Raster logo rendered from public/logo.svg. Google's Organization logo
+ * does not accept SVG; the file is 512×512 PNG.
+ */
+export const LOGO_PATH = "/logo.png";
+export const LOGO_WIDTH = 512;
+export const LOGO_HEIGHT = 512;
+
+/**
+ * Verified Collegiate Agency profiles. These are directory pages, not footer
+ * socials, so they are appended to Organization sameAs only.
+ * Confirmed live on 2026-10-22.
+ */
+export const ORGANIZATION_PROFILES = [
+  "https://clutch.co/profile/collegiate-agency",
+  "https://www.sortlist.com/agency/collegiate-agency",
+] as const;
 
 const BRAND_TAIL = new RegExp(
   `(?:\\s*[|·]\\s*${siteConfig.companyName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})+$`,
@@ -173,7 +188,12 @@ export function serviceStructuredData(slug: string): Record<string, unknown> {
 }
 
 export function organizationStructuredData(): Record<string, unknown>[] {
-  const sameAs = siteConfig.socials.map((social) => social.href).filter(Boolean);
+  const sameAs = [
+    ...new Set([
+      ...siteConfig.socials.map((social) => social.href).filter(Boolean),
+      ...ORGANIZATION_PROFILES,
+    ]),
+  ];
   const office = siteConfig.offices[0];
   const logoUrl = `${siteConfig.url}${LOGO_PATH}`;
 
@@ -192,8 +212,8 @@ export function organizationStructuredData(): Record<string, unknown>[] {
         "@id": `${siteConfig.url}/#logo`,
         url: logoUrl,
         contentUrl: logoUrl,
-        width: 512,
-        height: 512,
+        width: LOGO_WIDTH,
+        height: LOGO_HEIGHT,
       },
       image: `${siteConfig.url}/opengraph-image`,
       address: {

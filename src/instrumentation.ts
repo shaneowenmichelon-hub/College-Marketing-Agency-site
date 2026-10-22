@@ -1,3 +1,4 @@
+import { siteConfig } from "@/site.config";
 import { entriesFromSitemapXml, pingIndexNow } from "@/lib/indexnow";
 
 /**
@@ -6,9 +7,13 @@ import { entriesFromSitemapXml, pingIndexNow } from "@/lib/indexnow";
  *
  * This file is bundled for the edge runtime as well as Node, so it must not
  * import the sitemap module (that module reads the blog from disk). It fetches
- * the sitemap from this deployment instead. The build-time ping can run before
- * the deployment is aliased, so IndexNow may not be able to fetch the key file
- * yet. /api/cron/indexnow repeats the submission. See content/seo/changelog.md.
+ * the public production sitemap instead. The deployment hostname in VERCEL_URL
+ * is behind Vercel SSO on these projects, so fetching it hangs until abort or
+ * returns a login page and submits nothing. The production origin is public.
+ *
+ * The build-time ping can run before the deployment is aliased, so IndexNow
+ * may answer 202 until the key file is reachable. /api/cron/indexnow repeats
+ * the submission from the in-process sitemap. See content/seo/changelog.md.
  */
 export async function register() {
   if (process.env.NEXT_RUNTIME !== "nodejs") return;
@@ -17,20 +22,30 @@ export async function register() {
   const deployment = process.env.VERCEL_DEPLOYMENT_ID ?? "local";
   const globalState = globalThis as typeof globalThis & { __collegiateIndexNowDeployment?: string };
   if (globalState.__collegiateIndexNowDeployment === deployment) return;
-  globalState.__collegiateIndexNowDeployment = deployment;
 
-  const host = process.env.VERCEL_URL;
-  if (!host) return;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 8000);
   try {
-    const response = await fetch(`https://${host}/sitemap.xml`, { signal: controller.signal });
+    const response = await fetch(`${siteConfig.url}/sitemap.xml`, {
+      signal: controller.signal,
+      cache: "no-store",
+      headers: { accept: "application/xml, text/xml" },
+    });
     if (!response.ok) {
       console.error(`indexnow startup sitemap status=${response.status}`);
       return;
     }
-    const result = await pingIndexNow(entriesFromSitemapXml(await response.text()));
+    const xml = await response.text();
+    if (!xml.includes("<urlset")) {
+      console.error("indexnow startup sitemap was not xml");
+      return;
+    }
+    const result = await pingIndexNow(entriesFromSitemapXml(xml));
     console.log(`indexnow startup status=${result.status} urls=${result.count}`);
+    // Keep retrying on this instance when the network call did not land.
+    if (result.status === 200 || result.status === 202 || result.count === 0) {
+      globalState.__collegiateIndexNowDeployment = deployment;
+    }
   } catch (error) {
     console.error("indexnow startup ping failed", error);
   } finally {

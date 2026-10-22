@@ -54,7 +54,7 @@ export function EventImage({
         >
           <div aria-hidden className="grain absolute inset-0" />
           {label && (
-            <span className="relative z-10 rounded-full bg-black/25 px-3 py-1 text-xs font-medium backdrop-blur-sm">
+            <span className="relative z-10 rounded-full bg-ink px-3 py-1 text-xs font-medium text-white">
               {label}
             </span>
           )}
@@ -84,7 +84,7 @@ export function EventImage({
             />
           )}
           {label && (
-            <span className="absolute bottom-3 left-3 z-10 rounded-full bg-black/40 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+            <span className="absolute bottom-3 left-3 z-10 rounded-full bg-ink px-3 py-1 text-xs font-medium text-white">
               {label}
             </span>
           )}

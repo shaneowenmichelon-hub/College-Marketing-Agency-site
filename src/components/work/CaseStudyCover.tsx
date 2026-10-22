@@ -165,7 +165,7 @@ export function CaseStudyCover({
   priority?: boolean;
 }) {
   const Caption = label ? (
-    <span className="absolute bottom-3 left-3 z-20 rounded-full bg-black/45 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+    <span className="absolute bottom-3 left-3 z-20 rounded-full bg-ink px-3 py-1 text-xs font-medium text-white">
       {label}
     </span>
   ) : null;

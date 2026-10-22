@@ -21,11 +21,16 @@ code change this list can finish on its own.
 - [x] IndexNow: public key file at `/{key}.txt`, a postbuild ping, a startup ping, and a production cron. Submissions are sitemap URLs whose `lastmod` is inside 72 hours.
 - [x] Generated text-only OG and Twitter images on the public routes that were missing them, including `/pricing` and `/services/product-placement`. The homepage hero collage duplicate now uses the same alt text as the first copy.
 - [x] `llms.txt` and the sitemap list `/pricing` and `/services/product-placement`. `/feed.xml` is the insights RSS feed, and public pages link it with `rel="alternate"`.
+- [x] Organization `sameAs` includes the live Clutch and Sortlist profiles, plus the existing LinkedIn page. The ZMM Events Instagram, Night School Instagram, and zmm.events links stay.
+- [x] Organization `logo` is a 512×512 PNG rendered from `/logo.svg`.
+- [x] `/rss.xml` permanently redirects to `/feed.xml`.
+- [x] IndexNow startup ping reads the public production sitemap. The deployment hostname is behind Vercel SSO, so the previous fetch aborted or submitted nothing.
+- [x] Homepage mobile accessibility: ink type on magenta and orange fills, full-strength text on the colored cards, solid caption chips, a named star graphic, and a coin control whose name includes the visible "CA".
 
 ## Remaining
 
-- [ ] `www.collegiateagency.com` currently 302s to a Vercel login. Needs a Vercel domain change by the owner (attach `www` to the production project and redirect it to the apex).
-- [ ] Collegiate-Agency-owned `sameAs` profiles and the public contact email. The site still publishes the ZMM Events Instagram, Night School Instagram, zmm.events, and `shane@zmmevents.com`. Owner decision; do not swap these in code until the owner confirms the replacements.
+- [ ] `www.collegiateagency.com` was returning a Vercel login on 2026-10-20. The 2026-10-22 evening re-audit saw 308s to the apex. Leave the domain attachment to the owner if a project still needs it; do not treat this as a content change.
+- [ ] The public contact email is still `shane@zmmevents.com`, and Organization `sameAs` still includes the ZMM Events Instagram, Night School Instagram, and zmm.events. Owner decision; do not swap these in code until the owner confirms the replacements. Clutch, Sortlist, and LinkedIn are already included.
 - [ ] Bing verification. Set `NEXT_PUBLIC_BING_SITE_VERIFICATION` to the HTML-tag token from Bing Webmaster Tools. The layout already emits `msvalidate.01` when the variable is present.
 - [ ] FAQ blocks with FAQPage schema rendered from frontmatter on the commercial articles: `college-marketing-agency`, `campus-marketing-agency-rfp`, `campus-brand-activation-agency`, `college-brand-ambassador-program`.
 - [ ] Consolidate cannibalizing article clusters so one URL is the canonical page for each topic and the others support it:
@@ -40,4 +45,4 @@ code change this list can finish on its own.
 - [ ] Person schema for the people on `/about`, and a stronger about page (bios, roles, and the same Person nodes).
 - [ ] Thin pages: `/build-a-campaign`, `/contact`, and `/work` need more indexable copy than a form, a short pitch, or a card grid.
 - [ ] Redirect the `*.vercel.app` host to `https://collegiateagency.com`.
-- [ ] Off-site listings need owner approval before anyone creates or claims them: Clutch, DesignRush, Sortlist, a LinkedIn company page, Google Business Profile, Bing Places, and Flytedesk listicles.
+- [ ] Off-site listings still to confirm or finish: DesignRush, GoodFirms, Google Business Profile, Bing Places, and Apple Business. LinkedIn, Clutch, and Sortlist are already live and in `sameAs`. Do not invent a phone number or street address to match the directory NAP.

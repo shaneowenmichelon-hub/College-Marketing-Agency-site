@@ -1,5 +1,6 @@
 import { siteConfig } from "@/site.config";
 import {
+  LOGO_PATH,
   ORGANIZATION_ID,
   organizationStructuredData,
   serviceStructuredData,
@@ -106,7 +107,7 @@ export function ArticleJsonLd({
           name: siteConfig.companyName,
           logo: {
             "@type": "ImageObject",
-            url: `${siteConfig.url}/logo.svg`,
+            url: `${siteConfig.url}${LOGO_PATH}`,
           },
         },
       }}

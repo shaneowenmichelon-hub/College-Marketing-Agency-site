@@ -44,13 +44,13 @@ const journey = [
   {
     label: "Try",
     icon: Sparkles,
-    color: "bg-[color:var(--magenta)] text-white",
+    color: "bg-[color:var(--magenta)] text-ink",
     body: "Product gets into hands through drops, booths, sampling, and social moments.",
   },
   {
     label: "Share",
     icon: Share2,
-    color: "bg-[color:var(--orange)] text-white",
+    color: "bg-[color:var(--orange)] text-ink",
     body: "The activation turns into posts, stories, group chats, and campus conversation.",
   },
   {
@@ -172,7 +172,7 @@ export function CampusAttentionJourney() {
                   <ActiveIcon className="h-6 w-6" aria-hidden />
                 </span>
                 <div>
-                  <p className="mono-label text-[11px] opacity-80">Step {active + 1} / 7</p>
+                  <p className="mono-label text-[11px]">Step {active + 1} / 7</p>
                   <h3 className="mt-1 font-display text-3xl font-bold">{current.label}</h3>
                   <p className="mt-3 max-w-xl text-base leading-relaxed">{current.body}</p>
                 </div>
@@ -189,16 +189,16 @@ export function CampusAttentionJourney() {
                   "group flex min-h-full flex-col rounded-[3px] border-2 border-ink p-5 shadow-[5px_5px_0_var(--ink)] transition-all hover:-translate-y-1 hover:shadow-[8px_8px_0_var(--ink)]",
                   i === 0 && "bg-[color:var(--accent)] text-white",
                   i === 1 && "bg-[color:var(--accent-2)] text-ink",
-                  i === 2 && "bg-[color:var(--magenta)] text-white",
+                  i === 2 && "bg-[color:var(--magenta)] text-ink",
                 )}
               >
                 <div className="flex items-start justify-between gap-3">
-                  <p className="mono-label text-[10px] opacity-80">way to play</p>
+                  <p className="mono-label text-[10px]">way to play</p>
                   <CheckCircle2 className="h-5 w-5" aria-hidden />
                 </div>
                 <h3 className="mt-5 font-display text-2xl font-bold">{offer.label}</h3>
-                <p className="mt-2 text-sm font-bold opacity-90">{offer.price}</p>
-                <p className="mt-4 text-sm leading-relaxed opacity-90">{offer.body}</p>
+                <p className="mt-2 text-sm font-bold">{offer.price}</p>
+                <p className="mt-4 text-sm leading-relaxed">{offer.body}</p>
                 <span className="mt-6 inline-flex items-center gap-1 text-sm font-bold underline decoration-2 underline-offset-4">
                   Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>

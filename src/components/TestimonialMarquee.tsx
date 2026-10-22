@@ -29,7 +29,7 @@ function TestimonialCard({ t, accentIndex }: { t: Testimonial; accentIndex: numb
           >
             <Quote className="h-4 w-4 text-ink" />
           </span>
-          <span className="flex gap-0.5" aria-label="5 out of 5 stars">
+          <span className="flex gap-0.5" role="img" aria-label="5 out of 5 stars">
             {Array.from({ length: 5 }).map((_, s) => (
               <Star key={s} className="h-4 w-4 fill-[color:var(--accent-2)] text-ink" aria-hidden />
             ))}

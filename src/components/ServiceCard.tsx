@@ -16,9 +16,10 @@ import { Reveal } from "./motion/Reveal";
  * the page gains contrast without gaining a second design language.
  */
 const TONES = [
-  { bg: "bg-[color:var(--accent)]", text: "text-white", chip: "bg-white/15 text-white", onLight: false },
-  { bg: "bg-[color:var(--accent-2)]", text: "text-ink", chip: "bg-ink/10 text-ink", onLight: true },
-  { bg: "bg-[color:var(--magenta)]", text: "text-white", chip: "bg-white/15 text-white", onLight: false },
+  { bg: "bg-[color:var(--accent)]", text: "text-white", chip: "bg-white text-ink" },
+  { bg: "bg-[color:var(--accent-2)]", text: "text-ink", chip: "bg-ink/10 text-ink" },
+  // Magenta is too light for white type. Ink matches the lime card.
+  { bg: "bg-[color:var(--magenta)]", text: "text-ink", chip: "bg-white text-ink" },
 ] as const;
 
 export function ServiceCard({
@@ -57,9 +58,7 @@ export function ServiceCard({
           <Icon className="h-6 w-6" aria-hidden />
         </span>
         <h3 className="mt-5 font-display text-xl font-bold">{title}</h3>
-        <p className={cn("mt-2 flex-1 text-sm leading-relaxed", tone.onLight ? "opacity-80" : "opacity-90")}>
-          {blurb}
-        </p>
+        <p className="mt-2 flex-1 text-sm leading-relaxed">{blurb}</p>
         {price && (
           <p className={cn("mt-4 w-fit rounded-[3px] px-2 py-1 text-sm font-bold", tone.chip)}>{price}</p>
         )}

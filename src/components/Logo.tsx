@@ -16,7 +16,7 @@ export function Logo({
   return (
     <Link
       href="/"
-      aria-label={`${siteConfig.companyName} - home`}
+      aria-label={siteConfig.companyName}
       className={cn(
         "group inline-flex items-center gap-2 font-display text-lg font-bold tracking-tight",
         onDark ? "text-white" : "text-ink",

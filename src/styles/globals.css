@@ -70,6 +70,13 @@
     line-height: 0.98;
   }
 
+  /* Tailwind preflight paints placeholders gray-400, which fails AA on white. */
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--muted-on-light);
+    opacity: 1;
+  }
+
   /* Visible focus for keyboard users. */
   :focus-visible {
     outline: 3px solid var(--accent);

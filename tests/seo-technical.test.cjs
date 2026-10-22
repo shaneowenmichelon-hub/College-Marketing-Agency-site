@@ -104,7 +104,17 @@ test("organization JSON-LD is one node with a real address, logo, and website", 
   assert.equal(org.address.addressCountry, "US");
   assert.equal(org.address.streetAddress, undefined);
   assert.equal(org.email, "shane@zmmevents.com");
-  assert.equal(org.logo.url, "https://collegiateagency.com/logo.svg");
+  assert.equal(org.logo.url, "https://collegiateagency.com/logo.png");
+  assert.equal(org.logo.width, 512);
+  assert.equal(org.logo.height, 512);
+  assert.deepEqual(org.sameAs, [
+    "https://www.instagram.com/zmmevents",
+    "https://www.instagram.com/nightschooltour",
+    "https://www.zmm.events",
+    "https://www.linkedin.com/company/collegiate-agency",
+    "https://clutch.co/profile/collegiate-agency",
+    "https://www.sortlist.com/agency/collegiate-agency",
+  ]);
   const serialized = JSON.stringify(graph);
   assert.equal(serialized.includes("streetAddress"), false);
   assert.equal(serialized.includes("Brand partnerships"), false);

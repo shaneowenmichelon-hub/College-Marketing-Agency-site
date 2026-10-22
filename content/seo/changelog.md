@@ -42,3 +42,13 @@ On-site items from the 2026-10-22 research. No new blog posts. No new prices, di
 - The seven homepage hero photos already had alt text on the first collage copy. The seamless-loop duplicate rendered `alt=""`. Both copies now use the descriptive alt. The duplicate stays `aria-hidden`.
 - `llms.txt` points product placement at `/services/product-placement` and links `/pricing` and `/feed.xml`. Sitemap `lastmod` for `/pricing` and `/services/product-placement` is 2026-10-22. Other static routes keep their previous dates.
 - `/feed.xml` is an RSS 2.0 feed of the insights posts. Public pages emit `<link rel="alternate" type="application/rss+xml" href="https://collegiateagency.com/feed.xml">`.
+
+## 2026-10-22 — Profiles, raster logo, RSS alias, accessibility, IndexNow
+
+On-site items from the evening re-audit. No new blog posts. No new prices, client results, or testimonials. The contact email is still `shane@zmmevents.com`. The ZMM Events Instagram, Night School Instagram, and zmm.events `sameAs` entries are unchanged. `scripts/collegiate_seo_autopublish.py`, `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
+- Organization `sameAs` now also lists `https://clutch.co/profile/collegiate-agency` and `https://www.sortlist.com/agency/collegiate-agency`. Both URLs returned the Collegiate Agency profile on 2026-10-22. They are not added to the footer. LinkedIn stays.
+- `public/logo.png` is a 512×512 render of `public/logo.svg`. Organization `logo` and the article publisher logo point at `/logo.png`.
+- `/rss.xml` is a permanent redirect (308) to `/feed.xml`.
+- Homepage color contrast: magenta and orange fills use ink type, because white on those fills is under 4.5:1. Body copy on the service and journey cards is full strength instead of 80–90% opacity. Price chips and photo captions use a solid surface so the type does not sit on a translucent wash. The star row is an image with an accessible name. The campus coin's name includes the visible "CA". Placeholders use the existing muted ink instead of Tailwind's gray-400.
+- IndexNow: on the 2026-10-22 batch 3 production deployment, `postbuild` logged `indexnow: status=202 urls=14`. The startup hook then logged `AbortError` or `status=0 urls=0` because it fetched `https://$VERCEL_URL/sitemap.xml`, and that deployment hostname is behind Vercel SSO. It now fetches `https://collegiateagency.com/sitemap.xml` and only marks the deployment done after a 200, a 202, or an empty window. `/api/cron/indexnow` is unchanged and, called on the apex at 2026-10-22 22:21:50 UTC, returned IndexNow status 200 for 14 URLs. Homepage `lastmod` is 2026-10-22.
