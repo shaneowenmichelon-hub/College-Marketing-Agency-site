@@ -22,7 +22,7 @@ export type Step = { title: string; body: string };
 export type ProofStat = { value: string; label: string };
 
 export type ServicePageProps = {
-  slug: "events" | "brand-ambassadors";
+  slug: "events" | "brand-ambassadors" | "product-placement";
   eyebrow: string;
   title: string;
   intro: string;
@@ -36,6 +36,8 @@ export type ServicePageProps = {
   secondaryCta?: { label: string; href: string };
   /** Rendered right after the pricing block (used for the Events sponsorship directory). */
   afterTactics?: ReactNode;
+  /** New pages omit the ZMM / Night School pedigree line. Existing pages keep it. */
+  hidePedigree?: boolean;
 };
 
 export function ServicePage({
@@ -52,6 +54,7 @@ export function ServicePage({
   icon: Icon,
   secondaryCta,
   afterTactics,
+  hidePedigree = false,
 }: ServicePageProps) {
   const related = postsForService(slug);
   const price = pricing[slug];
@@ -155,6 +158,9 @@ export function ServicePage({
                 )}
               </div>
               <p className="mt-4 text-sm text-[color:var(--muted-on-light)]">{price.note}</p>
+              <Link href="/pricing" className="mt-4 inline-flex text-sm font-semibold text-accent">
+                How pricing works
+              </Link>
               <Button href="/contact" variant="primary" size="md" className="mt-6">
                 Get a custom quote <ArrowRight className="h-4 w-4" />
               </Button>
@@ -253,8 +259,16 @@ export function ServicePage({
             Let&apos;s put this to work for your brand.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-[color:var(--muted-on-dark)] sm:text-lg">
-            Tell us your goal and we&apos;ll build the plan. Backed by the team behind{" "}
-            {siteConfig.showCredibility ? "ZMM Events and the Night School tour." : "a national campus operation."}
+            Tell us your goal and we&apos;ll build the plan.
+            {hidePedigree ? null : (
+              <>
+                {" "}
+                Backed by the team behind{" "}
+                {siteConfig.showCredibility
+                  ? "ZMM Events and the Night School tour."
+                  : "a national campus operation."}
+              </>
+            )}
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button href="/contact" variant="lime" size="lg">

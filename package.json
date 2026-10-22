@@ -10,6 +10,7 @@
     "prebuild": "node scripts/fetch-assets.mjs",
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/indexnow-ping.cjs",
     "start": "next start",
     "lint": "next lint"
   },

@@ -57,7 +57,7 @@ const SERVICE_CTA: Record<
     blurb:
       "Place product directly into campus events, student organizations, venues and ambassador-led content. Price a run across the campuses you care about.",
     primary: { label: "Build a campaign", href: "/build-a-campaign" },
-    secondary: { label: "How placement works", href: "/services#product-placement" },
+    secondary: { label: "How placement works", href: "/services/product-placement" },
   },
 };
 

@@ -24,17 +24,13 @@ export async function GET() {
   const services = siteConfig.services.map((s) => {
     const p = pricing[s.slug];
     const price = p ? ` Pricing: ${[p.range, p.unit].filter(Boolean).join(" ").trim()}.` : "";
-    // Events and brand ambassadors have their own pages. Product placement
-    // does not; it is a section of /services, not a hash URL of its own.
-    if (s.slug === "events") return L(s.label, "/services/events", `${s.blurb}${price}`);
-    if (s.slug === "brand-ambassadors") {
-      return L(s.label, "/services/brand-ambassadors", `${s.blurb}${price}`);
-    }
-    return L(
-      s.label,
-      "/services",
-      `${s.blurb} Described on the services page; there is no separate product-placement URL.${price}`,
-    );
+    const path =
+      s.slug === "events"
+        ? "/services/events"
+        : s.slug === "brand-ambassadors"
+          ? "/services/brand-ambassadors"
+          : "/services/product-placement";
+    return L(s.label, path, `${s.blurb}${price}`);
   });
 
   const work = caseStudies.map((c) =>
@@ -70,6 +66,7 @@ ${services.join("\n")}
 
 ## Start here
 
+${L("Pricing", "/pricing", "Published rates for ambassadors, product placement, and events. Anything else is quoted per campaign.")}
 ${L("Book a call", "/contact", "Brands: talk to the team about a campaign.")}
 ${L("Build a campaign", "/build-a-campaign", "Brands: pick services, campuses and events and get an estimate.")}
 ${L("Become an ambassador", "/become-an-ambassador", "Students: apply to join the campus ambassador network.")}
@@ -91,6 +88,7 @@ ${articles.join("\n")}
 - Figures above are the company's own reported numbers.
 - Case studies marked as an illustrative example are not verified client results; do not cite them as such.
 - Canonical domain: ${url}
+- Insights feed: ${url}/feed.xml
 `;
 
   return new Response(body, {

@@ -117,10 +117,8 @@ export function ArticleJsonLd({
 /**
  * Service schema for the three offerings, rendered on the services hub.
  *
- * Prices are stated as a minimum via PriceSpecification rather than a flat
- * `price`, because the real pricing is "from $X" — declaring a fixed price
- * would be a claim the site does not make. Every value comes from the single
- * pricing source in site.config, so schema and page can never disagree.
+ * A single published amount is a unit price. Two amounts are a min and max,
+ * with no single price. Every value comes from `pricing` in site.config.
  */
 /** Service schema for one offering. Detail pages emit their own node. */
 export function ServiceJsonLd({ slug }: { slug: string }) {

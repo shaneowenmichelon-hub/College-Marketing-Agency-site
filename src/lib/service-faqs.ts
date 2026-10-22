@@ -9,7 +9,7 @@ import { getStat, pricing, siteConfig } from "@/site.config";
  * Do not add stats, client results, review quotes, or a launch-week count.
  */
 
-export type ServiceSlug = "events" | "brand-ambassadors";
+export type ServiceSlug = "events" | "brand-ambassadors" | "product-placement";
 
 export type ServiceFaq = {
   question: string;
@@ -159,10 +159,14 @@ function brandAmbassadorReading(): ServiceReading {
           articleLink("college-brand-ambassador-program"),
           { text: " and " },
           articleLink("college-brand-ambassadors"),
+          { text: ". Published rates are on the " },
+          { text: "pricing page", href: "/pricing" },
           { text: ". Then " },
           { text: "build a campaign", href: "/build-a-campaign" },
           { text: " or " },
           { text: "contact Collegiate Agency", href: "/contact" },
+          { text: ". Greek life placement is " },
+          { text: "product placement", href: "/services/product-placement" },
           { text: "." },
         ],
       },
@@ -198,6 +202,89 @@ function eventReading(): ServiceReading {
           articleLink("college-event-sponsorship"),
           { text: ", and " },
           articleLink("campus-brand-activation-agency"),
+          { text: ". Published rates are on the " },
+          { text: "pricing page", href: "/pricing" },
+          { text: ". Then " },
+          { text: "build a campaign", href: "/build-a-campaign" },
+          { text: " or " },
+          { text: "contact Collegiate Agency", href: "/contact" },
+          { text: ". Greek life placement is " },
+          { text: "product placement", href: "/services/product-placement" },
+          { text: "." },
+        ],
+      },
+    ],
+  };
+}
+
+function productPlacementFaqs(): ServiceFaq[] {
+  const campuses = getStat("campuses");
+  const rate = `${pricing["product-placement"].range} ${pricing["product-placement"].unit}`
+    .replace(/\s+/g, " ")
+    .trim();
+  const ambassador = ambassadorRate();
+  return [
+    {
+      question: "What does Collegiate Agency Greek life product placement include?",
+      answer:
+        "Collegiate Agency places product with 5 of the top Greek-life organizations per campus and with campus social leaders, and each organization gets dedicated media deliverables. Additional organizations can be added. Collegiate Agency quotes that extra cost per campaign.",
+    },
+    {
+      question: "How much does Collegiate Agency product placement cost?",
+      answer: `Collegiate Agency prices product placement at ${rate}. The campaign builder adds that rate once for each campus a brand marks for placement. Collegiate Agency confirms firm pricing within one business day after a brand sends a campaign.`,
+    },
+    {
+      question: "How does Collegiate Agency choose campuses for product placement?",
+      answer: `Collegiate Agency's published network covers ${campuses} campuses, and a brand chooses schools in the campaign builder or names the campuses that matter. Collegiate Agency replies with a tailored plan for those schools.`,
+    },
+    {
+      question: "How is Collegiate Agency product placement different from the ambassador program?",
+      answer: `Collegiate Agency product placement delivers product to Greek-life organizations and campus social leaders, with media deliverables for each organization. The ambassador program is a separate vetted student network priced at ${ambassador}. Product placement is listed as an add-on to that ambassador rate, and a brand can include either or both.`,
+    },
+    {
+      question: "Where can a brand read a Collegiate Agency product placement example?",
+      answer: `The NÜTRL Night School Tour case study states what Collegiate Agency ran. ${publishedApproach("nutrl-night-school-tour-product-placement")}`,
+    },
+    {
+      question: "How long does Collegiate Agency take to start product placement?",
+      answer:
+        "Collegiate Agency replies within one business day with a tailored plan and firm pricing after a brand sends a campaign. Collegiate Agency does not publish a fixed number of weeks from that reply to the first placement.",
+    },
+  ];
+}
+
+function productPlacementReading(): ServiceReading {
+  const approach = publishedApproach("nutrl-night-school-tour-product-placement");
+  const rate = `${pricing["product-placement"].range} ${pricing["product-placement"].unit}`
+    .replace(/\s+/g, " ")
+    .trim();
+  return {
+    title: "Greek life product placement, run by Collegiate Agency.",
+    blocks: [
+      {
+        parts: [
+          {
+            text: `${siteConfig.definition} Product placement puts product directly with campus social leaders: 5 of the top Greek-life organizations per campus, with dedicated media deliverables for each organization. Additional organizations can be added, and that extra cost is quoted per campaign.`,
+          },
+        ],
+      },
+      {
+        parts: [
+          { text: `The published rate is ${rate}. The ` },
+          {
+            text: "NÜTRL Night School Tour case study",
+            href: "/work/nutrl-night-school-tour-product-placement",
+          },
+          { text: ` states what Collegiate Agency ran: ${approach} See ` },
+          articleLink("campus-product-sampling-ideas"),
+          { text: " and " },
+          articleLink("on-campus-product-sampling"),
+          { text: ". The other channels are " },
+          { text: "brand ambassadors", href: "/services/brand-ambassadors" },
+          { text: " and " },
+          { text: "campus events", href: "/services/events" },
+          { text: ". Published rates are on the " },
+          { text: "pricing page", href: "/pricing" },
           { text: ". Then " },
           { text: "build a campaign", href: "/build-a-campaign" },
           { text: " or " },
@@ -251,8 +338,18 @@ function assertQuotableFaqs(items: ServiceFaq[], label: string) {
 }
 
 export function servicePageSeo(slug: ServiceSlug): ServicePageSeo {
-  const faqs = slug === "events" ? eventFaqs() : brandAmbassadorFaqs();
-  const reading = slug === "events" ? eventReading() : brandAmbassadorReading();
+  const faqs =
+    slug === "events"
+      ? eventFaqs()
+      : slug === "brand-ambassadors"
+        ? brandAmbassadorFaqs()
+        : productPlacementFaqs();
+  const reading =
+    slug === "events"
+      ? eventReading()
+      : slug === "brand-ambassadors"
+        ? brandAmbassadorReading()
+        : productPlacementReading();
   assertQuotableFaqs(faqs, slug);
   const path = `/services/${slug}`;
   const data = faqPageStructuredData(faqs, path);
@@ -273,7 +370,9 @@ export function servicePageSeo(slug: ServiceSlug): ServicePageSeo {
     faqTitle:
       slug === "events"
         ? "Questions brands ask about campus events."
-        : "Questions brands ask about campus brand ambassadors.",
+        : slug === "brand-ambassadors"
+          ? "Questions brands ask about campus brand ambassadors."
+          : "Questions brands ask about Greek life product placement.",
     reading,
   };
 }

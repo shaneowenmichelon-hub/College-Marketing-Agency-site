@@ -25,6 +25,11 @@ function BrandsPanel() {
       <p className="max-w-2xl text-base leading-relaxed text-[color:var(--muted-on-light)] sm:text-lg">
         {brands.intro}
       </p>
+      <p className="mt-4 text-sm font-semibold">
+        <Link href="/pricing" className="text-accent">
+          See published pricing
+        </Link>
+      </p>
       <div className="mt-14 space-y-16 lg:space-y-24">
         {brands.blocks.map((block, i) => {
           // Prefer explicit config ids; legacy blocks derive their anchor from the detail-page slug.

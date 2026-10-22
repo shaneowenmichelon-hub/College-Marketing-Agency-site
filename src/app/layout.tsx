@@ -57,6 +57,11 @@ export const metadata: Metadata = {
     // twitter:image is provided by app/twitter-image.tsx.
   },
   robots: { index: true, follow: true },
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
   /**
    * Search-engine ownership verification via meta tag — the alternative to
    * the DNS record method, for when DNS is slow or awkward to reach.

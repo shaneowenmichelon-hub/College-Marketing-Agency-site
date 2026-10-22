@@ -13,9 +13,14 @@ code change this list can finish on its own.
 - [x] `sos-consultants-nola-campus-leasing-ambassadors` and `nutrl-night-school-tour-product-placement` live at `/work/<slug>`. The `/insights/` copies 301 there and are out of the sitemap and article listings.
 - [x] Sample case studies (`sample: true`, currently Celsius) are `noindex` and excluded from the sitemap.
 - [x] Sitemap `lastmod` uses each post's `dateModified` or `date`, case-study publish dates, and 2026-10-20 for the static routes updated in this pass.
-- [x] `llms.txt` links to `/services/events` and `/services/brand-ambassadors`, points product placement at `/services` because it has no page, and opens with a one-line definition of Collegiate Agency.
+- [x] `llms.txt` links to `/services/events` and `/services/brand-ambassadors` and opens with a one-line definition of Collegiate Agency. Product placement now has its own page, linked below.
 - [x] `/services/brand-ambassadors` and `/services/events` are expanded as primary ranking pages, with a visible FAQ and FAQPage JSON-LD generated from the same questions and answers.
 - [x] Homepage mobile LCP: the hero H1 is plain server HTML, not a Framer Motion entrance that starts at opacity 0. Collage photos and logo marquees stay lazy and low priority.
+- [x] `/pricing` publishes only the rates already in `pricing` (`$150` per ambassador per month, `$2,500` per campus, event packages from `$500` to `$500,000`). Visible FAQ and FAQPage JSON-LD match. Service/Offer schema is emitted only for those three rates. Nav, footer, and the service pages link to it.
+- [x] `/services/product-placement` is a real service page (the old redirect to `/services` is gone). It uses the Greek-life placement copy and the `$2,500` rate already in the repo, with Service, FAQPage, and breadcrumb JSON-LD.
+- [x] IndexNow: public key file at `/{key}.txt`, a postbuild ping, a startup ping, and a production cron. Submissions are sitemap URLs whose `lastmod` is inside 72 hours.
+- [x] Generated text-only OG and Twitter images on the public routes that were missing them, including `/pricing` and `/services/product-placement`. The homepage hero collage duplicate now uses the same alt text as the first copy.
+- [x] `llms.txt` and the sitemap list `/pricing` and `/services/product-placement`. `/feed.xml` is the insights RSS feed, and public pages link it with `rel="alternate"`.
 
 ## Remaining
 
