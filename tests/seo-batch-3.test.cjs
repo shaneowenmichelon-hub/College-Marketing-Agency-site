@@ -149,7 +149,16 @@ test("sitemap, llms.txt, and the insights feed include the new URLs", async () =
 });
 
 test("IndexNow key file matches the publisher and only recent URLs are submitted", async () => {
-  const { INDEXNOW_KEY, indexNowKeyLocation, pingIndexNow, urlsForIndexNow } = loadTs("lib/indexnow.ts");
+  const { INDEXNOW_KEY, entriesFromSitemapXml, indexNowKeyLocation, pingIndexNow, urlsForIndexNow } =
+    loadTs("lib/indexnow.ts");
+  const parsed = entriesFromSitemapXml(
+    `<urlset><url><loc>https://collegiateagency.com/pricing</loc><lastmod>2026-10-22T00:00:00.000Z</lastmod></url></urlset>`,
+  );
+  assert.deepEqual(parsed, [
+    { url: "https://collegiateagency.com/pricing", lastModified: "2026-10-22T00:00:00.000Z" },
+  ]);
+  const instrumentation = fs.readFileSync(path.join(__dirname, "../src/instrumentation.ts"), "utf8");
+  assert.doesNotMatch(instrumentation, /app\/sitemap|blog-files|node:fs/);
   assert.match(INDEXNOW_KEY, /^[a-zA-Z0-9-]{8,128}$/);
   const keyFile = fs.readFileSync(path.join(__dirname, "../public", `${INDEXNOW_KEY}.txt`), "utf8").trim();
   assert.equal(keyFile, INDEXNOW_KEY);

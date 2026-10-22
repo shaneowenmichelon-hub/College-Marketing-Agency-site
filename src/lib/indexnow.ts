@@ -23,6 +23,17 @@ export function indexNowKeyLocation(origin = siteConfig.url): string {
   return `${origin}/${INDEXNOW_KEY}.txt`;
 }
 
+/** Pull loc/lastmod pairs out of a sitemap document. No XML parser dependency. */
+export function entriesFromSitemapXml(xml: string): IndexNowEntry[] {
+  const entries: IndexNowEntry[] = [];
+  for (const block of xml.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+    const loc = block[1].match(/<loc>([^<]+)<\/loc>/)?.[1]?.trim();
+    const lastmod = block[1].match(/<lastmod>([^<]+)<\/lastmod>/)?.[1]?.trim();
+    if (loc) entries.push({ url: loc, lastModified: lastmod });
+  }
+  return entries;
+}
+
 export function urlsForIndexNow(entries: IndexNowEntry[], now = Date.now()): string[] {
   const cutoff = now - INDEXNOW_WINDOW_MS;
   return entries
