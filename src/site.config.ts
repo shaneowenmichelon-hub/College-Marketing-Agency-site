@@ -94,6 +94,7 @@ export const siteConfig = {
     { label: "Instagram", href: "https://www.instagram.com/zmmevents" },
     { label: "Night School", href: "https://www.instagram.com/nightschooltour" },
     { label: "ZMM Events", href: "https://www.zmm.events" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/collegiate-agency" },
   ] as { label: string; href: string }[],
 
   /**
