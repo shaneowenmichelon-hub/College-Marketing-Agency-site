@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-10-20
+Last updated: 2026-10-22
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -65,6 +65,8 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 
 - 2026-10-20 - `college experiential marketing agency` - `/insights/college-experiential-marketing-agency`
 
+- 2026-10-22 - `college tailgate marketing agency` - `/insights/college-tailgate-marketing-agency`
+
 ## Run 30 research note (2026-10-20)
 
 Primary chosen: `college experiential marketing agency`.
@@ -78,3 +80,16 @@ Runner-ups, not locked:
 - `campus pop-up activation`: a format competitors sell inside experiential programs. Covered here as a scoped option, not as the primary.
 - `college event marketing agency`: commercial fit, but it overlaps published college event sponsorship and campus event staffing agency.
 - `multi-campus brand activation`: scaling intent already handled by the Oct 13 campus brand activation agency article.
+
+## Run 31 research note (2026-10-22)
+
+Primary chosen: `college tailgate marketing agency`.
+
+Evidence used, without search-volume tools: the unused runner-up from the Run 30 note, checked again on 2026-10-22. Public results for the query surface dedicated vendor and case-study pages, and there is no Collegiate Agency page on the topic. Observed pages include Street Teams Co.'s tailgate service page, with a college football section and a 2026 pricing guide (https://streetteamsco.com/tailgate-marketing), and its May 26, 2026 article (https://streetteamsco.com/blog/college-tailgate-marketing-agency); College Marketing Co. game-day tailgate copy (https://collegemarketing.co/ and https://collegemarketing.co/college-sports-marketing); GSE Worldwide's Faherty college tailgate tour write-up (https://www.gseworldwide.com/case-study/faherty/); Event Marketer's 2025 It List write-up of the Modelo and Cogent college football tailgates (https://www.eventmarketer.com/article/2025-it-list-cogent-case-study/); and the Big 12's announcement of the Heluva Good! Tailgate Tour (https://big12sports.com/news/2025/9/18/general-big-12-conference-and-heluva-good-announce-strategic-partnership-starting-with-2025-big-12-fall-tour.aspx). The term is outside the 60-day lockout. It stays off the clusters being consolidated (ambassadors, sampling, Gen Z, influencers, activations, strategy, sponsorship). This article links to the published activation, staffing, sampling, and sponsorship pages instead of restating them. Competitor performance figures are left out of the article.
+
+Runner-ups, not locked:
+
+- `spring break marketing agency`: seasonal buying intent on a different calendar from football game day. Left for its own article.
+- `campus product sampling agency`: strong CPG intent, and too close to published on-campus product sampling and campus product sampling ideas.
+- `college creator marketing agency`: overlaps campus influencers and student influencer marketing, which another pass is consolidating.
+- `college event marketing agency`: commercial fit, and it overlaps published college event sponsorship and campus event staffing agency.
