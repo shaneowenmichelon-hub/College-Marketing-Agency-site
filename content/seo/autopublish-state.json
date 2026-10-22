@@ -1,19 +1,16 @@
 {
-  "last_success": {
-    "image_sha256": "9cbf05acdbd71ee595306669e81bd7b954f8fcd6dae9563affa29e182cf367d2",
-    "primary_keyword": "college experiential marketing agency",
-    "run_no": 30,
-    "slug": "college-experiential-marketing-agency",
-    "tables": 1,
-    "url": "https://collegiateagency.com/insights/college-experiential-marketing-agency",
-    "verified_at": "2026-10-20T16:22:26.414583-05:00",
-    "word_count": 1689
+  "last_prepared": {
+    "prepared_at": "2026-10-22T03:42:32.927517-05:00",
+    "primary_keyword": "college tailgate marketing agency",
+    "run_no": 31,
+    "slug": "college-tailgate-marketing-agency",
+    "word_count": 1700
   },
-  "next_run_at": "2026-10-22T04:40:50.414583-05:00",
+  "next_run_at": "2026-10-23T15:43:32.927517-05:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-10-20T16:22:26.414583-05:00",
-  "schedule_jitter_seconds": 1104,
+  "schedule_anchor": "2026-10-22T03:42:32.927517-05:00",
+  "schedule_jitter_seconds": 60,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility"
 }
