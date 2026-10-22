@@ -37,6 +37,8 @@ function ClientLogo({ client }: { client: Client }) {
       src={src}
       alt={client.name}
       loading="lazy"
+      fetchPriority="low"
+      decoding="async"
       className="max-h-8 w-auto max-w-[8rem] object-contain opacity-90 transition-opacity duration-200 [filter:brightness(0)_invert(1)] hover:opacity-100"
       onError={() => {
         // fall back to the remote source once, then to the wordmark.

@@ -15,6 +15,7 @@ code change this list can finish on its own.
 - [x] Sitemap `lastmod` uses each post's `dateModified` or `date`, case-study publish dates, and 2026-10-20 for the static routes updated in this pass.
 - [x] `llms.txt` links to `/services/events` and `/services/brand-ambassadors`, points product placement at `/services` because it has no page, and opens with a one-line definition of Collegiate Agency.
 - [x] `/services/brand-ambassadors` and `/services/events` are expanded as primary ranking pages, with a visible FAQ and FAQPage JSON-LD generated from the same questions and answers.
+- [x] Homepage mobile LCP: the hero H1 is plain server HTML, not a Framer Motion entrance that starts at opacity 0. Collage photos and logo marquees stay lazy and low priority.
 
 ## Remaining
 
@@ -33,6 +34,5 @@ code change this list can finish on its own.
 - [ ] Internal links for articles that currently have none in the body: `campus-ambassador-content-rights`, `campus-brand-activation-agency`, `campus-event-accessibility-checklist`, `campus-field-marketing-agency`. Add a body link to `/about` from editorial pages that should introduce the company.
 - [ ] Person schema for the people on `/about`, and a stronger about page (bios, roles, and the same Person nodes).
 - [ ] Thin pages: `/build-a-campaign`, `/contact`, and `/work` need more indexable copy than a form, a short pitch, or a card grid.
-- [ ] Homepage mobile LCP was 4.2s on the 2026-10-20 audit (about 360 KB of HTML and 74 images). Lazy-load the marquees that are below the first view.
 - [ ] Redirect the `*.vercel.app` host to `https://collegiateagency.com`.
 - [ ] Off-site listings need owner approval before anyone creates or claims them: Clutch, DesignRush, Sortlist, a LinkedIn company page, Google Business Profile, Bing Places, and Flytedesk listicles.
