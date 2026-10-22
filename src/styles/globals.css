@@ -173,6 +173,19 @@
   100% { transform: translate(3px, -1px); }
 }
 
+/* Hero copy entrance. Transform only — opacity stays 1 so the headline can
+   paint from server HTML. The H1 itself is not animated; it is the LCP element.
+   Reduced motion clears the animation below (and via the global duration reset). */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: hero-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+@keyframes hero-rise {
+  from { transform: translateY(24px); }
+  to { transform: none; }
+}
+
 /* Hero coin: gentle idle DRIFT on touch devices (no cursor to drive it) — a slow
    oscillation, never a continuous auto-spin. A tap triggers coin-flip (below). */
 @media (hover: none) and (pointer: coarse) {
@@ -257,7 +270,8 @@ body {
     content: none !important;
   }
   .coin-idle,
-  .coin-flip {
+  .coin-flip,
+  .hero-rise {
     animation: none !important;
   }
   .ch-fade-in,

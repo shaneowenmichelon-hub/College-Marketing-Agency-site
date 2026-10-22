@@ -65,6 +65,10 @@ function Row({
                 alt={first ? p.alt : ""}
                 fill
                 sizes={`${tileW}px`}
+                loading="lazy"
+                // Repeated tiles sit off the first screen. Keep every collage
+                // photo from outranking the headline font on a slow phone.
+                fetchPriority="low"
                 className="object-cover object-[50%_32%]"
               />
             </li>

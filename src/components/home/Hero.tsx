@@ -298,15 +298,6 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
    */
   const { scrollYProgress } = useScroll({ target: wrapRef, offset: ["start start", "center start"] });
 
-  const container = {
-    hidden: {},
-    show: { transition: { staggerChildren: reduce ? 0 : 0.09, delayChildren: 0.05 } },
-  };
-  const item = {
-    hidden: { opacity: 0, y: reduce ? 0 : 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
-  };
-
   return (
     <div ref={wrapRef} className="relative">
       <section
@@ -330,18 +321,23 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
         />
         <Container className={`relative ${active ? "flex min-h-0 flex-1 items-center" : ""}`}>
           <div className={`grid w-full items-center gap-6 lg:grid-cols-[1.3fr_1fr] ${active ? "py-4" : "py-20 sm:py-28 lg:py-36"}`}>
-            <motion.div variants={container} initial="hidden" animate="show" className="flex flex-col items-start">
+            {/*
+              Plain markup, not motion.*. This headline is the mobile LCP element.
+              Framer Motion initial="hidden" server-renders opacity:0, so the text
+              stayed invisible until hydration. Supporting lines use a transform-only
+              rise (.hero-rise) that never sets opacity, and the H1 is not animated.
+            */}
+            <div className="flex flex-col items-start">
               {siteConfig.showCredibility && (
-                <motion.div variants={item}>
+                <div className="hero-rise">
                   <span className="sticker mono-label bg-[color:var(--accent-2)] px-3 py-1.5 text-[11px] font-bold text-ink">
                     <Sparkles className="h-3.5 w-3.5" />
                     {siteConfig.credibilityLine}
                   </span>
-                </motion.div>
+                </div>
               )}
 
-              <motion.h1
-                variants={item}
+              <h1
                 className={`max-w-4xl text-balance font-display font-bold leading-[0.95] ${
                   active
                     ? "mt-4 text-[clamp(2.25rem,min(8.5svh,5.2vw),5rem)] leading-[0.92] tracking-[-0.035em]"
@@ -350,18 +346,18 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
               >
                 Where brands meet{" "}
                 <span className="text-[color:var(--accent-2)]">campus culture.</span>
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                variants={item}
-                className={`max-w-2xl leading-relaxed text-[color:var(--muted-on-dark)] ${
+              <p
+                className={`hero-rise max-w-2xl leading-relaxed text-[color:var(--muted-on-dark)] ${
                   active ? "mt-4 text-lg" : "mt-6 text-lg sm:text-xl"
                 }`}
+                style={{ animationDelay: "80ms" }}
               >
                 We put your brand in front of college students through events, brand
                 ambassadors, and product placement. We reach them on the campuses where
                 they live, study, and go out.
-              </motion.p>
+              </p>
 
               {/*
                 Two brand CTAs at full weight, the student one as a text link.
@@ -371,7 +367,7 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
                 footer, the mobile drawer and a whole section further down, so
                 the path is demoted here, not removed.
               */}
-              <motion.div variants={item} className={`flex w-full flex-col gap-3 sm:max-w-md sm:flex-row ${active ? "mt-6" : "mt-9"}`}>
+              <div className={`hero-rise flex w-full flex-col gap-3 sm:max-w-md sm:flex-row ${active ? "mt-6" : "mt-9"}`} style={{ animationDelay: "140ms" }}>
                 <Button href="/contact" variant="lime" size="lg">
                   Book a Call
                   <ArrowRight className="h-4 w-4" />
@@ -379,7 +375,7 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
                 <Button href="/build-a-campaign" variant="magenta" size="lg">
                   Build a Campaign
                 </Button>
-              </motion.div>
+              </div>
 
               {/*
                 Scale, on the first screen. These are the numbers a brand
@@ -387,11 +383,11 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
                 sections down. One compact line, so it costs almost no height on
                 a phone.
               */}
-              <motion.ul
-                variants={item}
-                className={`flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[color:var(--muted-on-dark)] ${
+              <ul
+                className={`hero-rise flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-[color:var(--muted-on-dark)] ${
                   active ? "mt-4" : "mt-6"
                 }`}
+                style={{ animationDelay: "200ms" }}
               >
                 {HERO_STAT_KEYS.map((key) => {
                   const stat = siteConfig.stats.find((s) => s.key === key);
@@ -405,17 +401,17 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
                     </li>
                   );
                 })}
-              </motion.ul>
+              </ul>
 
-              <motion.div variants={item} className={active ? "mt-3" : "mt-5"}>
+              <div className={active ? "hero-rise mt-3" : "hero-rise mt-5"} style={{ animationDelay: "240ms" }}>
                 <Link
                   href="/become-an-ambassador"
                   className="text-sm font-semibold text-[color:var(--muted-on-dark)] underline decoration-2 underline-offset-4 transition-colors hover:text-[color:var(--accent-2)]"
                 >
                   Student? Become an ambassador
                 </Link>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
             {active ? <ReelApparatus progress={scrollYProgress} /> : <Coin reduce={!!reduce} />}
           </div>
