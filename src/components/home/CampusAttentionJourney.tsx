@@ -88,7 +88,7 @@ const offers = [
   },
   {
     label: "Product Placement",
-    href: "/services#product-placement",
+    href: "/services/product-placement",
     price: `${pricing["product-placement"].range} ${pricing["product-placement"].unit}`.trim(),
     body: "Place product directly into Greek life, events, organizations, and content moments.",
   },

@@ -62,7 +62,7 @@ function Row({
             >
               <Image
                 src={p.src}
-                alt={first ? p.alt : ""}
+                alt={p.alt}
                 fill
                 sizes={`${tileW}px`}
                 loading="lazy"

@@ -15,12 +15,11 @@ const nextConfig = {
       { protocol: "https", hostname: "fastly.picsum.photos" },
     ],
   },
-  // 301s for service sub-paths that were never standalone pages (the /services
-  // hub is the single services entry point). Preserves any inbound/old links.
+  // Influencers was never a standalone page. Product placement is
+  // /services/product-placement. Preserves any inbound/old links.
   async redirects() {
     return [
       { source: "/services/influencers", destination: "/services", permanent: true },
-      { source: "/services/product-placement", destination: "/services", permanent: true },
       // Same campaigns as the /work case studies. Keep in sync with
       // CASE_STUDIES_CANONICAL_ON_WORK in src/lib/content.ts.
       {

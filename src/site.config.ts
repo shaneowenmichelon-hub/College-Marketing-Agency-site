@@ -156,7 +156,7 @@ export const siteConfig = {
     {
       slug: "product-placement",
       label: "Product Placement",
-      href: "/services#product-placement",
+      href: "/services/product-placement",
       blurb: "Greek-life product placements with dedicated media deliverables.",
     },
   ] as const,
@@ -172,6 +172,7 @@ export const siteConfig = {
   nav: [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services" },
+    { label: "Pricing", href: "/pricing" },
     { label: "Work", href: "/work" },
     { label: "About", href: "/about" },
     { label: "Insights", href: "/insights" },
@@ -352,7 +353,7 @@ export const servicesHub: ServicesHub = {
         priceNote: priceNote("product-placement"),
         image: "/images/thaw-out/thaw-out-01.jpg",
         imageAlt: "Product placement table with branded drinks at a college event",
-        cta: { label: "Get started", href: "/contact" },
+        cta: { label: "Learn more", href: "/services/product-placement" },
       },
     ],
     cta: { label: "Get started", href: "/contact" },

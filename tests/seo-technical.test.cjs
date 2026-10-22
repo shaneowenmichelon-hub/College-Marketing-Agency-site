@@ -51,6 +51,8 @@ test("document titles stay within 60 characters and do not double the brand", ()
     "Campus marketing insights",
     "Build a campus campaign",
     "Become a campus ambassador",
+    "Campus marketing pricing",
+    "Greek life product placement",
     "Privacy Policy",
     "Page not found",
     "SOS Consultants Nola case study",
@@ -111,7 +113,15 @@ test("organization JSON-LD is one node with a real address, logo, and website", 
   assert.equal(events.url, "https://collegiateagency.com/services/events");
   assert.equal(ambassadors.url, "https://collegiateagency.com/services/brand-ambassadors");
   assert.equal(events.provider["@id"], org["@id"]);
-  assert.equal(serviceStructuredData("product-placement").url, "https://collegiateagency.com/services#product-placement");
+  assert.equal(
+    serviceStructuredData("product-placement").url,
+    "https://collegiateagency.com/services/product-placement",
+  );
+  assert.equal(serviceStructuredData("product-placement").offers.price, 2500);
+  assert.equal(serviceStructuredData("brand-ambassadors").offers.price, 150);
+  assert.equal(serviceStructuredData("events").offers.price, undefined);
+  assert.equal(serviceStructuredData("events").offers.priceSpecification.minPrice, 500);
+  assert.equal(serviceStructuredData("events").offers.priceSpecification.maxPrice, 500000);
 
   const crumbs = serviceBreadcrumbItems("events", "Events");
   assert.deepEqual(crumbs.map((item) => item.name), ["Home", "Services", "Events"]);
@@ -175,6 +185,7 @@ test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
   const pages = {
     "brand-ambassadors": servicePageSeo("brand-ambassadors"),
     events: servicePageSeo("events"),
+    "product-placement": servicePageSeo("product-placement"),
   };
 
   for (const [slug, seo] of Object.entries(pages)) {
@@ -245,8 +256,10 @@ test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
     "/work/sos-consultants-nola-campus-leasing-ambassadors",
     "/insights/college-brand-ambassador-program",
     "/insights/college-brand-ambassadors",
+    "/pricing",
     "/build-a-campaign",
     "/contact",
+    "/services/product-placement",
   ]);
   const eventHrefs = hrefs(events.reading);
   assert.deepEqual(eventHrefs, [
@@ -254,8 +267,10 @@ test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
     "/insights/university-activations",
     "/insights/college-event-sponsorship",
     "/insights/campus-brand-activation-agency",
+    "/pricing",
     "/build-a-campaign",
     "/contact",
+    "/services/product-placement",
   ]);
 
   for (const href of [...ambassadorHrefs, ...eventHrefs]) {

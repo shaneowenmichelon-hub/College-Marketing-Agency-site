@@ -59,7 +59,12 @@ export function pageMetadata(opts: {
   return {
     title: { absolute: text },
     description: opts.description,
-    ...(path ? { alternates: { canonical: path } } : {}),
+    alternates: {
+      ...(path ? { canonical: path } : {}),
+      types: {
+        "application/rss+xml": "/feed.xml",
+      },
+    },
     openGraph: {
       title: { absolute: text },
       description: opts.description,
@@ -89,19 +94,56 @@ export function serviceBreadcrumbItems(slug: string, name: string) {
   ];
 }
 
-/** Standalone service URLs. Product placement lives on the services hub. */
+/** Standalone service URLs. Each priced channel has its own page. */
 export function serviceCanonicalPath(slug: string): string {
   if (slug === "events") return "/services/events";
   if (slug === "brand-ambassadors") return "/services/brand-ambassadors";
+  if (slug === "product-placement") return "/services/product-placement";
   return "/services";
 }
 
-function serviceMinPrice(slug: string): number | undefined {
+/** Dollar amounts already written in a pricing range. No number is inferred. */
+function servicePriceAmounts(slug: string): number[] {
   const range = pricing[slug]?.range ?? "";
-  const match = range.match(/\$([\d,]+)/);
-  if (!match) return undefined;
-  const value = Number(match[1].replace(/,/g, ""));
-  return Number.isFinite(value) ? value : undefined;
+  return [...range.matchAll(/\$([\d,]+)/g)]
+    .map((match) => Number(match[1].replace(/,/g, "")))
+    .filter((value) => Number.isFinite(value));
+}
+
+/**
+ * Offer schema only when `pricing` states a number.
+ * One amount is a unit price. Two amounts are a min/max range, with no single price.
+ */
+function serviceOffer(slug: string, url: string): Record<string, unknown> | undefined {
+  const amounts = servicePriceAmounts(slug);
+  if (amounts.length === 0) return undefined;
+  const unit = pricing[slug]?.unit?.replace(/^\//, "").trim();
+  if (amounts.length === 1) {
+    return {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: amounts[0],
+      url,
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: amounts[0],
+        priceCurrency: "USD",
+        ...(unit ? { unitText: unit } : {}),
+      },
+    };
+  }
+  return {
+    "@type": "Offer",
+    priceCurrency: "USD",
+    url,
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      minPrice: Math.min(...amounts),
+      maxPrice: Math.max(...amounts),
+      priceCurrency: "USD",
+      ...(unit ? { unitText: unit } : {}),
+    },
+  };
 }
 
 export function serviceStructuredData(slug: string): Record<string, unknown> {
@@ -111,9 +153,7 @@ export function serviceStructuredData(slug: string): Record<string, unknown> {
   const path = serviceCanonicalPath(slug);
   const standalone = path !== "/services";
   const url = standalone ? `${siteConfig.url}${path}` : `${siteConfig.url}/services#${slug}`;
-  const note = pricing[slug];
-  const minPrice = serviceMinPrice(slug);
-  const unit = note?.unit?.replace(/^\//, "").trim();
+  const offer = serviceOffer(slug, url);
 
   return {
     "@context": "https://schema.org",
@@ -128,20 +168,7 @@ export function serviceStructuredData(slug: string): Record<string, unknown> {
       name: campus.city,
     })),
     url,
-    ...(minPrice
-      ? {
-          offers: {
-            "@type": "Offer",
-            priceCurrency: "USD",
-            priceSpecification: {
-              "@type": "PriceSpecification",
-              minPrice,
-              priceCurrency: "USD",
-              ...(unit ? { unitText: unit } : {}),
-            },
-          },
-        }
-      : {}),
+    ...(offer ? { offers: offer } : {}),
   };
 }
 
