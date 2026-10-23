@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { assertArticleFaqs, type ArticleFaq } from "@/lib/article-faq";
 import type { ArticleBlock, Post, PostCategory } from "@/lib/content";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
@@ -24,13 +25,62 @@ function parseValue(raw: string): string | string[] {
   return value.replace(/^['\"]|['\"]$/g, "");
 }
 
-function parseFrontmatter(source: string): { data: Record<string, string | string[]>; body: string } {
+function unquote(value: string): string {
+  const trimmed = value.trim();
+  if (
+    (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+    (trimmed.startsWith("'") && trimmed.endsWith("'"))
+  ) {
+    return trimmed.slice(1, -1);
+  }
+  return trimmed;
+}
+
+/**
+ * `faq:` is a list of `question` / `answer` pairs. Answers stay on one line so
+ * the simple key parser never has to understand nested YAML. The block is
+ * removed before that parser runs.
+ */
+function parseFaqBlock(lines: string[], start: number): { faqs: ArticleFaq[]; next: number } {
+  const faqs: ArticleFaq[] = [];
+  let i = start;
+  while (i < lines.length) {
+    const questionLine = lines[i].match(/^\s*-\s+question:\s*(.*)$/);
+    if (!questionLine) break;
+    const question = unquote(questionLine[1]);
+    i += 1;
+    if (i >= lines.length) throw new Error(`FAQ item is missing an answer: ${question}`);
+    const answerLine = lines[i].match(/^\s+answer:\s*(.*)$/);
+    if (!answerLine) throw new Error(`FAQ item is missing an answer: ${question}`);
+    const answer = unquote(answerLine[1]).replace(/\s+/g, " ").trim();
+    if (!question || !answer) throw new Error("FAQ question and answer must both be set");
+    faqs.push({ question, answer });
+    i += 1;
+  }
+  if (!faqs.length) throw new Error("faq: block has no questions");
+  return { faqs, next: i };
+}
+
+function parseFrontmatter(source: string): {
+  data: Record<string, string | string[]>;
+  body: string;
+  faq?: ArticleFaq[];
+} {
   const match = source.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (!match) throw new Error("Blog post is missing YAML frontmatter delimiters");
 
+  const lines = match[1].split("\n");
   const data: Record<string, string | string[]> = {};
-  for (const line of match[1].split("\n")) {
+  let faq: ArticleFaq[] | undefined;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
     if (!line.trim() || line.trim().startsWith("#")) continue;
+    if (/^faq:\s*$/.test(line.trim())) {
+      const parsed = parseFaqBlock(lines, i + 1);
+      faq = parsed.faqs;
+      i = parsed.next - 1;
+      continue;
+    }
     const index = line.indexOf(":");
     if (index === -1) continue;
     const key = line.slice(0, index).trim();
@@ -38,7 +88,7 @@ function parseFrontmatter(source: string): { data: Record<string, string | strin
     data[key] = parseValue(value);
   }
 
-  return { data, body: match[2].trim() };
+  return { data, body: match[2].trim(), faq };
 }
 
 function asString(data: Record<string, string | string[]>, key: string): string {
@@ -228,7 +278,7 @@ export function loadMdxPosts(): Post[] {
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => {
       const fullPath = path.join(BLOG_DIR, file);
-      const { data, body } = parseFrontmatter(fs.readFileSync(fullPath, "utf8"));
+      const { data, body, faq } = parseFrontmatter(fs.readFileSync(fullPath, "utf8"));
       const category = asString(data, "category") as PostCategory;
       if (!VALID_CATEGORIES.includes(category)) {
         throw new Error(`${file} has invalid category: ${category}`);
@@ -256,9 +306,11 @@ export function loadMdxPosts(): Post[] {
         imageLicense: typeof data.imageLicense === "string" ? data.imageLicense : undefined,
         imageRights: data.imageRights === "owned" ? "owned" : undefined,
         ctaService: asString(data, "ctaService") as Post["ctaService"],
+        ...(faq ? { faq } : {}),
         body: parsedBody,
         readingTime: "",
       };
+      assertArticleFaqs(post.slug, post.faq);
       return post;
     })
     .sort((a, b) => b.date.localeCompare(a.date));

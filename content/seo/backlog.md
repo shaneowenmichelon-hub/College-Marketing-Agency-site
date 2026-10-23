@@ -26,13 +26,14 @@ code change this list can finish on its own.
 - [x] `/rss.xml` permanently redirects to `/feed.xml`.
 - [x] IndexNow startup ping reads the public production sitemap. The deployment hostname is behind Vercel SSO, so the previous fetch aborted or submitted nothing.
 - [x] Homepage mobile accessibility: ink type on magenta and orange fills, full-strength text on the colored cards, solid caption chips, a named star graphic, and a coin control whose name includes the visible "CA".
+- [x] FAQ blocks with FAQPage schema rendered from frontmatter on `college-marketing-agency`, `campus-marketing-agency-rfp`, `campus-brand-activation-agency`, and `college-brand-ambassador-program`. The visible questions and the FAQPage JSON-LD use the same answers.
+- [x] Body links on `campus-ambassador-content-rights`, `campus-brand-activation-agency`, `campus-event-accessibility-checklist`, and `campus-field-marketing-agency`, including `/about` where the article names Collegiate Agency.
 
 ## Remaining
 
 - [ ] `www.collegiateagency.com` was returning a Vercel login on 2026-10-20. The 2026-10-22 evening re-audit saw 308s to the apex. Leave the domain attachment to the owner if a project still needs it; do not treat this as a content change.
 - [ ] The public contact email is still `shane@zmmevents.com`, and Organization `sameAs` still includes the ZMM Events Instagram, Night School Instagram, and zmm.events. Owner decision; do not swap these in code until the owner confirms the replacements. Clutch, Sortlist, and LinkedIn are already included.
 - [ ] Bing verification. Set `NEXT_PUBLIC_BING_SITE_VERIFICATION` to the HTML-tag token from Bing Webmaster Tools. The layout already emits `msvalidate.01` when the variable is present.
-- [ ] FAQ blocks with FAQPage schema rendered from frontmatter on the commercial articles: `college-marketing-agency`, `campus-marketing-agency-rfp`, `campus-brand-activation-agency`, `college-brand-ambassador-program`.
 - [ ] Consolidate cannibalizing article clusters so one URL is the canonical page for each topic and the others support it:
   - Ambassadors: `college-brand-ambassador-program`, `college-brand-ambassadors`, `student-ambassador-marketing`, `student-brand-reps`
   - Sampling: `campus-product-sampling-ideas`, `on-campus-product-sampling`
@@ -41,7 +42,6 @@ code change this list can finish on its own.
   - Activations: `campus-activation-ideas`, `university-activations`, `campus-brand-activation-agency`
   - Strategy: `college-marketing-strategy`, `how-to-market-to-college-students`
   - Sponsorship: `college-event-sponsorship`, `college-festival-sponsorship`
-- [ ] Internal links for articles that currently have none in the body: `campus-ambassador-content-rights`, `campus-brand-activation-agency`, `campus-event-accessibility-checklist`, `campus-field-marketing-agency`. Add a body link to `/about` from editorial pages that should introduce the company.
 - [ ] Person schema for the people on `/about`, and a stronger about page (bios, roles, and the same Person nodes).
 - [ ] Thin pages: `/build-a-campaign`, `/contact`, and `/work` need more indexable copy than a form, a short pitch, or a card grid.
 - [ ] Redirect the `*.vercel.app` host to `https://collegiateagency.com`.
