@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-10-22
+Last updated: 2026-10-23
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -67,6 +67,8 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 
 - 2026-10-22 - `college tailgate marketing agency` - `/insights/college-tailgate-marketing-agency`
 
+- 2026-10-23 - `spring break marketing agency` - `/insights/spring-break-marketing-agency`
+
 ## Run 30 research note (2026-10-20)
 
 Primary chosen: `college experiential marketing agency`.
@@ -92,4 +94,17 @@ Runner-ups, not locked:
 - `spring break marketing agency`: seasonal buying intent on a different calendar from football game day. Left for its own article.
 - `campus product sampling agency`: strong CPG intent, and too close to published on-campus product sampling and campus product sampling ideas.
 - `college creator marketing agency`: overlaps campus influencers and student influencer marketing, which another pass is consolidating.
+- `college event marketing agency`: commercial fit, and it overlaps published college event sponsorship and campus event staffing agency.
+
+## Run 32 research note (2026-10-23)
+
+Primary chosen: `spring break marketing agency`.
+
+Evidence used, without search-volume tools: the unused runner-up from the Run 31 note, checked again on 2026-10-23. Public results for the query surface dedicated vendor pages, and there is no Collegiate Agency page on the topic. Observed pages include CMG Media Agency's spring break services page (https://cmgmediaagency.com/services/spring-break/), Youth Marketing Connection's spring break deck and case-study pages (https://youthmarketing.com/wp-content/uploads/2018/03/ymc-2026-spring-break-deck.pdf, https://youthmarketing.com/case-study/axe-spring-break-marketing/, https://youthmarketing.com/case-study/angry-orchard-spring-break-activations/), and Entertainment 3Sixty's Takis Spring Break 2024 work page (https://www.entertainment3sixty.com/work/takis-spring-break-2024/). The term is outside the 60-day lockout. It is not in the clusters being consolidated (ambassadors, sampling, Gen Z, influencers, activations, strategy, sponsorship). This article links to the published activation, experiential, sampling, staffing, and tailgate pages instead of restating them. Competitor performance figures are left out of the article. Permit claims in the article are limited to the South Padre Island special event checklist (last updated January 13, 2026) and the Lake Havasu City event permit page, both read on 2026-10-23, plus TTB Industry Circular 2024-1 for alcohol advertising.
+
+Runner-ups, not locked:
+
+- `college marketing cost`: strong buyer intent. College Marketing Co. has a 2026 pricing guide. Left unused because it risks cannibalizing `/pricing`.
+- `campus media advertising` / college newspaper advertising: flytedesk ranks heavily, and the service fit is weaker than an on-site activation hire.
+- `campus product sampling agency`: strong CPG intent, and too close to published on-campus product sampling and campus product sampling ideas.
 - `college event marketing agency`: commercial fit, and it overlaps published college event sponsorship and campus event staffing agency.

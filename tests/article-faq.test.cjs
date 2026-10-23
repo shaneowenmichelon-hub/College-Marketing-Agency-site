@@ -51,6 +51,7 @@ const FAQ_SLUGS = [
   "campus-marketing-agency-rfp",
   "campus-brand-activation-agency",
   "college-brand-ambassador-program",
+  "spring-break-marketing-agency",
 ];
 
 const LINK_SLUGS = {
