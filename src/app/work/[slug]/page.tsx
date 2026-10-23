@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Reveal } from "@/components/motion/Reveal";
 import { EventImage } from "@/components/EventImage";
 import { ArticleTable } from "@/components/article/ArticleTable";
+import { ArticleFigure } from "@/components/article/ArticleFigure";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { caseStudies, getCaseStudy } from "@/lib/content";
@@ -167,6 +168,9 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
                   }
                   if (block.type === "table") {
                     return <ArticleTable key={i} block={block} />;
+                  }
+                  if (block.type === "figure") {
+                    return <ArticleFigure key={i} block={block} />;
                   }
                   return (
                     <ol key={i} className="space-y-2 pl-5 text-base leading-8 text-[color:var(--muted-on-light)]">

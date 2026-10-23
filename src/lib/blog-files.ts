@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { assertArticleFaqs, type ArticleFaq } from "@/lib/article-faq";
 import type { ArticleBlock, Post, PostCategory } from "@/lib/content";
+import { resolvePublicImage } from "@/lib/image-intrinsic";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
@@ -179,6 +180,38 @@ function parseMarkdownBody(markdown: string): ArticleBlock[] {
     if (!line) {
       flushParagraph();
       flushList();
+      continue;
+    }
+
+    // A markdown image on its own line is a figure. Leaving it in a paragraph
+    // turns `![alt](src)` into a broken `!<a>` because the link rule strips
+    // the bang. Raw HTML images never reach this branch: the publisher
+    // rejects them, and a `<` here is ordinary paragraph text only if it
+    // somehow passed that gate.
+    if (line.includes("![")) {
+      const image = line.match(/^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)\s*$/);
+      if (!image) throw new Error(`unsafe figure markdown: ${line}`);
+      const alt = image[1].trim();
+      const src = image[2].trim();
+      if (!alt || /[<>]/.test(alt)) throw new Error(`figure alt is required: ${src}`);
+      let caption = image[3]?.trim() || "";
+      if (!caption && i + 1 < lines.length && /^caption:\s+\S/i.test(lines[i + 1].trim())) {
+        caption = lines[i + 1].trim().replace(/^caption:\s+/i, "").trim();
+        if (/[<>]/.test(caption)) throw new Error(`figure caption has raw HTML: ${src}`);
+        i += 1;
+      }
+      if (caption && /[<>]/.test(caption)) throw new Error(`figure caption has raw HTML: ${src}`);
+      flushParagraph();
+      flushList();
+      const { size } = resolvePublicImage(src);
+      blocks.push({
+        type: "figure",
+        src,
+        alt,
+        ...(caption ? { caption } : {}),
+        width: size.width,
+        height: size.height,
+      });
       continue;
     }
 
