@@ -1,19 +1,16 @@
 {
-  "last_success": {
-    "image_sha256": "65593a3c3ec95288f1338be16b61eab31a0e2ff897d92a99df54c43aa1711b3b",
-    "primary_keyword": "college tailgate marketing agency",
-    "run_no": 31,
-    "slug": "college-tailgate-marketing-agency",
-    "tables": 1,
-    "url": "https://collegiateagency.com/insights/college-tailgate-marketing-agency",
-    "verified_at": "2026-10-22T03:50:55.437075-05:00",
-    "word_count": 1700
+  "last_prepared": {
+    "prepared_at": "2026-10-23T15:39:48-05:00",
+    "primary_keyword": "spring break marketing agency",
+    "run_no": 32,
+    "slug": "spring-break-marketing-agency",
+    "word_count": 1685
   },
-  "next_run_at": "2026-10-23T15:51:55.437075-05:00",
+  "next_run_at": "2026-10-25T03:40:48-05:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-10-22T03:50:55.437075-05:00",
+  "schedule_anchor": "2026-10-23T15:39:48-05:00",
   "schedule_jitter_seconds": 60,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility"
 }
