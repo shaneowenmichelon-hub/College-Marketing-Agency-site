@@ -3,6 +3,7 @@
 ## Campus library, Michael Marsh
 
 - Local asset: `/images/blog/campus-library-michael-marsh.jpg`
+- Status: disallowed. Unsplash stock, not an owned activation. Do not use it as a hero or an inline photo.
 - Photographer/credit: Michael Marsh / Unsplash
 - Source: https://unsplash.com/photos/brown-concrete-building-U0dBV_QeiYk
 - Source image: https://images.unsplash.com/photo-1562774053-701939374585?fm=jpg&q=85&w=1600&fit=max

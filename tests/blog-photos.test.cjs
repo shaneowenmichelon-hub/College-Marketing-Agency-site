@@ -26,6 +26,8 @@ test('photo frontmatter survives the actual MDX loader', () => {
   const cwd=process.cwd(); const dir=fs.mkdtempSync(path.join(os.tmpdir(),'seo-photo-'));
   try {
     fs.mkdirSync(path.join(dir,'content/blog'),{recursive:true});
+    fs.mkdirSync(path.join(dir,'public/images/blog'),{recursive:true});
+    fs.writeFileSync(path.join(dir,'public/images/blog/test.jpg'), Buffer.from([0xff,0xd8,0xff,0xc0,0x00,0x11,0x08,0x00,0x01,0x00,0x01,0x03,0x01,0x22,0x00,0x02,0x11,0x01,0x03,0x11,0x01,0xff,0xd9]));
     fs.writeFileSync(path.join(dir,'content/blog/test.mdx'),`---
 slug: test
 title: Test

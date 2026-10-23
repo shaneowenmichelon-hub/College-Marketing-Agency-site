@@ -141,6 +141,16 @@ class PhotoRuleTests(unittest.TestCase):
         self.assertIn({"slug": "new-article", "src": "/images/blog/product.jpg", "role": "hero"}, recorded)
         self.assertEqual(sum(item["slug"] == "new-article" for item in recorded), 2)
 
+    def test_disallowed_stock_photo_cannot_be_a_hero(self):
+        library = (ROOT / "content/seo/public-photo-library.md").read_text()
+        data = {
+            "slug": "campus-event-staffing-agency",
+            "image": "/images/blog/campus-library-michael-marsh.jpg",
+            "imageAlt": "Red-brick campus building behind a green lawn and trees",
+        }
+        with self.assertRaisesRegex(ValueError, "hero-photo-disallowed"):
+            p.validate_inline_photos("A staffing guide with no inline figure.", data, library, ROOT)
+
     def test_prompt_names_the_least_used_trio(self):
         library = self.root / "content/seo/public-photo-library.md"
         library.parent.mkdir(parents=True, exist_ok=True)
