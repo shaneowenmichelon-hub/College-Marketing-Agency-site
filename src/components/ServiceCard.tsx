@@ -45,7 +45,7 @@ export function ServiceCard({
         href={href}
         className={cn(
           "group flex h-full flex-col rounded-[4px] border-2 border-ink p-7 shadow-[6px_6px_0_var(--ink)] transition-all duration-200",
-          "hover:-translate-y-1 hover:shadow-[10px_10px_0_var(--ink)]",
+          "card-press hover:-translate-y-1 hover:shadow-[10px_10px_0_var(--ink)]",
           tone.bg,
           tone.text,
         )}

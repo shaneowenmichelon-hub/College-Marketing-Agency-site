@@ -373,7 +373,7 @@ export function CampaignBuilder() {
                       "brutal-press group flex flex-col rounded-[4px] border-2 border-ink p-6 text-left transition-all",
                       on
                         ? `-translate-y-1 ${svc.textOn} shadow-[8px_8px_0_var(--ink)]`
-                        : "bg-white text-ink shadow-[4px_4px_0_var(--ink)] hover:-translate-y-1",
+                        : "bg-white text-ink shadow-[4px_4px_0_var(--ink)] card-press hover:-translate-y-1",
                     )}
                     style={on ? { backgroundColor: svc.accent } : undefined}
                   >

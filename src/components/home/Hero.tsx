@@ -243,7 +243,9 @@ function ReelApparatus({ progress }: { progress: MotionValue<number> }) {
 }
 
 /** Stats shown above the fold: scale, coverage, reach — what a brand buys. */
-const HERO_STAT_KEYS = ["ambassadors", "campuses", "socialReach"] as const;
+// Speed sits last on purpose: it is the differentiator a brand buyer compares
+// agencies on, and it reads as a promise rather than a vanity figure.
+const HERO_STAT_KEYS = ["ambassadors", "campuses", "socialReach", "speedToActivation"] as const;
 
 export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }[] }) {
   const reduce = useReducedMotion();
@@ -397,7 +399,7 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
                       <span className="font-display text-base font-bold text-[color:var(--accent-2)]">
                         {stat.value}
                       </span>
-                      {stat.label}
+                      {stat.shortLabel ?? stat.label}
                     </li>
                   );
                 })}

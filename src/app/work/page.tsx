@@ -42,7 +42,7 @@ export default function WorkPage() {
             <Reveal key={c.slug} delay={i * 0.06}>
               <Link
                 href={`/work/${c.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[color:var(--border-on-light)] bg-surface shadow-soft transition-all hover:-translate-y-1 hover:shadow-soft-lg"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[color:var(--border-on-light)] bg-surface shadow-soft transition-all card-press hover:-translate-y-1 hover:shadow-soft-lg"
               >
                 <CaseStudyCover
                   scene={c.cover}

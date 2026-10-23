@@ -7,7 +7,16 @@ import { useAttribution, useElapsed } from "@/lib/client-forms";
 import { trackEvent } from "@/lib/analytics";
 
 const STORAGE_KEY = "ca_newsletter_modal_dismissed";
+/**
+ * Desktop keeps the old quick prompt. Phones do not: a full-screen interstitial
+ * 1.5s after landing is the pattern Google demotes mobile pages for, and here it
+ * also lands on top of the sticky "Planning a campus launch?" bar, which is a
+ * brand CTA. So on small screens the modal waits for a signal that the visitor
+ * is actually reading - either real scroll depth or a long dwell.
+ */
 const SHOW_DELAY_MS = 1500;
+const MOBILE_DELAY_MS = 20000;
+const MOBILE_SCROLL_TRIGGER = 0.45;
 
 /**
  * Full-screen newsletter capture modal. Email-only, dismissible, and intentionally
@@ -30,8 +39,33 @@ export function NewsletterModal() {
     }
     if (dismissed) return;
 
-    const timer = window.setTimeout(() => setShow(true), SHOW_DELAY_MS);
-    return () => window.clearTimeout(timer);
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+    if (!isMobile) {
+      const timer = window.setTimeout(() => setShow(true), SHOW_DELAY_MS);
+      return () => window.clearTimeout(timer);
+    }
+
+    let frame = 0;
+    const open = () => {
+      setShow(true);
+      cleanup();
+    };
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollable > 200 && window.scrollY / scrollable >= MOBILE_SCROLL_TRIGGER) open();
+      });
+    };
+    const timer = window.setTimeout(open, MOBILE_DELAY_MS);
+    function cleanup() {
+      window.clearTimeout(timer);
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return cleanup;
   }, []);
 
   useEffect(() => {

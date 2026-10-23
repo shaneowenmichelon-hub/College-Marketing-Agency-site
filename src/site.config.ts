@@ -20,6 +20,11 @@ export type StatToken = {
   /** The value to render literally. Keep as an [X] token until you have a real number. */
   value: string;
   label: string;
+  /**
+   * Tighter label for the hero strip, which is one line inside a height-capped
+   * hero. Falls back to `label` when absent.
+   */
+  shortLabel?: string;
 };
 
 export type Office = {
@@ -102,11 +107,22 @@ export const siteConfig = {
    * sections (e.g. service-page proof strips) pull the same number from one place.
    */
   stats: [
-    { key: "ambassadors", value: "1,200", label: "student ambassadors" },
+    { key: "ambassadors", value: "2,000", label: "student ambassadors" },
     { key: "campuses", value: "21", label: "campuses" },
     { key: "brands", value: "20+", label: "brands served" },
-    { key: "socialReach", value: "1.44M+", label: "social reach" },
+    {
+      key: "socialReach",
+      value: "20M+",
+      label: "social reach across campuses nationwide",
+      shortLabel: "social reach",
+    },
     { key: "studentsReached", value: "100K+", label: "students reached" },
+    {
+      key: "speedToActivation",
+      value: "7 days",
+      label: "signed SOW to boots on the ground",
+      shortLabel: "SOW to boots on the ground",
+    },
   ] as StatToken[],
 
   /**

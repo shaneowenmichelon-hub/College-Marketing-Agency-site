@@ -9,6 +9,7 @@ import { CookieConsent } from "@/components/analytics/CookieConsent";
 import { FirstPartyAnalytics } from "@/components/analytics/FirstPartyAnalytics";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { NewsletterModal } from "@/components/NewsletterModal";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -39,6 +40,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <>
+      <ScrollProgress />
       <SmoothScroll>
         <Navbar />
         <main id="main" className="flex-1">

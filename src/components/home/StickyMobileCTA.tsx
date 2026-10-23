@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, X } from "lucide-react";
+import { CONSENT_EVENT, getConsent } from "@/lib/analytics";
 
 const KEY = "ch_sticky_cta_dismissed";
 
@@ -10,10 +11,27 @@ const KEY = "ch_sticky_cta_dismissed";
  * Mobile-only sticky prompt that slides in after the hero. Dismissible; the
  * dismissal persists for the session. Sits above the device safe-area and never
  * blocks device nav. Hidden at lg+.
+ *
+ * Waits for the cookie banner to be answered first. Both are fixed to the
+ * bottom of the screen and the banner is the higher layer (z-60 vs z-40), so
+ * while a decision is outstanding it covers this bar completely - the Get
+ * Started tap lands on the banner instead. Showing them one after the other
+ * costs a few seconds and keeps the brand CTA tappable.
  */
 export function StickyMobileCTA() {
   const [show, setShow] = useState(false);
   const [dismissed, setDismissed] = useState(true); // assume hidden until mount check
+  const [consentSettled, setConsentSettled] = useState(false);
+
+  useEffect(() => {
+    if (getConsent() !== null) {
+      setConsentSettled(true);
+      return;
+    }
+    const onDecision = () => setConsentSettled(true);
+    window.addEventListener(CONSENT_EVENT, onDecision);
+    return () => window.removeEventListener(CONSENT_EVENT, onDecision);
+  }, []);
 
   useEffect(() => {
     let already = false;
@@ -42,7 +60,7 @@ export function StickyMobileCTA() {
     }
   }
 
-  if (dismissed) return null;
+  if (dismissed || !consentSettled) return null;
 
   return (
     <div

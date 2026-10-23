@@ -11,7 +11,7 @@ export function RelatedInsights({ posts }: { posts: Post[] }) {
         <Reveal key={p.slug} delay={i * 0.08}>
           <Link
             href={`/insights/${p.slug}`}
-            className="group flex h-full flex-col rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-soft-lg"
+            className="group flex h-full flex-col rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-6 shadow-soft transition-all card-press hover:-translate-y-1 hover:shadow-soft-lg"
           >
             <div className="flex items-center gap-3 text-xs text-[color:var(--muted-on-light)]">
               <Badge>{p.category}</Badge>

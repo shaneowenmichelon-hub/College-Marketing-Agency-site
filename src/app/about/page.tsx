@@ -115,7 +115,7 @@ export default function AboutPage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {team.map((member, i) => {
             const card = (
-              <div className="flex h-full flex-col items-center rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-6 text-center shadow-soft transition-all group-hover:-translate-y-1 group-hover:shadow-soft-lg">
+              <div className="flex h-full flex-col items-center rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-6 text-center shadow-soft transition-all group-card-press hover:-translate-y-1 group-hover:shadow-soft-lg">
                 <TeamAvatar name={member.name} photo={member.photo} className="mx-auto" />
                 <p className="mt-4 font-display text-base font-bold text-ink">
                   {member.name}

@@ -186,7 +186,7 @@ export function CampusAttentionJourney() {
                 key={offer.label}
                 href={offer.href}
                 className={cn(
-                  "group flex min-h-full flex-col rounded-[3px] border-2 border-ink p-5 shadow-[5px_5px_0_var(--ink)] transition-all hover:-translate-y-1 hover:shadow-[8px_8px_0_var(--ink)]",
+                  "group flex min-h-full flex-col rounded-[3px] border-2 border-ink p-5 shadow-[5px_5px_0_var(--ink)] transition-all card-press hover:-translate-y-1 hover:shadow-[8px_8px_0_var(--ink)]",
                   i === 0 && "bg-[color:var(--accent)] text-white",
                   i === 1 && "bg-[color:var(--accent-2)] text-ink",
                   i === 2 && "bg-[color:var(--magenta)] text-ink",

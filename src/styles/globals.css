@@ -141,6 +141,19 @@
     box-shadow: 2px 2px 0 var(--ink);
   }
 
+  /*
+   * Cards are links, and on a phone :hover never fires - so the stamped-shadow
+   * lift that makes them feel physical on desktop does nothing on touch and a
+   * tap reads as if it missed. This gives them the same press the buttons get.
+   */
+  .card-press {
+    transition: transform 140ms ease, box-shadow 140ms ease;
+  }
+  .card-press:active {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
   /* Sticker/graffiti badge. */
   .sticker {
     display: inline-flex;
@@ -285,6 +298,12 @@ body {
   .ticker-track {
     animation: none !important;
   }
+  .card-press,
+  .card-press:active {
+    transition: none;
+    transform: none;
+  }
+
   .art-float,
   .art-float-lg,
   .art-pulse,
