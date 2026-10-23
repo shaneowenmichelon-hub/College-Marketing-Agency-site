@@ -151,6 +151,22 @@ class PhotoRuleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "hero-photo-disallowed"):
             p.validate_inline_photos("A staffing guide with no inline figure.", data, library, ROOT)
 
+    def test_every_published_article_has_two_inline_photos(self):
+        library = (ROOT / "content/seo/public-photo-library.md").read_text()
+        articles = sorted((ROOT / "content/blog").glob("*.mdx"))
+        self.assertEqual(len(articles), 32)
+        expected = []
+        for path in articles:
+            data, body = p.frontmatter(path)
+            inline = p.validate_inline_photos(body, data, library, ROOT)
+            self.assertEqual(len(inline), 2, data["slug"])
+            self.assertTrue(all(item["alt"] and item["caption"] for item in inline), data["slug"])
+            self.assertEqual(len({item["src"] for item in inline}), 2, data["slug"])
+            expected.append({"slug": data["slug"], "src": data["image"], "role": "hero"})
+            expected.extend({"slug": data["slug"], "src": item["src"], "role": "inline"} for item in inline)
+        ledger = json.loads((ROOT / "content/seo/photo-usage.json").read_text())["uses"]
+        self.assertEqual(ledger, sorted(expected, key=lambda item: (item["slug"], item["role"], item["src"])))
+
     def test_prompt_names_the_least_used_trio(self):
         library = self.root / "content/seo/public-photo-library.md"
         library.parent.mkdir(parents=True, exist_ok=True)
