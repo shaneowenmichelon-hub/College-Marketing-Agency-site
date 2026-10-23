@@ -121,3 +121,26 @@ test("a figure renders alt, caption, and the file's width and height", () => {
   assert.match(html, /height="750"/);
   assert.doesNotMatch(html, /<a /);
 });
+
+test("every MDX insight carries two inline figures with alt text and a caption", () => {
+  const { posts } = load(path.join(__dirname, "../src/lib/content.ts"));
+  const slugs = fs
+    .readdirSync(path.join(__dirname, "../content/blog"))
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => file.replace(/\.mdx$/, ""));
+  assert.equal(slugs.length, 32);
+  for (const slug of slugs) {
+    const post = posts.find((item) => item.slug === slug);
+    assert.ok(post, slug);
+    const figures = post.body.filter((block) => block.type === "figure");
+    assert.equal(figures.length, 2, slug);
+    for (const figure of figures) {
+      assert.ok(figure.alt, slug);
+      assert.ok(figure.caption, slug);
+      assert.ok(figure.width > 0 && figure.height > 0, slug);
+      assert.notEqual(figure.src, post.image, slug);
+      assert.match(figure.src, /^\/images\/blog\/[a-z0-9-]+\.jpg$/);
+    }
+    assert.equal(new Set(figures.map((figure) => figure.src)).size, 2, slug);
+  }
+});
