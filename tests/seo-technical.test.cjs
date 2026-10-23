@@ -152,7 +152,7 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
   assert.equal(byLoc.has("https://collegiateagency.com/work/nutrl-night-school-tour-product-placement"), true);
 
   const article = byLoc.get("https://collegiateagency.com/insights/college-marketing-agency");
-  assert.equal(article.lastModified.toISOString(), "2026-07-29T00:00:00.000Z");
+  assert.equal(article.lastModified.toISOString(), "2026-10-23T00:00:00.000Z");
   assert.equal(
     byLoc.get("https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors").lastModified.toISOString(),
     "2026-08-03T00:00:00.000Z",

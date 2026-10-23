@@ -6,6 +6,7 @@
  * IMPORTANT: never import a competitor's real clients or numbers here.
  */
 import { siteConfig, getStat } from "@/site.config";
+import type { ArticleFaq } from "@/lib/article-faq";
 import { loadMdxPosts } from "@/lib/blog-files";
 
 export type PostCategory =
@@ -82,6 +83,11 @@ export type Post = {
   art?: string;
   /** The service page the closing CTA points at. */
   ctaService: ServiceSlug;
+  /**
+   * Optional visible FAQ. The same items are rendered on the page and emitted
+   * as FAQPage JSON-LD. `answer` may contain markdown links.
+   */
+  faq?: ArticleFaq[];
   /** Full article body. */
   body: ArticleBlock[];
 };

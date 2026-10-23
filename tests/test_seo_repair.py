@@ -71,7 +71,7 @@ class RepairTests(unittest.TestCase):
         article = work/'content/blog/campus-field-marketing-agency.mdx'
         result = p.validate_article(article, work)
         self.assertEqual(result['tables'], 1)
-        self.assertEqual(len(result['body_links']), 5)
+        self.assertEqual(len(result['body_links']), 8)
         with tempfile.TemporaryDirectory(dir=ROOT) as temp:
             folder = Path(temp)
             shutil.copytree(work/'content', folder/'content')

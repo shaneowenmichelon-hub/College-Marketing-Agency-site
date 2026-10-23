@@ -7,7 +7,9 @@ import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { CTASection } from "@/components/CTASection";
 import { ArticleTable } from "@/components/article/ArticleTable";
+import { ArticleFaq, FaqPageJsonLd } from "@/components/services/ServiceFaq";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { articleFaqSchemaItems } from "@/lib/article-faq";
 import { pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/site.config";
 import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/content";
@@ -139,6 +141,9 @@ export default async function InsightArticle({ params }: { params: Params }) {
         image={post.image ?? post.ogImage}
         author={author}
       />
+      {post.faq && post.faq.length > 0 && (
+        <FaqPageJsonLd items={articleFaqSchemaItems(post.faq)} path={`/insights/${post.slug}`} />
+      )}
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "/" },
@@ -208,6 +213,12 @@ export default async function InsightArticle({ params }: { params: Params }) {
               {post.body.map((block, i) => (
                 <Block key={i} block={block} />
               ))}
+              {post.faq && post.faq.length > 0 && (
+                <div id="faq" className="scroll-mt-24">
+                  <h2 className="font-display text-2xl font-bold text-ink">Questions brands ask</h2>
+                  <ArticleFaq items={post.faq} />
+                </div>
+              )}
             </div>
 
             {/* Closing CTA: brand conversion first, service page second. */}
