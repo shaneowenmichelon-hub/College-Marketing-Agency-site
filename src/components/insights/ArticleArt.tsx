@@ -156,6 +156,8 @@ export function ArticleArt({
   art,
   image,
   imageAlt,
+  imageWidth,
+  imageHeight,
   className,
   rounded = "rounded-2xl",
 }: {
@@ -165,15 +167,24 @@ export function ArticleArt({
   art?: string;
   image?: string;
   imageAlt?: string;
+  /** Intrinsic pixels of `image`. Omit only for the SVG cover. */
+  imageWidth?: number;
+  imageHeight?: number;
   className?: string;
   rounded?: string;
 }) {
   if (image) {
     return (
       <div className={cn("relative overflow-hidden border-2 border-ink", rounded, className)}>
-        {/* Local licensed photos are deliberately served directly for verifiable byte identity. */}
+        {/* Local photos are served directly so the live verifier can hash the file bytes. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt={imageAlt ?? ""} width={1600} height={900} className="h-full w-full object-cover" />
+        <img
+          src={image}
+          alt={imageAlt ?? ""}
+          width={imageWidth}
+          height={imageHeight}
+          className="h-full w-full object-cover"
+        />
       </div>
     );
   }

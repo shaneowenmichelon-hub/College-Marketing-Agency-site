@@ -11,7 +11,7 @@ import { ArticleFigure } from "@/components/article/ArticleFigure";
 import { ArticleFaq, FaqPageJsonLd } from "@/components/services/ServiceFaq";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { articleFaqSchemaItems } from "@/lib/article-faq";
-import { pageMetadata } from "@/lib/seo";
+import { articleSocialImage, pageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/site.config";
 import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/content";
 import { ArticleArt } from "@/components/insights/ArticleArt";
@@ -78,11 +78,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       index: false,
     });
   }
-  // Only set a per-article image when the post has a real raster photo; otherwise
-  // omit it so the generated site OG PNG (app/opengraph-image.tsx) is inherited
-  // (avoids falling back to an SVG, which social platforms don't render well).
-  const image = post.image ?? post.ogImage;
   const description = post.metaDescription ?? post.excerpt;
+  const image = articleSocialImage(post);
   return pageMetadata({
     title: post.metaTitle ?? post.title,
     description,
@@ -91,7 +88,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     publishedTime: post.date,
     modifiedTime: post.dateModified ?? post.date,
     authors: [post.author ?? siteConfig.companyName],
-    ...(image ? { images: [{ url: image, width: 1200, height: 630, alt: post.title }] } : {}),
+    images: [image],
   });
 }
 
@@ -178,7 +175,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
           </Container>
           <Container className="mt-10 max-w-4xl px-0">
             <div className="relative">
-              <ArticleArt slug={post.slug} category={post.category} art={post.art} image={post.image} imageAlt={post.imageAlt} className="aspect-[16/8] w-full" />
+              <ArticleArt slug={post.slug} category={post.category} art={post.art} image={post.image} imageAlt={post.imageAlt} imageWidth={post.imageWidth} imageHeight={post.imageHeight} className="aspect-[16/8] w-full" />
               <span className="absolute bottom-4 left-4 z-20 rounded-full border-2 border-ink bg-white/90 px-3 py-1 text-xs font-bold text-ink">
                 {post.category}
               </span>

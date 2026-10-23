@@ -39,6 +39,8 @@ export default function InsightsPage() {
               slug={featured.slug}
               image={featured.image}
               imageAlt={featured.imageAlt}
+              imageWidth={featured.imageWidth}
+              imageHeight={featured.imageHeight}
               category={featured.category}
               art={featured.art}
               rounded="rounded-none"
@@ -74,6 +76,8 @@ export default function InsightsPage() {
                   slug={p.slug}
                   image={p.image}
                   imageAlt={p.imageAlt}
+                  imageWidth={p.imageWidth}
+                  imageHeight={p.imageHeight}
                   category={p.category}
                   art={p.art}
                   className="mb-5 aspect-[16/7] w-full"

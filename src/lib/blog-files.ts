@@ -334,6 +334,12 @@ export function loadMdxPosts(): Post[] {
         art: typeof data.art === "string" ? data.art : undefined,
         image: typeof data.image === "string" ? data.image : undefined,
         imageAlt: typeof data.imageAlt === "string" ? data.imageAlt : undefined,
+        ...(typeof data.image === "string"
+          ? (() => {
+              const { size } = resolvePublicImage(data.image);
+              return { imageWidth: size.width, imageHeight: size.height };
+            })()
+          : {}),
         imageCredit: typeof data.imageCredit === "string" ? data.imageCredit : undefined,
         imageSource: typeof data.imageSource === "string" ? data.imageSource : undefined,
         imageLicense: typeof data.imageLicense === "string" ? data.imageLicense : undefined,

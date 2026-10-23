@@ -51,6 +51,36 @@ export function absoluteUrl(path: string): string {
 type OgImage = { url: string; width?: number; height?: number; alt?: string };
 
 /**
+ * The generated root social card (`app/opengraph-image.tsx`). 1200×630 is that
+ * file's real size. Article photos pass their own intrinsic pixels instead.
+ */
+export const DEFAULT_SOCIAL_IMAGE: { url: string; width: number; height: number; alt: string } = {
+  url: "/opengraph-image",
+  width: 1200,
+  height: 630,
+  alt: `${siteConfig.companyName} — ${siteConfig.tagline}`,
+};
+
+/** Per-article social image, or the default card when the article has no photograph. */
+export function articleSocialImage(post: {
+  title: string;
+  image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+}): { url: string; width: number; height: number; alt: string } {
+  if (post.image && post.imageWidth && post.imageHeight) {
+    return {
+      url: post.image,
+      width: post.imageWidth,
+      height: post.imageHeight,
+      alt: post.imageAlt?.trim() || post.title,
+    };
+  }
+  return DEFAULT_SOCIAL_IMAGE;
+}
+
+/**
  * Page metadata with a canonical URL and matching Open Graph / Twitter tags.
  * Titles are absolute so the root template cannot append the brand a second time.
  */

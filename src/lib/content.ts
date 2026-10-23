@@ -91,6 +91,9 @@ export type Post = {
   /** Licensed/owned editorial photograph and visible attribution. */
   image?: string;
   imageAlt?: string;
+  /** Intrinsic pixels of `image`, read from the file. */
+  imageWidth?: number;
+  imageHeight?: number;
   imageCredit?: string;
   imageSource?: string;
   imageLicense?: string;

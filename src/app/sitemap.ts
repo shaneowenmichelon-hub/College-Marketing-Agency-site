@@ -65,12 +65,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     }));
 
-  const articleEntries: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${siteConfig.url}/insights/${post.slug}`,
-    lastModified: lastModified(post.dateModified ?? post.date),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  const articleEntries: MetadataRoute.Sitemap = posts.map((post) => {
+    const images = [
+      ...(post.image ? [`${siteConfig.url}${post.image}`] : []),
+      ...post.body.filter((block) => block.type === "figure").map((block) => `${siteConfig.url}${block.src}`),
+    ];
+    return {
+      url: `${siteConfig.url}/insights/${post.slug}`,
+      lastModified: lastModified(post.dateModified ?? post.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      ...(images.length ? { images: [...new Set(images)] } : {}),
+    };
+  });
 
   return [...staticEntries, ...workEntries, ...articleEntries];
 }
