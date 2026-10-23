@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { ArticleCtaCard, ArticleFooterCta } from "@/components/insights/ArticleCta";
 import { Section } from "@/components/ui/Section";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
-import { CTASection } from "@/components/CTASection";
 import { ArticleTable } from "@/components/article/ArticleTable";
 import { ArticleFigure } from "@/components/article/ArticleFigure";
 import { ArticleFaq, FaqPageJsonLd } from "@/components/services/ServiceFaq";
@@ -209,54 +209,41 @@ export default async function InsightArticle({ params }: { params: Params }) {
 
         <Section tone="light" className="pt-10">
           <Container className="max-w-3xl px-0">
-            <div className="prose-custom space-y-6 text-base leading-relaxed text-[color:var(--muted-on-light)] [&_a]:font-semibold [&_a]:text-accent [&_a:hover]:underline [&_strong]:text-ink">
-              {post.body.map((block, i) => (
-                <Block key={i} block={block} />
-              ))}
-              {post.faq && post.faq.length > 0 && (
-                <div id="faq" className="scroll-mt-24">
-                  <h2 className="font-display text-2xl font-bold text-ink">Questions brands ask</h2>
-                  <ArticleFaq items={post.faq} />
-                </div>
-              )}
-            </div>
+            {(() => {
+              const h2Indexes = post.body.flatMap((block, index) => (block.type === "h2" ? [index] : []));
+              // After the second section when the article has one, otherwise after the first heading.
+              const midAt = h2Indexes.length >= 3 ? h2Indexes[2] : h2Indexes.length >= 1 ? h2Indexes[0] + 1 : post.body.length;
+              const prose =
+                "prose-custom space-y-6 text-base leading-relaxed text-[color:var(--muted-on-light)] [&_a]:font-semibold [&_a]:text-accent [&_a:hover]:underline [&_strong]:text-ink";
+              return (
+                <>
+                  <div className={prose}>
+                    {post.body.slice(0, midAt).map((block, i) => (
+                      <Block key={i} block={block} />
+                    ))}
+                  </div>
+                  <ArticleCtaCard slug={post.slug} position="mid" cta={cta} />
+                  <div className={prose}>
+                    {post.body.slice(midAt).map((block, i) => (
+                      <Block key={midAt + i} block={block} />
+                    ))}
+                    {post.faq && post.faq.length > 0 && (
+                      <div id="faq" className="scroll-mt-24">
+                        <h2 className="font-display text-2xl font-bold text-ink">Questions brands ask</h2>
+                        <ArticleFaq items={post.faq} />
+                      </div>
+                    )}
+                  </div>
+                </>
+              );
+            })()}
 
-            {/* Closing CTA: brand conversion first, service page second. */}
-            <div className="mt-12 rounded-[4px] border-2 border-ink bg-[color:var(--accent)] p-6 text-white shadow-[8px_8px_0_var(--ink)] sm:p-8">
-              <h2 className="font-display text-2xl font-bold">{cta.heading}</h2>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/90">{cta.blurb}</p>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Link
-                  href={cta.primary.href}
-                  className="brutal-press inline-flex shrink-0 items-center justify-center gap-1.5 rounded-[3px] border-2 border-ink bg-[color:var(--accent-2)] px-5 py-2.5 text-sm font-bold text-ink shadow-[4px_4px_0_var(--ink)]"
-                >
-                  {cta.primary.label} <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href={cta.secondary.href}
-                  className="inline-flex shrink-0 items-center gap-1.5 text-sm font-bold text-white underline decoration-2 underline-offset-4"
-                >
-                  {cta.secondary.label}
-                </Link>
-              </div>
-              {/* Students searching these same terms get a door of their own,
-                  rather than being pushed through the brand funnel. */}
-              <p className="mt-5 border-t-2 border-white/20 pt-4 text-xs text-white/70">
-                Student, not a brand?{" "}
-                <Link href="/become-an-ambassador" className="font-semibold text-white underline underline-offset-4">
-                  Apply to the ambassador network
-                </Link>
-                .
-              </p>
-            </div>
+            <ArticleCtaCard slug={post.slug} position="closing" cta={cta} />
           </Container>
         </Section>
       </article>
 
-      <CTASection
-        title="Ready to reach students?"
-        primary={{ label: "Get Started", href: "/contact", variant: "lime" }}
-      />
+      <ArticleFooterCta slug={post.slug} />
     </>
   );
 }

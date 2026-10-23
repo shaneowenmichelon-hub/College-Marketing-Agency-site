@@ -46,13 +46,10 @@ function decode(html) {
     .trim();
 }
 
-const FAQ_SLUGS = [
-  "college-marketing-agency",
-  "campus-marketing-agency-rfp",
-  "campus-brand-activation-agency",
-  "college-brand-ambassador-program",
-  "spring-break-marketing-agency",
-];
+const FAQ_SLUGS = fs
+  .readdirSync(path.join(__dirname, "../content/blog"))
+  .filter((file) => file.endsWith(".mdx"))
+  .map((file) => file.replace(/\.mdx$/, ""));
 
 const LINK_SLUGS = {
   "campus-ambassador-content-rights": [

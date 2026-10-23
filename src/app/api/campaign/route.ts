@@ -5,6 +5,7 @@ import { rateLimit, clientIp } from "@/lib/rate-limit";
 import { classifySource, clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
 import { captureDeal } from "@/lib/crm/capture";
 import { formatUSD } from "@/lib/campaign-inventory";
+import { ATTRIBUTION_KEYS, type Attribution } from "@/lib/leads";
 
 // Email SDK needs the Node runtime (not edge).
 export const runtime = "nodejs";
@@ -50,7 +51,14 @@ export async function POST(request: Request) {
   const lastName = String(contact.lastName ?? "").trim();
   const company = String(contact.company ?? "").trim();
   const phone = String(contact.phone ?? "").trim();
-  const attribution = (body.attribution ?? {}) as Record<string, string>;
+  const attribution: Attribution = {};
+  const rawAttr = (body.attribution ?? {}) as Record<string, unknown>;
+  for (const key of ATTRIBUTION_KEYS) {
+    const value = rawAttr[key];
+    if (typeof value !== "string" || !value) continue;
+    if (key === "article" && !/^[a-z0-9-]{1,80}$/.test(value)) continue;
+    attribution[key] = value;
+  }
 
   // ── build a readable summary ──
   const lines: string[] = [];
@@ -79,12 +87,13 @@ export async function POST(request: Request) {
     `  Client's target budget: ${budget || "—"}`,
   );
   if (notes) lines.push("", "Notes:", notes);
+  if (attribution.article) lines.push("", `Referring article: /insights/${attribution.article}`);
   const summaryText = lines.join("\n");
 
   const who = [firstName, lastName].filter(Boolean).join(" ") || "A brand";
 
   // Structured capture fallback.
-  console.log("[campaign]", JSON.stringify({ at: new Date().toISOString(), email, company, services, months, schools, events, totals, budget, notes }));
+  console.log("[campaign]", JSON.stringify({ at: new Date().toISOString(), email, company, services, months, schools, events, totals, budget, notes, attribution }));
 
   const source = classifySource(attribution.referrer, attribution.utm_source);
   await recordAdminEvent({
@@ -97,7 +106,7 @@ export async function POST(request: Request) {
     llmSource: source.llmSource,
     userAgent: request.headers.get("user-agent") || undefined,
     ipHash: hashIp(analyticsClientIp(request)),
-    data: { firstName, lastName, company, email, phone, services, months, schools, events, totals, budget, notes },
+    data: { firstName, lastName, company, email, phone, services, months, schools, events, totals, budget, notes, attribution },
   });
 
   // Put the brand on the pipeline board. Never throws - see captureDeal.
@@ -107,7 +116,7 @@ export async function POST(request: Request) {
     company: company || null,
     contactName: who !== "A brand" ? who : null,
     phone: phone || null,
-    payload: { services, months, schools, events, totals, budget, notes },
+    payload: { services, months, schools, events, totals, budget, notes, attribution },
   });
 
   const internalSubject = `New campaign build — ${who}${company ? ` @ ${company}` : ""} (${budget || formatUSD(totals.estimate ?? 0)})`;

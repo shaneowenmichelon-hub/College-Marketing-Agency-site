@@ -28,6 +28,8 @@ import {
   formatUSD,
 } from "@/lib/campaign-inventory";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
+import { useAttribution } from "@/lib/client-forms";
 
 type ServiceKey = "events" | "product-placement" | "ambassadors";
 
@@ -124,6 +126,7 @@ export function CampaignBuilder() {
   const [contact, setContact] = useState({ firstName: "", lastName: "", company: "", email: "", phone: "" });
   const [stepIndex, setStepIndex] = useState(0);
   const [submitState, setSubmitState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const attribution = useAttribution();
   const [errorMsg, setErrorMsg] = useState("");
 
   const wantsSchools = services.ambassadors || services["product-placement"];
@@ -210,10 +213,7 @@ export function CampaignBuilder() {
       budget: budgetOverride.trim() || formatUSD(estimate),
       notes: notes.trim(),
       contact,
-      attribution: {
-        referrer: typeof document !== "undefined" ? document.referrer : "",
-        landing_page: typeof window !== "undefined" ? window.location.pathname : "/build-a-campaign",
-      },
+      attribution,
     };
 
     try {
@@ -226,6 +226,7 @@ export function CampaignBuilder() {
         const data = await res.json().catch(() => ({}));
         throw new Error(data?.error || "Something went wrong. Please try again.");
       }
+      trackEvent("generate_lead", { form: "campaign_builder", services: payload.services.join(",") });
       setSubmitState("done");
     } catch (err) {
       setSubmitState("error");
