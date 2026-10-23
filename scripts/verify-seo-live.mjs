@@ -53,7 +53,9 @@ export async function verifyTables(page, expected) {
   const evidence = [];
   for (const width of [1280, 390, 320]) {
     await page.setViewportSize({width, height: 900});
-    const result = await page.locator('article .prose-custom').evaluate((body) => {
+    // The mid-article CTA sits between two prose regions so its links stay out of
+    // the body-link count. Tables in either region belong to the same article.
+    const regions = await page.locator('article .prose-custom').evaluateAll((bodies) => bodies.map((body) => {
       const tables = [...body.querySelectorAll('table')].map(table => {
         const wrapper = table.parentElement;
         const cells = [...table.querySelectorAll('tbody td, tbody th')];
@@ -75,7 +77,13 @@ export async function verifyTables(page, expected) {
       });
       return {tables, rawPipes: [...body.querySelectorAll('p')].some(p => /^\s*\|/m.test(p.textContent)),
         pageWidth: document.documentElement.scrollWidth, viewport: innerWidth};
-    });
+    }));
+    const result = {
+      tables: regions.flatMap((region) => region.tables),
+      rawPipes: regions.some((region) => region.rawPipes),
+      pageWidth: regions[0]?.pageWidth ?? 0,
+      viewport: regions[0]?.viewport ?? 0,
+    };
     assert.equal(result.tables.length, expected, 'semantic table count');
     assert.equal(result.rawPipes, false, 'raw markdown pipes');
     assert.ok(result.pageWidth <= width + 1, 'horizontal page overflow');
