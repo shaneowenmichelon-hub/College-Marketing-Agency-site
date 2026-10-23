@@ -39,3 +39,19 @@ test('rendered body links and destinations are independently verified, not photo
     mode='broken-target';await assert.rejects(()=>verifier.verifyBodyLinks(page,links,base));
   }finally{await browser.close();server.close();}
 });
+
+test('a table split around the mid-article card still counts once', async () => {
+  const cell = 'style="font-size:16px;line-height:24px"';
+  const table = `<div tabindex="0" role="region" style="overflow-x:auto"><table><thead><tr><th scope="col">Area</th><th scope="col">Need</th></tr></thead><tbody><tr><th scope="row" ${cell}>Roster</th><td ${cell}>Named lead</td></tr></tbody></table></div>`;
+  const html = `<article><div class="prose-custom">${table}</div><div class="cta"><a href="/contact">Book a call</a></div><div class="prose-custom"><p>After the card.</p></div></article>`;
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  try {
+    await page.setContent(html);
+    const evidence = await verifier.verifyTables(page, 1);
+    assert.equal(evidence.length, 3);
+    assert.equal(evidence[0].tables.length, 1);
+  } finally {
+    await browser.close();
+  }
+});
