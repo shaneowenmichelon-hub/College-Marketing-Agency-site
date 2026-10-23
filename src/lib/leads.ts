@@ -10,6 +10,8 @@ export type Attribution = {
   fbclid?: string;
   referrer?: string;
   landing_page?: string;
+  /** Insight slug when the lead started from an article CTA. */
+  article?: string;
 };
 
 export const ATTRIBUTION_KEYS: (keyof Attribution)[] = [
@@ -22,6 +24,7 @@ export const ATTRIBUTION_KEYS: (keyof Attribution)[] = [
   "fbclid",
   "referrer",
   "landing_page",
+  "article",
 ];
 
 export type SubmissionKind = "brand_inquiry" | "student_application" | "lead_magnet";

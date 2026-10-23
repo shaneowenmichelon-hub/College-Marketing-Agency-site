@@ -185,6 +185,19 @@ test("llms.txt points at real service pages and defines the agency", async () =>
   assert.match(body, /\/work\/sos-consultants-nola-campus-leasing-ambassadors/);
 });
 
+test("llms-full.txt is generated from the article bodies", async () => {
+  const { GET } = loadTs("app/llms-full.txt/route.ts");
+  const response = await GET();
+  assert.equal(response.headers.get("content-type"), "text/plain; charset=utf-8");
+  const body = await response.text();
+  assert.match(body, /^# Collegiate Agency — full insight library/m);
+  assert.match(body, /URL: https:\/\/collegiateagency\.com\/insights\/college-experiential-marketing-agency/);
+  assert.match(body, /A college experiential marketing agency is the partner you hire/);
+  assert.match(body, /Q: /);
+  assert.ok(body.length > 40000, `llms-full.txt is too short: ${body.length}`);
+  assert.equal(body.includes("/insights/sos-consultants-nola-campus-leasing-ambassadors"), false);
+});
+
 test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
   const { servicePageSeo, faqPageStructuredData } = loadTs("lib/service-faqs.ts");
   const { getCaseStudy, getPost } = loadTs("lib/content.ts");
