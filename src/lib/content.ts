@@ -24,7 +24,22 @@ export type ArticleBlock =
   | { type: "h2"; text: string }
   | { type: "ul"; items: string[] }
   | { type: "ol"; items: string[] }
-  | ArticleTableBlock;
+  | ArticleTableBlock
+  | ArticleFigureBlock;
+
+/**
+ * An owned photograph in the article body, authored as a markdown image on
+ * its own line. `src` is a path under `/images/` in `public/`. `width` and
+ * `height` are the file's intrinsic pixels. Raw HTML images are not accepted.
+ */
+export type ArticleFigureBlock = {
+  type: "figure";
+  src: string;
+  alt: string;
+  caption?: string;
+  width: number;
+  height: number;
+};
 
 /**
  * A real data table. Authored as a GitHub-flavoured markdown pipe table in the
@@ -105,6 +120,7 @@ export function estimateReadingTime(body: ArticleBlock[]): string {
       if (b.type === "table") {
         return [b.caption ?? "", ...b.columns, ...b.rows.flat()].join(" ");
       }
+      if (b.type === "figure") return [b.alt, b.caption ?? ""].join(" ");
       return b.items.join(" ");
     })
     .join(" ")

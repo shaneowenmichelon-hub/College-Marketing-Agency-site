@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { CTASection } from "@/components/CTASection";
 import { ArticleTable } from "@/components/article/ArticleTable";
+import { ArticleFigure } from "@/components/article/ArticleFigure";
 import { ArticleFaq, FaqPageJsonLd } from "@/components/services/ServiceFaq";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { articleFaqSchemaItems } from "@/lib/article-faq";
@@ -119,6 +120,8 @@ function Block({ block }: { block: ArticleBlock }) {
       );
     case "table":
       return <ArticleTable block={block} />;
+    case "figure":
+      return <ArticleFigure block={block} />;
   }
 }
 

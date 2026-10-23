@@ -92,6 +92,11 @@ class PublisherTests(unittest.TestCase):
 
     def test_article_validation_requires_photo_and_rejects_duplicate_keyword(self):
         self.assertTrue(callable(getattr(p,"validate_article",None)), "No article/photo validation")
+        # This fixture is the licensed-photo path. The inline-photo quota is
+        # covered on its own; freezing it keeps this test stable after 2026-10-25.
+        quota = patch.object(p, "inline_photos_required", return_value=False)
+        quota.start()
+        self.addCleanup(quota.stop)
         blog=self.root/"content/blog"; blog.mkdir(parents=True)
         photos=self.root/"public/images/blog"; photos.mkdir(parents=True)
         (photos/"campus.jpg").write_bytes(b"test-photo-bytes")

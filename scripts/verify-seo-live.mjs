@@ -90,6 +90,27 @@ export async function verifyTables(page, expected) {
   return evidence;
 }
 
+/**
+ * Inline photos have to be owned library assets, with alt text, and they
+ * cannot repeat the hero or each other. The live request check is separate.
+ */
+export function assertOwnedInlinePhotos(photos, libraryText, heroSrc = '') {
+  assert.ok(Array.isArray(photos), 'inline photo list');
+  const seen = new Set();
+  if (heroSrc) seen.add(heroSrc);
+  const sections = libraryText.split(/^#{1,6} /m);
+  for (const photo of photos) {
+    assert.equal(typeof photo.alt, 'string', 'inline photo alt');
+    assert.ok(photo.alt.trim(), 'inline photo alt');
+    assert.ok(!seen.has(photo.src), 'inline photo repeat');
+    seen.add(photo.src);
+    const entry = sections.find((section) => section.includes(`- Local asset: \`${photo.src}\``));
+    assert.ok(entry, 'inline photo owned');
+    assert.match(entry, /^- Rights: owned\./m, 'inline photo owned');
+    assert.doesNotMatch(entry, /^- Status: disallowed/m, 'inline photo disallowed');
+  }
+}
+
 /** Independent verification: never parse the publishing agent's claims. */
 export async function verify(artifact, base = 'https://collegiateagency.com') {
   assert.match(artifact.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
@@ -130,7 +151,36 @@ export async function verify(artifact, base = 'https://collegiateagency.com') {
     // Historical receipts predate body_links; every newly validated artifact carries it.
     const body_links = artifact.body_links ? await verifyBodyLinks(page, artifact.body_links, base) : undefined;
     const tables = artifact.tables !== undefined ? await verifyTables(page, artifact.tables) : undefined;
-    return {url, sitemap: `${base}/sitemap.xml`, ...dimensions, image_sha256: artifact.image_sha256, body_links, tables};
+    let inline_photos;
+    if (Array.isArray(artifact.inline_photos) && artifact.inline_photos.length) {
+      const libraryPath = path.join(process.cwd(), 'content/seo/public-photo-library.md');
+      assertOwnedInlinePhotos(artifact.inline_photos, fs.readFileSync(libraryPath, 'utf8'), artifact.image);
+      const figures = await page.locator('article figure img').evaluateAll(async (imgs) => {
+        const out = [];
+        for (const img of imgs) {
+          try { await img.decode(); } catch { /* status check below still runs on the file URL */ }
+          out.push({
+            alt: img.alt,
+            width: Number(img.getAttribute('width')),
+            height: Number(img.getAttribute('height')),
+            naturalWidth: img.naturalWidth,
+            naturalHeight: img.naturalHeight,
+          });
+        }
+        return out;
+      });
+      inline_photos = [];
+      for (const photo of artifact.inline_photos) {
+        const rendered = figures.find((figure) => figure.alt === photo.alt);
+        assert.ok(rendered, 'inline photo alt missing');
+        assert.ok(rendered.width > 0 && rendered.height > 0, 'inline photo dimensions');
+        const response = await page.request.get(new URL(photo.src, base).href);
+        assert.equal(response.status(), 200, 'inline photo status');
+        assert.match(response.headers()['content-type'] ?? '', /^image\/(jpeg|png|webp)/);
+        inline_photos.push({src: photo.src, alt: photo.alt, status: 200, width: rendered.width, height: rendered.height});
+      }
+    }
+    return {url, sitemap: `${base}/sitemap.xml`, ...dimensions, image_sha256: artifact.image_sha256, body_links, tables, inline_photos};
   } finally { await browser.close(); }
 }
 

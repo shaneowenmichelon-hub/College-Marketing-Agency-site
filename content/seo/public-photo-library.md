@@ -31,12 +31,42 @@ Before any of these is used in paid media, keep a signed model release on file
 for each identifiable person. Editorial use on our own site is the narrower
 case these were cleared into.
 
+## How many times a photo may run
+
+Each article carries **1 hero and 2 inline photos**. Inline photos are markdown
+figures, `![alt](/images/...)` plus an optional `Caption:` line, and they have
+to be one of the owned assets below. Do not repeat a photo inside an article.
+
+Spread, enforced by `content/seo/photo-usage.json` and the publisher:
+
+- Prefer the least-used suitable photo.
+- A photo is the **hero on at most 2 articles**. A third hero use is allowed
+  only when every suitable photo is already a hero twice, and a fourth is not.
+- A photo **appears on about 6 articles**. Seven is the hard stop, because 15
+  photos cannot cover 32 articles at a strict six (32 × 3 uses = 96, and
+  15 × 6 = 90). The publisher stops rather than place a photo on an 8th article.
+- When the catalog allows it, the three frames on an article are one
+  **crowd/people** shot, one **setup/staffing** shot, and one
+  **product-in-hand** shot. `Shot:` on each entry is that list, first role first.
+- `Caption ban:` words must not appear in the alt or caption. Attendees and
+  bartenders are not staff, ambassadors, or reps. The performer is not a
+  client, sponsor, endorser, or ambassador, and is not named.
+- `Sales pages: forbidden` keeps that frame off any insights slug containing
+  `agency`, including `/insights/college-marketing-agency`. Editorial topic
+  pages such as `/insights/campus-influencers` can still use it.
+
+Do not use photographs that are not listed here. Files under
+`public/images/thaw-out`, `public/images/hero` (except the BEATBOX trio, which
+is the same owned frame as the blog file below), `public/images/work`, and
+`public/images/activations` are not cleared for articles.
+
 ## Bloom sampling, campus nightlife
 
 - Local asset: `/images/blog/bloom-sampling-campus-nightlife.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
-- Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Shot: product, crowd
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: Attendee holding a Bloom sparkling energy can at a sponsored campus nightlife event
 - Suitable topics: product sampling, product placement, nightlife activations.
 - One identifiable person. Brand shown is Bloom; do not describe Bloom as a client unless that is accurate.
@@ -46,7 +76,9 @@ case these were cleared into.
 - Local asset: `/images/blog/nutrl-attendees-sponsored-show.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
-- Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Shot: crowd, product
+- Caption ban: staff, ambassador, rep
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: Two attendees holding NUTRL cans at a sponsored campus show
 - Suitable topics: event sponsorship, nightlife activations, beverage brands.
 - Two identifiable people, plus crowd.
@@ -56,7 +88,9 @@ case these were cleared into.
 - Local asset: `/images/blog/nutrl-outdoor-campus-event.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
-- Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Shot: product, crowd
+- Caption ban: staff, ambassador, rep
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: Attendee holding a NUTRL can at an outdoor campus event
 - Suitable topics: sampling, outdoor activations, beverage brands.
 - One identifiable person, plus crowd.
@@ -66,7 +100,8 @@ case these were cleared into.
 - Local asset: `/images/blog/dazed-merch-table-activation.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
-- Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1336 x 2000 original.
+- Shot: setup
+- Dimensions: 1336 x 752, JPEG, cropped 16:9 from the 1336 x 2000 original.
 - Suggested alt: Staffed Dazed merchandise table at an outdoor campus activation
 - Suitable topics: tabling, campus activations, merch and staffing. The strongest "this is what we actually run" frame in the set.
 - Two identifiable people.
@@ -76,7 +111,9 @@ case these were cleared into.
 - Local asset: `/images/blog/dazed-branded-hats-activation.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
-- Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1336 x 2000 original.
+- Shot: crowd
+- Caption ban: staff, ambassador, rep
+- Dimensions: 1336 x 752, JPEG, cropped 16:9 from the 1336 x 2000 original.
 - Suggested alt: Attendees wearing branded Dazed hats at a campus activation
 - Suitable topics: experiential marketing, branded merch, campus activations.
 - Three identifiable people. They are attendees wearing merch, NOT our ambassadors - do not caption them as staff or reps.
@@ -86,6 +123,7 @@ case these were cleared into.
 - Local asset: `/images/blog/nutrl-koozies-sunglasses-giveaway.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
+- Shot: setup
 - Dimensions: 923 x 620, JPEG, cropped out of a letterboxed 923 x 2000 screen capture.
 - Suggested alt: NUTRL koozies and branded sunglasses laid out as giveaways on a lit activation cart
 - Suitable topics: product launch kits, branded giveaways, merch, sampling setups.
@@ -97,7 +135,9 @@ case these were cleared into.
 - Also in the hero rotation as `/images/hero/10-beatbox-trio-venue.jpg`, cropped 3:2 for the collage tile.
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
-- Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Shot: crowd, product
+- Caption ban: staff, ambassador, rep
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: Three attendees holding BEATBOX cartons outside a sponsored venue event
 - Suitable topics: festival and venue sponsorship, nightlife activations, beverage brands.
 - Three identifiable people. Attendees, not our staff.
@@ -107,7 +147,9 @@ case these were cleared into.
 - Local asset: `/images/blog/nutrl-bar-takeover.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
-- Dimensions: 1600 x 900, JPEG, cropped 16:9 from the 1333 x 2000 original.
+- Shot: setup
+- Caption ban: staff, ambassador, rep
+- Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Cropped high on purpose, to frame the NUTRL banner, the stocked shelves and the can rather than the bartender's body. Do not re-crop lower; the wider original reads as nightlife rather than as agency capability, which is the opposite of what a brand buyer needs to see.
 - Suggested alt: NUTRL branded bar takeover with signage, stocked cans and a bartender holding a can
 - Suitable topics: venue takeovers, bar activations, beverage brands.
@@ -119,6 +161,9 @@ case these were cleared into.
 - Local asset: `/images/blog/beatbox-premiere-step-and-repeat.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
+- Shot: crowd, product
+- Caption ban: staff, ambassador, rep
+- Sales pages: forbidden
 - Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: Two attendees holding BEATBOX cartons at a sponsored film premiere step-and-repeat
 - Suitable topics: tour and premiere activations, venue sponsorship, beverage brands.
@@ -130,6 +175,8 @@ case these were cleared into.
 - Local asset: `/images/blog/beatbox-poured-behind-bar.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
+- Shot: setup, product
+- Caption ban: staff, ambassador, rep
 - Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Cropped low on purpose, onto the two cartons, the pour and the glass. The wider original centres the bartender's torso with her face cut off; that framing sells the wrong thing to a brand buyer and should not be restored. Do not re-crop higher.
 - Suggested alt: BEATBOX poured from two cartons into a glass at a sponsored bar activation
@@ -141,6 +188,8 @@ case these were cleared into.
 - Local asset: `/images/blog/nutrl-crowd-campus-event.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
+- Shot: crowd, product
+- Caption ban: staff, ambassador, rep
 - Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: Two attendees holding a NUTRL can in the crowd at a sponsored campus event
 - Suitable topics: Gen Z marketing, event sponsorship, nightlife activations, beverage brands.
@@ -151,6 +200,8 @@ case these were cleared into.
 - Local asset: `/images/blog/nutrl-toast-tent-activation.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
+- Shot: crowd, product
+- Caption ban: staff, ambassador, rep
 - Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: Two attendees toasting NUTRL cans under the tent at a sponsored campus event
 - Suitable topics: campus events, product trial, outdoor activations, beverage brands.
@@ -161,6 +212,7 @@ case these were cleared into.
 - Local asset: `/images/blog/beatbox-stage-crowd-festival.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
+- Shot: crowd, product
 - Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: BEATBOX carton held up toward the stage and crowd at a sponsored live event
 - Suitable topics: agency capability, festival and venue sponsorship, live events, beverage brands.
@@ -171,6 +223,8 @@ case these were cleared into.
 - Local asset: `/images/blog/beatbox-performer-on-stage.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
+- Shot: crowd, product
+- Caption ban: client, sponsor, endorser, ambassador
 - Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: Performer on stage holding a BEATBOX carton at a sponsored tour stop
 - Suitable topics: tour marketing, product placement, talent moments, venue sponsorship.
@@ -181,6 +235,8 @@ case these were cleared into.
 - Local asset: `/images/blog/beatbox-attendees-venue-pair.jpg`
 - Credit: Collegiate Agency
 - Rights: owned. Photographed at our own activation; no external licence.
+- Shot: crowd, product
+- Caption ban: staff, ambassador, rep
 - Dimensions: 1333 x 750, JPEG, cropped 16:9 from the 1333 x 2000 original.
 - Suggested alt: Two attendees holding BEATBOX cartons at a sponsored venue event
 - Suitable topics: venue activations, agency selection and RFP, event sponsorship, beverage brands.

@@ -31,6 +31,22 @@ STATE = OPS / "autopublish-state.json"
 HERMES = "/Users/jamesmadison/.hermes/hermes-agent/venv/bin/hermes"
 TZ = ZoneInfo("America/Chicago")
 INTERVAL_HOURS = 36
+# The 36-hour publisher starts requiring two inline photos at this instant.
+# Existing articles are not republished; only a validation that runs at or
+# after this time rejects a new article that does not carry them.
+INLINE_PHOTO_REQUIRED_AT = datetime(2026, 10, 25, 4, 30, tzinfo=ZoneInfo("America/New_York"))
+LEDGER_PATH = "content/seo/photo-usage.json"
+# Preferred caps from publisher-operations.md. The hard caps exist because
+# 15 owned photos cannot cover 32 articles at a strict 2-hero / 6-appearance
+# ceiling (30 hero slots, 90 appearance slots, 96 uses). A new article may
+# use a third hero only when every suitable photo is already a hero twice,
+# and may not push any photo past 7 articles or a fourth hero use.
+HERO_PREFERRED_CAP = 2
+HERO_HARD_CAP = 3
+APPEARANCE_TARGET = 6
+APPEARANCE_HARD_CAP = 7
+PHOTO_SRC = re.compile(r"^/images/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9._-]+\.(?:jpe?g|png|webp)$")
+FIGURE_LINE = re.compile(r'^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)\s*$')
 
 def now_ct() -> datetime:
     return datetime.now(TZ)
@@ -119,6 +135,13 @@ Set imageRights: owned and imageCredit: Collegiate Agency. Use only existing, lo
 downloaded owned photography documented in content/seo/public-photo-library.md.
 Do not use stock or generated images. Omit imageSource and imageLicense for owned photos;
 never invent license URLs or source strings. Follow the exact photo's caption restrictions.
+Also place exactly two inline owned photos in the body. Each one is its own line,
+![Descriptive alt](/images/blog/file.jpg), followed immediately by a Caption: line.
+Do not repeat a photo inside the article, including the hero. Alt text is required.
+Do not caption attendees or bartenders as staff, ambassadors, or reps. The appendix
+names the least-used suitable hero and two inline photos; use that trio unless a
+caption would be false for the section. Keep the premiere step-and-repeat off any
+slug that sells the agency directly.
 Write 1200-1800 words, 4-6 H2s, direct second-person advice, an actionable checklist,
 short title including the keyword, metaTitle <60 chars and metaDescription <155 chars.
 Include AT LEAST THREE distinct contextual body-link destinations: >=2 internal
@@ -140,6 +163,7 @@ in today's fast-paced world. Do not invent statistics, clients, quotes, outcomes
 pricing or company claims. Avoid em dashes. Give practical recommendations, not hype.
 Use today's date in America/Chicago. Only write the article. Return its path.
 """
+    prompt += "\n" + photo_prompt_guidance(worktree)
     # Cron can run under Hermes' staged runtime venv. Invoke the stable venv
     # console script directly and strip inherited venv variables so compiled
     # packages such as pydantic_core load from the matching interpreter.
@@ -299,6 +323,268 @@ def validate_brand_intent(data: dict) -> None:
             raise ValueError("student-intent-keyword")
 
 
+def inline_photos_required(moment: datetime | None = None) -> bool:
+    moment = moment or now_ct()
+    return moment.astimezone(ZoneInfo("America/New_York")) >= INLINE_PHOTO_REQUIRED_AT
+
+
+def is_direct_sales_slug(slug: str) -> bool:
+    """A page selling Collegiate Agency as the vendor. Tactic essays are not."""
+    return "agency" in (slug or "")
+
+
+def parse_photo_library(library: str) -> dict[str, dict]:
+    photos: dict[str, dict] = {}
+    for section in re.split(r"(?m)^## ", library):
+        match = re.search(r"(?m)^- Local asset: `([^`]+)`\s*$", section)
+        if not match:
+            continue
+        src = match.group(1)
+        shot = re.search(r"(?m)^- Shot: ([a-z, ]+)\s*$", section)
+        roles = [part.strip() for part in shot.group(1).split(",") if part.strip()] if shot else []
+        ban = re.search(r"(?m)^- Caption ban: (.+)\s*$", section)
+        bans = [part.strip().casefold() for part in ban.group(1).split(",") if part.strip()] if ban else []
+        alt = re.search(r"(?m)^- Suggested alt: (.+)\s*$", section)
+        photos[src] = {
+            "src": src,
+            "owned": bool(re.search(r"(?m)^- Rights: owned\.", section)),
+            "disallowed": bool(re.search(r"(?m)^- Status: disallowed\b", section)),
+            "roles": roles,
+            "caption_bans": bans,
+            "sales_forbidden": bool(re.search(r"(?m)^- Sales pages: forbidden\s*$", section)),
+            "alt": alt.group(1).strip() if alt else "",
+        }
+    return photos
+
+
+def load_ledger(worktree: Path) -> list[dict]:
+    path = worktree / LEDGER_PATH
+    if not path.is_file():
+        return []
+    data = json.loads(path.read_text())
+    uses = data.get("uses", [])
+    if not isinstance(uses, list):
+        raise ValueError("photo-ledger")
+    return uses
+
+
+def usage_excluding(uses: list[dict], slug: str) -> list[dict]:
+    return [item for item in uses if item.get("slug") != slug]
+
+
+def hero_count(uses: list[dict], src: str) -> int:
+    return len({item["slug"] for item in uses if item.get("src") == src and item.get("role") == "hero"})
+
+
+def article_count(uses: list[dict], src: str) -> int:
+    return len({item["slug"] for item in uses if item.get("src") == src})
+
+
+def extract_inline_photos(body: str) -> list[dict]:
+    photos = []
+    lines = body.split("\n")
+    index = 0
+    while index < len(lines):
+        line = lines[index].strip()
+        match = FIGURE_LINE.match(line)
+        if match:
+            alt, src, title = match.group(1).strip(), match.group(2).strip(), (match.group(3) or "").strip()
+            caption = title
+            if index + 1 < len(lines) and re.match(r"(?i)^caption:\s+\S", lines[index + 1].strip()):
+                caption = re.sub(r"(?i)^caption:\s+", "", lines[index + 1].strip()).strip()
+                index += 1
+            photos.append({"src": src, "alt": alt, "caption": caption})
+        elif "![" in line:
+            raise ValueError("inline-photo-syntax")
+        index += 1
+    return photos
+
+
+def caption_banned(text: str, bans: list[str]) -> bool:
+    folded = text.casefold()
+    return any(re.search(r"\b" + re.escape(ban) + r"\b", folded) for ban in bans)
+
+
+def _under_appearance_cap(uses: list[dict], src: str) -> bool:
+    return article_count(uses, src) < APPEARANCE_HARD_CAP
+
+
+def select_article_photos(library: str, uses: list[dict], slug: str) -> dict:
+    """Least-used suitable hero plus two inline photos, mixing shot types."""
+    photos = [photo for photo in parse_photo_library(library).values() if photo["owned"] and not photo["disallowed"]]
+    if is_direct_sales_slug(slug):
+        photos = [photo for photo in photos if not photo["sales_forbidden"]]
+    chosen: list[tuple[str, dict]] = []
+    pool = photos[:]
+    for role in ("setup", "product", "crowd"):
+        candidates = [photo for photo in pool if role in photo["roles"] and _under_appearance_cap(uses, photo["src"])]
+        if not candidates:
+            continue
+        candidates.sort(key=lambda photo: (
+            0 if article_count(uses, photo["src"]) < APPEARANCE_TARGET else 1,
+            article_count(uses, photo["src"]),
+            hero_count(uses, photo["src"]),
+            photo["src"],
+        ))
+        pick = candidates[0]
+        chosen.append((role, pick))
+        pool = [photo for photo in pool if photo["src"] != pick["src"]]
+    while len(chosen) < 3:
+        candidates = [photo for photo in pool if _under_appearance_cap(uses, photo["src"])]
+        if not candidates:
+            raise ValueError("photo-usage-cap")
+        candidates.sort(key=lambda photo: (article_count(uses, photo["src"]), photo["src"]))
+        pick = candidates[0]
+        chosen.append((pick["roles"][0] if pick["roles"] else "crowd", pick))
+        pool = [photo for photo in pool if photo["src"] != pick["src"]]
+
+    def hero_key(item: tuple[str, dict]) -> tuple:
+        photo = item[1]
+        heroes = hero_count(uses, photo["src"])
+        return (
+            0 if heroes < HERO_HARD_CAP else 1,
+            0 if heroes < HERO_PREFERRED_CAP else 1,
+            heroes,
+            article_count(uses, photo["src"]),
+            photo["src"],
+        )
+
+    eligible = [item for item in chosen if hero_count(uses, item[1]["src"]) < HERO_HARD_CAP]
+    if not eligible:
+        raise ValueError("hero-photo-cap")
+    # Prefer a photo still under the 2-hero rule. A third hero use is only
+    # returned when every chosen photo is already at that preferred cap.
+    under_preferred = [item for item in eligible if hero_count(uses, item[1]["src"]) < HERO_PREFERRED_CAP]
+    hero_item = sorted(under_preferred or eligible, key=hero_key)[0]
+    return {
+        "hero": hero_item[1]["src"],
+        "heroAlt": hero_item[1]["alt"],
+        "heroRole": hero_item[0],
+        "inline": [
+            {"src": item[1]["src"], "alt": item[1]["alt"], "role": item[0]}
+            for item in chosen if item[1]["src"] != hero_item[1]["src"]
+        ],
+    }
+
+
+def photo_prompt_guidance(worktree: Path) -> str:
+    library_path = worktree / "content/seo/public-photo-library.md"
+    if not library_path.is_file():
+        return "Inline photos: library missing; do not publish."
+    library = library_path.read_text()
+    uses = load_ledger(worktree)
+    lines = [
+        "Photo usage rule: 1 hero and 2 inline photos. Prefer the least-used suitable owned photo.",
+        "Each photo is a hero on at most 2 articles, and on a third only when no photo remains under 2.",
+        "Each photo appears on about 6 articles and must not appear on an 8th. No repeats inside an article.",
+        "Mix one crowd/people shot, one setup/staffing shot, and one product-in-hand shot when possible.",
+        "Never caption attendees or bartenders as staff. The premiere step-and-repeat stays off agency-sales slugs.",
+        "Current owned-photo usage:",
+    ]
+    for src, entry in sorted(parse_photo_library(library).items()):
+        if not entry["owned"] or entry["disallowed"]:
+            continue
+        lines.append(
+            f"- {src} roles={','.join(entry['roles']) or 'unspecified'} "
+            f"hero_articles={hero_count(uses, src)} article_appearances={article_count(uses, src)} "
+            f"sales_forbidden={str(entry['sales_forbidden']).lower()}"
+        )
+    try:
+        regular = select_article_photos(library, uses, "campus-sampling-example")
+        sales = select_article_photos(library, uses, "campus-marketing-agency-example")
+        lines.append("Preferred trio when the slug does not contain agency: " + json.dumps(regular, sort_keys=True))
+        lines.append("Preferred trio when the slug contains agency: " + json.dumps(sales, sort_keys=True))
+        lines.append("Use that preferred trio. Do not pick a more-used photo when a preferred one fits the section.")
+    except ValueError:
+        lines.append("No legal photo trio remains under the usage caps. Stop and do not publish.")
+    return "\n".join(lines)
+
+
+def _mix_was_possible(photos: dict[str, dict], uses: list[dict], slug: str, chosen: set[str]) -> bool:
+    """True when some other owned photo could have supplied a missing shot type."""
+    covered: set[str] = set()
+    for src in chosen:
+        covered.update(photos.get(src, {}).get("roles") or [])
+    missing = {"crowd", "setup", "product"} - covered
+    if not missing or len(chosen) < 3:
+        return False
+    for src, entry in photos.items():
+        if src in chosen or not entry["owned"] or entry["disallowed"]:
+            continue
+        if entry["sales_forbidden"] and is_direct_sales_slug(slug):
+            continue
+        if not _under_appearance_cap(uses, src):
+            continue
+        if missing & set(entry["roles"]):
+            return True
+    return False
+
+
+def validate_inline_photos(body: str, data: dict, library: str, worktree: Path) -> list[dict]:
+    catalog = parse_photo_library(library)
+    inline = extract_inline_photos(body)
+    hero = data.get("image", "")
+    slug = data.get("slug", "")
+    seen: set[str] = set()
+    if hero:
+        seen.add(hero)
+    uses = usage_excluding(load_ledger(worktree), slug)
+    for photo in inline:
+        src, alt, caption = photo["src"], photo["alt"], photo.get("caption") or ""
+        if not alt or "<" in alt or ">" in alt:
+            raise ValueError("inline-photo-alt")
+        if caption and ("<" in caption or ">" in caption):
+            raise ValueError("inline-photo-caption")
+        if not PHOTO_SRC.fullmatch(src):
+            raise ValueError("inline-photo-path")
+        if src in seen:
+            raise ValueError("inline-photo-repeat")
+        seen.add(src)
+        entry = catalog.get(src)
+        if not entry or not entry["owned"] or entry["disallowed"]:
+            raise ValueError("inline-photo-owned")
+        file = worktree / "public" / src.lstrip("/")
+        if not file.is_file() or file.is_symlink():
+            raise ValueError("inline-photo-file")
+        if caption_banned(alt, entry["caption_bans"]) or caption_banned(caption, entry["caption_bans"]):
+            raise ValueError("inline-photo-caption")
+        if entry["sales_forbidden"] and is_direct_sales_slug(slug):
+            raise ValueError("inline-photo-sales-page")
+        if article_count(uses, src) + 1 > APPEARANCE_HARD_CAP:
+            raise ValueError("inline-photo-usage-cap")
+    hero_entry = catalog.get(hero) if hero else None
+    if hero_entry and hero_entry["disallowed"]:
+        raise ValueError("hero-photo-disallowed")
+    if hero_entry and hero_entry["sales_forbidden"] and is_direct_sales_slug(slug):
+        raise ValueError("hero-photo-sales-page")
+    if hero and article_count(uses, hero) + 1 > APPEARANCE_HARD_CAP:
+        raise ValueError("hero-photo-usage-cap")
+    if hero_entry and hero_entry["owned"] and hero_count(uses, hero) + 1 > HERO_HARD_CAP:
+        raise ValueError("hero-photo-cap")
+    if data.get("imageAlt") and hero_entry and caption_banned(str(data["imageAlt"]), hero_entry["caption_bans"]):
+        raise ValueError("hero-photo-caption")
+    chosen = {hero, *(photo["src"] for photo in inline)} if hero else {photo["src"] for photo in inline}
+    if hero and len(inline) == 2 and _mix_was_possible(catalog, uses, slug, chosen):
+        raise ValueError("inline-photo-mix")
+    if inline_photos_required() and len(inline) != 2:
+        raise ValueError("inline-photos-required")
+    return inline
+
+
+def record_photo_usage(worktree: Path, artifact: dict) -> None:
+    path = worktree / LEDGER_PATH
+    if not path.is_file():
+        return
+    data = json.loads(path.read_text())
+    uses = [item for item in data.get("uses", []) if item.get("slug") != artifact.get("slug")]
+    if artifact.get("image"):
+        uses.append({"slug": artifact["slug"], "src": artifact["image"], "role": "hero"})
+    for photo in artifact.get("inline_photos") or []:
+        uses.append({"slug": artifact["slug"], "src": photo["src"], "role": "inline"})
+    data["uses"] = sorted(uses, key=lambda item: (item["slug"], item["role"], item["src"]))
+    path.write_text(json.dumps(data, indent=2) + "\n")
+
+
 def validate_photo_provenance(data: dict, library: str) -> None:
     # Bind rights, credit and URLs to THIS asset's section, not another photo.
     sections = re.split(r"(?m)^#{1,6} ", library)
@@ -371,10 +657,14 @@ def validate_article(path: Path, worktree: Path) -> dict:
         raise ValueError("photo-file")
     library = (worktree / "content/seo/public-photo-library.md").read_text()
     validate_photo_provenance(data, library)
-    return {**data, "word_count": count, "body_links": body_links, "tables": table_count,
+    inline_photos = validate_inline_photos(body, data, library, worktree)
+    artifact = {**data, "word_count": count, "body_links": body_links, "tables": table_count,
             "article_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
             "image_sha256": hashlib.sha256(photo.read_bytes()).hexdigest(),
             "body_sentinel": re.sub(r"\s+", " ", re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", body.split("\n\n")[0]).replace("**", "")).strip()[:100]}
+    if inline_photos:
+        artifact["inline_photos"] = inline_photos
+    return artifact
 
 
 def prepare(state: dict, run_no: int) -> dict:
@@ -473,9 +763,13 @@ def publish_prepared(artifact: dict) -> None:
         log.write_text(text + f"| {artifact['run_no']} | {n:%Y-%m-%d} | {n:%H:%M %Z} | {artifact['slug']} | {artifact['primaryKeyword']} | {artifact['word_count']} | prepared; live receipt in publisher state |\n")
         keywords = seo / "keyword-map.md"
         keywords.write_text(keywords.read_text() + f"\n- {n:%Y-%m-%d} - `{artifact['primaryKeyword']}` - `/insights/{artifact['slug']}`\n")
-        git(worktree, "add", "--", article, "content/seo/publish-log.md", "content/seo/keyword-map.md")
+        record_photo_usage(worktree, artifact)
+        add_paths = [article, "content/seo/publish-log.md", "content/seo/keyword-map.md"]
+        if (worktree / LEDGER_PATH).is_file():
+            add_paths.append(LEDGER_PATH)
+        git(worktree, "add", "--", *add_paths)
         git(worktree, "commit", "-m", f"blog: {artifact['slug']}")
-    allowed = {article, "content/seo/publish-log.md", "content/seo/keyword-map.md"}
+    allowed = {article, "content/seo/publish-log.md", "content/seo/keyword-map.md", LEDGER_PATH}
     comparison_base = git(worktree, "merge-base", f"origin/{BRANCH}", "HEAD")
     if set(git(worktree, "diff", "--name-only", comparison_base, "HEAD").splitlines()) - allowed:
         raise ValueError("publication-scope")
