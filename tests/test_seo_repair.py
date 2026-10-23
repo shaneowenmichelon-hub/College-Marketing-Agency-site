@@ -92,7 +92,10 @@ class RepairTests(unittest.TestCase):
             base=p.git(prepared,'rev-parse','HEAD')
             draft.write_bytes(content)
             state = {'preparing':{'worktree':str(prepared),'base':base,'run_no':29}}
-            with patch.object(p,'publish_with_hermes') as generate:
+            # This fixture reuses an already published article as the prepared draft.
+            # Writing-quality, brief, and reserved-keyword gates apply to new drafts
+            # and are covered in test_seo_writing_quality.py.
+            with patch.object(p,'publish_with_hermes') as generate, patch.object(p,'assert_new_article_gates'):
                 a = p.prepare(state,29)
                 b = p.prepare(state,29)
             generate.assert_not_called()

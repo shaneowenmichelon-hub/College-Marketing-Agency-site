@@ -59,6 +59,9 @@ class PublisherTests(unittest.TestCase):
         subprocess.run(["git","clone","--bare",str(repo),str(remote)],check=True,capture_output=True)
         git("remote","add","origin",str(remote))
         (repo/"content/blog/pilot.mdx").write_text("prepared article")
+        briefs = repo/"content/seo/briefs"
+        briefs.mkdir(parents=True)
+        (briefs/"pilot.md").write_text(filled_brief("pilot"))
         (repo/"public/images/blog").mkdir(parents=True)
         (repo/"public/images/blog/test.jpg").write_bytes(b"fixture")
         # Photo would already be tracked in the real approved photo library.
@@ -89,6 +92,7 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual(git("rev-list","--count",upstream+"..origin/deploy"),"1")
         self.assertEqual(sum(a==["npm","run","build"] for a in builds),2)
         self.assertEqual(sum("| pilot |" in line for line in (repo/"content/seo/publish-log.md").read_text().splitlines()),1)
+        self.assertIn("content/seo/briefs/pilot.md", git("show", "--name-only", "--pretty=format:", "HEAD"))
 
     def test_article_validation_requires_photo_and_rejects_duplicate_keyword(self):
         self.assertTrue(callable(getattr(p,"validate_article",None)), "No article/photo validation")
@@ -173,7 +177,7 @@ imageLicense: https://unsplash.com/license
             (worktree/"content/blog/campus-pilot.mdx").write_text("prepared")
             return subprocess.CompletedProcess([],0,"credential must not escape")
         artifact={"slug":"campus-pilot","title":"Campus Pilot","imageRights":"owned"}
-        with patch.object(p,"REPO",repo), patch.object(p,"BRANCH","deploy"), patch.object(p,"OPS",self.root/"ops"), patch.object(p,"publish_with_hermes",side_effect=generate), patch.object(p,"validate_article",return_value=artifact.copy(),create=True):
+        with patch.object(p,"REPO",repo), patch.object(p,"BRANCH","deploy"), patch.object(p,"OPS",self.root/"ops"), patch.object(p,"publish_with_hermes",side_effect=generate), patch.object(p,"validate_article",return_value=artifact.copy(),create=True), patch.object(p,"assert_new_article_gates"):
             state=json.loads(self.state.read_text())
             first=p.prepare(state,1)
             restarted=json.loads(self.state.read_text())
@@ -226,5 +230,57 @@ imageLicense: https://unsplash.com/license
         self.assertEqual(state["next_run_at"],"2026-01-01T00:00:00-06:00", "unverified child advanced cadence")
         self.assertNotIn("secret-token",out.getvalue())
         self.assertIn("verification",out.getvalue())
+
+def filled_brief(slug):
+    table = (
+        "| Signal | Result |\n"
+        "| --- | --- |\n"
+        "| GA4 sessions | |\n"
+        f"| cta_click events (`?article={slug}`) | |\n"
+        f"| generate_lead events (`?article={slug}`) | |\n"
+        "| Search Console clicks | |\n"
+        "| Search Console impressions | |\n"
+    )
+    return (
+        "# Brief\n\n## Primary query\n\ncampus pilot buyers\n\n"
+        "## Hypothesis\n\nThis page answers the buyer's first question.\n\n"
+        "## Target AI engines and prompts\n\nChatGPT: who should run a campus pilot\n\n"
+        "## Competitor pages\n\nhttps://example.com/campus-pilot\n\n"
+        "## CTA path\n\n/contact\n\n"
+        "## Expected outcome\n\nA brand sends a pilot brief.\n\n"
+        "## 30-day check\n\n" + table + "\n"
+        "## 60-day check\n\n" + table
+    )
+
+
+class NewArticleGateTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+
+    def test_prepare_rejects_reserved_keyword_before_commit(self):
+        work = self.root / "wt"
+        (work / "content/blog").mkdir(parents=True)
+        (work / "content/seo").mkdir(parents=True)
+        (work / "content/seo/keyword-map.md").write_text((Path(__file__).resolve().parents[1] / "content/seo/keyword-map.md").read_text())
+        (work / "content/blog/campus-pilot.mdx").write_text("---\nslug: campus-pilot\n---\n\nPlan the pilot.\n")
+        state = {"preparing": {"worktree": str(work), "base": "abc", "run_no": 4, "generation_started": True}}
+        artifact = {"slug": "campus-pilot", "title": "Marketing to Gen Z", "primaryKeyword": "marketing to Gen Z", "imageRights": "owned"}
+
+        def git(cwd, *args):
+            return ""
+
+        with patch.object(p, "git", side_effect=git), patch.object(p, "validate_article", return_value=artifact):
+            with self.assertRaisesRegex(ValueError, "reserved-keyword"):
+                p.prepare(state, 4)
+
+    def test_lockout_row_stays_above_reserved_section(self):
+        text = "# Keywords\n\n## Reserved for pillar pages, never target\n\n- gen z marketing\n"
+        updated = p.append_keyword_lockout(text, "\n- 2026-10-23 - `campus pilot` - `/insights/campus-pilot`\n")
+        self.assertLess(updated.index("campus pilot"), updated.index("## Reserved for pillar pages, never target"))
+        self.assertEqual(p.reserved_keyword_terms(updated), ["gen z marketing"])
+        self.assertIn("- 2026-10-23 - `campus pilot` - `/insights/campus-pilot`", updated)
+
 
 if __name__ == "__main__": unittest.main()

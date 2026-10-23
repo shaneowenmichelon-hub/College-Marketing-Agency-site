@@ -1,0 +1,263 @@
+# Banned phrases for new Collegiate Agency articles.
+# Adapted from the MIT-licensed mentionstack blacklist by Dylan Ander
+# (Copyright (c) 2026 Dylan Ander; Copyright (c) 2026 Toprank Contributors).
+# See THIRD_PARTY_NOTICES.md.
+#
+# Ordinary connectors and plain words from that list were removed, including
+# however, therefore, additionally, also, and because. Obvious AI-cliché
+# words and phrases stay.
+#
+# One term per line. Lines starting with # are comments.
+# Matching is case-insensitive, on a whole word or a whole phrase, and it
+# skips fenced code, inline code, and URLs.
+
+# === Archaic connectives ===
+Therein
+Thereof
+Herein
+Heretofore
+
+# === AI-tell adjectives ===
+Adept
+Commendable
+Ever-evolving
+Exemplary
+Innovative
+Invaluable
+Robust
+Seamless
+Synergistic
+Thought-provoking
+Transformative
+Utmost
+Vibrant
+Captivating
+Burgeoning
+Groundbreaking
+Profound
+Pervasive
+Pivotal
+Multifaceted
+Nuanced
+Undeniable
+Unparalleled
+Cutting-edge
+State-of-the-art
+Next-generation
+Future-proof
+Mission-critical
+Paramount
+Holistic
+Impactful
+Manifold
+Granular
+
+# === AI-tell nouns ===
+Innovation
+Optimization
+Realm
+Tapestry
+Transformation
+Bandwidth
+Kaleidoscope
+Latency
+Linchpin
+Paradigm
+Plethora
+Synergy
+Throughput
+Touchpoint
+
+# === AI-tell verbs ===
+Augment
+Delve
+Embark
+Facilitate
+Underscores
+Utilize
+Conceptualize
+Elevate
+Empower
+Foster
+Fostering
+Glean
+Leverage
+Optimize
+Resonate
+Showcasing
+Streamline
+Thrive
+Unleash
+Unlock
+
+# === Phrases — empty connectives ===
+A testament to
+In conclusion
+In summary
+It's important to note
+It's important to consider
+It's worth noting that
+This is not an exhaustive list
+At the end of the day
+Going forward
+Moving forward
+Whilst it is true
+Specifically speaking
+
+# === Phrases — corporate and AI sludge ===
+A journey of
+A multitude of
+A plethora of
+Actionable insights
+Aforementioned
+AI-powered
+Ample opportunities
+Based on the information provided
+Blockchain-enabled
+Cannot be overstated
+Capacity building
+Change management
+Cloud-based
+Cognizant
+Collaborative environment
+Competitive landscape
+Continuous improvement
+Corporate social responsibility
+Cost optimization
+Customer-centric
+Data-driven
+Deep dive
+Deep dive into
+Deep understanding
+Delve into
+Delved
+Delving
+Delving into the intricacies of
+Demonstrates significant
+Digital realm
+Digital transformation
+Disruptive innovation
+Domain expertise
+Driven approach
+Driving innovation
+Dynamic environment
+Embark on a journey
+Embark on a voyage
+Embarked
+Emerging technologies
+Encountered hurdles
+Enlightening
+Enriches
+Epicenter
+Esteemed
+Ethical considerations
+Flourishing
+Foster innovation
+Fresh perspectives
+From inception to execution
+Game changer
+Game-changer
+Golden ticket
+Governance framework
+Granular detail
+Granular level
+Granularly
+Growing recognition
+Holistically
+Implementation strategy
+Important to consider
+In a sea of
+In essence
+In the dynamic world of
+In the realm of
+In today's rapidly evolving market
+In today's world
+In today's fast-paced
+Industry best practices
+Insights into
+Issue resolution
+It is important to note
+It is worth noting
+It's important to remember
+Key takeaways
+Knowledge transfer
+Navigating the landscape
+Navigate the landscape
+Navigating the complexities of
+New heights
+Offboarding
+Offer a comprehensive
+On the ascent to
+On the cutting edge
+Operational efficiency
+Operational excellence
+Pain point
+Paradigm shift
+Particularly in areas
+Performance optimization
+Process optimization
+Pronged
+Rapidly evolving
+Reaching new heights
+Resource allocation
+Resource optimization
+Risk mitigation
+Root cause analysis
+Scalable
+Shed light
+Shedding light on
+Significantly contributes
+Solution development
+Strategic alignment
+Strong presence
+Subject matter experts
+Synergistically
+The future of
+The linchpin of
+The next frontier
+The power of
+The road ahead
+Thought leaders
+Thought leadership
+Thriving
+Time optimization
+To elevate
+To elucidate
+To empower
+To enrich
+To exemplify
+To furnish
+To shed light on
+To showcase
+To summarize
+To thrive
+To underscore
+To unleash
+To unlock
+Unlock the power
+Transforming the way
+Treasure trove
+Uncharted waters
+Understanding of your unique
+User engagement
+Value proposition
+Value-added
+Well-crafted
+Widely recognized
+With a keen eye on
+With regards to
+
+# === Acronyms and jargon ===
+KPIs
+MVP
+POC
+ROI
+SLA
+TCO
+Scrum
+Sprint
+Agile
+Foray
+Tertiary
+Uptime
+Downtime
