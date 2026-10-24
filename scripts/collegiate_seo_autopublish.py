@@ -7,9 +7,11 @@ Maintains a run counter in content/seo/publish-log.md and publishes on a
 """
 from __future__ import annotations
 
+import sys
 import hashlib
 import fcntl
 import difflib
+import importlib.util
 import json
 import os
 import random
@@ -113,11 +115,22 @@ def due_run(state: dict, n: datetime) -> tuple[bool, bool]:
 def publish_with_hermes(run_no: int, worktree: Path) -> subprocess.CompletedProcess[str]:
     """Generation boundary only. The wrapper, never the agent, commits/deploys/verifies."""
     prompt = f"""Prepare ONE original Collegiate Agency SEO article for run {run_no}.
-Work ONLY in {worktree}. Read content/blog and content/seo/keyword-map.md first.
-Write exactly one NEW content/blog/<keyword-kebab-case>.mdx; do not edit existing files.
+Work ONLY in {worktree}. Read content/blog, content/seo/keyword-map.md,
+content/seo/writing-rules.md, and content/seo/banned-phrases.txt first.
+Before drafting, write content/seo/briefs/<slug>.md from content/seo/briefs/_template.md.
+Fill the primary query, the hypothesis (why this page should win the click), the target
+AI engines and the prompts a buyer would type, the competitor pages this article must
+beat, the CTA path (/contact or /build-a-campaign), and the expected outcome. Leave the
+30-day and 60-day result cells blank. Those tables record GA4 sessions, cta_click and
+generate_lead events attributed with ?article=<slug>, plus Search Console clicks and
+impressions once Search Console is connected. Do not invent those numbers. Replace
+<slug> with the article slug.
+Then write exactly one NEW content/blog/<keyword-kebab-case>.mdx. Do not edit existing files.
 Do NOT commit, push, deploy, schedule, run agents, or modify Hermes settings/skills.
 Choose a distinct high-intent BRAND BUYER keyword not used in any existing article or the
-60-day keyword lockout. Optimize for brand/agency-side searches from CPG, beverage,
+60-day keyword lockout. The keyword map section "Reserved for pillar pages, never target"
+is permanent. Do not use a reserved term, or a close variation of one, as the primary
+keyword, title, or slug. Optimize for brand/agency-side searches from CPG, beverage,
 app, retail, entertainment, field-marketing, shopper-marketing, experiential,
 and growth teams buying campus reach; do not optimize for students looking for
 ambassador jobs. Prefer these buyer-intent clusters, in order: campus brand
@@ -159,9 +172,13 @@ imply a general reference verifies unrelated Collegiate client results. Use HTTP
 and specific reference pages, not generic homepages. Keep all useful requirements.
 Valid ctaService: events, brand-ambassadors, product-placement.
 Do not use the removed /services/influencers or /services/product-placement URL. Banned: leverage, synergy,
-in today's fast-paced world. Do not invent statistics, clients, quotes, outcomes,
-pricing or company claims. Avoid em dashes. Give practical recommendations, not hype.
-Use today's date in America/Chicago. Only write the article. Return its path.
+in today's fast-paced world, and every phrase in content/seo/banned-phrases.txt.
+The article body must open with 2-3 sentences that answer the query and can be quoted
+by an AI engine. Use active voice and a 10th-grade reading level. No em dashes.
+Name each source with its title, publisher, date, and URL. Use natural anchor text.
+Do not invent statistics, clients, quotes, outcomes, pricing, or company claims.
+Give practical recommendations, not hype.
+Use today's date in America/Chicago. Write the brief first, then the article. Return the article path.
 """
     prompt += "\n" + photo_prompt_guidance(worktree)
     # Cron can run under Hermes' staged runtime venv. Invoke the stable venv
@@ -607,6 +624,118 @@ def validate_photo_provenance(data: dict, library: str) -> None:
                 raise ValueError("photo-license-provenance")
 
 
+_KEYWORD_STOPWORDS = frozenset(
+    "a an the to for of and or in on with how your our at by from as is are was were be".split()
+)
+_WRITING_QUALITY = None
+
+
+def load_writing_quality():
+    """Load the sibling checker. The installed publisher keeps this file beside itself."""
+    global _WRITING_QUALITY
+    if _WRITING_QUALITY is not None:
+        return _WRITING_QUALITY
+    path = Path(__file__).resolve().with_name("writing_quality.py")
+    spec = importlib.util.spec_from_file_location("collegiate_writing_quality", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError("writing-quality-module-missing")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    _WRITING_QUALITY = module
+    return module
+
+
+def normalize_keyword_tokens(value: str) -> tuple[str, ...]:
+    """Lowercase, drop stopwords, and treat gen z / genz / generation z as one token."""
+    text = (value or "").casefold().replace("\u2019", "'")
+    text = re.sub(r"\bgeneration\s+z\b", "genz", text)
+    text = re.sub(r"\bgen[\s-]*z\b", "genz", text)
+    text = re.sub(r"[^a-z0-9]+", " ", text)
+    return tuple(token for token in text.split() if token not in _KEYWORD_STOPWORDS)
+
+
+def reserved_keyword_terms(keyword_map: str) -> list[str]:
+    """Terms under the permanent reserved heading. Dated lockout rows are not terms."""
+    match = re.search(r"(?m)^## Reserved for pillar pages, never target\s*$", keyword_map)
+    if not match:
+        raise ValueError("reserved-keyword: keyword map is missing the 'Reserved for pillar pages, never target' section")
+    rest = keyword_map[match.end():]
+    nxt = re.search(r"(?m)^## ", rest)
+    section = rest[: nxt.start()] if nxt else rest
+    terms = []
+    for line in section.splitlines():
+        if re.match(r"\s*-\s+\d{4}-\d{2}-\d{2}\b", line):
+            continue
+        bullet = re.match(r"\s*-\s+(.+?)\s*$", line)
+        if not bullet:
+            continue
+        term = bullet.group(1).strip().strip("`")
+        if term:
+            terms.append(term)
+    if not terms:
+        raise ValueError("reserved-keyword: reserved list is empty")
+    return terms
+
+
+def reserved_keyword_match(value: str, terms: list[str]) -> str | None:
+    """Return the reserved term when value matches it or closely varies it.
+
+    Close variation means the same content words in any order, or the reserved
+    words appearing in order inside a longer phrase. An extra word in the middle
+    of the reserved phrase is a different keyword.
+    """
+    tokens = normalize_keyword_tokens(value)
+    if not tokens:
+        return None
+    folded = sorted(tokens)
+    for term in terms:
+        reserved = normalize_keyword_tokens(term)
+        if not reserved:
+            continue
+        if tokens == reserved or folded == sorted(reserved):
+            return term
+        width = len(reserved)
+        if width < len(tokens) and any(tokens[i:i + width] == reserved for i in range(0, len(tokens) - width + 1)):
+            return term
+    return None
+
+
+def assert_not_reserved_keyword(data: dict, worktree: Path) -> None:
+    """New articles only. Existing pages may already use a reserved term."""
+    keyword_map = worktree / "content/seo/keyword-map.md"
+    if not keyword_map.is_file():
+        raise ValueError("reserved-keyword: content/seo/keyword-map.md is missing")
+    terms = reserved_keyword_terms(keyword_map.read_text())
+    for field in ("primaryKeyword", "title", "slug"):
+        value = str(data.get(field, ""))
+        match = reserved_keyword_match(value, terms)
+        if match:
+            raise ValueError(
+                f"reserved-keyword: {field} '{value}' matches reserved term '{match}'. "
+                "That term is reserved for a pillar page and cannot be the target of a new article."
+            )
+
+
+def append_keyword_lockout(keyword_text: str, line: str) -> str:
+    """Record a published keyword without moving the permanent reserved section."""
+    marker = "## Reserved for pillar pages, never target\n"
+    if marker in keyword_text:
+        return keyword_text.replace(marker, line + marker, 1)
+    return keyword_text + line
+
+
+def assert_new_article_gates(path: Path, worktree: Path, data: dict) -> None:
+    """Brief, writing quality, and reserved keywords. Runs before commit, for a new article only."""
+    assert_not_reserved_keyword(data, worktree)
+    checker = load_writing_quality()
+    _front, body = frontmatter(path)
+    violations = checker.check_body(body, checker.load_banned_phrases(worktree / "content" / "seo" / "banned-phrases.txt"))
+    if violations:
+        raise ValueError(checker.format_violations(violations))
+    checker.assert_brief(worktree / "content" / "seo" / "briefs" / f"{data['slug']}.md", data["slug"])
+
+
 def validate_article(path: Path, worktree: Path) -> dict:
     data, body = frontmatter(path)
     required = "slug title metaTitle metaDescription primaryKeyword category services excerpt date ctaService image imageAlt imageCredit".split()
@@ -723,6 +852,7 @@ def prepare(state: dict, run_no: int) -> dict:
     artifact = validate_article(articles[0], worktree)
     if artifact.get("imageRights") != "owned":
         raise ValueError("new-publication-requires-owned-photo")
+    assert_new_article_gates(articles[0], worktree, artifact)
     return {**artifact, **{k: prep[k] for k in ("worktree", "base", "run_no")}}
 
 
@@ -762,14 +892,18 @@ def publish_prepared(artifact: dict) -> None:
         n = now_ct()
         log.write_text(text + f"| {artifact['run_no']} | {n:%Y-%m-%d} | {n:%H:%M %Z} | {artifact['slug']} | {artifact['primaryKeyword']} | {artifact['word_count']} | prepared; live receipt in publisher state |\n")
         keywords = seo / "keyword-map.md"
-        keywords.write_text(keywords.read_text() + f"\n- {n:%Y-%m-%d} - `{artifact['primaryKeyword']}` - `/insights/{artifact['slug']}`\n")
+        lockout_line = f"\n- {n:%Y-%m-%d} - `{artifact['primaryKeyword']}` - `/insights/{artifact['slug']}`\n"
+        keywords.write_text(append_keyword_lockout(keywords.read_text(), lockout_line))
         record_photo_usage(worktree, artifact)
-        add_paths = [article, "content/seo/publish-log.md", "content/seo/keyword-map.md"]
+        brief_rel = f"content/seo/briefs/{artifact['slug']}.md"
+        load_writing_quality().assert_brief(worktree / brief_rel, artifact["slug"])
+        add_paths = [article, "content/seo/publish-log.md", "content/seo/keyword-map.md", brief_rel]
         if (worktree / LEDGER_PATH).is_file():
             add_paths.append(LEDGER_PATH)
         git(worktree, "add", "--", *add_paths)
         git(worktree, "commit", "-m", f"blog: {artifact['slug']}")
-    allowed = {article, "content/seo/publish-log.md", "content/seo/keyword-map.md", LEDGER_PATH}
+    brief_rel = f"content/seo/briefs/{artifact['slug']}.md"
+    allowed = {article, "content/seo/publish-log.md", "content/seo/keyword-map.md", LEDGER_PATH, brief_rel}
     comparison_base = git(worktree, "merge-base", f"origin/{BRANCH}", "HEAD")
     if set(git(worktree, "diff", "--name-only", comparison_base, "HEAD").splitlines()) - allowed:
         raise ValueError("publication-scope")
@@ -846,13 +980,20 @@ def tick() -> int:
         state.pop("last_error_phase", None)
         schedule_next_interval(state, datetime.fromisoformat(state["last_success"]["verified_at"]))
         print(f"SEO article verified live: {LIVE_BASE}/insights/{artifact['slug']}")
-    except Exception:
+    except Exception as exc:
         # Never relay child stdout, exception messages, URLs with tokens, or credentials.
         count = int(state.get("retry_count") or 0) + 1
         retry_at = n + (timedelta(minutes=30) if count == 1 else timedelta(hours=INTERVAL_HOURS))
         state.update(retry_run_no=run_no, retry_count=count, retry_at=retry_at.isoformat(), last_error_phase=phase)
         save_state(state)
-        print(f"SEO run {run_no}: {phase} failed; pending work retained, no new article on retry. Retry {retry_at:%Y-%m-%d %H:%M %Z}.")
+        head = (str(exc).splitlines() or [""])[0]
+        reason = ""
+        for prefix in ("writing-quality", "missing-brief", "brief-sections", "brief-unfilled", "brief-cta", "brief-check", "reserved-keyword"):
+            if head.startswith(prefix):
+                reason = prefix
+                break
+        label = f" ({reason})" if reason else ""
+        print(f"SEO run {run_no}: {phase} failed{label}; pending work retained, no new article on retry. Retry {retry_at:%Y-%m-%d %H:%M %Z}.")
         return 1
     return 0
 

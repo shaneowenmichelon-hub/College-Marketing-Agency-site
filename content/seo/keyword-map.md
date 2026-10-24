@@ -108,3 +108,22 @@ Runner-ups, not locked:
 - `campus media advertising` / college newspaper advertising: flytedesk ranks heavily, and the service fit is weaker than an on-site activation hire.
 - `campus product sampling agency`: strong CPG intent, and too close to published on-campus product sampling and campus product sampling ideas.
 - `college event marketing agency`: commercial fit, and it overlaps published college event sponsorship and campus event staffing agency.
+
+## Reserved for pillar pages, never target
+
+These terms are permanently reserved. A new article fails validation when its primary keyword, title, or slug matches one of them or closely varies it. Matching is normalized: lowercase, stopwords removed, and `gen z`, `genz`, and `generation z` are the same token. This list does not expire and does not change the 60-day lockout above.
+
+An extra word that splits the reserved phrase is a different keyword. `gen z experiential marketing` stays available. `marketing to Gen Z` and `Gen Z marketing strategy` do not.
+
+### Gen Z pillar (`/insights/how-to-market-to-gen-z`)
+
+- marketing to gen z
+- how to market to gen z
+- gen z marketing strategy
+- how to reach gen z
+- how to advertise to gen z
+- gen z marketing
+
+### Homepage
+
+- college marketing agency

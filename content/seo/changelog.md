@@ -1,5 +1,13 @@
 # SEO changelog
 
+## 2026-10-23 — Writing-quality gate, pre-article briefs, reserved keywords
+
+No article bodies were edited. No article was published. Keyword-lockout timing and the 36-hour cadence were left as they were.
+
+- New articles must follow `content/seo/writing-rules.md`. `scripts/writing_quality.py` rejects banned phrases, em dashes, and an opening paragraph longer than 3 sentences before commit. Existing articles are not checked by the build.
+- Each new article needs `content/seo/briefs/<slug>.md`, copied from `content/seo/briefs/_template.md`, before drafting. The publisher commits that brief with the article.
+- `content/seo/keyword-map.md` now has a permanent "Reserved for pillar pages, never target" section. A new article cannot target those terms or a close variation. `gen z experiential marketing` remains a separate keyword.
+
 ## 2026-10-20 — Technical SEO fixes
 
 Metadata, structured data, canonicals, and the sitemap. No article bodies were edited, and the contact email and `sameAs` list were left as published.
