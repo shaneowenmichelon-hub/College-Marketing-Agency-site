@@ -36,3 +36,4 @@
 | 30 | 2026-10-20 | 16:03 CDT | college-experiential-marketing-agency | college experiential marketing agency | 1689 | prepared; live receipt in publisher state |
 | 31 | 2026-10-22 | 03:42 CDT | college-tailgate-marketing-agency | college tailgate marketing agency | 1700 | prepared; live receipt in publisher state |
 | 32 | 2026-10-23 | 15:39 CDT | spring-break-marketing-agency | spring break marketing agency | 1685 | prepared; live receipt in publisher state |
+| 33 | 2026-10-25 | 03:39 CDT | greek-life-marketing-agency | greek life marketing agency | 1698 | prepared; live receipt in publisher state |

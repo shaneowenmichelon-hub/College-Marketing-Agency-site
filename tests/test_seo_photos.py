@@ -154,7 +154,7 @@ class PhotoRuleTests(unittest.TestCase):
     def test_every_published_article_has_two_inline_photos(self):
         library = (ROOT / "content/seo/public-photo-library.md").read_text()
         articles = sorted((ROOT / "content/blog").glob("*.mdx"))
-        self.assertEqual(len(articles), 32)
+        self.assertEqual(len(articles), 33)
         expected = []
         for path in articles:
             data, body = p.frontmatter(path)
