@@ -1,19 +1,19 @@
 {
   "last_success": {
-    "image_sha256": "f3e12d7dc5633016c67dcfe8cef9b8bb5f9d257747ae7ce3720263b324a10737",
-    "primary_keyword": "spring break marketing agency",
-    "run_no": 32,
-    "slug": "spring-break-marketing-agency",
+    "image_sha256": "cf193ba8f6c201e3419b9670181547d813581871b792c249605bc09d598c46c6",
+    "primary_keyword": "greek life marketing agency",
+    "run_no": 33,
+    "slug": "greek-life-marketing-agency",
     "tables": 1,
-    "url": "https://collegiateagency.com/insights/spring-break-marketing-agency",
-    "verified_at": "2026-10-23T15:58:47-05:00",
-    "word_count": 1685
+    "url": "https://collegiateagency.com/insights/greek-life-marketing-agency",
+    "verified_at": "2026-10-25T03:56:36-05:00",
+    "word_count": 1698
   },
-  "next_run_at": "2026-10-25T03:59:47-05:00",
+  "next_run_at": "2026-10-26T16:07:17-05:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-10-23T15:58:47-05:00",
-  "schedule_jitter_seconds": 60,
+  "schedule_anchor": "2026-10-25T03:56:36-05:00",
+  "schedule_jitter_seconds": 641,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility"
 }
