@@ -128,7 +128,7 @@ test("every MDX insight carries two inline figures with alt text and a caption",
     .readdirSync(path.join(__dirname, "../content/blog"))
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => file.replace(/\.mdx$/, ""));
-  assert.equal(slugs.length, 32);
+  assert.equal(slugs.length, 33);
   for (const slug of slugs) {
     const post = posts.find((item) => item.slug === slug);
     assert.ok(post, slug);

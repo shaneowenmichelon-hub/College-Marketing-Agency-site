@@ -37,6 +37,7 @@ class LinkPolicyTests(unittest.TestCase):
             with self.subTest(body=bad[-120:]), self.assertRaises(ValueError):
                 p.validate_contextual_links(bad)
         self.assertEqual(len(p.validate_contextual_links(BODY.replace('/services/brand-ambassadors','/services#product-placement'))),4)
+        self.assertEqual(len(p.validate_contextual_links(BODY.replace('/services/brand-ambassadors','/services/product-placement'))),4)
 
     def test_preflight_fails_closed_on_broken_link_without_relaying_output(self):
         from unittest.mock import patch

@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-10-23
+Last updated: 2026-10-25
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -68,6 +68,7 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-10-22 - `college tailgate marketing agency` - `/insights/college-tailgate-marketing-agency`
 
 - 2026-10-23 - `spring break marketing agency` - `/insights/spring-break-marketing-agency`
+- 2026-10-25 - `greek life marketing agency` - `/insights/greek-life-marketing-agency`
 
 ## Run 30 research note (2026-10-20)
 
@@ -108,6 +109,20 @@ Runner-ups, not locked:
 - `campus media advertising` / college newspaper advertising: flytedesk ranks heavily, and the service fit is weaker than an on-site activation hire.
 - `campus product sampling agency`: strong CPG intent, and too close to published on-campus product sampling and campus product sampling ideas.
 - `college event marketing agency`: commercial fit, and it overlaps published college event sponsorship and campus event staffing agency.
+
+## Run 33 research note (2026-10-25)
+
+Primary chosen: `greek life marketing agency`.
+
+Evidence used, without search-volume tools: public results for Greek-life brand queries surface dedicated vendor pages, and Collegiate Agency had a service page but no article. Observed pages include College Marketing Co. Greek Life Marketing (https://collegemarketing.co/services/greek-life-marketing), REACH (https://reachprojects.co/marketing/college), The Campus Agency (https://thecampusagency.com/on-campus-experiential-events/), and Ignite Productions (https://www.igniteproductions.co/services/collegiate-marketing). AI-answer roundups named in this pass, flytedesk's "top campus marketing agencies of 2026" and College Marketing Co.'s "best college marketing agencies 2026", list Greek life as a buying criterion. The only Collegiate Greek-life offer is `/services/product-placement` (5 of the top Greek-life organizations per campus, dedicated media deliverables, $2,500 / campus). The term is outside the 60-day lockout, off the reserved pillar list, and outside the clusters being consolidated in `content/seo/backlog.md` (ambassadors, sampling, Gen Z, influencers, activations, strategy, sponsorship). Spring recruitment and philanthropy calendars are planned in the fall and winter, so a hiring guide is timely in late October. This article links to the product-placement page and to the bookstore, sponsorship, and welcome-bag articles instead of restating them. Competitor membership and conversion figures are left out.
+
+Runner-ups, not locked:
+
+- `college sports marketing agency` / NIL: overlaps the published sponsorship and tailgate articles.
+- `finals week marketing`: seasonal for December, and it overlaps the sampling cluster being consolidated.
+- `campus media advertising`: flytedesk ranks heavily, and the service fit is weaker than an on-site hire.
+- `college marketing cost`: strong buyer intent, and it risks cannibalizing `/pricing`.
+- `campus product sampling agency`: strong CPG intent, and too close to published on-campus product sampling and campus product sampling ideas.
 
 ## Reserved for pillar pages, never target
 

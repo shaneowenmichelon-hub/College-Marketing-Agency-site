@@ -160,8 +160,9 @@ short title including the keyword, metaTitle <60 chars and metaDescription <155 
 Include AT LEAST THREE distinct contextual body-link destinations: >=2 internal
 and >=1 credible, topic-relevant external article, guidance, video, or public social
 reference. Preserve the stronger existing requirement: TWO DISTINCT service links
-chosen from /services/events, /services/brand-ambassadors, /services#product-placement,
-PLUS /contact, PLUS at least one external reference (normally >=4 destinations).
+chosen from /services/events, /services/brand-ambassadors, /services/product-placement,
+or /services#product-placement, PLUS /contact, PLUS at least one external reference
+(normally >=4 destinations).
 Use descriptive anchors naturally within relevant paragraphs or substantive lists,
 not a boilerplate links block. Do not repeat a destination. Photo credits, image
 licenses, menus, footer links, headings and bare link lists do NOT count.
@@ -171,7 +172,8 @@ login-only or paywalled. Prefer primary/regulatory/institutional sources. Never
 imply a general reference verifies unrelated Collegiate client results. Use HTTPS
 and specific reference pages, not generic homepages. Keep all useful requirements.
 Valid ctaService: events, brand-ambassadors, product-placement.
-Do not use the removed /services/influencers or /services/product-placement URL. Banned: leverage, synergy,
+Do not use the removed /services/influencers URL. Link product placement to
+/services/product-placement. Banned: leverage, synergy,
 in today's fast-paced world, and every phrase in content/seo/banned-phrases.txt.
 The article body must open with 2-3 sentences that answer the query and can be quoted
 by an AI engine. Use active voice and a 10th-grade reading level. No em dashes.
@@ -267,7 +269,7 @@ def validate_contextual_links(body: str) -> list[dict]:
             parsed = urlsplit(href)
             internal = href.startswith("/") and not href.startswith("//")
             if internal:
-                if not re.fullmatch(r"/[a-z0-9/-]+(?:#[a-z0-9-]+)?", href) or '/services/influencers' in href or href == '/services/product-placement':
+                if not re.fullmatch(r"/[a-z0-9/-]+(?:#[a-z0-9-]+)?", href) or '/services/influencers' in href:
                     raise ValueError("invalid-internal-link")
                 destination = href.rstrip("/")
             else:
@@ -284,7 +286,7 @@ def validate_contextual_links(body: str) -> list[dict]:
     internals = {link["href"] for link in links if link["kind"] == "internal"}
     if not any(link["kind"] == "external" for link in links):
         raise ValueError("contextual-external-link")
-    services = {"/services/events", "/services/brand-ambassadors", "/services#product-placement"}
+    services = {"/services/events", "/services/brand-ambassadors", "/services#product-placement", "/services/product-placement"}
     if len(internals) < 2 or len(internals & services) < 2 or "/contact" not in internals:
         raise ValueError("contextual-internal-service-contact-links")
     if len(links) < 3:
