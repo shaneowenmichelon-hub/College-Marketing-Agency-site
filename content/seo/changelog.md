@@ -7,7 +7,8 @@ Run 33. A buyer hiring guide for `greek life marketing agency`, published at `/i
 - The article is an evaluation guide: chapter versus council programs, the recruitment, philanthropy, and formal calendar, and alcohol and sponsorship rules from the NIC Alcohol and Drug Guidelines, the NPC campus-safety position statement (adopted 2019, amended 2025), and the University of Pittsburgh 2026-2027 fraternity and sorority manual. It points at `/services/product-placement` and uses only the rates already in `pricing`.
 - New articles may link `/services/product-placement` as a service destination. The old publisher ban treated that URL as removed. The page has been live since 2026-10-22. `/services#product-placement` still counts.
 - Photo use: hero `beatbox-stage-crowd-festival.jpg`, inline `bloom-sampling-campus-nightlife.jpg` and `beatbox-trio-venue-activation.jpg`. Each was already on six articles, so this is the seventh and last appearance under the cap. No setup frame remained under the cap. The premiere step-and-repeat stayed off this agency slug.
-- Keyword map lockout, Run 33 research note, publish log, pre-article brief, and photo ledger are updated with the article. Sitemap `lastmod` follows the post date. Autopublish state is updated only after live verification.
+- Keyword map lockout, Run 33 research note, publish log, pre-article brief, and photo ledger are updated with the article. Sitemap `lastmod` follows the post date.
+- Live check on 2026-10-25 at 03:56 CDT confirmed `https://collegiateagency.com/insights/greek-life-marketing-agency`. The repo autopublish receipt records that time, the hero image hash, word count 1698, and the next 36-hour eligibility. The scheduler's own copy still lives outside this repo.
 
 ## 2026-10-23 — Writing-quality gate, pre-article briefs, reserved keywords
 
