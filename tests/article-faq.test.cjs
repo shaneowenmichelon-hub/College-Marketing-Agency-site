@@ -106,7 +106,12 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const post = getPost(slug);
     assert.ok(post?.faq, slug);
     assert.ok(post.faq.length >= 3 && post.faq.length <= 5, slug);
-    const revisedOn = slug === "greek-life-marketing-agency" ? "2026-10-25" : "2026-10-23";
+    const revisedOn =
+      slug === "student-housing-marketing-agency"
+        ? "2026-10-26"
+        : slug === "greek-life-marketing-agency"
+          ? "2026-10-25"
+          : "2026-10-23";
     assert.equal(post.dateModified, revisedOn, slug);
     const schemaItems = articleFaqSchemaItems(post.faq);
     const html = renderToStaticMarkup(

@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-10-25
+Last updated: 2026-10-26
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -69,6 +69,7 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 
 - 2026-10-23 - `spring break marketing agency` - `/insights/spring-break-marketing-agency`
 - 2026-10-25 - `greek life marketing agency` - `/insights/greek-life-marketing-agency`
+- 2026-10-26 - `student housing marketing agency` - `/insights/student-housing-marketing-agency`
 
 ## Run 30 research note (2026-10-20)
 
@@ -123,6 +124,19 @@ Runner-ups, not locked:
 - `campus media advertising`: flytedesk ranks heavily, and the service fit is weaker than an on-site hire.
 - `college marketing cost`: strong buyer intent, and it risks cannibalizing `/pricing`.
 - `campus product sampling agency`: strong CPG intent, and too close to published on-campus product sampling and campus product sampling ideas.
+
+## Run 34 research note (2026-10-26)
+
+Primary chosen: `student housing marketing agency`.
+
+Evidence used, without search-volume tools: public results for the query on 2026-10-26 are digital student-housing agencies and branding coverage, and Collegiate Agency had no page on the topic. Observed pages include OuterBox's student housing services page (https://www.outerboxdesign.com/digital-marketing-services/industries/housing/student-housing/), which sells SEO, paid media, web design, conversion work, analytics, email, and social; GTMA's August 17, 2026 article (https://gtma.agency/blog/student-housing-marketing-how-to-turn-search-into-signed-leases/), which opens with a Direct Answer block and defines the system as search, web, paid media, social, virtual tours, photography, video, reputation, and analytics; HH Redstone's occupancy strategies page (https://hhredstone.com/student-housing-marketing-strategies-occupancy/); AFMKTG's lease-up journal (https://afmktg.com/journal/what-actually-drives-lease-up-velocity-in-real-estate-development), which is branding, naming, identity, and digital go-to-market; and REBusinessOnline's April 10, 2020 branding and repositioning article (https://rebusinessonline.com/the-art-and-science-of-branding-repositioning-student-housing-communities/). Operator pages that describe ambassador-led lease-up, with their performance figures left out of the article, are LV Collective's Rambler Columbus case study (https://lvcollective.com/case-study/marketing-lease-up-rambler-columbus/), including the 2026 InterFace Student Housing Innovator Award for Best Marketing & Lease-Up Program, and Asset Living's Torre West Campus ambassador program (https://www.assetliving.com/case-studies/torre-parallel-group). Collegiate's published leasing example is the SOS Consultants Nola case study at `/work/sos-consultants-nola-campus-leasing-ambassadors`: a $2,500 package, two shows, an on-site activation, ambassador posts, localized Meta ads, and an 11x return on ad spend. No other Collegiate housing result was added. AI-answer roundups read the same day, flytedesk's "The top college engagement marketing agencies and platforms of 2026" (https://flytedesk.com/blog/top-college-engagement-marketing-agencies) and College Marketing Co.'s "Best College Marketing Agencies in 2026" (https://collegemarketing.co/blog/best-college-marketing-agencies-2026), do not name a student-housing-specialist campus agency. The keyword is outside the 60-day lockout, off the reserved pillar list, and outside the clusters being consolidated in `content/seo/backlog.md` (ambassadors, sampling, Gen Z, influencers, activations, strategy, sponsorship). Pre-leasing for the 2027-28 academic year is the timely buying window. This article links to `/services/brand-ambassadors` and does not restate the ambassador cluster. Competitor occupancy and conversion figures are left out of the article.
+
+Runner-ups, not locked:
+
+- `college sports marketing agency` / NIL: overlaps the published tailgate and sponsorship articles.
+- `campus media advertising`: flytedesk dominates that query, and the service fit is weaker than an on-campus hire.
+- `college marketing cost`: strong buyer intent, and it risks cannibalizing `/pricing`.
+- `finals week marketing`: seasonal for December, and it overlaps the sampling cluster being consolidated.
 
 ## Reserved for pillar pages, never target
 
