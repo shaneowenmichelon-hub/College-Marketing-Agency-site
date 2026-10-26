@@ -1,6 +1,7 @@
 import { siteConfig } from "@/site.config";
 import { posts, type ArticleBlock } from "@/lib/content";
 import { faqAnswerPlainText } from "@/lib/article-faq";
+import { resolveArticleAuthor } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
@@ -46,9 +47,14 @@ export async function GET() {
     const faqs = (post.faq ?? [])
       .map((item) => `Q: ${item.question}\nA: ${faqAnswerPlainText(item.answer)}`)
       .join("\n\n");
+    const author = resolveArticleAuthor(post.author);
+    const byline = author.isDefault
+      ? `Author: ${author.name}, ${author.jobTitle}, ${siteConfig.companyName}. Profile: ${author.linkedIn}`
+      : `Author: ${author.name}`;
     return [
       `# ${post.title}`,
       `URL: ${siteConfig.url}/insights/${post.slug}`,
+      byline,
       `Published: ${post.date}${post.dateModified ? `\nUpdated: ${post.dateModified}` : ""}`,
       `Category: ${post.category}`,
       "",

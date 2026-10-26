@@ -1,4 +1,5 @@
 import { posts } from "@/lib/content";
+import { resolveArticleAuthor } from "@/lib/seo";
 import { siteConfig } from "@/site.config";
 
 export const dynamic = "force-static";
@@ -24,7 +25,7 @@ export function GET() {
   }, "2026-10-22");
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>${escapeXml(siteConfig.companyName)} Insights</title>
     <link>${url}/insights</link>
@@ -36,11 +37,17 @@ ${items
   .map((post) => {
     const link = `${url}/insights/${post.slug}`;
     const published = post.dateModified ?? post.date;
+    const author = resolveArticleAuthor(post.author);
+    const uri = author.linkedIn ? `\n      <atom:uri>${escapeXml(author.linkedIn)}</atom:uri>` : "";
     return `    <item>
       <title>${escapeXml(post.title)}</title>
       <link>${link}</link>
       <guid isPermaLink="true">${link}</guid>
       <pubDate>${new Date(`${published}T00:00:00.000Z`).toUTCString()}</pubDate>
+      <dc:creator>${escapeXml(author.name)}</dc:creator>
+      <atom:author>
+        <atom:name>${escapeXml(author.name)}</atom:name>${uri}
+      </atom:author>
       <description>${escapeXml(post.excerpt)}</description>
     </item>`;
   })

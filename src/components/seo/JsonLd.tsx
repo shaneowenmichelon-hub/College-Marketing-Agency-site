@@ -3,6 +3,7 @@ import {
   LOGO_PATH,
   ORGANIZATION_ID,
   WEBSITE_ID,
+  articleAuthorStructuredData,
   organizationStructuredData,
   serviceStructuredData,
 } from "@/lib/seo";
@@ -103,7 +104,6 @@ export function ArticleJsonLd({
   author?: string;
   dateModified?: string;
 }) {
-  const authorName = author ?? siteConfig.companyName;
   // Google's Article image requirements do not accept SVG, so the fallback is
   // the generated PNG from app/opengraph-image.tsx rather than /og.svg.
   const resolved = image || "/opengraph-image";
@@ -112,7 +112,7 @@ export function ArticleJsonLd({
     <JsonLd
       data={{
         "@context": "https://schema.org",
-        "@type": "Article",
+        "@type": ["Article", "BlogPosting"],
         headline: title,
         description,
         datePublished: date,
@@ -125,10 +125,7 @@ export function ArticleJsonLd({
           "@type": "WebPage",
           "@id": `${siteConfig.url}/insights/${slug}`,
         },
-        author:
-          authorName === siteConfig.companyName
-            ? { "@id": ORGANIZATION_ID }
-            : { "@type": "Organization", name: authorName },
+        author: articleAuthorStructuredData(author),
         publisher: {
           "@type": "Organization",
           "@id": ORGANIZATION_ID,

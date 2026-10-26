@@ -45,6 +45,15 @@ Use natural anchor text that tells the reader what they will get. "Click here"
 and "read more" are not anchors. Put links in the paragraph where they help a
 decision. Do not dump them in a list at the bottom.
 
+## Byline
+
+Insight articles are by Shane Michelon, Founder of Collegiate Agency. Leave the
+`author` frontmatter field out. The site supplies that byline, and it also
+treats `author: Collegiate Agency` and `author: Shane Michelon` as the same
+default. A different `author` value overrides the name only. Do not write a
+biography, headshot, credentials, quotes, or any social profile other than
+https://www.linkedin.com/in/shane-michelon-189549227
+
 ## Banned phrases
 
 `content/seo/banned-phrases.txt` lists the words and phrases the checker

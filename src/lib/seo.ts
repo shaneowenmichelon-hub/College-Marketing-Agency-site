@@ -14,6 +14,59 @@ export const HOME_TITLE_LEAD = "College Marketing Agency";
 
 export const ORGANIZATION_ID = `${siteConfig.url}/#organization`;
 export const WEBSITE_ID = `${siteConfig.url}/#website`;
+/** Stable id for the default article author. Defined once and reused by every article. */
+export const FOUNDER_PERSON_ID = `${siteConfig.url}/#shane-michelon`;
+
+export type ResolvedArticleAuthor = {
+  name: string;
+  jobTitle?: string;
+  linkedIn?: string;
+  /** True for the default founder, including a missing or legacy organization byline. */
+  isDefault: boolean;
+};
+
+/**
+ * Names that mean "use the default founder". `Collegiate Agency` is the old
+ * byline still written on existing articles and sometimes copied into new ones.
+ */
+export function isDefaultArticleAuthor(author?: string): boolean {
+  const name = author?.trim() ?? "";
+  return name.length === 0 || name === siteConfig.companyName || name === siteConfig.articleAuthor.name;
+}
+
+/** Display byline. A frontmatter name other than the company or the founder overrides it. */
+export function resolveArticleAuthor(author?: string): ResolvedArticleAuthor {
+  if (isDefaultArticleAuthor(author)) {
+    return {
+      name: siteConfig.articleAuthor.name,
+      jobTitle: siteConfig.articleAuthor.jobTitle,
+      linkedIn: siteConfig.articleAuthor.linkedIn,
+      isDefault: true,
+    };
+  }
+  return { name: author!.trim(), isDefault: false };
+}
+
+/**
+ * Person node for Shane Michelon. Articles embed this same object so the
+ * `@id` does not drift. The LinkedIn profile is `sameAs` only.
+ */
+export function founderPersonStructuredData(): Record<string, unknown> {
+  return {
+    "@type": "Person",
+    "@id": FOUNDER_PERSON_ID,
+    name: siteConfig.articleAuthor.name,
+    jobTitle: siteConfig.articleAuthor.jobTitle,
+    worksFor: { "@id": ORGANIZATION_ID },
+    sameAs: [siteConfig.articleAuthor.linkedIn],
+  };
+}
+
+/** Article author. The default is the shared Person; any other name is a Person with that name only. */
+export function articleAuthorStructuredData(author?: string): Record<string, unknown> {
+  if (isDefaultArticleAuthor(author)) return founderPersonStructuredData();
+  return { "@type": "Person", name: author!.trim() };
+}
 /**
  * Raster logo rendered from public/logo.svg. Google's Organization logo
  * does not accept SVG; the file is 512×512 PNG.

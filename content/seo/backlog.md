@@ -29,6 +29,7 @@ code change this list can finish on its own.
 - [x] FAQ blocks with FAQPage schema rendered from frontmatter on `college-marketing-agency`, `campus-marketing-agency-rfp`, `campus-brand-activation-agency`, and `college-brand-ambassador-program`. The visible questions and the FAQPage JSON-LD use the same answers.
 - [x] Body links on `campus-ambassador-content-rights`, `campus-brand-activation-agency`, `campus-event-accessibility-checklist`, and `campus-field-marketing-agency`, including `/about` where the article names Collegiate Agency.
 - [x] `/services` title, meta description, Open Graph, Twitter, and WebPage JSON-LD name campus marketing services for brands. The hero is brand-framed. Student recruiting stays lower on the page. The unsourced Celsius "45K cans sampled / month" stat and the placeholder metrics in that same block are no longer rendered.
+- [x] Insight articles byline Shane Michelon, Founder, with Article/BlogPosting author as a Person (`https://collegiateagency.com/#shane-michelon`) that worksFor the organization. The LinkedIn profile is the only author URL. Publisher stays the organization. A non-default frontmatter `author` can still override the name.
 
 ## Remaining
 
