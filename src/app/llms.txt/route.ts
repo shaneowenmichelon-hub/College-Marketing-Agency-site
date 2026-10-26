@@ -1,5 +1,6 @@
 import { siteConfig, pricing } from "@/site.config";
 import { caseStudies, posts } from "@/lib/content";
+import { resolveArticleAuthor } from "@/lib/seo";
 
 export const dynamic = "force-static";
 
@@ -43,7 +44,13 @@ export async function GET() {
   const articles = [...posts]
     .sort((a, b) => (a.date < b.date ? 1 : -1))
     .slice(0, 40)
-    .map((p) => L(p.title, `/insights/${p.slug}`, p.excerpt));
+    .map((p) => {
+      const author = resolveArticleAuthor(p.author);
+      const credit = author.isDefault
+        ? `Author: ${author.name}, ${author.jobTitle}, ${siteConfig.companyName}.`
+        : `Author: ${author.name}.`;
+      return L(p.title, `/insights/${p.slug}`, `${p.excerpt} ${credit}`);
+    });
 
   const body = `# ${siteConfig.companyName}
 
@@ -78,6 +85,8 @@ ${siteConfig.campuses.map((c) => `- ${c.school} (${c.city})`).join("\n")}
 ${work.join("\n")}
 
 ## Insights
+
+Author of these articles: ${siteConfig.articleAuthor.name}, ${siteConfig.articleAuthor.jobTitle}, ${siteConfig.companyName}. Profile: ${siteConfig.articleAuthor.linkedIn}
 
 ${articles.join("\n")}
 

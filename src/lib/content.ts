@@ -5,9 +5,10 @@
  * Collegiate Agency / Night School figure must already exist in site.config.
  * IMPORTANT: never import a competitor's real clients or numbers here.
  */
-import { siteConfig, getStat } from "@/site.config";
+import { getStat } from "@/site.config";
 import type { ArticleFaq } from "@/lib/article-faq";
 import { loadMdxPosts } from "@/lib/blog-files";
+import { resolveArticleAuthor } from "@/lib/seo";
 
 export type PostCategory =
   | "Campus Strategy"
@@ -77,7 +78,10 @@ export type Post = {
   /** Optional revision date from frontmatter. Sitemap lastmod prefers this. */
   dateModified?: string;
   readingTime: string;
-  /** Byline. Defaults to the company name when omitted. */
+  /**
+   * Byline name. Omitted, blank, or the company name resolves to Shane Michelon.
+   * Any other frontmatter name overrides that default.
+   */
   author?: string;
   /** Per-article social image; falls back to the site default. */
   ogImage?: string;
@@ -110,7 +114,7 @@ export type Post = {
   body: ArticleBlock[];
 };
 
-const AUTHOR = siteConfig.companyName;
+const AUTHOR = resolveArticleAuthor().name;
 
 /** Estimate reading time from an article body (~225 wpm). */
 export function estimateReadingTime(body: ArticleBlock[]): string {
@@ -367,9 +371,9 @@ export const CASE_STUDIES_CANONICAL_ON_WORK = [
 
 const canonicalOnWork = new Set<string>(CASE_STUDIES_CANONICAL_ON_WORK);
 
-export const posts: Post[] = [...filePosts, ...legacyPosts].filter(
-  (post) => !canonicalOnWork.has(post.slug),
-);
+export const posts: Post[] = [...filePosts, ...legacyPosts]
+  .filter((post) => !canonicalOnWork.has(post.slug))
+  .map((post) => ({ ...post, author: resolveArticleAuthor(post.author).name }));
 
 export function getPost(slug: string): Post | undefined {
   return posts.find((p) => p.slug === slug);

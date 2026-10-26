@@ -48,6 +48,17 @@ export const siteConfig = {
   /** Legal entity name - used in emails, legal pages, and copyright. */
   companyLegalName: "Collegiate Agency LLC",
 
+  /**
+   * Default byline for insight articles. Frontmatter may override the name.
+   * The only profile attached to this person is the LinkedIn URL. No bio,
+   * headshot, or other social profiles belong here.
+   */
+  articleAuthor: {
+    name: "Shane Michelon",
+    jobTitle: "Founder",
+    linkedIn: "https://www.linkedin.com/in/shane-michelon-189549227",
+  },
+
   /** Root domain (no protocol) - used to build email addresses and canonical URLs. */
   companyDomain: "collegiateagency.com",
 

@@ -9,6 +9,10 @@ Dylan Ander (Copyright (c) 2026 Dylan Ander; Copyright (c) 2026 Toprank
 Contributors). The fields below are Collegiate Agency's. See
 `THIRD_PARTY_NOTICES.md`.
 
+Bylines are Shane Michelon, Founder. Do not put an author biography in the
+brief or the article. Omit the `author` frontmatter field unless a different
+person should override that default.
+
 ## Primary query
 
 TODO

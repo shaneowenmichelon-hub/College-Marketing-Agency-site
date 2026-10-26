@@ -18,6 +18,7 @@ Failure retains the same preparation/artifact and run number. First failure retr
 - Validation retains a strict licensed-photo path for existing artifacts. Source and license URLs must belong to that same photo's library entry. A licensed photo cannot be relabeled owned.
 - Preserve buyer-intent, duplicate/keyword lockout, contextual-link, table, metadata, immutable-artifact, clean-worktree, atomic-state and lock gates.
 - A new article must pass the writing-quality check and must have `content/seo/briefs/<slug>.md` before commit. Existing articles are outside that check. See below.
+- Bylines are Shane Michelon, Founder. The insight template supplies that byline when `author` is omitted, and when it is `Collegiate Agency` or `Shane Michelon`. A different `author` name overrides the byline. Do not add a biography or any profile besides https://www.linkedin.com/in/shane-michelon-189549227. Photo credit stays `imageCredit: Collegiate Agency` for owned photography. That credit is not the byline.
 - A new article's primary keyword, title, and slug must stay off the permanent "Reserved for pillar pages, never target" list in `keyword-map.md`. The 60-day lockout and the 36-hour cadence are unchanged.
 
 ## Writing quality (new articles only)

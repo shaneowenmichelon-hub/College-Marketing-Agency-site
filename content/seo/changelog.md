@@ -1,5 +1,15 @@
 # SEO changelog
 
+## 2026-10-26 — Insight bylines credit Shane Michelon
+
+Visible bylines and Article JSON-LD on `/insights` credit Shane Michelon, Founder, instead of the organization. No article bodies, FAQs, photos, or the photo-usage ledger were edited. `scripts/collegiate_seo_autopublish.py`, `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
+- The default author is `articleAuthor` in `site.config.ts`. The content loader, the insight template, and Article JSON-LD all use it. Omitting `author`, or setting it to `Collegiate Agency` or `Shane Michelon`, renders "By Shane Michelon" with "Founder, Collegiate Agency" beneath. The name links only to https://www.linkedin.com/in/shane-michelon-189549227 with `rel="author noopener"`.
+- Existing articles keep `author: Collegiate Agency` in frontmatter. That legacy value is the old default, so the template resolves it to Shane. A different frontmatter name still overrides the byline. No biography, headshot, credentials, or other profiles were added.
+- Article and BlogPosting JSON-LD author is one Person node, `https://collegiateagency.com/#shane-michelon`: name Shane Michelon, jobTitle Founder, worksFor the organization `@id`, and the LinkedIn URL in `sameAs` only. Publisher stays the organization.
+- `/feed.xml` credits each item to that author. `/rss.xml` still redirects to `/feed.xml`. `llms.txt` and `llms-full.txt` name Shane Michelon, Founder, on the articles.
+- `writing-rules.md`, `briefs/_template.md`, and `publisher-operations.md` state that bylines are Shane Michelon, Founder. The publisher script does not hard-code an article author. `author` is not in its required frontmatter list. The prompt says to follow the existing frontmatter schema. It does hard-code `imageCredit: Collegiate Agency` for owned photos, which is the photo credit, not the byline.
+
 ## 2026-10-26 — Student housing marketing agency article
 
 Run 34. A buyer hiring guide for `student housing marketing agency`, published at `/insights/student-housing-marketing-agency`. No new prices, client results, or testimonials. The contact email and `sameAs` list were left as published.

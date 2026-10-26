@@ -330,6 +330,7 @@ export function loadMdxPosts(): Post[] {
         excerpt: asString(data, "excerpt"),
         date: asString(data, "date"),
         dateModified: typeof data.dateModified === "string" ? data.dateModified : undefined,
+        // Kept as written. `posts` resolves a missing or organization byline to the default author.
         author: typeof data.author === "string" ? data.author : undefined,
         art: typeof data.art === "string" ? data.art : undefined,
         image: typeof data.image === "string" ? data.image : undefined,

@@ -11,10 +11,10 @@ import { ArticleFigure } from "@/components/article/ArticleFigure";
 import { ArticleFaq, FaqPageJsonLd } from "@/components/services/ServiceFaq";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { articleFaqSchemaItems } from "@/lib/article-faq";
-import { articleSocialImage, pageMetadata } from "@/lib/seo";
-import { siteConfig } from "@/site.config";
+import { articleSocialImage, pageMetadata, resolveArticleAuthor } from "@/lib/seo";
 import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/content";
 import { ArticleArt } from "@/components/insights/ArticleArt";
+import { ArticleByline } from "@/components/insights/ArticleByline";
 
 type Params = Promise<{ slug: string }>;
 
@@ -87,7 +87,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     type: "article",
     publishedTime: post.date,
     modifiedTime: post.dateModified ?? post.date,
-    authors: [post.author ?? siteConfig.companyName],
+    authors: [resolveArticleAuthor(post.author).name],
     images: [image],
   });
 }
@@ -127,7 +127,6 @@ export default async function InsightArticle({ params }: { params: Params }) {
   const post = getPost(slug);
   if (!post) notFound();
 
-  const author = post.author ?? siteConfig.companyName;
   const cta = SERVICE_CTA[post.ctaService];
 
   return (
@@ -139,7 +138,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
         date={post.date}
         dateModified={post.dateModified}
         image={post.image ?? post.ogImage}
-        author={author}
+        author={post.author}
       />
       {post.faq && post.faq.length > 0 && (
         <FaqPageJsonLd items={articleFaqSchemaItems(post.faq)} path={`/insights/${post.slug}`} />
@@ -169,9 +168,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
               {post.title}
             </h1>
             <p className="mt-4 text-lg text-[color:var(--muted-on-light)]">{post.excerpt}</p>
-            <p className="mt-4 text-sm font-medium text-ink">
-              By {author}
-            </p>
+            <ArticleByline author={post.author} />
           </Container>
           <Container className="mt-10 max-w-4xl px-0">
             <div className="relative">
