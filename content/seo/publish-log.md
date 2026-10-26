@@ -37,3 +37,4 @@
 | 31 | 2026-10-22 | 03:42 CDT | college-tailgate-marketing-agency | college tailgate marketing agency | 1700 | prepared; live receipt in publisher state |
 | 32 | 2026-10-23 | 15:39 CDT | spring-break-marketing-agency | spring break marketing agency | 1685 | prepared; live receipt in publisher state |
 | 33 | 2026-10-25 | 03:39 CDT | greek-life-marketing-agency | greek life marketing agency | 1698 | prepared; live receipt in publisher state |
+| 34 | 2026-10-26 | 15:52 CDT | student-housing-marketing-agency | student housing marketing agency | 1614 | prepared; live receipt in publisher state |

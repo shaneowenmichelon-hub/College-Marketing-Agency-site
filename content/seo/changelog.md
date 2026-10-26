@@ -1,5 +1,14 @@
 # SEO changelog
 
+## 2026-10-26 — Student housing marketing agency article
+
+Run 34. A buyer hiring guide for `student housing marketing agency`, published at `/insights/student-housing-marketing-agency`. No new prices, client results, or testimonials. The contact email and `sameAs` list were left as published.
+
+- The article separates digital-only student housing work (search, paid media, websites, branding) from on-campus execution for pre-leasing and lease-up. It cites GTMA's August 17, 2026 article for the digital scope and the October-to-April search sequence. The only Collegiate result is the published SOS Consultants Nola case study: a $2,500 package, two shows, an on-site activation, ambassador posts, localized Meta ads, and an 11x return on ad spend. Competitor occupancy figures are omitted. The ambassador program is linked at `/services/brand-ambassadors` and is not restated.
+- Rates in the article are the ones already on `/pricing`: $150 per ambassador per month, and event packages from $500 to $500,000. The case-study package is labeled as that case study, not as the rate card.
+- Photo use: hero `dazed-branded-hats-activation.jpg`, inline `nutrl-attendees-sponsored-show.jpg` and `nutrl-crowd-campus-event.jpg`. Each was on six articles, so this is the seventh and last appearance under the cap. The hero is a third use because no agency-eligible photo was still under two hero uses. No setup frame remained under the cap. The premiere step-and-repeat stayed off this agency slug.
+- Keyword map lockout, Run 34 research note, publish log, pre-article brief, and photo ledger are updated with the article. Sitemap `lastmod` follows the post date. The autopublish receipt is updated only after live verification.
+
 ## 2026-10-26 — Services page positioning and unsourced sampling stat
 
 The `/services` search snippet framed Collegiate Agency as serving brands and students, and the homepage work teaser rendered an unsourced Celsius sampling figure. No article bodies were edited. The contact email and `sameAs` list were left as published.
