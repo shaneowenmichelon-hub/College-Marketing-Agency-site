@@ -1,19 +1,19 @@
 {
   "last_success": {
-    "image_sha256": "cf193ba8f6c201e3419b9670181547d813581871b792c249605bc09d598c46c6",
-    "primary_keyword": "greek life marketing agency",
-    "run_no": 33,
-    "slug": "greek-life-marketing-agency",
+    "image_sha256": "accea3e1dbfbe96783fe850253a1cc473e90b84627f8b6b2f3f9583afcce1c31",
+    "primary_keyword": "student housing marketing agency",
+    "run_no": 34,
+    "slug": "student-housing-marketing-agency",
     "tables": 1,
-    "url": "https://collegiateagency.com/insights/greek-life-marketing-agency",
-    "verified_at": "2026-10-25T03:56:36-05:00",
-    "word_count": 1698
+    "url": "https://collegiateagency.com/insights/student-housing-marketing-agency",
+    "verified_at": "2026-10-26T16:11:47-05:00",
+    "word_count": 1614
   },
-  "next_run_at": "2026-10-26T16:07:17-05:00",
+  "next_run_at": "2026-10-28T04:17:27-05:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-10-25T03:56:36-05:00",
-  "schedule_jitter_seconds": 641,
+  "schedule_anchor": "2026-10-26T16:11:47-05:00",
+  "schedule_jitter_seconds": 340,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility"
 }
