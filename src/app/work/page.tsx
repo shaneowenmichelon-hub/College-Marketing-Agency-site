@@ -61,15 +61,16 @@ export default function WorkPage() {
                     )}
                   </div>
                   <p className="mono-label mt-3 text-[11px] font-bold text-ink">{c.brand}</p>
-                  {/* Metric-forward headline stat */}
-                  <div className="mt-4">
-                    <div className="font-display text-4xl font-bold tracking-tight text-accent">
-                      {c.stat}
+                  {c.stat && c.statLabel ? (
+                    <div className="mt-4">
+                      <div className="font-display text-4xl font-bold tracking-tight text-accent">
+                        {c.stat}
+                      </div>
+                      <div className="text-sm text-[color:var(--muted-on-light)]">
+                        {c.statLabel}
+                      </div>
                     </div>
-                    <div className="text-sm text-[color:var(--muted-on-light)]">
-                      {c.statLabel}
-                    </div>
-                  </div>
+                  ) : null}
                   <h2 className="mt-4 font-display text-lg font-bold text-ink">
                     {c.headline}
                   </h2>

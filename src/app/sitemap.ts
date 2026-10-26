@@ -11,6 +11,8 @@ const STATIC_LAST_MODIFIED = "2026-10-20";
 const SERVICE_DETAIL_LAST_MODIFIED = "2026-10-21";
 /** Pricing, product placement, and the homepage schema/accessibility pass. */
 const SEO_BATCH_LAST_MODIFIED = "2026-10-22";
+/** Services metadata reframed for brands, and the unsourced sampling stat removed. */
+const BRAND_POSITIONING_LAST_MODIFIED = "2026-10-26";
 
 function lastModified(iso: string): Date {
   // Date-only values are pinned to UTC so the sitemap does not shift with the build timezone.
@@ -46,11 +48,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: lastModified(
       route === "/insights"
         ? latestArticle
-        : route === "/services/events" || route === "/services/brand-ambassadors"
-          ? SERVICE_DETAIL_LAST_MODIFIED
-          : route === "" || route === "/pricing" || route === "/services/product-placement"
-            ? SEO_BATCH_LAST_MODIFIED
-            : STATIC_LAST_MODIFIED,
+        : route === "" || route === "/services"
+          ? BRAND_POSITIONING_LAST_MODIFIED
+          : route === "/services/events" || route === "/services/brand-ambassadors"
+            ? SERVICE_DETAIL_LAST_MODIFIED
+            : route === "/pricing" || route === "/services/product-placement"
+              ? SEO_BATCH_LAST_MODIFIED
+              : STATIC_LAST_MODIFIED,
     ),
     changeFrequency: "monthly",
     priority: route === "" ? 1 : 0.7,

@@ -218,10 +218,15 @@ export default function HomePage() {
                     {c.headline}
                   </h3>
                   <p className="mt-2 text-sm text-[color:var(--muted-on-light)]">
-                    {c.brand} ·{" "}
-                    <span className="font-semibold text-accent">
-                      {c.stat} {c.statLabel}
-                    </span>
+                    {c.brand}
+                    {c.stat && c.statLabel ? (
+                      <>
+                        {" · "}
+                        <span className="font-semibold text-accent">
+                          {c.stat} {c.statLabel}
+                        </span>
+                      </>
+                    ) : null}
                   </p>
                 </div>
               </Link>

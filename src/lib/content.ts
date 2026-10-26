@@ -385,9 +385,12 @@ export type CaseStudy = {
   brand: string;
   type: "Events" | "Brand Ambassadors" | "Product Placement";
   headline: string;
-  /** Big metric-forward stat. */
-  stat: string;
-  statLabel: string;
+  /**
+   * Big metric-forward stat. Omit both fields when the study has no sourced
+   * figure. Do not fill the slot with an illustrative number.
+   */
+  stat?: string;
+  statLabel?: string;
   /** Secondary metric callouts. */
   metrics: { value: string; label: string }[];
   /** Optional tiny-print explanation for metric methodology. */
@@ -417,9 +420,9 @@ export type CaseStudy = {
  * INDUSTRY REFERENCE examples - real, well-known brand programs that show each of
  * the three tactics working on campus. These are NOT Collegiate Agency
  * campaigns; they're public industry references. The `sample` flag renders an
- * "Industry example" label, and the headline/metric figures are illustrative
- * (kept modest on purpose) - the program descriptions are factual. Replace with
- * CH's own client-approved case studies as they land.
+ * "Industry example" label. Program descriptions stay factual. Metric figures
+ * are omitted unless a sourced number already exists in this file. Replace with
+ * client-approved case studies as they land.
  */
 const sosConsultantsArticle: ArticleBlock[] = [
   {
@@ -537,14 +540,8 @@ export const caseStudies: CaseStudy[] = [
     brand: "Celsius",
     type: "Events",
     headline: "Campus sampling that built an energy-drink challenger",
-    stat: "45K",
-    statLabel: "cans sampled / month",
     sample: true,
-    metrics: [
-      { value: "120+", label: "campuses" },
-      { value: "18%", label: "opt-in rate" },
-      { value: "32%", label: "trial-to-repeat" },
-    ],
+    metrics: [],
     challenge:
       "Celsius was outspent many times over by the energy-drink giants. It couldn't win on ad budget - so it had to win on the ground, in front of students.",
     approach:
