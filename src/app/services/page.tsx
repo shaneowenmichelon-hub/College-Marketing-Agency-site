@@ -1,19 +1,19 @@
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { BreadcrumbJsonLd, ServicesJsonLd } from "@/components/seo/JsonLd";
-import { AudienceTabs } from "@/components/services/AudienceTabs";
+import { BreadcrumbJsonLd, ServicesJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { CapabilityBlock } from "@/components/services/CapabilityBlock";
 import { IconCardGrid } from "@/components/services/IconCardGrid";
 import { servicesHub } from "@/site.config";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, resolveDocumentTitle } from "@/lib/seo";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 
+const servicesTitle = resolveDocumentTitle(servicesHub.documentTitle).text;
+
 export const metadata = pageMetadata({
-  title: "Services - For brands and for students",
-  description:
-    "Campus presence for brands through events, ambassadors, and product placement - and paid opportunities for students. One team, run end to end.",
+  title: servicesHub.documentTitle,
+  description: servicesHub.description,
   path: "/services",
 });
 
@@ -79,6 +79,7 @@ function StudentsPanel() {
 export default function ServicesPage() {
   return (
     <>
+      <WebPageJsonLd name={servicesTitle} description={servicesHub.description} path="/services" />
       <ServicesJsonLd />
       <BreadcrumbJsonLd
         items={[
@@ -86,41 +87,39 @@ export default function ServicesPage() {
           { name: "Services", path: "/services" },
         ]}
       />
-      <Section tone="light">
+      <Section tone="light" id="for-brands" className="scroll-mt-24">
         <SectionHeading
           as="h1"
           eyebrow="Services"
-          title="One team. Two sides of campus."
+          title={servicesHub.heroTitle}
           intro={servicesHub.intro}
           align="center"
         />
         <div className="mt-10">
-          <AudienceTabs
-            tabs={[
-              { id: "for-brands", label: "For Brands", panel: <BrandsPanel /> },
-              { id: "for-students", label: "For Students", panel: <StudentsPanel /> },
-            ]}
-            defaultId="for-brands"
-            anchorTab={{
-              events: "for-brands",
-              "brand-ambassadors": "for-brands",
-              "product-placement": "for-brands",
-            }}
-            afterTabs={
-              <Link
-                href="/build-a-campaign"
-                className="group mx-auto flex w-full max-w-md items-center justify-between gap-4 rounded-[4px] border-2 border-ink bg-[color:var(--accent-2)] px-5 py-4 shadow-[5px_5px_0_var(--ink)] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--ink)]"
-              >
-                <span className="flex items-center gap-2">
-                  <Sparkles className="h-5 w-5 text-ink" />
-                  <span className="font-display text-base font-bold text-ink sm:text-lg">Build a Campaign</span>
-                </span>
-                <span className="mono-label text-[11px] font-bold text-ink/70 transition-transform group-hover:translate-x-1">
-                  Build it →
-                </span>
-              </Link>
-            }
-          />
+          <Link
+            href="/build-a-campaign"
+            className="group mx-auto flex w-full max-w-md items-center justify-between gap-4 rounded-[4px] border-2 border-ink bg-[color:var(--accent-2)] px-5 py-4 shadow-[5px_5px_0_var(--ink)] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_var(--ink)]"
+          >
+            <span className="flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-ink" />
+              <span className="font-display text-base font-bold text-ink sm:text-lg">Build a Campaign</span>
+            </span>
+            <span className="mono-label text-[11px] font-bold text-ink/70 transition-transform group-hover:translate-x-1">
+              Build it →
+            </span>
+          </Link>
+        </div>
+        <div className="mt-12">
+          <BrandsPanel />
+        </div>
+      </Section>
+      <Section tone="muted" id="for-students" className="scroll-mt-24">
+        <SectionHeading
+          eyebrow="Ambassador network"
+          title="Apply to the ambassador roster."
+        />
+        <div className="mt-10">
+          <StudentsPanel />
         </div>
       </Section>
     </>

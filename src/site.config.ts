@@ -269,9 +269,10 @@ function priceNote(slug: keyof typeof pricing): string {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SERVICES HUB - the /services page (Brand ↔ Student tabbed layout). All copy is
-// data-driven from here. Price notes reference the pricing config above so they
-// never drift. Images reuse existing /public assets; swap paths freely.
+// SERVICES HUB - the /services page. Brands are the page; ambassador recruiting
+// stays as a lower section. All copy is data-driven from here. Price notes
+// reference the pricing config above so they never drift. Images reuse existing
+// /public assets; swap paths freely.
 // ─────────────────────────────────────────────────────────────────────────────
 export type CapabilityBlock = {
   /** Optional stable anchor id for /services blocks. */
@@ -289,6 +290,12 @@ export type CapabilityBlock = {
 export type PerkCard = { icon: string; title: string; body: string };
 
 export type ServicesHub = {
+  /** Document title lead. The brand suffix is added only when it still fits. */
+  documentTitle: string;
+  /** Meta, Open Graph, Twitter, and WebPage description. Brand buyers only. */
+  description: string;
+  /** Visible H1. Brands are the page; student recruiting is a lower section. */
+  heroTitle: string;
   intro: string;
   brands: {
     intro: string;
@@ -304,8 +311,12 @@ export type ServicesHub = {
 };
 
 export const servicesHub: ServicesHub = {
+  documentTitle: "Campus Marketing Services for Brands",
+  description:
+    "Campus marketing services for brands: brand ambassador programs, campus events and activations, and product placement at colleges nationwide, run end to end by Collegiate Agency.",
+  heroTitle: "Campus marketing services for brands.",
   intro:
-    "One team, three channels onto campus - events, ambassadors, and product placement - run end to end. Pick your side: what we do for brands, and what's in it for students.",
+    "Brand ambassador programs, campus events and activations, and product placement at colleges nationwide, run end to end.",
   brands: {
     intro:
       "Brands get real campus presence through three channels - events, ambassadors, and product placement - run end to end by a team that operates Gen-Z events nationally.",

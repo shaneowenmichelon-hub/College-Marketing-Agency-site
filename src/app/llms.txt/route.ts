@@ -33,13 +33,11 @@ export async function GET() {
     return L(s.label, path, `${s.blurb}${price}`);
   });
 
-  const work = caseStudies.map((c) =>
-    L(
-      `${c.brand} — ${c.type}`,
-      `/work/${c.slug}`,
-      `${c.headline} Result: ${c.stat} ${c.statLabel}.${c.sample ? " (Illustrative example, not a verified client result.)" : ""}`,
-    ),
-  );
+  const work = caseStudies.map((c) => {
+    const result = c.stat && c.statLabel ? ` Result: ${c.stat} ${c.statLabel}.` : "";
+    const caveat = c.sample ? " Illustrative example, not a verified client result." : "";
+    return L(`${c.brand} — ${c.type}`, `/work/${c.slug}`, `${c.headline}${result}${caveat}`);
+  });
 
   // Newest first, capped so the file stays a map rather than an archive.
   const articles = [...posts]

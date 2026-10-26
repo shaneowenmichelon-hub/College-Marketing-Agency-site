@@ -1,5 +1,14 @@
 # SEO changelog
 
+## 2026-10-26 — Services page positioning and unsourced sampling stat
+
+The `/services` search snippet framed Collegiate Agency as serving brands and students, and the homepage work teaser rendered an unsourced Celsius sampling figure. No article bodies were edited. The contact email and `sameAs` list were left as published.
+
+- `/services` document title is `Campus Marketing Services for Brands | Collegiate Agency`. The lead is short enough that the brand suffix is added once, and the title is absolute so the root template does not add it again. The meta description, Open Graph, Twitter, and WebPage JSON-LD use the same brand-only description: campus marketing services for brands, covering brand ambassador programs, campus events and activations, and product placement, run end to end. Student opportunities are not in that snippet.
+- The visible H1 is "Campus marketing services for brands." Events, ambassadors, and product placement are the page body. Ambassador recruiting remains below that, at `#for-students`.
+- The Celsius industry example no longer publishes `45K cans sampled / month`, or the unsourced `120+` campuses, `18%` opt-in, and `32%` trial-to-repeat figures that sat in the same stat block. Homepage cards, `/work`, the case-study page, its metadata, and `llms.txt` no longer render them. No replacement number was added.
+- Sitemap `lastmod` for `/` and `/services` is 2026-10-26.
+
 ## 2026-10-25 — Greek life marketing agency article
 
 Run 33. A buyer hiring guide for `greek life marketing agency`, published at `/insights/greek-life-marketing-agency`. No new prices, client results, or testimonials. The contact email and `sameAs` list were left as published.

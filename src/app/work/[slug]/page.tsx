@@ -30,9 +30,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       index: false,
     });
   }
+  const result = c.stat && c.statLabel ? ` ${c.stat} ${c.statLabel}` : "";
   return pageMetadata({
     title: `${c.brand} case study`,
-    description: `${c.type} case study: ${c.headline}. ${c.stat} ${c.statLabel}${c.sample ? " (sample)." : "."}`,
+    description: `${c.type} case study: ${c.headline}.${result}${c.sample ? " (sample)." : "."}`,
     path: `/work/${slug}`,
     index: !c.sample,
   });
@@ -84,42 +85,49 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
             <p className="mt-3 text-[color:var(--muted-on-dark)]">{c.brand}</p>
             {c.sample && (
               <p className="mono-label mt-4 max-w-xl text-[10px] leading-relaxed text-[color:var(--muted-on-dark)]/80">
-                Public industry reference - not a Collegiate Agency campaign. Figures are illustrative.
+                Public industry reference - not a Collegiate Agency campaign.
               </p>
             )}
           </div>
         </Container>
       </section>
 
-      {/* Metric callouts */}
-      <Section tone="light" className="py-12">
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-          <div>
-            <div className="font-display text-4xl font-bold text-accent sm:text-5xl">
-              {c.stat}
-            </div>
-            <div className="mt-1 text-sm text-[color:var(--muted-on-light)]">
-              {c.statLabel}
-            </div>
-          </div>
-          {c.metrics.map((m) => (
-            <div key={m.label}>
-              <div className="font-display text-4xl font-bold text-ink sm:text-5xl">
-                {m.value}
+      {/* Metric callouts. Hidden when the study has no sourced figures. */}
+      {(c.stat && c.statLabel) || c.metrics.length > 0 ? (
+        <Section tone="light" className="py-12">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+            {c.stat && c.statLabel ? (
+              <div>
+                <div className="font-display text-4xl font-bold text-accent sm:text-5xl">
+                  {c.stat}
+                </div>
+                <div className="mt-1 text-sm text-[color:var(--muted-on-light)]">
+                  {c.statLabel}
+                </div>
               </div>
-              <div className="mt-1 text-sm text-[color:var(--muted-on-light)]">{m.label}</div>
-            </div>
-          ))}
-        </div>
-        {c.metricFootnote && (
-          <p className="mt-5 max-w-2xl text-[10px] leading-relaxed text-[color:var(--muted-on-light)]/65">
-            {c.metricFootnote}
-          </p>
-        )}
-      </Section>
+            ) : null}
+            {c.metrics.map((m) => (
+              <div key={m.label}>
+                <div className="font-display text-4xl font-bold text-ink sm:text-5xl">
+                  {m.value}
+                </div>
+                <div className="mt-1 text-sm text-[color:var(--muted-on-light)]">{m.label}</div>
+              </div>
+            ))}
+          </div>
+          {c.metricFootnote && (
+            <p className="mt-5 max-w-2xl text-[10px] leading-relaxed text-[color:var(--muted-on-light)]/65">
+              {c.metricFootnote}
+            </p>
+          )}
+        </Section>
+      ) : null}
 
       {/* Challenge / Approach / Results */}
-      <Section tone="muted" className="pt-0">
+      <Section
+        tone="muted"
+        className={(c.stat && c.statLabel) || c.metrics.length > 0 ? "pt-0" : undefined}
+      >
         <div className="grid gap-6 lg:grid-cols-3">
           {sections.map((s, i) => (
             <Reveal key={s.key} delay={i * 0.08}>

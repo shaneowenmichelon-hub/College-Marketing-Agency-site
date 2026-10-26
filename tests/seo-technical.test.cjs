@@ -45,7 +45,7 @@ test("document titles stay within 60 characters and do not double the brand", ()
     "About the agency",
     "Contact - Let's reach students together",
     "Work - Campaigns & case studies",
-    "Services - For brands and for students",
+    "Campus Marketing Services for Brands",
     "Campus event marketing",
     "Brand ambassador programs",
     "Campus marketing insights",
@@ -328,6 +328,60 @@ test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
     byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(),
     "2026-10-20T00:00:00.000Z",
   );
+});
+
+test("services metadata is brand-only and unsourced sampling stats are absent", async () => {
+  const { servicesHub } = loadTs("site.config.ts");
+  const { pageMetadata, TITLE_LIMIT } = loadTs("lib/seo.ts");
+  const { caseStudies } = loadTs("lib/content.ts");
+  const { GET } = loadTs("app/llms.txt/route.ts");
+  const meta = pageMetadata({
+    title: servicesHub.documentTitle,
+    description: servicesHub.description,
+    path: "/services",
+  });
+  const title = meta.title.absolute;
+  assert.equal(title, "Campus Marketing Services for Brands | Collegiate Agency");
+  assert.ok(title.length <= TITLE_LIMIT, `${title} (${title.length})`);
+  assert.equal(title.split("Collegiate Agency").length - 1, 1);
+  assert.equal(meta.description, servicesHub.description);
+  assert.equal(meta.openGraph.title.absolute, title);
+  assert.equal(meta.openGraph.description, servicesHub.description);
+  assert.equal(meta.twitter.title.absolute, title);
+  assert.equal(meta.twitter.description, servicesHub.description);
+  assert.equal(/student/i.test(servicesHub.description), false);
+  assert.equal(/student/i.test(servicesHub.heroTitle), false);
+  assert.equal(/for students|pick your side|two sides/i.test(servicesHub.intro), false);
+
+  const page = fs.readFileSync(path.join(__dirname, "../src/app/services/page.tsx"), "utf8");
+  assert.match(page, /servicesHub\.documentTitle/);
+  assert.match(page, /servicesHub\.description/);
+  assert.match(page, /servicesHub\.heroTitle/);
+  assert.match(page, /<WebPageJsonLd /);
+  assert.match(page, /id="for-students"/);
+  assert.equal(page.includes("For brands and for students"), false);
+  assert.equal(page.includes("One team. Two sides"), false);
+  assert.equal(page.includes("AudienceTabs"), false);
+
+  const celsius = caseStudies.find((study) => study.slug === "celsius-campus-sampling");
+  assert.equal(celsius.sample, true);
+  assert.equal(celsius.stat, undefined);
+  assert.equal(celsius.statLabel, undefined);
+  assert.deepEqual(celsius.metrics, []);
+  const serialized = JSON.stringify(caseStudies);
+  assert.equal(serialized.includes("45K"), false);
+  assert.equal(serialized.includes("cans sampled"), false);
+  assert.equal(serialized.includes("120+"), false);
+  assert.equal(serialized.includes("opt-in rate"), false);
+  assert.equal(serialized.includes("trial-to-repeat"), false);
+
+  const llms = await (await GET()).text();
+  assert.equal(llms.includes("45K"), false);
+  assert.equal(llms.includes("cans sampled"), false);
+
+  const { default: sitemap } = loadTs("app/sitemap.ts");
+  const services = sitemap().find((entry) => entry.url === "https://collegiateagency.com/services");
+  assert.equal(services.lastModified.toISOString(), "2026-10-26T00:00:00.000Z");
 });
 
 test("case-study insight URLs permanently redirect to /work", () => {

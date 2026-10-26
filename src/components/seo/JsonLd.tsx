@@ -2,6 +2,7 @@ import { siteConfig } from "@/site.config";
 import {
   LOGO_PATH,
   ORGANIZATION_ID,
+  WEBSITE_ID,
   organizationStructuredData,
   serviceStructuredData,
 } from "@/lib/seo";
@@ -32,6 +33,33 @@ export function OrganizationJsonLd() {
         <JsonLd key={String(data["@id"])} data={data} />
       ))}
     </>
+  );
+}
+
+/** Page name and description, matching that route's document title and meta description. */
+export function WebPageJsonLd({
+  name,
+  description,
+  path,
+}: {
+  name: string;
+  description: string;
+  path: string;
+}) {
+  const url = `${siteConfig.url}${path}`;
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name,
+        description,
+        isPartOf: { "@id": WEBSITE_ID },
+        publisher: { "@id": ORGANIZATION_ID },
+      }}
+    />
   );
 }
 
