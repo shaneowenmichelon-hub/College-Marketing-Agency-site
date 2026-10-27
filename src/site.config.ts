@@ -511,7 +511,9 @@ export type TeamMember = {
 export const team: TeamMember[] = [
   {
     name: "Shane Michelon",
-    title: "Partner, ZMM Events · Co-founder, Night School Tour · Founder, SOS Consultants",
+    // The about page and Person node use articleAuthor (Founder, LinkedIn only).
+    // Do not put ZMM Events or SOS Consultants titles on this card.
+    title: "Founder",
     photo: "/team/shane-michelon.png",
   },
   {

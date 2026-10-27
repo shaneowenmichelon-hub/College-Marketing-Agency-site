@@ -3,6 +3,7 @@ import {
   LOGO_PATH,
   ORGANIZATION_ID,
   WEBSITE_ID,
+  aboutStructuredData,
   articleAuthorStructuredData,
   organizationStructuredData,
   serviceStructuredData,
@@ -35,6 +36,14 @@ export function OrganizationJsonLd() {
       ))}
     </>
   );
+}
+
+/**
+ * About page graph: an AboutPage/WebPage whose mainEntity is the organization
+ * and each person shown on /about. Shane Michelon is the shared founder Person.
+ */
+export function AboutPageJsonLd() {
+  return <JsonLd data={aboutStructuredData()} />;
 }
 
 /** Page name and description, matching that route's document title and meta description. */
