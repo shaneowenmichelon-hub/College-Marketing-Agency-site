@@ -1,5 +1,16 @@
 # SEO changelog
 
+## 2026-10-27 — Person schema and a stronger about page
+
+`/about` now names Collegiate Agency as a college marketing agency brands hire, and it emits Person JSON-LD for the people shown on the page. No article bodies, photos, or the photo-usage ledger were edited. `scripts/collegiate_seo_autopublish.py`, `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
+- The document title is `About the college marketing agency | Collegiate Agency` (54 characters). The meta description, Open Graph, and Twitter text are the same brand-framed description: brands hire Collegiate Agency for campus events, brand ambassador programs, and product placement, and Shane Michelon is Founder.
+- Shane Michelon on `/about` uses the shared Person node `https://collegiateagency.com/#shane-michelon`: name Shane Michelon, jobTitle Founder, worksFor the organization `@id`, and the LinkedIn URL in `sameAs` only. The visible founder section uses that same name, title, and LinkedIn URL. ZMM Events and SOS Consultants are not on his Person node or his bio. His team-card title is Founder.
+- Zach Maitlin, AJ Deaugustine, and Ronan Rolstan each have a Person node built from the name, role, and headshot already on the team list, with worksFor the organization. No bios, credentials, or profile links were added for them.
+- The AboutPage/WebPage node at `https://collegiateagency.com/about#webpage` sets mainEntity to the organization and those Person `@id`s. Organization `founder` points at Shane Michelon's Person `@id`.
+- The page links to `/services`, `/services/brand-ambassadors`, `/services/events`, `/services/product-placement`, `/pricing`, `/work`, and `/contact`. The figures table repeats `siteConfig.stats` from the homepage and does not add a number. Ambassador recruiting stays as the secondary call to action.
+- Sitemap `lastmod` for `/about` is 2026-10-27.
+
 ## 2026-10-26 — Insight bylines credit Shane Michelon
 
 Visible bylines and Article JSON-LD on `/insights` credit Shane Michelon, Founder, instead of the organization. No article bodies, FAQs, photos, or the photo-usage ledger were edited. `scripts/collegiate_seo_autopublish.py`, `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.

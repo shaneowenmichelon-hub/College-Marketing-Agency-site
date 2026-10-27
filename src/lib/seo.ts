@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { pricing, siteConfig } from "@/site.config";
+import { pricing, siteConfig, team, type TeamMember } from "@/site.config";
 
 /**
  * Document titles stay within the ~60 character snippet width.
@@ -67,6 +67,74 @@ export function articleAuthorStructuredData(author?: string): Record<string, unk
   if (isDefaultArticleAuthor(author)) return founderPersonStructuredData();
   return { "@type": "Person", name: author!.trim() };
 }
+
+/** Document title lead for /about. The brand suffix is added when it still fits. */
+export const ABOUT_TITLE_LEAD = "About the college marketing agency";
+
+/**
+ * Snippet for /about. Brand-framed: who hires the agency, the three channels,
+ * and the founder. No student recruiting pitch and no new claim.
+ */
+export const ABOUT_DESCRIPTION =
+  "Collegiate Agency is a college marketing agency brands hire for campus events, brand ambassador programs, and product placement. Founder Shane Michelon.";
+
+/** Stable fragment for a person @id. Shane Michelon matches {@link FOUNDER_PERSON_ID}. */
+export function personSlug(name: string): string {
+  return name
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function personIdForName(name: string): string {
+  if (name === siteConfig.articleAuthor.name) return FOUNDER_PERSON_ID;
+  return `${siteConfig.url}/#${personSlug(name)}`;
+}
+
+/**
+ * Person node for someone shown on /about.
+ * Shane Michelon is the shared founder node, ignoring any other title, photo,
+ * or profile on the team record so the article author and this page cannot drift.
+ * Everyone else gets only the name, role, photo, and profile already on that card.
+ */
+export function aboutTeamPersonStructuredData(member: TeamMember): Record<string, unknown> {
+  if (member.name === siteConfig.articleAuthor.name) return founderPersonStructuredData();
+  const node: Record<string, unknown> = {
+    "@type": "Person",
+    "@id": personIdForName(member.name),
+    name: member.name,
+    ...(member.title ? { jobTitle: member.title } : {}),
+    worksFor: { "@id": ORGANIZATION_ID },
+  };
+  if (member.photo) node.image = absoluteUrl(member.photo);
+  if (member.linkedin) node.sameAs = [member.linkedin];
+  return node;
+}
+
+/** AboutPage graph for /about. Person nodes are the people in `team`, in that order. */
+export function aboutStructuredData(): Record<string, unknown> {
+  const people = team.map(aboutTeamPersonStructuredData);
+  const url = absoluteUrl("/about");
+  const page = {
+    "@type": ["AboutPage", "WebPage"],
+    "@id": `${url}#webpage`,
+    url,
+    name: resolveDocumentTitle(ABOUT_TITLE_LEAD).text,
+    description: ABOUT_DESCRIPTION,
+    inLanguage: "en-US",
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORGANIZATION_ID },
+    publisher: { "@id": ORGANIZATION_ID },
+    mainEntity: [{ "@id": ORGANIZATION_ID }, ...people.map((person) => ({ "@id": person["@id"] }))],
+  };
+  return {
+    "@context": "https://schema.org",
+    "@graph": [page, ...people],
+  };
+}
+
 /**
  * Raster logo rendered from public/logo.svg. Google's Organization logo
  * does not accept SVG; the file is 512×512 PNG.
@@ -288,6 +356,7 @@ export function organizationStructuredData(): Record<string, unknown>[] {
       name: siteConfig.companyName,
       legalName: siteConfig.companyLegalName,
       url: siteConfig.url,
+      founder: { "@id": FOUNDER_PERSON_ID },
       description: siteConfig.description,
       email: siteConfig.contact.email,
       logo: {
