@@ -164,9 +164,8 @@ export default function AboutPage() {
           title={siteConfig.articleAuthor.name}
           intro={
             <>
-              {siteConfig.articleAuthor.jobTitle}, {siteConfig.companyName}. {siteConfig.articleAuthor.name} is{" "}
-              {siteConfig.articleAuthor.jobTitle} of {siteConfig.companyName}. The insights on this site are published
-              under his name.{" "}
+              {siteConfig.articleAuthor.name} is {siteConfig.articleAuthor.jobTitle} of {siteConfig.companyName}. The
+              insights on this site are published under his name.{" "}
               <a
                 href={siteConfig.articleAuthor.linkedIn}
                 rel="author noopener"
@@ -229,8 +228,8 @@ export default function AboutPage() {
           <Reveal delay={0.1} className="space-y-4 text-[color:var(--muted-on-dark)]">
             {siteConfig.showCredibility && <p className="text-lg text-white">{siteConfig.credibilityLine}</p>}
             <p>
-              Collegiate Agency brings that events background to brands that need a campus program: ambassadors on
-              campus, events students already attend, and product placed with student organizations.
+              Collegiate Agency builds campus programs for brands: ambassadors on campus, events students already
+              attend, and product placed with student organizations.
             </p>
             <p>
               The operators named above run the work. The ambassador roster is the network a brand hires the agency to
