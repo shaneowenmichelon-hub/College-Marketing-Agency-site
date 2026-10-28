@@ -43,13 +43,13 @@ test("document titles stay within 60 characters and do not double the brand", ()
 
   const pages = [
     "About the agency",
-    "Contact - Let's reach students together",
-    "Work - Campaigns & case studies",
+    "Contact the college marketing agency",
+    "Campus marketing case studies",
     "Campus Marketing Services for Brands",
     "Campus event marketing",
     "Brand ambassador programs",
     "Campus marketing insights",
-    "Build a campus campaign",
+    "Build a college marketing campaign",
     "Become a campus ambassador",
     "Campus marketing pricing",
     "Greek life product placement",
@@ -326,7 +326,7 @@ test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(),
-    "2026-10-20T00:00:00.000Z",
+    "2026-10-28T00:00:00.000Z",
   );
 });
 

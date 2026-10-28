@@ -1,5 +1,14 @@
 # SEO changelog
 
+## 2026-10-28 — Indexable copy on the thin pages
+
+`/work`, `/contact`, and `/build-a-campaign` now have server-rendered copy a search engine or answer engine can quote. No article bodies, photos, or the photo-usage ledger were edited. The public contact email and the published location line were not changed. `scripts/collegiate_seo_autopublish.py`, `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
+- `/work` title is `Campus marketing case studies | Collegiate Agency`. The page says Collegiate Agency is a college and campus marketing agency brands hire for campus events, brand ambassador programs, and product placement. Each card adds the challenge already stored on that case study. The Celsius card stays an industry example. Its detail URL stays `noindex` and out of the sitemap.
+- `/contact` title is `Contact the college marketing agency | Collegiate Agency`. The copy names who the form is for (brands, in-house marketing teams, and agencies), the one-business-day reply already published on the pricing page, and what the form asks for. Four visible questions use that same material. FAQPage JSON-LD is built from those questions. Breadcrumb JSON-LD is Home → Contact. The email and office lines still come from `siteConfig`.
+- `/build-a-campaign` title is `Build a college marketing campaign | Collegiate Agency`. The page explains the builder steps and the starting estimate, using the published ambassador, product-placement, and event rates, then links to the pricing page and the three service pages. The builder itself is unchanged except its step title is an `h2` under the page `h1`.
+- Open Graph and Twitter title and description match each page's document title and meta description. Sitemap `lastmod` for the three URLs is 2026-10-28.
+
 ## 2026-10-27 — Person schema and a stronger about page
 
 `/about` now names Collegiate Agency as a college marketing agency brands hire, and it emits Person JSON-LD for the people shown on the page. No article bodies, photos, or the photo-usage ledger were edited. `scripts/collegiate_seo_autopublish.py`, `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.

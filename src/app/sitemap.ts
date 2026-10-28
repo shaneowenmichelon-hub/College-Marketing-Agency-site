@@ -15,6 +15,8 @@ const SEO_BATCH_LAST_MODIFIED = "2026-10-22";
 const BRAND_POSITIONING_LAST_MODIFIED = "2026-10-26";
 /** About page gained Person schema and the expanded brand copy on this date. */
 const ABOUT_LAST_MODIFIED = "2026-10-27";
+/** /work, /contact, and /build-a-campaign gained indexable copy on this date. */
+const THIN_PAGE_LAST_MODIFIED = "2026-10-28";
 
 function lastModified(iso: string): Date {
   // Date-only values are pinned to UTC so the sitemap does not shift with the build timezone.
@@ -58,7 +60,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
               ? SERVICE_DETAIL_LAST_MODIFIED
               : route === "/pricing" || route === "/services/product-placement"
                 ? SEO_BATCH_LAST_MODIFIED
-                : STATIC_LAST_MODIFIED,
+                : route === "/work" || route === "/contact" || route === "/build-a-campaign"
+                  ? THIN_PAGE_LAST_MODIFIED
+                  : STATIC_LAST_MODIFIED,
     ),
     changeFrequency: "monthly",
     priority: route === "" ? 1 : 0.7,
