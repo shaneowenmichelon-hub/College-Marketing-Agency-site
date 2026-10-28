@@ -31,6 +31,7 @@ code change this list can finish on its own.
 - [x] `/services` title, meta description, Open Graph, Twitter, and WebPage JSON-LD name campus marketing services for brands. The hero is brand-framed. Student recruiting stays lower on the page. The unsourced Celsius "45K cans sampled / month" stat and the placeholder metrics in that same block are no longer rendered.
 - [x] Insight articles byline Shane Michelon, Founder, with Article/BlogPosting author as a Person (`https://collegiateagency.com/#shane-michelon`) that worksFor the organization. The LinkedIn profile is the only author URL. Publisher stays the organization. A non-default frontmatter `author` can still override the name.
 - [x] Person schema on `/about` for the people shown there, with Shane Michelon reusing the shared Founder Person node, plus a stronger brand-framed about page.
+- [x] `/work`, `/contact`, and `/build-a-campaign` now have server-rendered indexable copy (unique titles, descriptions, and breadcrumb JSON-LD). `/contact` adds a visible FAQ whose FAQPage JSON-LD uses the same answers. Sample case studies stay noindex.
 
 ## Remaining
 
@@ -45,6 +46,5 @@ code change this list can finish on its own.
   - Activations: `campus-activation-ideas`, `university-activations`, `campus-brand-activation-agency`
   - Strategy: `college-marketing-strategy`, `how-to-market-to-college-students`
   - Sponsorship: `college-event-sponsorship`, `college-festival-sponsorship`
-- [ ] Thin pages: `/build-a-campaign`, `/contact`, and `/work` need more indexable copy than a form, a short pitch, or a card grid.
 - [ ] Redirect the `*.vercel.app` host to `https://collegiateagency.com`.
 - [ ] Off-site listings still to confirm or finish: DesignRush, GoodFirms, Google Business Profile, Bing Places, and Apple Business. LinkedIn, Clutch, and Sortlist are already live and in `sameAs`. Do not invent a phone number or street address to match the directory NAP.

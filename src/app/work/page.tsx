@@ -9,12 +9,13 @@ import { CaseStudyCover } from "@/components/work/CaseStudyCover";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { caseStudies } from "@/lib/content";
+import { caseStudyBlurb, WORK_DESCRIPTION, WORK_H1, WORK_TITLE, workIntro } from "@/lib/indexable-pages";
 import { pageMetadata } from "@/lib/seo";
+import { CopyBlocks } from "@/components/seo/CopyBlocks";
 
 export const metadata = pageMetadata({
-  title: "Work - Campaigns & case studies",
-  description:
-    "Metric-led campus campaigns across events, brand ambassadors, and product placement, including client case studies and public reference examples.",
+  title: WORK_TITLE,
+  description: WORK_DESCRIPTION,
   path: "/work",
 });
 
@@ -28,12 +29,8 @@ export default function WorkPage() {
         ]}
       />
       <Section tone="light">
-        <SectionHeading
-          as="h1"
-          eyebrow="Work"
-          title="What a campus campaign actually looks like."
-          intro="Events, brand ambassadors, and product placement on real campuses - the brief, the roster, the run of show, and what came back, shown through client case studies and public reference examples."
-        />
+        <SectionHeading as="h1" eyebrow="Work" title={WORK_H1} />
+        <CopyBlocks blocks={workIntro()} className="mt-8 max-w-3xl" />
       </Section>
 
       <Section tone="muted" className="pt-0">
@@ -71,9 +68,12 @@ export default function WorkPage() {
                       </div>
                     </div>
                   ) : null}
-                  <h2 className="mt-4 font-display text-lg font-bold text-ink">
+                  <h3 className="mt-4 font-display text-lg font-bold text-ink">
                     {c.headline}
-                  </h2>
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[color:var(--muted-on-light)]">
+                    {caseStudyBlurb(c)}
+                  </p>
                   <p className="mt-1 text-sm text-[color:var(--muted-on-light)]">{c.brand}</p>
                   <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
                     View case study

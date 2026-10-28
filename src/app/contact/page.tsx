@@ -2,17 +2,29 @@ import Image from "next/image";
 import { Mail, MapPin } from "lucide-react";
 import { siteConfig, clients, sitePhotos } from "@/site.config";
 import { pageMetadata } from "@/lib/seo";
+import {
+  CONTACT_DESCRIPTION,
+  CONTACT_FAQ_TITLE,
+  CONTACT_H1,
+  CONTACT_TITLE,
+  contactBody,
+  contactFaqs,
+  contactLead,
+} from "@/lib/indexable-pages";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { ClientMarquee } from "@/components/ClientMarquee";
 import { RotatingReview } from "@/components/RotatingReview";
+import { SectionHeading } from "@/components/SectionHeading";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { CopyBlocks } from "@/components/seo/CopyBlocks";
+import { FaqPageJsonLd, ServiceFaq } from "@/components/services/ServiceFaq";
 
 export const metadata = pageMetadata({
-  title: "Contact - Let's reach students together",
-  description:
-    "Tell us what you're launching and we'll build a plan to put it in front of the right campuses through events, brand ambassadors, and product placement.",
+  title: CONTACT_TITLE,
+  description: CONTACT_DESCRIPTION,
   path: "/contact",
 });
 
@@ -20,19 +32,25 @@ export const metadata = pageMetadata({
 const leadPhoto = sitePhotos[0];
 
 export default function ContactPage() {
+  const faqs = contactFaqs();
   return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]}
+      />
+      <FaqPageJsonLd items={faqs} path="/contact" />
     <Section tone="muted">
       <div className="grid gap-12 lg:grid-cols-2">
         {/* Left: pitch + info */}
         <Reveal>
           <Badge className="mb-4">Book a Call</Badge>
           <h1 className="text-balance font-display text-4xl font-bold leading-[1.05] text-ink sm:text-5xl">
-            Let&apos;s put your brand on campus.
+            {CONTACT_H1}
           </h1>
-          <p className="mt-4 max-w-md text-lg text-[color:var(--muted-on-light)]">
-            Tell us your goal and we&apos;ll come back with a plan across events, brand
-            ambassadors, and product placement, mapped to the campuses that matter for you.
-          </p>
+          <CopyBlocks blocks={[contactLead()]} className="mt-4 max-w-md" />
 
           {/* Real activation photo: sits left of the form on desktop, above it on mobile */}
           <figure className="mt-8 max-w-md">
@@ -86,9 +104,9 @@ export default function ContactPage() {
 
           {/* Offices */}
           <div className="mt-10">
-            <h2 className="text-xs uppercase tracking-wide text-[color:var(--muted-on-light)]">
+            <p className="text-xs uppercase tracking-wide text-[color:var(--muted-on-light)]">
               Offices
-            </h2>
+            </p>
             <div className="mt-3 grid gap-4 sm:grid-cols-2">
               {siteConfig.offices.map((office) => (
                 <div
@@ -117,5 +135,15 @@ export default function ContactPage() {
         </Reveal>
       </div>
     </Section>
+
+    <Section tone="light">
+      <CopyBlocks blocks={contactBody()} />
+    </Section>
+
+    <Section id="faq" tone="muted" className="scroll-mt-24">
+      <SectionHeading as="h2" eyebrow="FAQ" title={CONTACT_FAQ_TITLE} />
+      <ServiceFaq items={faqs} />
+    </Section>
+    </>
   );
 }

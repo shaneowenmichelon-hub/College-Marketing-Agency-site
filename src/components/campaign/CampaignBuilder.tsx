@@ -332,7 +332,7 @@ export function CampaignBuilder() {
       {/* Step header */}
       <div className="mb-5">
         <span className="mono-label text-[11px] font-bold text-accent">{meta.eyebrow}</span>
-        <h1 className="mt-2 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">{meta.title}</h1>
+        <h2 className="mt-2 font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">{meta.title}</h2>
         <p className="mt-3 max-w-2xl text-[color:var(--muted-on-light)]">{meta.intro}</p>
       </div>
 
