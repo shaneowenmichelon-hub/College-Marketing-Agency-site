@@ -2,6 +2,31 @@ import type { Metadata } from "next";
 import { pricing, siteConfig, team, type TeamMember } from "@/site.config";
 
 /**
+ * Bump when /public/share-card.png changes, to force every unfurler to
+ * refetch. iMessage, WhatsApp, Slack and LinkedIn all cache a preview
+ * against the image URL and will otherwise serve a months-old copy.
+ */
+export const SHARE_CARD_VERSION = 2;
+export const SHARE_CARD_URL = `/share-card.png?v=${SHARE_CARD_VERSION}`;
+export const SHARE_CARD_ALT = `${siteConfig.companyName} - ${siteConfig.tagline}`;
+
+/**
+ * The card as a metadata image, for a page that wants to name it explicitly.
+ *
+ * NOT applied as a blanket default here. metadata.openGraph.images BEATS a
+ * segment's opengraph-image file, so defaulting it for every page silently
+ * replaced the bespoke /work, /pricing, /about, /contact and /insights cards
+ * with this one. Pages without their own card fall back to the root
+ * app/opengraph-image.tsx instead, which is the file convention doing its job.
+ */
+export const SHARE_CARD_IMAGE = {
+  url: SHARE_CARD_URL,
+  width: 1200,
+  height: 630,
+  alt: SHARE_CARD_ALT,
+} as const;
+
+/**
  * Document titles stay within the ~60 character snippet width.
  * The brand suffix is appended only when the result still fits; a title that
  * already ends in the brand is not suffixed again.

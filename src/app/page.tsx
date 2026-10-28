@@ -30,12 +30,26 @@ import { CaseStudyCover } from "@/components/work/CaseStudyCover";
 import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
 import { caseStudies, posts, formatDate } from "@/lib/content";
-import { HOME_TITLE_LEAD, pageMetadata } from "@/lib/seo";
+import { HOME_TITLE_LEAD, pageMetadata, SHARE_CARD_IMAGE } from "@/lib/seo";
 
+/**
+ * The homepage names the committed PNG rather than the generated route.
+ *
+ * This is the link people actually send, so it gets the most forgiving path
+ * available: a plain static file, no on-demand render, no query-string image
+ * URL, no edge runtime between the scraper and the picture. Several unfurlers
+ * fetch with no cookies, no redirects and a short timeout, and iMessage gives
+ * you one shot at it before caching the result for a long time.
+ *
+ * /share-card.png is generated FROM app/opengraph-image.tsx, so the artwork is
+ * still defined once in React — see src/lib/og-share-card.tsx for how to
+ * regenerate it. Bump SHARE_CARD_VERSION in src/lib/seo.ts when it changes.
+ */
 export const metadata = pageMetadata({
   title: HOME_TITLE_LEAD,
   description: siteConfig.description,
   path: "/",
+  images: [SHARE_CARD_IMAGE],
 });
 
 const serviceIcons = {

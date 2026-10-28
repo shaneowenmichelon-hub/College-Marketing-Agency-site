@@ -24,6 +24,13 @@ import { getStat, siteConfig } from "@/site.config";
  *    than animated. If this artwork is ever wanted in motion, that belongs on
  *    the site itself, not here.
  *
+ * Regenerating /public/share-card.png after changing this file:
+ *
+ *   npm run build && (PORT=3100 npm run start &)
+ *   curl -s -o public/share-card.png http://localhost:3100/opengraph-image
+ *
+ * then bump SHARE_CARD_VERSION in src/lib/seo.ts so every unfurler refetches.
+ *
  * Built from divs, not inline SVG: Satori (what next/og renders with) is
  * reliable on flexbox, borders, radii, shadows and transforms, and patchy on
  * SVG path features. Chunky cartoon shapes are exactly what divs do well.

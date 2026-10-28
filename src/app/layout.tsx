@@ -50,11 +50,11 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: siteConfig.companyName,
-    // og:image is provided by app/opengraph-image.tsx (generated PNG).
+    // og:image falls back to app/opengraph-image.tsx; the homepage names the
+    // static /share-card.png explicitly (see app/page.tsx).
   },
   twitter: {
     card: "summary_large_image",
-    // twitter:image is provided by app/twitter-image.tsx.
   },
   robots: { index: true, follow: true },
   alternates: {
