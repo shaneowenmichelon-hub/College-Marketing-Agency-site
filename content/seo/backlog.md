@@ -32,6 +32,7 @@ code change this list can finish on its own.
 - [x] Insight articles byline Shane Michelon, Founder, with Article/BlogPosting author as a Person (`https://collegiateagency.com/#shane-michelon`) that worksFor the organization. The LinkedIn profile is the only author URL. Publisher stays the organization. A non-default frontmatter `author` can still override the name.
 - [x] Person schema on `/about` for the people shown there, with Shane Michelon reusing the shared Founder Person node, plus a stronger brand-framed about page.
 - [x] `/work`, `/contact`, and `/build-a-campaign` now have server-rendered indexable copy (unique titles, descriptions, and breadcrumb JSON-LD). `/contact` adds a visible FAQ whose FAQPage JSON-LD uses the same answers. Sample case studies stay noindex.
+- [x] Public production aliases `college-marketing-agency-site.vercel.app` and `college-marketing-agency-site-s8tw.vercel.app` permanently redirect to the same path and query on `https://collegiateagency.com`. `/api/*` stays on those hosts. Preview, per-deployment, and SSO-only team aliases are not redirected.
 
 ## Remaining
 
@@ -46,5 +47,4 @@ code change this list can finish on its own.
   - Activations: `campus-activation-ideas`, `university-activations`, `campus-brand-activation-agency`
   - Strategy: `college-marketing-strategy`, `how-to-market-to-college-students`
   - Sponsorship: `college-event-sponsorship`, `college-festival-sponsorship`
-- [ ] Redirect the `*.vercel.app` host to `https://collegiateagency.com`.
 - [ ] Off-site listings still to confirm or finish: DesignRush, GoodFirms, Google Business Profile, Bing Places, and Apple Business. LinkedIn, Clutch, and Sortlist are already live and in `sameAs`. Do not invent a phone number or street address to match the directory NAP.

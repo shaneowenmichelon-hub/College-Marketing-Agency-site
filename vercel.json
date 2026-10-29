@@ -1,5 +1,19 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path((?!api(?:/|$)).*)",
+      "has": [{ "type": "host", "value": "^college-marketing-agency-site\\.vercel\\.app$" }],
+      "destination": "https://collegiateagency.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path((?!api(?:/|$)).*)",
+      "has": [{ "type": "host", "value": "^college-marketing-agency-site-s8tw\\.vercel\\.app$" }],
+      "destination": "https://collegiateagency.com/:path*",
+      "permanent": true
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/article-art",

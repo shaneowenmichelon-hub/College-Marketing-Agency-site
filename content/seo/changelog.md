@@ -1,5 +1,13 @@
 # SEO changelog
 
+## 2026-10-29 — Public vercel.app aliases redirect to the apex
+
+Requests to the public production aliases now 308 to the same path and query on `https://collegiateagency.com`. No article bodies, photos, or the photo-usage ledger were edited. `scripts/collegiate_seo_autopublish.py`, `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
+- The hosts are `college-marketing-agency-site.vercel.app` and `college-marketing-agency-site-s8tw.vercel.app`. The second is a separate Vercel project that deploys this same repo and was also serving the site with `index, follow` and a canonical on the apex. The match is the exact host. Preview URLs, per-deployment URLs, and the SSO-protected team aliases are not matched. Those already send `x-robots-tag: noindex`.
+- `/api/*` is excluded. Vercel Cron GETs the production deployment URL (documented as `https://*.vercel.app/api/cron`) and does not follow a redirect. The three cron paths are `/api/cron/article-art`, `/api/cron/mail-sync`, and `/api/cron/indexnow`. Gmail OAuth and the other route handlers are under `/api` as well. IndexNow does not fetch the vercel.app host: the postbuild ping runs during the build, the startup hook reads `https://collegiateagency.com/sitemap.xml`, and the cron route builds the sitemap in-process.
+- The rules live in `vercel.json` so the edge applies them before the cached HTML, and in `next.config.mjs` so the Next.js manifest matches. `www.collegiateagency.com` was already 308 to the apex and was left as it is.
+
 ## 2026-10-28 — Indexable copy on the thin pages
 
 `/work`, `/contact`, and `/build-a-campaign` now have server-rendered copy a search engine or answer engine can quote. No article bodies, photos, or the photo-usage ledger were edited. The public contact email and the published location line were not changed. `scripts/collegiate_seo_autopublish.py`, `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
