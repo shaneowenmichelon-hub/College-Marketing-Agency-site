@@ -1,3 +1,5 @@
+import { productionAliasRedirects } from "./src/lib/production-host-redirect.mjs";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -19,6 +21,9 @@ const nextConfig = {
   // /services/product-placement. Preserves any inbound/old links.
   async redirects() {
     return [
+      // Public production aliases only. See src/lib/production-host-redirect.mjs.
+      // vercel.json repeats these so the edge applies them before the CDN cache.
+      ...productionAliasRedirects(),
       { source: "/services/influencers", destination: "/services", permanent: true },
       // Old feed path. /feed.xml is the insights RSS document.
       { source: "/rss.xml", destination: "/feed.xml", permanent: true },
