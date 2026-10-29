@@ -17,11 +17,12 @@ test("public production aliases 308 to the apex and leave /api on the alias", as
   assert.deepEqual(vercel.redirects, rules);
   const fromNext = await nextConfig.redirects();
   assert.deepEqual(fromNext.slice(0, rules.length), rules);
-  assert.deepEqual(
+    assert.deepEqual(
     rules.map((rule) => rule.has[0].value),
     [
       "^college-marketing-agency-site\\.vercel\\.app$",
       "^college-marketing-agency-site-s8tw\\.vercel\\.app$",
+      "^college-marketing-agency-site-ksro\\.vercel\\.app$",
     ],
   );
 
@@ -84,6 +85,7 @@ test("host match is the exact public alias, not a preview or the apex", async ()
   assert.equal(matches("College-Marketing-Agency-Site.vercel.app"), true);
   assert.equal(matches("college-marketing-agency-site.vercel.app:443"), true);
   assert.equal(matches("college-marketing-agency-site-s8tw.vercel.app"), true);
+  assert.equal(matches("college-marketing-agency-site-ksro.vercel.app"), true);
   assert.equal(matches("collegiateagency.com"), false);
   assert.equal(matches("www.collegiateagency.com"), false);
   assert.equal(matches("college-marketing-agency-site-jus-college-aponsorship.vercel.app"), false);
@@ -95,7 +97,12 @@ test("host match is the exact public alias, not a preview or the apex", async ()
   // Next wraps the value in ^$, so an already-anchored pattern must still be exact.
   for (const rule of rules) {
     const wrapped = new RegExp("^" + rule.has[0].value + "$");
-    assert.equal(wrapped.test("college-marketing-agency-site.vercel.app") || wrapped.test("college-marketing-agency-site-s8tw.vercel.app"), true);
+    assert.equal(
+      wrapped.test("college-marketing-agency-site.vercel.app") ||
+        wrapped.test("college-marketing-agency-site-s8tw.vercel.app") ||
+        wrapped.test("college-marketing-agency-site-ksro.vercel.app"),
+      true,
+    );
     assert.equal(wrapped.test("college-marketing-agency-site-1y7hf095z-jus-college-aponsorship.vercel.app"), false);
     assert.equal(wrapped.test("not-college-marketing-agency-site.vercel.app.evil.com"), false);
   }

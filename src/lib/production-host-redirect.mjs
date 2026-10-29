@@ -23,12 +23,14 @@ export const CANONICAL_ORIGIN = "https://collegiateagency.com";
 
 /**
  * Public production aliases that answer HTTP 200 with index,follow.
- * college-marketing-agency-site-s8tw is a second Vercel project that deploys
- * this same repo. Team-scoped aliases (*.vercel.app behind SSO) are omitted.
+ * college-marketing-agency-site-s8tw and college-marketing-agency-site-ksro
+ * are the other Vercel projects that deploy this same repo. Team-scoped
+ * aliases (*.vercel.app behind SSO) are omitted.
  */
 export const PRODUCTION_VERCEL_ALIAS_HOSTS = [
   "college-marketing-agency-site.vercel.app",
   "college-marketing-agency-site-s8tw.vercel.app",
+  "college-marketing-agency-site-ksro.vercel.app",
 ];
 
 /** Matches every path except /api and /api/*. */
