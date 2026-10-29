@@ -43,7 +43,18 @@ export default function ContactPage() {
       />
       <FaqPageJsonLd items={faqs} path="/contact" />
     <Section tone="muted">
-      <div className="grid gap-12 lg:grid-cols-2">
+      {/*
+        `[&>*]:min-w-0` is load-bearing, not tidying. A grid item defaults to
+        `min-width: auto`, so a column cannot shrink below the min-content
+        width of what is inside it. This column holds a logo marquee and a
+        photo, both capped at `max-w-md`, and that cap (448px) became the
+        column's FLOOR — so on every phone the column stayed 448px wide inside
+        a ~350px content box and the h1, the lead copy, the photo and the whole
+        form were clipped by the section's `overflow-hidden`, with no way to
+        scroll to them. Letting the items shrink is what lets the column track
+        the viewport.
+      */}
+      <div className="grid gap-12 [&>*]:min-w-0 lg:grid-cols-2">
         {/* Left: pitch + info */}
         <Reveal>
           <Badge className="mb-4">Book a Call</Badge>

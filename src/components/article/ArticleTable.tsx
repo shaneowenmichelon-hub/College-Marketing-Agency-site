@@ -1,5 +1,6 @@
 import type { ArticleTableBlock } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { TableScroller } from "@/components/article/TableScroller";
 
 /**
  * Renders an article data table as real, semantic HTML.
@@ -18,7 +19,9 @@ import { cn } from "@/lib/utils";
  *
  * Horizontal scroll is the deliberate mobile strategy. Collapsing a table into
  * stacked cards reads better on a phone but destroys the row/column
- * relationships, which is exactly the thing that must survive.
+ * relationships, which is exactly the thing that must survive. TableScroller
+ * supplies the edge fade and the swipe hint, so a cut-off column reads as
+ * scrollable rather than as a broken layout.
  */
 export function ArticleTable({ block, className }: { block: ArticleTableBlock; className?: string }) {
   const { caption, columns, rows, align } = block;
@@ -29,14 +32,7 @@ export function ArticleTable({ block, className }: { block: ArticleTableBlock; c
 
   return (
     <figure className={cn("not-prose my-8", className)}>
-      <div
-        className="overflow-x-auto rounded-[3px] border-2 border-ink shadow-[5px_5px_0_var(--ink)]"
-        // Scrollable regions need to be focusable, or keyboard users can't
-        // reach the columns that are off screen.
-        tabIndex={0}
-        role="region"
-        aria-label={caption ?? "Data table"}
-      >
+      <TableScroller label={caption ?? "Data table"}>
         <table className="w-full border-collapse bg-white text-left text-sm">
           {caption && (
             <caption className="mono-label border-b-2 border-ink bg-[color:var(--accent-2)] px-4 py-2.5 text-left text-[11px] font-bold text-ink">
@@ -93,7 +89,7 @@ export function ArticleTable({ block, className }: { block: ArticleTableBlock; c
             ))}
           </tbody>
         </table>
-      </div>
+      </TableScroller>
     </figure>
   );
 }
