@@ -6,6 +6,20 @@ import { resolvePublicImage } from "@/lib/image-intrinsic";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
+/**
+ * `/insights/topics/<slug>` is the topic hub path. An article cannot use this
+ * slug or the static route would hide it.
+ */
+export const RESERVED_INSIGHT_SLUGS = new Set(["topics"]);
+
+export function assertInsightArticleSlug(slug: string, file = slug): void {
+  if (RESERVED_INSIGHT_SLUGS.has(slug)) {
+    throw new Error(
+      `${file} uses reserved slug "${slug}". /insights/${slug} is the topic hub path, not an article URL.`,
+    );
+  }
+}
+
 const VALID_CATEGORIES: PostCategory[] = [
   "Campus Strategy",
   "Ambassadors",
@@ -318,8 +332,12 @@ export function loadMdxPosts(): Post[] {
       }
 
       const parsedBody = parseMarkdownBody(body);
+      const slug = asString(data, "slug");
+      assertInsightArticleSlug(slug, file);
+      const topic = typeof data.topic === "string" ? data.topic.trim() : "";
       const post: Post = {
-        slug: asString(data, "slug"),
+        slug,
+        ...(topic ? { topic } : {}),
         title: asString(data, "title"),
         metaTitle: typeof data.metaTitle === "string" ? data.metaTitle : undefined,
         metaDescription: typeof data.metaDescription === "string" ? data.metaDescription : undefined,

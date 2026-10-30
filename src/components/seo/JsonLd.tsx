@@ -4,6 +4,7 @@ import {
   ORGANIZATION_ID,
   WEBSITE_ID,
   aboutStructuredData,
+  absoluteUrl,
   articleAuthorStructuredData,
   organizationStructuredData,
   serviceStructuredData,
@@ -68,6 +69,47 @@ export function WebPageJsonLd({
         description,
         isPartOf: { "@id": WEBSITE_ID },
         publisher: { "@id": ORGANIZATION_ID },
+      }}
+    />
+  );
+}
+
+/**
+ * Collection page for an insight topic hub. ItemList is the article list on
+ * the page, in that order. No FAQ: the articles already emit FAQPage.
+ */
+export function CollectionPageJsonLd({
+  name,
+  description,
+  path,
+  items,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  items: { name: string; path: string }[];
+}) {
+  const url = absoluteUrl(path);
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": `${url}#collection`,
+        url,
+        name,
+        description,
+        isPartOf: { "@id": WEBSITE_ID },
+        publisher: { "@id": ORGANIZATION_ID },
+        mainEntity: {
+          "@type": "ItemList",
+          itemListElement: items.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: item.name,
+            url: absoluteUrl(item.path),
+          })),
+        },
       }}
     />
   );

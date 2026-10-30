@@ -1,5 +1,15 @@
 # SEO changelog
 
+## 2026-10-30 — Insight topic hubs
+
+`/insights` now links to six server-rendered topic hubs. No article was merged, deleted, or redirected. No article bodies, photos, or the photo-usage ledger were edited. `scripts/collegiate_seo_autopublish.py` gained a reserved-slug check so a future article cannot take the slug `topics`. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
+- Hubs live at `/insights/topics/<slug>`, which cannot collide with an article URL. The slugs are `brand-ambassador-programs`, `campus-events-and-activations`, `product-sampling-and-placement`, `student-influencers`, `campus-sponsorship`, and `campus-marketing-strategy`.
+- Assignment is the mapping in `src/lib/insight-topics.ts`. A known frontmatter `topic` overrides that mapping. A missing or unknown topic is ignored: the article still renders on `/insights` and on its own URL, so a later publish builds without a mapping edit. The article slug `topics` is rejected by the loader and by the publisher.
+- There is no Gen Z hub. The Gen Z articles stay in the strategy hub. Hub titles, descriptions, and introductions do not use the reserved pillar phrase.
+- Each hub has its own title within 60 characters, meta description, canonical, Open Graph and Twitter image (the existing text card), an H1, a brand-framed introduction, a link to the closest service or pricing page, and the article list. JSON-LD is CollectionPage, ItemList, and BreadcrumbList (Home, Insights, hub). Articles keep their own FAQPage. An article breadcrumb adds the hub when the article has one.
+- Sitemap `lastmod` for each hub is the newer of 2026-10-30 and the newest article revision in that hub. `llms.txt` and `llms-full.txt` list the hubs.
+
 ## 2026-10-29 — Public vercel.app aliases redirect to the apex
 
 Requests to the public production aliases now 308 to the same path and query on `https://collegiateagency.com`. No article bodies, photos, or the photo-usage ledger were edited. `scripts/collegiate_seo_autopublish.py`, `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.

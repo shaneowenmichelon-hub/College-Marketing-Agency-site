@@ -6,6 +6,7 @@ code change this list can finish on its own.
 
 ## Done
 
+- [x] Insight topic hubs at `/insights/topics/<slug>` group the published articles into brand ambassador programs, campus events and activations, product sampling and placement, student influencers and content, campus sponsorship, and campus marketing strategy. Each hub is server-rendered, linked from `/insights` and from its articles, and listed in the sitemap, `llms.txt`, and `llms-full.txt`. No article was merged, deleted, or redirected. An article with no topic still appears on `/insights`. There is no Gen Z hub.
 - [x] Homepage title and meta description lead with college / campus marketing agency, campus events, and brand ambassador programs. Title is within 60 characters.
 - [x] Title template is `%s | Collegiate Agency`. Titles that already include the brand are not suffixed again, and a title is left without the suffix when adding it would pass 60 characters. The 404 page has its own title.
 - [x] Organization and ProfessionalService share one `@id`, with a logo and a city-level New York address (no street). A WebSite node is on every page. `/services/events` and `/services/brand-ambassadors` emit Service JSON-LD, and their breadcrumbs include Services.
@@ -39,7 +40,7 @@ code change this list can finish on its own.
 - [ ] `www.collegiateagency.com` was returning a Vercel login on 2026-10-20. The 2026-10-22 evening re-audit saw 308s to the apex. Leave the domain attachment to the owner if a project still needs it; do not treat this as a content change.
 - [ ] The public contact email is still `shane@zmmevents.com`, and Organization `sameAs` still includes the ZMM Events Instagram, Night School Instagram, and zmm.events. Owner decision; do not swap these in code until the owner confirms the replacements. Clutch, Sortlist, and LinkedIn are already included.
 - [ ] Bing verification. Set `NEXT_PUBLIC_BING_SITE_VERIFICATION` to the HTML-tag token from Bing Webmaster Tools. The layout already emits `msvalidate.01` when the variable is present.
-- [ ] Consolidate cannibalizing article clusters so one URL is the canonical page for each topic and the others support it:
+- [ ] Consolidate cannibalizing article clusters so one URL is the canonical page for each topic and the others support it. The topic hubs group these articles. Choosing a canonical article, merging, or redirecting is still an owner decision:
   - Ambassadors: `college-brand-ambassador-program`, `college-brand-ambassadors`, `student-ambassador-marketing`, `student-brand-reps`
   - Sampling: `campus-product-sampling-ideas`, `on-campus-product-sampling`
   - Gen Z: `gen-z-marketing`, `gen-z-experiential-marketing`

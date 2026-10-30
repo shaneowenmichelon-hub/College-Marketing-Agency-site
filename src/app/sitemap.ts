@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/site.config";
 import { caseStudies, posts } from "@/lib/content";
+import { insightTopicLastModified, insightTopicPath, insightTopics } from "@/lib/insight-topics";
 
 /**
  * Date the technical SEO metadata on the static routes was updated.
@@ -91,5 +92,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...staticEntries, ...workEntries, ...articleEntries];
+  const topicEntries: MetadataRoute.Sitemap = insightTopics.map((topic) => ({
+    url: `${siteConfig.url}${insightTopicPath(topic.slug)}`,
+    lastModified: lastModified(insightTopicLastModified(topic.slug)),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...staticEntries, ...workEntries, ...topicEntries, ...articleEntries];
 }

@@ -747,6 +747,9 @@ def validate_article(path: Path, worktree: Path) -> dict:
     keyword = data["primaryKeyword"].casefold()
     if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug) or path.stem != slug:
         raise ValueError("slug")
+    # /insights/topics/<slug> is the hub path. A future article must not take it.
+    if slug == "topics":
+        raise ValueError("reserved-slug")
     if slug != re.sub(r"[^a-z0-9]+", "-", keyword).strip("-") or keyword not in data["title"].casefold():
         raise ValueError("keyword-title")
     if len(data["metaTitle"]) >= 60 or len(data["metaDescription"]) >= 155:

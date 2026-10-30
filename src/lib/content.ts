@@ -62,6 +62,13 @@ export type ArticleTableBlock = {
 
 export type Post = {
   slug: string;
+  /**
+   * Optional hub slug from frontmatter. A known topic overrides the mapping
+   * in `insight-topics.ts`. An unknown or missing value is ignored: the
+   * article still appears on /insights, and a later publish does not need a
+   * mapping edit to build.
+   */
+  topic?: string;
   title: string;
   /** Optional SEO title; page title falls back to title. */
   metaTitle?: string;

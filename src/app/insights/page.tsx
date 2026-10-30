@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { ArticleArt } from "@/components/insights/ArticleArt";
 import { posts, formatDate } from "@/lib/content";
+import { insightTopicPath, insightTopics } from "@/lib/insight-topics";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -28,6 +29,25 @@ export default function InsightsPage() {
           title="Notes from the ground."
           intro="Practical, brand-facing perspective on campus marketing: case studies, product placement, ambassador campaigns, and event strategy that actually move students."
         />
+
+        <nav aria-label="Insight topics" className="mt-10">
+          <p className="mono-label mb-4 flex items-center gap-2 text-xs font-bold text-accent">
+            <span aria-hidden className="inline-block h-2.5 w-2.5 bg-current" />
+            Topics
+          </p>
+          <ul className="flex list-none flex-wrap gap-2 p-0">
+            {insightTopics.map((topic) => (
+              <li key={topic.slug}>
+                <Link
+                  href={insightTopicPath(topic.slug)}
+                  className="inline-flex rounded-full border-2 border-ink bg-white px-3 py-1.5 text-sm font-semibold text-ink transition-colors hover:bg-[color:var(--accent-2)]"
+                >
+                  {topic.navLabel}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
         {/* Featured */}
         <Reveal className="mt-12">
