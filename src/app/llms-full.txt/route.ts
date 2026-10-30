@@ -1,6 +1,7 @@
 import { siteConfig } from "@/site.config";
 import { posts, type ArticleBlock } from "@/lib/content";
 import { faqAnswerPlainText } from "@/lib/article-faq";
+import { insightTopicPath, insightTopics, postsForInsightTopic, topicForPost } from "@/lib/insight-topics";
 import { resolveArticleAuthor } from "@/lib/seo";
 
 export const dynamic = "force-static";
@@ -40,6 +41,18 @@ function blockText(block: ArticleBlock): string {
   return `Photograph: ${block.alt}${caption}`;
 }
 
+function topicIndex(): string {
+  const blocks = insightTopics.map((topic) => {
+    const lines = postsForInsightTopic(topic.slug).map(
+      (post) => `- ${post.title}: ${siteConfig.url}/insights/${post.slug}`,
+    );
+    return [`## ${topic.navLabel}`, `URL: ${siteConfig.url}${insightTopicPath(topic.slug)}`, topic.description, ...lines].join(
+      "\n",
+    );
+  });
+  return [`# Topic hubs`, "", blocks.join("\n\n")].join("\n");
+}
+
 export async function GET() {
   const articles = [...posts].sort((a, b) => (a.date < b.date ? 1 : -1));
   const sections = articles.map((post) => {
@@ -51,12 +64,14 @@ export async function GET() {
     const byline = author.isDefault
       ? `Author: ${author.name}, ${author.jobTitle}, ${siteConfig.companyName}. Profile: ${author.linkedIn}`
       : `Author: ${author.name}`;
+    const topic = topicForPost(post);
     return [
       `# ${post.title}`,
       `URL: ${siteConfig.url}/insights/${post.slug}`,
       byline,
       `Published: ${post.date}${post.dateModified ? `\nUpdated: ${post.dateModified}` : ""}`,
       `Category: ${post.category}`,
+      ...(topic ? [`Topic: ${siteConfig.url}${insightTopicPath(topic.slug)}`] : []),
       "",
       post.excerpt,
       "",
@@ -72,6 +87,8 @@ export async function GET() {
 > ${siteConfig.definition}
 
 This file is generated from the published insight articles. It does not add claims that are not on those pages. Illustrative examples are labelled on the page they come from.
+
+${topicIndex()}
 
 ${sections.join("\n\n---\n\n")}
 `;

@@ -1,5 +1,6 @@
 import { siteConfig, pricing } from "@/site.config";
 import { caseStudies, posts } from "@/lib/content";
+import { insightTopicPath, insightTopics, topicForPost } from "@/lib/insight-topics";
 import { resolveArticleAuthor } from "@/lib/seo";
 
 export const dynamic = "force-static";
@@ -49,8 +50,14 @@ export async function GET() {
       const credit = author.isDefault
         ? `Author: ${author.name}, ${author.jobTitle}, ${siteConfig.companyName}.`
         : `Author: ${author.name}.`;
-      return L(p.title, `/insights/${p.slug}`, `${p.excerpt} ${credit}`);
+      const topic = topicForPost(p);
+      const topicNote = topic ? ` Topic: ${url}${insightTopicPath(topic.slug)}.` : "";
+      return L(p.title, `/insights/${p.slug}`, `${p.excerpt} ${credit}${topicNote}`);
     });
+
+  const topics = insightTopics.map((topic) =>
+    L(topic.navLabel, insightTopicPath(topic.slug), topic.description),
+  );
 
   const body = `# ${siteConfig.companyName}
 
@@ -83,6 +90,10 @@ ${siteConfig.campuses.map((c) => `- ${c.school} (${c.city})`).join("\n")}
 ## Case studies
 
 ${work.join("\n")}
+
+## Insight topics
+
+${topics.join("\n")}
 
 ## Insights
 

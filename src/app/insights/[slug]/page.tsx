@@ -13,6 +13,7 @@ import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { articleFaqSchemaItems } from "@/lib/article-faq";
 import { articleSocialImage, pageMetadata, resolveArticleAuthor } from "@/lib/seo";
 import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/content";
+import { articleBreadcrumbItems, insightTopicPath, topicForPost } from "@/lib/insight-topics";
 import { ArticleArt } from "@/components/insights/ArticleArt";
 import { ArticleByline } from "@/components/insights/ArticleByline";
 
@@ -128,6 +129,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
   if (!post) notFound();
 
   const cta = SERVICE_CTA[post.ctaService];
+  const topic = topicForPost(post);
 
   return (
     <>
@@ -143,22 +145,26 @@ export default async function InsightArticle({ params }: { params: Params }) {
       {post.faq && post.faq.length > 0 && (
         <FaqPageJsonLd items={articleFaqSchemaItems(post.faq)} path={`/insights/${post.slug}`} />
       )}
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", path: "/" },
-          { name: "Insights", path: "/insights" },
-          { name: post.title, path: `/insights/${post.slug}` },
-        ]}
-      />
+      <BreadcrumbJsonLd items={articleBreadcrumbItems(post)} />
       <article>
         <Section tone="light" className="pb-0">
           <Container className="max-w-3xl px-0">
-            <Link
-              href="/insights"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent"
-            >
-              <ArrowLeft className="h-4 w-4" /> All insights
-            </Link>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <Link
+                href="/insights"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent"
+              >
+                <ArrowLeft className="h-4 w-4" /> All insights
+              </Link>
+              {topic ? (
+                <Link
+                  href={insightTopicPath(topic.slug)}
+                  className="text-sm font-semibold text-accent hover:underline"
+                >
+                  {topic.breadcrumb}
+                </Link>
+              ) : null}
+            </div>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-[color:var(--muted-on-light)]">
               <Badge>{post.category}</Badge>
               <span>{formatDate(post.date)}</span>

@@ -132,6 +132,13 @@ imageLicense: https://unsplash.com/license
         article=blog/"campus-pilot.mdx"; article.write_text(front+body)
         valid=p.validate_article(article,self.root)
         self.assertEqual(valid["slug"],"campus-pilot")
+        topics_article = blog/"topics.mdx"
+        topics_article.write_text(front.replace("slug: campus-pilot", "slug: topics")+body)
+        try:
+            with self.assertRaisesRegex(ValueError, "reserved-slug"):
+                p.validate_article(topics_article, self.root)
+        finally:
+            topics_article.unlink()
         self.assertTrue(valid["image_sha256"])
         self.assertEqual(len(valid.get("body_links", [])), 4, 'Link destinations absent from artifact')
         article.write_text(front+body.replace('Plan a campus pilot with clear responsibilities.', '[Plan a campus pilot](/insights/campus-guide) with clear responsibilities.'))

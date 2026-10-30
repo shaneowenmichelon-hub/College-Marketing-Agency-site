@@ -95,6 +95,7 @@ test("the hero image uses intrinsic dimensions and the sitemap lists it", () => 
   const articles = sitemap().filter(
     (entry) =>
       entry.url.includes("/insights/") &&
+      !entry.url.includes("/insights/topics/") &&
       entry.url.split("/").length > 4 &&
       !entry.url.endsWith(`/${LEGACY_WITHOUT_HERO}`),
   );
