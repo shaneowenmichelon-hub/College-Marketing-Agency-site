@@ -1,5 +1,33 @@
 # SEO changelog
 
+## 2026-11-02 — Title and meta description CTR pass
+
+Search Console showed impressions and almost no clicks on the homepage and six insight URLs. This pass rewrites only the SEO title, the meta description, and the matching Open Graph and Twitter title and description. Article slugs, H1s, and bodies are unchanged. No redirect was added, no article was merged or created, and no Gen Z page was edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
+Source: GSC export, 28 days ending ~Oct 31 2026, pulled Nov 2 2026 ~6:15 AM ET. Web search. Re-check CTR in about 2-3 weeks, once Google has recrawled the snippets.
+
+Baseline, same export. Clicks, impressions, CTR, average position:
+
+- `/`: 6 clicks, 212 impressions, 2.83%, position 13.4
+- `/insights/campus-influencers`: 2, 123, 1.63%, 13.76
+- `/insights/college-marketing-agency`: 0, 61, 0%, 11
+- `/insights/campus-product-launch`: 0, 53, 0%, 8.58
+- `/insights/college-event-sponsorship`: 1, 57, 1.75%, 6.68
+- `/insights/college-experiential-marketing-agency`: 0, 44, 0%, 14.64
+- `/insights/campus-brand-activation-agency`: 0, 41, 0%, 10.1
+
+Queries used to match the wording searchers type, same export: `college agency` 50 impressions, position 3.38, 0 clicks; `the college agency` 33 impressions, position 5.7, 0 clicks; `college branding agency` 75 impressions, position 32, 0 clicks; `campus marketing agency` 53 impressions, position 35, 0 clicks; `college marketing agency` 30 impressions, position 66, 0 clicks; `campus influencers` 6 impressions, position 10.7, 1 click; `campus launch` 13 impressions, position 9.9, 0 clicks.
+
+Titles below are the rendered document titles. The root template is still `%s | Collegiate Agency`, and a lead is left short enough that the suffix fits inside 60 characters. None of the new leads already end in Collegiate Agency, so the brand is not added twice.
+
+- `/` title: `College Marketing Agency | Collegiate Agency` -> `College Marketing Agency for Brands | Collegiate Agency`. Description: `A college and campus marketing agency for campus events and brand ambassador programs, connecting brands with students where they live, study, and go out.` -> `A college agency brands hire for campus marketing: events, ambassador programs, and product sampling, with 2,000 student ambassadors on 21 campuses.` The 2,000 and 21 figures are the homepage stats already in `site.config.ts`. The footer line and Organization description stay on `siteConfig.description`.
+- `/insights/campus-influencers` title: `Campus Influencers: College Creator Program Guide` -> `Campus Influencers for Brand Campaigns | Collegiate Agency`. Description: `Build a campus influencers program with better creator selection, briefs, content rights, event tie-ins, and practical proof of work.` -> `Hire campus influencers for a brand campaign. Vet student creators for campus fit, set the brief and content rights, and tie each post to a live event.`
+- `/insights/college-marketing-agency` title: `College Marketing Agency: How to Choose One` -> `College Marketing Agency: How to Choose | Collegiate Agency`. Description: `How to choose a college marketing agency for campus events, ambassadors, influencers, sampling, and Gen Z growth without wasting budget.` -> `How to choose a college marketing agency for events, ambassadors, and sampling. Compare campus access, the operating plan, and the proof you get back.`
+- `/insights/campus-product-launch` title: `Campus Product Launch: Field Plan for Brands` -> `Campus Product Launch Plan for Brands | Collegiate Agency`. Description: `Plan a campus product launch with the right schools, student reps, events, sampling moments, content, and recap before budget gets wasted.` -> `A field plan for a campus product launch brands can run: choose the schools, line up sampling and events, and set what a campus launch recap must prove.`
+- `/insights/college-event-sponsorship` title: `College Event Sponsorship Guide | Collegiate Agency` -> `College Event Sponsorship for Brands | Collegiate Agency`. Description: `Plan college event sponsorship with clear goals, campus fit, activation rights, staffing, timelines, and proof of work before you commit budget.` -> `Plan college event sponsorship before the budget is committed: fit the campus moment, name the activation rights, and require proof a brand can use.`
+- `/insights/college-experiential-marketing-agency` title: `College Experiential Marketing Agency Guide` -> `College Experiential Marketing Agency | Collegiate Agency`. Description: `Compare a college experiential marketing agency on format, permission, guest action, product custody, staffing, and auditable proof.` -> `Hiring a college experiential marketing agency for a pop-up, sampling station, or tour stop? Compare permission, staffing, and proof before you sign.`
+- `/insights/campus-brand-activation-agency` title stayed `Campus Brand Activation Agency Checklist | Collegiate Agency`. That string is already 60 characters, leads with the query, and includes the brand. Description: `How to choose a campus brand activation agency for events, sampling, ambassadors, proof of work, staffing, risk, and measurement.` -> `A buyer checklist for hiring a campus brand activation agency: events, sampling, ambassadors, day-of staffing, and the proof a brand gets back.`
+
 ## 2026-10-30 — Insight topic hubs
 
 `/insights` now links to six server-rendered topic hubs. No article was merged, deleted, or redirected. No article bodies, photos, or the photo-usage ledger were edited. `scripts/collegiate_seo_autopublish.py` gained a reserved-slug check so a future article cannot take the slug `topics`. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.

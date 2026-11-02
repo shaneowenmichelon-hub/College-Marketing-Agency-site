@@ -30,7 +30,7 @@ import { CaseStudyCover } from "@/components/work/CaseStudyCover";
 import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
 import { caseStudies, posts, formatDate } from "@/lib/content";
-import { HOME_TITLE_LEAD, pageMetadata, SHARE_CARD_IMAGE } from "@/lib/seo";
+import { HOME_DESCRIPTION, HOME_TITLE_LEAD, pageMetadata, SHARE_CARD_IMAGE } from "@/lib/seo";
 
 /**
  * The homepage names the committed PNG rather than the generated route.
@@ -47,7 +47,7 @@ import { HOME_TITLE_LEAD, pageMetadata, SHARE_CARD_IMAGE } from "@/lib/seo";
  */
 export const metadata = pageMetadata({
   title: HOME_TITLE_LEAD,
-  description: siteConfig.description,
+  description: HOME_DESCRIPTION,
   path: "/",
   images: [SHARE_CARD_IMAGE],
 });

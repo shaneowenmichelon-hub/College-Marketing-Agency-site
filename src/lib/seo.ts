@@ -35,7 +35,15 @@ export const TITLE_LIMIT = 60;
 export const BRAND_SUFFIX = ` | ${siteConfig.companyName}`;
 
 /** Homepage lead. The brand suffix is added by {@link resolveDocumentTitle}. */
-export const HOME_TITLE_LEAD = "College Marketing Agency";
+export const HOME_TITLE_LEAD = "College Marketing Agency for Brands";
+
+/**
+ * Homepage snippet. Opens on the query that already ranks on page one, then
+ * names the buyer and the roster figures already published on the page.
+ * The footer and Organization description stay on siteConfig.description.
+ */
+export const HOME_DESCRIPTION =
+  "A college agency brands hire for campus marketing: events, ambassador programs, and product sampling, with 2,000 student ambassadors on 21 campuses.";
 
 export const ORGANIZATION_ID = `${siteConfig.url}/#organization`;
 export const WEBSITE_ID = `${siteConfig.url}/#website`;
