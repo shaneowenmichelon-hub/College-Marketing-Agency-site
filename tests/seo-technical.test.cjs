@@ -39,7 +39,8 @@ test("document titles stay within 60 characters and do not double the brand", ()
   const { resolveDocumentTitle, HOME_TITLE_LEAD, TITLE_LIMIT } = loadTs("lib/seo.ts");
   const home = resolveDocumentTitle(HOME_TITLE_LEAD).text;
   assert.ok(home.length <= TITLE_LIMIT, home);
-  assert.match(home, /^College Marketing Agency \| Collegiate Agency$/);
+  assert.match(home, /^College Marketing Agency for Brands \| Collegiate Agency$/);
+  assert.ok(home.startsWith("College Marketing Agency"), home);
 
   const pages = [
     "About the agency",
@@ -73,9 +74,28 @@ test("document titles stay within 60 characters and do not double the brand", ()
 
 test("homepage description names the category and stays within the snippet", () => {
   const { siteConfig } = loadTs("site.config.ts");
+  const { HOME_DESCRIPTION, HOME_TITLE_LEAD, pageMetadata, resolveDocumentTitle } = loadTs("lib/seo.ts");
   assert.ok(siteConfig.description.length <= 160, siteConfig.description);
   assert.match(siteConfig.description, /^A college and campus marketing agency for campus events and brand ambassador programs/);
   assert.match(siteConfig.definition, /^Collegiate Agency is a college and campus marketing agency/);
+  assert.ok(HOME_DESCRIPTION.length >= 140 && HOME_DESCRIPTION.length <= 158, `${HOME_DESCRIPTION.length}: ${HOME_DESCRIPTION}`);
+  assert.match(HOME_DESCRIPTION, /college agency/i);
+  assert.match(HOME_DESCRIPTION, /campus marketing/i);
+  assert.match(HOME_DESCRIPTION, /brands hire/i);
+  assert.match(HOME_DESCRIPTION, /2,000 student ambassadors/);
+  assert.match(HOME_DESCRIPTION, /21 campuses/);
+  assert.doesNotMatch(HOME_DESCRIPTION, /agency for students|intern/i);
+  const homeTitle = resolveDocumentTitle(HOME_TITLE_LEAD).text;
+  const meta = pageMetadata({ title: HOME_TITLE_LEAD, description: HOME_DESCRIPTION, path: "/" });
+  assert.equal(meta.title.absolute, homeTitle);
+  assert.equal(meta.description, HOME_DESCRIPTION);
+  assert.equal(meta.openGraph.title.absolute, homeTitle);
+  assert.equal(meta.openGraph.description, HOME_DESCRIPTION);
+  assert.equal(meta.twitter.title.absolute, homeTitle);
+  assert.equal(meta.twitter.description, HOME_DESCRIPTION);
+  assert.equal(meta.alternates.canonical, "/");
+  const page = fs.readFileSync(path.join(__dirname, "../src/app/page.tsx"), "utf8");
+  assert.match(page, /description:\s*HOME_DESCRIPTION/);
   assert.equal(siteConfig.contact.email, "shane@zmmevents.com");
   assert.deepEqual(
     siteConfig.socials.map((social) => social.href),
@@ -86,6 +106,50 @@ test("homepage description names the category and stays within the snippet", () 
       "https://www.linkedin.com/company/collegiate-agency",
     ],
   );
+});
+
+test("insight snippets rewritten for click-through stay inside the limits", () => {
+  const { posts } = loadTs("lib/content.ts");
+  const { resolveDocumentTitle, TITLE_LIMIT, pageMetadata } = loadTs("lib/seo.ts");
+  const slugs = [
+    "campus-influencers",
+    "college-marketing-agency",
+    "campus-product-launch",
+    "college-event-sponsorship",
+    "college-experiential-marketing-agency",
+    "campus-brand-activation-agency",
+  ];
+  for (const slug of slugs) {
+    const post = posts.find((item) => item.slug === slug);
+    assert.ok(post, slug);
+    const title = resolveDocumentTitle(post.metaTitle).text;
+    assert.ok(title.length <= TITLE_LIMIT, `${title} (${title.length})`);
+    assert.equal(title.split("Collegiate Agency").length - 1, 1, title);
+    assert.equal(post.metaTitle.includes("|"), false, post.metaTitle);
+    assert.ok(
+      post.metaDescription.length >= 140 && post.metaDescription.length <= 158,
+      `${slug} description ${post.metaDescription.length}`,
+    );
+    assert.equal(post.metaDescription.includes("—"), false, slug);
+    assert.doesNotMatch(`${post.metaTitle} ${post.metaDescription}`, /intern|agency for students/i, slug);
+    assert.ok(
+      title.toLowerCase().includes(post.primaryKeyword) ||
+        post.metaDescription.toLowerCase().includes(post.primaryKeyword),
+      `${slug} missing ${post.primaryKeyword}`,
+    );
+    const meta = pageMetadata({
+      title: post.metaTitle,
+      description: post.metaDescription,
+      path: `/insights/${slug}`,
+    });
+    assert.equal(meta.title.absolute, title);
+    assert.equal(meta.description, post.metaDescription);
+    assert.equal(meta.openGraph.title.absolute, title);
+    assert.equal(meta.openGraph.description, post.metaDescription);
+    assert.equal(meta.twitter.title.absolute, title);
+    assert.equal(meta.twitter.description, post.metaDescription);
+    assert.equal(meta.alternates.canonical, `/insights/${slug}`);
+  }
 });
 
 test("organization JSON-LD is one node with a real address, logo, and website", () => {
