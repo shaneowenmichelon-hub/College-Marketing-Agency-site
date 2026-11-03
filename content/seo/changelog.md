@@ -1,5 +1,25 @@
 # SEO changelog
 
+## 2026-11-03 — IndexNow lastmod for CTR title/meta pages
+
+PR #31, merged 2026-11-02, rewrote the SEO title, meta description, and matching Open Graph and Twitter title and description on the homepage and six insight URLs. Those titles were already live on production. The sitemap `lastmod` values and the article `dateModified` values were not moved. IndexNow (`scripts/indexnow-ping.cjs`, the startup ping, and `/api/cron/indexnow`) only submits sitemap URLs whose `lastmod` is inside 72 hours, so the snippet changes were never submitted. A live check of `https://collegiateagency.com/sitemap.xml` at about 10:08 AM ET on Nov 3 2026 still showed `/` at 2026-10-26 and the six insight URLs at 2026-10-23.
+
+This change only moves those dates to 2026-11-03 so IndexNow and other crawlers see a fresh `lastmod`. No titles, descriptions, bodies, H1s, FAQs, images, slugs, or redirects were edited. No new article was written. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
+- `/` uses `CTR_TITLE_META_LAST_MODIFIED` (`2026-11-03`) in `src/app/sitemap.ts`. `/services` stays on `BRAND_POSITIONING_LAST_MODIFIED` (`2026-10-26`). Other static route dates are unchanged.
+- `dateModified` is `2026-11-03` on `campus-influencers`, `college-marketing-agency`, `campus-product-launch`, `college-event-sponsorship`, `college-experiential-marketing-agency`, and `campus-brand-activation-agency`. Their `date` values are unchanged, so the sitemap `lastmod` for each insight URL is 2026-11-03 UTC midnight.
+- `/insights` and any topic hub that includes one of those articles already take the newest article revision, so their sitemap `lastmod` moves to 2026-11-03 with the existing rule.
+
+The seven URLs:
+
+- `https://collegiateagency.com/`
+- `https://collegiateagency.com/insights/campus-influencers`
+- `https://collegiateagency.com/insights/college-marketing-agency`
+- `https://collegiateagency.com/insights/campus-product-launch`
+- `https://collegiateagency.com/insights/college-event-sponsorship`
+- `https://collegiateagency.com/insights/college-experiential-marketing-agency`
+- `https://collegiateagency.com/insights/campus-brand-activation-agency`
+
 ## 2026-11-02 — Title and meta description CTR pass
 
 Search Console showed impressions and almost no clicks on the homepage and six insight URLs. This pass rewrites only the SEO title, the meta description, and the matching Open Graph and Twitter title and description. Article slugs, H1s, and bodies are unchanged. No redirect was added, no article was merged or created, and no Gen Z page was edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.

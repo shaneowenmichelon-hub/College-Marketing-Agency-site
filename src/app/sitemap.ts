@@ -14,6 +14,12 @@ const SERVICE_DETAIL_LAST_MODIFIED = "2026-10-21";
 const SEO_BATCH_LAST_MODIFIED = "2026-10-22";
 /** Services metadata reframed for brands, and the unsourced sampling stat removed. */
 const BRAND_POSITIONING_LAST_MODIFIED = "2026-10-26";
+/**
+ * Homepage title and meta were rewritten for CTR in PR #31 (merged 2026-11-02).
+ * Those titles were already live. IndexNow only submits lastmod inside 72 hours,
+ * so this date is what makes the homepage eligible for that submission.
+ */
+const CTR_TITLE_META_LAST_MODIFIED = "2026-11-03";
 /** About page gained Person schema and the expanded brand copy on this date. */
 const ABOUT_LAST_MODIFIED = "2026-10-27";
 /** /work, /contact, and /build-a-campaign gained indexable copy on this date. */
@@ -53,17 +59,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: lastModified(
       route === "/insights"
         ? latestArticle
-        : route === "" || route === "/services"
-          ? BRAND_POSITIONING_LAST_MODIFIED
-          : route === "/about"
-            ? ABOUT_LAST_MODIFIED
-            : route === "/services/events" || route === "/services/brand-ambassadors"
-              ? SERVICE_DETAIL_LAST_MODIFIED
-              : route === "/pricing" || route === "/services/product-placement"
-                ? SEO_BATCH_LAST_MODIFIED
-                : route === "/work" || route === "/contact" || route === "/build-a-campaign"
-                  ? THIN_PAGE_LAST_MODIFIED
-                  : STATIC_LAST_MODIFIED,
+        : route === ""
+          ? CTR_TITLE_META_LAST_MODIFIED
+          : route === "/services"
+            ? BRAND_POSITIONING_LAST_MODIFIED
+            : route === "/about"
+              ? ABOUT_LAST_MODIFIED
+              : route === "/services/events" || route === "/services/brand-ambassadors"
+                ? SERVICE_DETAIL_LAST_MODIFIED
+                : route === "/pricing" || route === "/services/product-placement"
+                  ? SEO_BATCH_LAST_MODIFIED
+                  : route === "/work" || route === "/contact" || route === "/build-a-campaign"
+                    ? THIN_PAGE_LAST_MODIFIED
+                    : STATIC_LAST_MODIFIED,
     ),
     changeFrequency: "monthly",
     priority: route === "" ? 1 : 0.7,
