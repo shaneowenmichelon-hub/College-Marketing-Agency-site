@@ -106,8 +106,17 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const post = getPost(slug);
     assert.ok(post?.faq, slug);
     assert.ok(post.faq.length >= 3 && post.faq.length <= 5, slug);
-    const revisedOn =
-      slug === "student-housing-marketing-agency"
+    const ctrTitleMetaRevised = new Set([
+      "campus-influencers",
+      "college-marketing-agency",
+      "campus-product-launch",
+      "college-event-sponsorship",
+      "college-experiential-marketing-agency",
+      "campus-brand-activation-agency",
+    ]);
+    const revisedOn = ctrTitleMetaRevised.has(slug)
+      ? "2026-11-03"
+      : slug === "student-housing-marketing-agency"
         ? "2026-10-26"
         : slug === "greek-life-marketing-agency"
           ? "2026-10-25"
