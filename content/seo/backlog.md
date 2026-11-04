@@ -6,6 +6,7 @@ code change this list can finish on its own.
 
 ## Done
 
+- [x] Homepage FAQ for AI-answer readiness (2026-11-04). `/` renders six brand-buyer questions: what Collegiate Agency is, which services it offers, the published rates, how fast a campaign can launch, where it operates, and who it is for. The visible FAQ and the FAQPage JSON-LD use the same questions and answers. Answers use only facts already in `site.config.ts` and the published rates (`$150 / ambassador / month`, `$2,500 / campus`, event packages from `$500` to `$500,000`, `7 days` from a signed SOW to boots on the ground, the one-business-day reply, New York, and 21 campuses). Sitemap `lastmod` for `/` is 2026-11-04. Titles, meta, article bodies, photos, the contact email, and Organization `sameAs` were not changed.
 - [x] Search Console CTR pass on titles and meta descriptions (GSC export, Web, 28 days ending ~Oct 31 2026, pulled Nov 2 2026 ~6:15 AM ET). Rewrote the SEO title and meta description, and the matching Open Graph and Twitter title and description, on `/`, `/insights/campus-influencers`, `/insights/college-marketing-agency`, `/insights/campus-product-launch`, `/insights/college-event-sponsorship`, `/insights/college-experiential-marketing-agency`, and `/insights/campus-brand-activation-agency`. The campus brand activation title already filled the 60-character snippet with the query and the brand, so only its description changed. No slugs, redirects, article bodies, or Gen Z pages were edited. `content/seo/publish-log.md` and `content/seo/autopublish-state.json` were not edited.
 - [x] IndexNow `lastmod` for those same CTR title and meta pages (2026-11-03). PR #31 shipped the new titles without moving sitemap `lastmod` or article `dateModified`, and IndexNow only submits URLs whose `lastmod` is inside 72 hours, so the snippet changes were never submitted. Homepage sitemap `lastmod` is now `2026-11-03`, and `dateModified` on the six insight articles is `2026-11-03`. Titles were already live. No titles, bodies, slugs, or redirects were changed.
 - [x] Bing Webmaster Tools verification. The site has been verified in Bing since about Oct 23 2026, and the weekly SEO routine already reads Bing data. Do not ask the owner for a token again. `src/app/layout.tsx` still emits `msvalidate.01` only when `NEXT_PUBLIC_BING_SITE_VERIFICATION` is set. That variable is not set on the `college-marketing-agency-site` Vercel project, so verification was completed in Bing outside this repo. This backlog item is closed.
@@ -51,3 +52,10 @@ code change this list can finish on its own.
   - Strategy: `college-marketing-strategy`, `how-to-market-to-college-students`
   - Sponsorship: `college-event-sponsorship`, `college-festival-sponsorship`
 - [ ] Off-site listings still to confirm or finish: DesignRush, GoodFirms, Google Business Profile, Bing Places, and Apple Business. LinkedIn, Clutch, and Sortlist are already live and in `sameAs`. Do not invent a phone number or street address to match the directory NAP.
+
+## Next tech candidates
+
+Noted 2026-11-04 from a live check. These are code changes. The owner-decision items above are unchanged.
+
+- [ ] `/insights` still has no CollectionPage, ItemList, or BreadcrumbList. The topic hubs at `/insights/topics/<slug>` already emit those.
+- [ ] `/services` still has no visible FAQ or FAQPage JSON-LD. The three service detail pages do.

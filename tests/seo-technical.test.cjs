@@ -230,7 +230,7 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
       slug,
     );
   }
-  assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-03T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
   assert.equal(
     byLoc.get("https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors").lastModified.toISOString(),
     "2026-08-03T00:00:00.000Z",

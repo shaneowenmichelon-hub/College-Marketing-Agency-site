@@ -1,4 +1,6 @@
+import { faqAnswerPlainText } from "@/lib/article-faq";
 import { getCaseStudy, getPost } from "@/lib/content";
+import { absoluteUrl } from "@/lib/seo";
 import { getStat, pricing, siteConfig } from "@/site.config";
 
 /**
@@ -296,22 +298,26 @@ function productPlacementReading(): ServiceReading {
   };
 }
 
-/** FAQPage node. `items` is the same array the page renders. */
+/**
+ * FAQPage node. `items` is the same array the page renders.
+ * Markdown links collapse to their anchor words, which is the text on the page.
+ */
 export function faqPageStructuredData(
   items: ServiceFaq[],
   path: string,
 ): Record<string, unknown> {
+  const url = absoluteUrl(path);
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": `${siteConfig.url}${path}#faq`,
-    url: `${siteConfig.url}${path}`,
+    "@id": `${url}#faq`,
+    url,
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: item.answer,
+        text: faqAnswerPlainText(item.answer),
       },
     })),
   };
@@ -361,7 +367,10 @@ export function servicePageSeo(slug: ServiceSlug): ServicePageSeo {
     throw new Error(`${slug} FAQPage JSON-LD is not well formed`);
   }
   parsed.mainEntity.forEach((entity, index) => {
-    if (entity.name !== faqs[index].question || entity.acceptedAnswer.text !== faqs[index].answer) {
+    if (
+      entity.name !== faqs[index].question ||
+      entity.acceptedAnswer.text !== faqAnswerPlainText(faqs[index].answer)
+    ) {
       throw new Error(`${slug} FAQPage JSON-LD does not match the visible FAQ`);
     }
   });

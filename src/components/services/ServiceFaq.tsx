@@ -64,7 +64,10 @@ function FaqAnswer({ text }: { text: string }) {
   return <>{nodes}</>;
 }
 
-/** Always-visible FAQ. The same `items` array is passed to FAQPage JSON-LD. */
+/**
+ * Always-visible FAQ. The same `items` array is passed to FAQPage JSON-LD.
+ * An answer may contain markdown links. The schema text is the anchor words.
+ */
 export function ServiceFaq({ items }: { items: ServiceFaqItem[] }) {
   return (
     <dl className="mt-12 divide-y divide-[color:var(--border-on-light)] rounded-2xl border border-[color:var(--border-on-light)] bg-surface">
@@ -74,7 +77,7 @@ export function ServiceFaq({ items }: { items: ServiceFaqItem[] }) {
             <h3 className="font-display text-lg font-bold text-ink">{item.question}</h3>
           </dt>
           <dd className="mt-2 text-base leading-relaxed text-[color:var(--muted-on-light)]">
-            {item.answer}
+            <FaqAnswer text={item.answer} />
           </dd>
         </div>
       ))}
