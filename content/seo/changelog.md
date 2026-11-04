@@ -1,5 +1,19 @@
 # SEO changelog
 
+## 2026-11-04 — Homepage FAQ for AI-answer readiness
+
+A live check at about 10:05 AM ET on Nov 4 2026 found production healthy. Key pages returned 200, `www` returned 308 to the apex, the IndexNow key file returned 200, and the CTR pages already had sitemap `lastmod` of 2026-11-03. The homepage ranks for and targets "college marketing agency" and still had no visible FAQ and no FAQPage JSON-LD. The service detail pages, `/pricing`, `/contact`, and several commercial articles already publish both.
+
+`/` now has six questions for brands, in-house marketing teams, and agencies. One array in `src/lib/home-faq.ts` feeds `ServiceFaq` and `FaqPageJsonLd`, so the visible questions and the FAQPage JSON-LD use the same words. An answer may contain a markdown link. The HTML renders that link, and `acceptedAnswer.text` is the same sentence with the URL removed. That is the article FAQ rule, applied here so the schema text is the text on the page.
+
+Answers stay inside facts already published in `src/site.config.ts`, the pricing table, and pages already live: the college and campus marketing agency definition, campus events, brand ambassador programs, and product placement, the rates `$150 / ambassador / month`, `$2,500 / campus`, and event packages from `$500` to `$500,000`, anything else quoted per campaign, `7 days` from a signed SOW to boots on the ground, the one-business-day reply with a tailored plan and firm pricing, the New York base, and the published network of 21 campuses. Students are described as the audience, and the ambassador roster as the network a brand hires the agency to field, which is the wording already on `/about`. No intern claim, client, review, result, or new timeline was added. The contact email and Organization `sameAs` were not changed.
+
+The block sits below the lead magnet and above the final call to action. It is not in the hero. The hero H1 is unchanged.
+
+- Sitemap `lastmod` for `/` is `HOME_FAQ_LAST_MODIFIED` (`2026-11-04`) in `src/app/sitemap.ts`. `/services` stays on `BRAND_POSITIONING_LAST_MODIFIED` (`2026-10-26`). Other static route dates are unchanged. Insight `dateModified` values stay on 2026-11-03.
+- Titles, meta descriptions, Open Graph, Twitter, article bodies, photos, and Gen Z pages were not edited. No new article was written.
+- `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
 ## 2026-11-03 — IndexNow lastmod for CTR title/meta pages
 
 PR #31, merged 2026-11-02, rewrote the SEO title, meta description, and matching Open Graph and Twitter title and description on the homepage and six insight URLs. Those titles were already live on production. The sitemap `lastmod` values and the article `dateModified` values were not moved. IndexNow (`scripts/indexnow-ping.cjs`, the startup ping, and `/api/cron/indexnow`) only submits sitemap URLs whose `lastmod` is inside 72 hours, so the snippet changes were never submitted. A live check of `https://collegiateagency.com/sitemap.xml` at about 10:08 AM ET on Nov 3 2026 still showed `/` at 2026-10-26 and the six insight URLs at 2026-10-23.

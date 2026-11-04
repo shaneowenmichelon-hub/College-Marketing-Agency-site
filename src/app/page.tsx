@@ -29,7 +29,9 @@ import { EventImage } from "@/components/EventImage";
 import { CaseStudyCover } from "@/components/work/CaseStudyCover";
 import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
+import { FaqPageJsonLd, ServiceFaq } from "@/components/services/ServiceFaq";
 import { caseStudies, posts, formatDate } from "@/lib/content";
+import { homeFaqs } from "@/lib/home-faq";
 import { HOME_DESCRIPTION, HOME_TITLE_LEAD, pageMetadata, SHARE_CARD_IMAGE } from "@/lib/seo";
 
 /**
@@ -105,8 +107,10 @@ const whyUs = [
 ];
 
 export default function HomePage() {
+  const faqs = homeFaqs();
   return (
     <>
+      <FaqPageJsonLd items={faqs} path="/" />
       <Hero heroPhotos={getHeroPhotos()} />
 
       {/* Testimonials - slow marquee (brand logos now live in the hero) */}
@@ -378,6 +382,15 @@ export default function HomePage() {
 
       {/* Lead magnet */}
       <LeadMagnet />
+
+      <Section id="faq" tone="light" className="scroll-mt-24">
+        <SectionHeading
+          eyebrow="FAQ"
+          title="Questions brands ask about Collegiate Agency."
+          intro="The same answers are in the FAQPage structured data on this page."
+        />
+        <ServiceFaq items={faqs} />
+      </Section>
 
       {/* Final CTA */}
       <CTASection

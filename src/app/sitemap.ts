@@ -15,11 +15,11 @@ const SEO_BATCH_LAST_MODIFIED = "2026-10-22";
 /** Services metadata reframed for brands, and the unsourced sampling stat removed. */
 const BRAND_POSITIONING_LAST_MODIFIED = "2026-10-26";
 /**
- * Homepage title and meta were rewritten for CTR in PR #31 (merged 2026-11-02).
- * Those titles were already live. IndexNow only submits lastmod inside 72 hours,
- * so this date is what makes the homepage eligible for that submission.
+ * Homepage gained a visible FAQ and matching FAQPage JSON-LD on this date.
+ * IndexNow only submits lastmod inside 72 hours. This replaces the 2026-11-03
+ * CTR title/meta stamp for `/` only. Other routes keep their own dates.
  */
-const CTR_TITLE_META_LAST_MODIFIED = "2026-11-03";
+const HOME_FAQ_LAST_MODIFIED = "2026-11-04";
 /** About page gained Person schema and the expanded brand copy on this date. */
 const ABOUT_LAST_MODIFIED = "2026-10-27";
 /** /work, /contact, and /build-a-campaign gained indexable copy on this date. */
@@ -60,7 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       route === "/insights"
         ? latestArticle
         : route === ""
-          ? CTR_TITLE_META_LAST_MODIFIED
+          ? HOME_FAQ_LAST_MODIFIED
           : route === "/services"
             ? BRAND_POSITIONING_LAST_MODIFIED
             : route === "/about"
