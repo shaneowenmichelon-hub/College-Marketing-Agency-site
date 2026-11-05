@@ -4,8 +4,11 @@ import { Button } from "@/components/ui/Button";
 import { BreadcrumbJsonLd, ServicesJsonLd, WebPageJsonLd } from "@/components/seo/JsonLd";
 import { CapabilityBlock } from "@/components/services/CapabilityBlock";
 import { IconCardGrid } from "@/components/services/IconCardGrid";
+import { FaqPageJsonLd, ServiceFaq, ServiceReading } from "@/components/services/ServiceFaq";
 import { servicesHub } from "@/site.config";
 import { pageMetadata, resolveDocumentTitle } from "@/lib/seo";
+import { servicesHubFaqs, servicesHubReading } from "@/lib/services-hub-faq";
+import type { ServiceFaq as ServiceFaqItem, ServiceReading as ServiceReadingCopy } from "@/lib/service-faqs";
 import { Sparkles } from "lucide-react";
 import Link from "next/link";
 
@@ -19,7 +22,13 @@ export const metadata = pageMetadata({
 
 const { brands, students } = servicesHub;
 
-function BrandsPanel() {
+function BrandsPanel({
+  faqs,
+  reading,
+}: {
+  faqs: ServiceFaqItem[];
+  reading: ServiceReadingCopy;
+}) {
   return (
     <div>
       <p className="max-w-2xl text-base leading-relaxed text-[color:var(--muted-on-light)] sm:text-lg">
@@ -40,6 +49,18 @@ function BrandsPanel() {
             </div>
           );
         })}
+      </div>
+      <div className="mt-16">
+        <SectionHeading eyebrow="For brand teams" title={reading.title} />
+        <ServiceReading reading={reading} />
+      </div>
+      <div id="faq" className="mt-16 scroll-mt-24">
+        <SectionHeading
+          eyebrow="FAQ"
+          title="Questions brands ask about a campus marketing agency."
+          intro="The same answers are in the FAQPage structured data on this page."
+        />
+        <ServiceFaq items={faqs} />
       </div>
       <div className="mt-16 flex flex-col items-start gap-4 rounded-[4px] border-2 border-ink bg-surface-muted p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
         <p className="font-display text-xl font-bold text-ink">Ready to reach students?</p>
@@ -77,8 +98,11 @@ function StudentsPanel() {
 }
 
 export default function ServicesPage() {
+  const faqs = servicesHubFaqs();
+  const reading = servicesHubReading();
   return (
     <>
+      <FaqPageJsonLd items={faqs} path="/services" />
       <WebPageJsonLd name={servicesTitle} description={servicesHub.description} path="/services" />
       <ServicesJsonLd />
       <BreadcrumbJsonLd
@@ -110,7 +134,7 @@ export default function ServicesPage() {
           </Link>
         </div>
         <div className="mt-12">
-          <BrandsPanel />
+          <BrandsPanel faqs={faqs} reading={reading} />
         </div>
       </Section>
       <Section tone="muted" id="for-students" className="scroll-mt-24">

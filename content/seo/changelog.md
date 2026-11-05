@@ -1,5 +1,21 @@
 # SEO changelog
 
+## 2026-11-05 — Services hub FAQ and campus marketing agency copy
+
+Search Console (28 days ending ~Oct 31 2026, pulled Nov 2) showed the query "campus marketing agency" with 53 impressions, position about 35, and 0 clicks. A what's-working check pulled Nov 4 (data through Nov 2) showed `/services` lost its clicks after the Oct 26 retitle, with average position moving from about 8.2 to about 53. A live check at about 10:12 AM ET on Nov 5 2026 found `https://collegiateagency.com/services` titled `Campus Marketing Services for Brands | Collegiate Agency`, with a brand-only meta description, the H1 "Campus marketing services for brands.", no visible FAQ, and no FAQPage JSON-LD. The three service detail pages already publish both. Sitemap `lastmod` for `/services` was still 2026-10-26.
+
+`/services` now has six questions for brands, in-house marketing teams, and agencies. One array in `src/lib/services-hub-faq.ts` feeds `ServiceFaq` and `FaqPageJsonLd`, so the visible questions and the FAQPage JSON-LD use the same words. An answer may contain a markdown link. The HTML renders that link, and `acceptedAnswer.text` is the same sentence with the URL removed. The block sits in the brands section, below the three channel blocks and a short guides block, and above the final brand call to action. It is not in the hero and not in `#for-students`.
+
+The document title lead is `Campus Marketing Agency for Brands`, which renders as `Campus Marketing Agency for Brands | Collegiate Agency`. The brand suffix is added once, and the title stays within 60 characters. The meta description, Open Graph, Twitter, and WebPage JSON-LD use the same brand-only description: a campus marketing agency brands hire for campus events, brand ambassadors, and product placement at colleges nationwide, run end to end by Collegiate Agency. The H1 is "A campus marketing agency for brands." Student recruiting stays in `#for-students`.
+
+A guides block on the brands section links to the existing insight pages `/insights/college-marketing-agency`, `/insights/campus-marketing-agency-rfp`, `/insights/campus-brand-activation-agency`, and `/insights/college-brand-ambassador-program`. Those slugs were checked with `getPost` before linking. The page still links to `/services/events`, `/services/brand-ambassadors`, `/services/product-placement`, `/pricing`, `/build-a-campaign`, and `/contact`.
+
+Answers stay inside facts already published in `src/site.config.ts` and the pricing table: the rates `$150 / ambassador / month`, `$2,500 / campus`, and event packages from `$500` to `$500,000`, anything else quoted per campaign, `7 days` from a signed SOW to boots on the ground, the one-business-day reply, the New York base, and the published network of 21 campuses and 2,000 student ambassadors. College students are described as the audience. No intern claim, client, review, result, phone number, or street address was added. The contact email and Organization `sameAs` were not changed.
+
+- Sitemap `lastmod` for `/services` is `SERVICES_HUB_FAQ_LAST_MODIFIED` (`2026-11-05`) in `src/app/sitemap.ts`. That date supersedes the 2026-10-26 brand-positioning stamp for `/services` only. `/` stays on `HOME_FAQ_LAST_MODIFIED` (`2026-11-04`). Other static route dates are unchanged. Insight `dateModified` values were not moved.
+- No new article was written. Gen Z pillar pages were not edited. No article was merged or redirected.
+- `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
 ## 2026-11-04 — Homepage FAQ for AI-answer readiness
 
 A live check at about 10:05 AM ET on Nov 4 2026 found production healthy. Key pages returned 200, `www` returned 308 to the apex, the IndexNow key file returned 200, and the CTR pages already had sitemap `lastmod` of 2026-11-03. The homepage ranks for and targets "college marketing agency" and still had no visible FAQ and no FAQPage JSON-LD. The service detail pages, `/pricing`, `/contact`, and several commercial articles already publish both.
