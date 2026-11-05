@@ -149,7 +149,7 @@ test("homepage FAQ is visible, matches FAQPage JSON-LD, and stays on published f
   const home = urls.find((entry) => entry.url === "https://collegiateagency.com");
   assert.equal(home.lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
   const services = urls.find((entry) => entry.url === "https://collegiateagency.com/services");
-  assert.equal(services.lastModified.toISOString(), "2026-10-26T00:00:00.000Z");
+  assert.equal(services.lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
   const pricing = urls.find((entry) => entry.url === "https://collegiateagency.com/pricing");
   assert.equal(pricing.lastModified.toISOString(), "2026-10-22T00:00:00.000Z");
 });

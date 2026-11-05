@@ -46,7 +46,7 @@ test("document titles stay within 60 characters and do not double the brand", ()
     "About the agency",
     "Contact the college marketing agency",
     "Campus marketing case studies",
-    "Campus Marketing Services for Brands",
+    "Campus Marketing Agency for Brands",
     "Campus event marketing",
     "Brand ambassador programs",
     "Campus marketing insights",
@@ -419,7 +419,11 @@ test("services metadata is brand-only and unsourced sampling stats are absent", 
     path: "/services",
   });
   const title = meta.title.absolute;
-  assert.equal(title, "Campus Marketing Services for Brands | Collegiate Agency");
+  assert.equal(title, "Campus Marketing Agency for Brands | Collegiate Agency");
+  assert.match(servicesHub.description, /campus marketing agency/i);
+  assert.match(servicesHub.description, /brands hire/i);
+  assert.match(servicesHub.heroTitle, /campus marketing agency/i);
+  assert.match(servicesHub.intro, /campus marketing agency/i);
   assert.ok(title.length <= TITLE_LIMIT, `${title} (${title.length})`);
   assert.equal(title.split("Collegiate Agency").length - 1, 1);
   assert.equal(meta.description, servicesHub.description);
@@ -459,7 +463,7 @@ test("services metadata is brand-only and unsourced sampling stats are absent", 
 
   const { default: sitemap } = loadTs("app/sitemap.ts");
   const services = sitemap().find((entry) => entry.url === "https://collegiateagency.com/services");
-  assert.equal(services.lastModified.toISOString(), "2026-10-26T00:00:00.000Z");
+  assert.equal(services.lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
 });
 
 test("case-study insight URLs permanently redirect to /work", () => {

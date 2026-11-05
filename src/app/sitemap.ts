@@ -12,14 +12,19 @@ const STATIC_LAST_MODIFIED = "2026-10-20";
 const SERVICE_DETAIL_LAST_MODIFIED = "2026-10-21";
 /** Pricing, product placement, and the homepage schema/accessibility pass. */
 const SEO_BATCH_LAST_MODIFIED = "2026-10-22";
-/** Services metadata reframed for brands, and the unsourced sampling stat removed. */
-const BRAND_POSITIONING_LAST_MODIFIED = "2026-10-26";
 /**
  * Homepage gained a visible FAQ and matching FAQPage JSON-LD on this date.
  * IndexNow only submits lastmod inside 72 hours. This replaces the 2026-11-03
  * CTR title/meta stamp for `/` only. Other routes keep their own dates.
  */
 const HOME_FAQ_LAST_MODIFIED = "2026-11-04";
+/**
+ * /services gained a visible FAQ, matching FAQPage JSON-LD, and
+ * campus-marketing-agency copy on this date.
+ * IndexNow only submits lastmod inside 72 hours. This replaces the 2026-10-26
+ * brand-positioning stamp for `/services` only. Other routes keep their own dates.
+ */
+const SERVICES_HUB_FAQ_LAST_MODIFIED = "2026-11-05";
 /** About page gained Person schema and the expanded brand copy on this date. */
 const ABOUT_LAST_MODIFIED = "2026-10-27";
 /** /work, /contact, and /build-a-campaign gained indexable copy on this date. */
@@ -62,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         : route === ""
           ? HOME_FAQ_LAST_MODIFIED
           : route === "/services"
-            ? BRAND_POSITIONING_LAST_MODIFIED
+            ? SERVICES_HUB_FAQ_LAST_MODIFIED
             : route === "/about"
               ? ABOUT_LAST_MODIFIED
               : route === "/services/events" || route === "/services/brand-ambassadors"

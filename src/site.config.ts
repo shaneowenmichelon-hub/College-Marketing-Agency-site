@@ -322,12 +322,12 @@ export type ServicesHub = {
 };
 
 export const servicesHub: ServicesHub = {
-  documentTitle: "Campus Marketing Services for Brands",
+  documentTitle: "Campus Marketing Agency for Brands",
   description:
-    "Campus marketing services for brands: brand ambassador programs, campus events and activations, and product placement at colleges nationwide, run end to end by Collegiate Agency.",
-  heroTitle: "Campus marketing services for brands.",
+    "A campus marketing agency brands hire for campus events, brand ambassadors, and product placement at colleges nationwide, run end to end by Collegiate Agency.",
+  heroTitle: "A campus marketing agency for brands.",
   intro:
-    "Brand ambassador programs, campus events and activations, and product placement at colleges nationwide, run end to end.",
+    "Brands hire Collegiate Agency, a campus marketing agency, for campus events, brand ambassadors, and product placement.",
   brands: {
     intro:
       "Brands get real campus presence through three channels - events, ambassadors, and product placement - run end to end by a team that operates Gen-Z events nationally.",

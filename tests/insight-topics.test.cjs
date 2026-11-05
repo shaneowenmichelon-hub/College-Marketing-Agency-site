@@ -70,7 +70,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
     "Greek life product placement",
     "Campus marketing insights",
     "Campus marketing pricing",
-    "Campus Marketing Services for Brands",
+    "Campus Marketing Agency for Brands",
   ].map((lead) => resolveDocumentTitle(lead).text);
 
   for (const topic of insightTopics) {
