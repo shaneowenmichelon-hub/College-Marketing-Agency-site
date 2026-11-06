@@ -15,9 +15,9 @@ export type CopyPart = { text: string; href?: string };
 
 export type CopyBlock = { type: "h2"; text: string } | { type: "p"; parts: CopyPart[] };
 
-export const WORK_TITLE = "Campus marketing case studies";
+export const WORK_TITLE = "Campus Marketing Case Studies for Brands";
 export const WORK_DESCRIPTION =
-  "Collegiate Agency case studies of campus events, brand ambassador programs, and product placement that brands hire to reach college students.";
+  "Campus marketing case studies for brands hiring Collegiate Agency. Published write-ups cover campus events, brand ambassador programs, and product placement.";
 
 export const CONTACT_TITLE = "Contact the college marketing agency";
 export const CONTACT_DESCRIPTION =

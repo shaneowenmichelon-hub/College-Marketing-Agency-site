@@ -45,11 +45,11 @@ test("document titles stay within 60 characters and do not double the brand", ()
   const pages = [
     "About the agency",
     "Contact the college marketing agency",
-    "Campus marketing case studies",
+    "Campus Marketing Case Studies for Brands",
     "Campus Marketing Agency for Brands",
-    "Campus event marketing",
+    "Campus Event Marketing for Brands",
     "Brand ambassador programs",
-    "Campus marketing insights",
+    "Campus Marketing Insights for Brands",
     "Build a college marketing campaign",
     "Become a campus ambassador",
     "Campus marketing pricing",
@@ -150,6 +150,110 @@ test("insight snippets rewritten for click-through stay inside the limits", () =
     assert.equal(meta.twitter.description, post.metaDescription);
     assert.equal(meta.alternates.canonical, `/insights/${slug}`);
   }
+});
+
+test("second CTR pass snippets name the brand buyer and move lastmod", () => {
+  const { posts } = loadTs("lib/content.ts");
+  const { resolveDocumentTitle, TITLE_LIMIT, pageMetadata, INSIGHTS_TITLE_LEAD, INSIGHTS_DESCRIPTION, EVENTS_TITLE_LEAD, EVENTS_DESCRIPTION } = loadTs("lib/seo.ts");
+  const { WORK_TITLE, WORK_DESCRIPTION } = loadTs("lib/indexable-pages.ts");
+  const expected = {
+    "college-tour-marketing": "College Tour Marketing for Brands",
+    "campus-field-marketing-agency": "Campus Field Marketing Agency",
+    "on-campus-product-sampling": "On-Campus Product Sampling for Brands",
+    "university-activations": "University Activations for Brands",
+    "campus-product-sampling-ideas": "Campus Product Sampling Ideas for Brands",
+    "college-festival-sponsorship": "College Festival Sponsorship for Brands",
+    "college-brand-ambassador-program": "College Brand Ambassador Program",
+    "student-housing-marketing-agency": "Student Housing Marketing Agency",
+  };
+  for (const [slug, lead] of Object.entries(expected)) {
+    const post = posts.find((item) => item.slug === slug);
+    assert.ok(post, slug);
+    assert.equal(post.metaTitle, lead);
+    assert.equal(post.dateModified, "2026-11-06");
+    assert.equal(post.date === "2026-11-06", false, slug);
+    const title = resolveDocumentTitle(post.metaTitle).text;
+    assert.ok(title.length <= TITLE_LIMIT, `${title} (${title.length})`);
+    assert.equal(title.split("Collegiate Agency").length - 1, 1, title);
+    assert.equal(post.metaTitle.includes("|"), false, post.metaTitle);
+    assert.ok(title.endsWith("| Collegiate Agency"), title);
+    assert.ok(
+      post.metaDescription.length >= 140 && post.metaDescription.length <= 158,
+      `${slug} description ${post.metaDescription.length}`,
+    );
+    assert.equal(post.metaDescription.includes("\u2014"), false, slug);
+    assert.doesNotMatch(`${post.metaTitle} ${post.metaDescription}`, /intern|agency for students/i, slug);
+    assert.match(`${post.metaTitle} ${post.metaDescription}`, /brand/i, slug);
+    assert.ok(
+      title.toLowerCase().includes(post.primaryKeyword) ||
+        post.metaDescription.toLowerCase().includes(post.primaryKeyword),
+      `${slug} missing ${post.primaryKeyword}`,
+    );
+    const meta = pageMetadata({
+      title: post.metaTitle,
+      description: post.metaDescription,
+      path: `/insights/${slug}`,
+    });
+    assert.equal(meta.title.absolute, title);
+    assert.equal(meta.description, post.metaDescription);
+    assert.equal(meta.openGraph.title.absolute, title);
+    assert.equal(meta.openGraph.description, post.metaDescription);
+    assert.equal(meta.twitter.title.absolute, title);
+    assert.equal(meta.twitter.description, post.metaDescription);
+  }
+
+  const hubs = [
+    [INSIGHTS_TITLE_LEAD, INSIGHTS_DESCRIPTION, "/insights", "Campus Marketing Insights for Brands | Collegiate Agency"],
+    [EVENTS_TITLE_LEAD, EVENTS_DESCRIPTION, "/services/events", "Campus Event Marketing for Brands | Collegiate Agency"],
+    [WORK_TITLE, WORK_DESCRIPTION, "/work", "Campus Marketing Case Studies for Brands | Collegiate Agency"],
+  ];
+  for (const [lead, description, path, rendered] of hubs) {
+    const title = resolveDocumentTitle(lead).text;
+    assert.equal(title, rendered);
+    assert.ok(title.length <= TITLE_LIMIT, `${title} (${title.length})`);
+    assert.equal(title.split("Collegiate Agency").length - 1, 1, title);
+    assert.ok(description.length >= 140 && description.length <= 158, `${path} ${description.length}`);
+    assert.equal(description.includes("\u2014"), false, path);
+    assert.match(description, /brand/i);
+    assert.doesNotMatch(description, /intern|agency for students/i);
+    const meta = pageMetadata({ title: lead, description, path });
+    assert.equal(meta.title.absolute, title);
+    assert.equal(meta.openGraph.title.absolute, title);
+    assert.equal(meta.twitter.title.absolute, title);
+    assert.equal(meta.openGraph.description, description);
+    assert.equal(meta.twitter.description, description);
+  }
+
+  const eventsPage = fs.readFileSync(path.join(__dirname, "../src/app/services/events/page.tsx"), "utf8");
+  assert.match(eventsPage, /title: EVENTS_TITLE_LEAD/);
+  assert.match(eventsPage, /description: EVENTS_DESCRIPTION/);
+  const insightsPage = fs.readFileSync(path.join(__dirname, "../src/app/insights/page.tsx"), "utf8");
+  assert.match(insightsPage, /title: INSIGHTS_TITLE_LEAD/);
+  assert.match(insightsPage, /description: INSIGHTS_DESCRIPTION/);
+
+  const { default: sitemap } = loadTs("app/sitemap.ts");
+  const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
+  for (const slug of Object.keys(expected)) {
+    assert.equal(
+      byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
+      "2026-11-06T00:00:00.000Z",
+      slug,
+    );
+  }
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/services/brand-ambassadors").lastModified.toISOString(),
+    "2026-10-21T00:00:00.000Z",
+  );
+  assert.equal(byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(), "2026-10-28T00:00:00.000Z");
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/build-a-campaign").lastModified.toISOString(),
+    "2026-10-28T00:00:00.000Z",
+  );
 });
 
 test("organization JSON-LD is one node with a real address, logo, and website", () => {
@@ -396,7 +500,7 @@ test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
-    "2026-10-21T00:00:00.000Z",
+    "2026-11-06T00:00:00.000Z",
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/brand-ambassadors").lastModified.toISOString(),

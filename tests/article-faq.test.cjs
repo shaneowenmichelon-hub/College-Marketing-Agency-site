@@ -114,10 +114,20 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-experiential-marketing-agency",
       "campus-brand-activation-agency",
     ]);
-    const revisedOn = ctrTitleMetaRevised.has(slug)
-      ? "2026-11-03"
-      : slug === "student-housing-marketing-agency"
-        ? "2026-10-26"
+    const ctrWaveTwo = new Set([
+      "college-tour-marketing",
+      "campus-field-marketing-agency",
+      "on-campus-product-sampling",
+      "university-activations",
+      "campus-product-sampling-ideas",
+      "college-festival-sponsorship",
+      "college-brand-ambassador-program",
+      "student-housing-marketing-agency",
+    ]);
+    const revisedOn = ctrWaveTwo.has(slug)
+      ? "2026-11-06"
+      : ctrTitleMetaRevised.has(slug)
+        ? "2026-11-03"
         : slug === "greek-life-marketing-agency"
           ? "2026-10-25"
           : "2026-10-23";

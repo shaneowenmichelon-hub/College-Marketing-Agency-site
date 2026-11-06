@@ -25,14 +25,27 @@ const HOME_FAQ_LAST_MODIFIED = "2026-11-04";
  * brand-positioning stamp for `/services` only. Other routes keep their own dates.
  */
 const SERVICES_HUB_FAQ_LAST_MODIFIED = "2026-11-05";
+/**
+ * Second CTR title and meta pass on commercial pages that still had
+ * impressions and no clicks. IndexNow only submits lastmod inside 72 hours.
+ * Applies to /services/events, /work, and as a floor for /insights.
+ * / stays on HOME_FAQ_LAST_MODIFIED. /services stays on
+ * SERVICES_HUB_FAQ_LAST_MODIFIED. /services/brand-ambassadors,
+ * /contact, and /build-a-campaign keep their earlier stamps.
+ */
+const CTR_WAVE_LAST_MODIFIED = "2026-11-06";
 /** About page gained Person schema and the expanded brand copy on this date. */
 const ABOUT_LAST_MODIFIED = "2026-10-27";
-/** /work, /contact, and /build-a-campaign gained indexable copy on this date. */
+/** /contact and /build-a-campaign gained indexable copy on this date. /work uses CTR_WAVE_LAST_MODIFIED. */
 const THIN_PAGE_LAST_MODIFIED = "2026-10-28";
 
 function lastModified(iso: string): Date {
   // Date-only values are pinned to UTC so the sitemap does not shift with the build timezone.
   return new Date(iso.length === 10 ? `${iso}T00:00:00.000Z` : iso);
+}
+
+function newerStamp(a: string, b: string): string {
+  return a > b ? a : b;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -63,20 +76,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${siteConfig.url}${route}`,
     lastModified: lastModified(
       route === "/insights"
-        ? latestArticle
+        ? newerStamp(latestArticle, CTR_WAVE_LAST_MODIFIED)
         : route === ""
           ? HOME_FAQ_LAST_MODIFIED
           : route === "/services"
             ? SERVICES_HUB_FAQ_LAST_MODIFIED
             : route === "/about"
               ? ABOUT_LAST_MODIFIED
-              : route === "/services/events" || route === "/services/brand-ambassadors"
-                ? SERVICE_DETAIL_LAST_MODIFIED
-                : route === "/pricing" || route === "/services/product-placement"
-                  ? SEO_BATCH_LAST_MODIFIED
-                  : route === "/work" || route === "/contact" || route === "/build-a-campaign"
-                    ? THIN_PAGE_LAST_MODIFIED
-                    : STATIC_LAST_MODIFIED,
+              : route === "/services/events" || route === "/work"
+                ? CTR_WAVE_LAST_MODIFIED
+                : route === "/services/brand-ambassadors"
+                  ? SERVICE_DETAIL_LAST_MODIFIED
+                  : route === "/pricing" || route === "/services/product-placement"
+                    ? SEO_BATCH_LAST_MODIFIED
+                    : route === "/contact" || route === "/build-a-campaign"
+                      ? THIN_PAGE_LAST_MODIFIED
+                      : STATIC_LAST_MODIFIED,
     ),
     changeFrequency: "monthly",
     priority: route === "" ? 1 : 0.7,

@@ -126,7 +126,7 @@ test("sitemap, llms.txt, and the insights feed include the new URLs", async () =
   }
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
-    "2026-10-21T00:00:00.000Z",
+    "2026-11-06T00:00:00.000Z",
   );
 
   const { GET } = loadTs("app/llms.txt/route.ts");

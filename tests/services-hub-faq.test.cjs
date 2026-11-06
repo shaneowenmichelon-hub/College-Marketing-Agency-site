@@ -205,7 +205,7 @@ test("services hub FAQ is visible, matches FAQPage JSON-LD, and stays on publish
   const pricing = urls.find((entry) => entry.url === "https://collegiateagency.com/pricing");
   assert.equal(pricing.lastModified.toISOString(), "2026-10-22T00:00:00.000Z");
   const events = urls.find((entry) => entry.url === "https://collegiateagency.com/services/events");
-  assert.equal(events.lastModified.toISOString(), "2026-10-21T00:00:00.000Z");
+  assert.equal(events.lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
   const about = urls.find((entry) => entry.url === "https://collegiateagency.com/about");
   assert.equal(about.lastModified.toISOString(), "2026-10-27T00:00:00.000Z");
 });

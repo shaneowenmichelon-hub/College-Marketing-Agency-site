@@ -66,9 +66,9 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
   const articleTitles = new Set(posts.map((post) => resolveDocumentTitle(post.metaTitle ?? post.title).text));
   const pageTitles = [
     "Brand ambassador programs",
-    "Campus event marketing",
+    "Campus Event Marketing for Brands",
     "Greek life product placement",
-    "Campus marketing insights",
+    "Campus Marketing Insights for Brands",
     "Campus marketing pricing",
     "Campus Marketing Agency for Brands",
   ].map((lead) => resolveDocumentTitle(lead).text);
@@ -193,6 +193,9 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
   const index = fs.readFileSync(path.join(__dirname, "../src/app/insights/page.tsx"), "utf8");
   assert.match(index, /insightTopics\.map/);
   assert.match(index, /insightTopicPath\(topic\.slug\)/);
+  assert.match(index, /CollectionPageJsonLd/);
+  assert.match(index, /BreadcrumbJsonLd/);
+  assert.match(index, /posts\.map\(\(post\) => \(\{ name: post\.title, path: `\/insights\/\$\{post\.slug\}` \}\)\)/);
   const article = fs.readFileSync(path.join(__dirname, "../src/app/insights/[slug]/page.tsx"), "utf8");
   assert.match(article, /articleBreadcrumbItems\(post\)/);
   assert.match(article, /insightTopicPath\(topic\.slug\)/);
@@ -282,4 +285,56 @@ test("topic hub JSON-LD is CollectionPage, ItemList, and BreadcrumbList", () => 
       "https://collegiateagency.com/insights/topics/student-influencers",
     ],
   );
+});
+
+test("insights index JSON-LD lists the posts the page renders", () => {
+  const React = require("react");
+  const { renderToStaticMarkup } = require("react-dom/server");
+  const { CollectionPageJsonLd, BreadcrumbJsonLd } = loadTs("components/seo/JsonLd.tsx");
+  const { posts } = loadTs("lib/content.ts");
+  const { INSIGHTS_DESCRIPTION, INSIGHTS_TITLE_LEAD, resolveDocumentTitle } = loadTs("lib/seo.ts");
+  const html = renderToStaticMarkup(
+    React.createElement(
+      React.Fragment,
+      null,
+      React.createElement(CollectionPageJsonLd, {
+        name: resolveDocumentTitle(INSIGHTS_TITLE_LEAD).text,
+        description: INSIGHTS_DESCRIPTION,
+        path: "/insights",
+        items: posts.map((post) => ({ name: post.title, path: `/insights/${post.slug}` })),
+      }),
+      React.createElement(BreadcrumbJsonLd, {
+        items: [
+          { name: "Home", path: "/" },
+          { name: "Insights", path: "/insights" },
+        ],
+      }),
+    ),
+  );
+  const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) =>
+    JSON.parse(match[1]),
+  );
+  const collection = blocks.find((block) => block["@type"] === "CollectionPage");
+  const crumbs = blocks.find((block) => block["@type"] === "BreadcrumbList");
+  assert.equal(collection["@id"], "https://collegiateagency.com/insights#collection");
+  assert.equal(collection.name, "Campus Marketing Insights for Brands | Collegiate Agency");
+  assert.equal(collection.mainEntity["@type"], "ItemList");
+  assert.equal(collection.mainEntity.itemListElement.length, posts.length);
+  assert.ok(posts.length > 8);
+  assert.deepEqual(
+    collection.mainEntity.itemListElement.map((item) => item.url),
+    posts.map((post) => `https://collegiateagency.com/insights/${post.slug}`),
+  );
+  assert.deepEqual(
+    collection.mainEntity.itemListElement.map((item) => item.name),
+    posts.map((post) => post.title),
+  );
+  assert.equal(html.includes("FAQPage"), false);
+  assert.deepEqual(
+    crumbs.itemListElement.map((item) => item.item),
+    ["https://collegiateagency.com/", "https://collegiateagency.com/insights"],
+  );
+  const page = fs.readFileSync(path.join(__dirname, "../src/app/insights/page.tsx"), "utf8");
+  assert.match(page, /items=\{posts\.map/);
+  assert.equal(page.includes("why-welcome-week"), false);
 });

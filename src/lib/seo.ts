@@ -45,6 +45,23 @@ export const HOME_TITLE_LEAD = "College Marketing Agency for Brands";
 export const HOME_DESCRIPTION =
   "A college agency brands hire for campus marketing: events, ambassador programs, and product sampling, with 2,000 student ambassadors on 21 campuses.";
 
+/** Insights index lead. The brand suffix is added by {@link resolveDocumentTitle}. */
+export const INSIGHTS_TITLE_LEAD = "Campus Marketing Insights for Brands";
+
+/**
+ * Insights index snippet. Names the brand buyer and the channels the index
+ * already lists. The article cards supply the ItemList.
+ */
+export const INSIGHTS_DESCRIPTION =
+  "Campus marketing insights for brands and in-house teams hiring an agency. Events, ambassadors, sampling, and sponsorship from Collegiate Agency.";
+
+/** Events service lead. The brand suffix is added by {@link resolveDocumentTitle}. */
+export const EVENTS_TITLE_LEAD = "Campus Event Marketing for Brands";
+
+/** Events service snippet. The buyer is a brand hiring the agency to run the day. */
+export const EVENTS_DESCRIPTION =
+  "Campus event marketing for brands that hire Collegiate Agency to plan, staff, and run Welcome Week, tailgates, sampling, and other activations.";
+
 export const ORGANIZATION_ID = `${siteConfig.url}/#organization`;
 export const WEBSITE_ID = `${siteConfig.url}/#website`;
 /** Stable id for the default article author. Defined once and reused by every article. */
