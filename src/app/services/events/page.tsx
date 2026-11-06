@@ -2,12 +2,11 @@ import { CalendarHeart } from "lucide-react";
 import { ServicePage } from "@/components/services/ServicePage";
 import { EventSponsorships } from "@/components/EventSponsorships";
 import { getStat } from "@/site.config";
-import { pageMetadata } from "@/lib/seo";
+import { EVENTS_DESCRIPTION, EVENTS_TITLE_LEAD, pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Campus event marketing",
-  description:
-    "Custom campus activations planned, staffed, and executed end to end - Welcome Week takeovers, tailgates, sampling, and experiential moments students actually show up for.",
+  title: EVENTS_TITLE_LEAD,
+  description: EVENTS_DESCRIPTION,
   path: "/services/events",
 });
 

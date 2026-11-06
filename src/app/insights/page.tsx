@@ -6,22 +6,35 @@ import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { ArticleArt } from "@/components/insights/ArticleArt";
+import { CollectionPageJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { posts, formatDate } from "@/lib/content";
 import { insightTopicPath, insightTopics } from "@/lib/insight-topics";
-import { pageMetadata } from "@/lib/seo";
+import { INSIGHTS_DESCRIPTION, INSIGHTS_TITLE_LEAD, pageMetadata, resolveDocumentTitle } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Campus marketing insights",
-  description:
-    "Practical, brand-facing perspective on campus marketing: product placement, ambassador campaigns, and winning welcome week.",
+  title: INSIGHTS_TITLE_LEAD,
+  description: INSIGHTS_DESCRIPTION,
   path: "/insights",
 });
 
 export default function InsightsPage() {
   const [featured, ...rest] = posts;
+  const documentTitle = resolveDocumentTitle(INSIGHTS_TITLE_LEAD).text;
 
   return (
     <>
+      <CollectionPageJsonLd
+        name={documentTitle}
+        description={INSIGHTS_DESCRIPTION}
+        path="/insights"
+        items={posts.map((post) => ({ name: post.title, path: `/insights/${post.slug}` }))}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Insights", path: "/insights" },
+        ]}
+      />
       <Section tone="light">
         <SectionHeading
           as="h1"

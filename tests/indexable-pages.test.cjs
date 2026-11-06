@@ -199,7 +199,11 @@ test("the three pages render the copy in server components and keep the forms", 
 
   const { default: sitemap } = loadTs("app/sitemap.ts");
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  for (const route of ["/work", "/contact", "/build-a-campaign"]) {
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(),
+    "2026-11-06T00:00:00.000Z",
+  );
+  for (const route of ["/contact", "/build-a-campaign"]) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com${route}`).lastModified.toISOString(),
       "2026-10-28T00:00:00.000Z",
