@@ -124,12 +124,23 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-brand-ambassador-program",
       "student-housing-marketing-agency",
     ]);
-    const revisedOn = ctrWaveTwo.has(slug)
-      ? "2026-11-06"
-      : ctrTitleMetaRevised.has(slug)
-        ? "2026-11-03"
-        : slug === "greek-life-marketing-agency"
-          ? "2026-10-25"
+    const internalLinksRevised = new Set([
+      "campus-ambassador-content-rights",
+      "campus-brand-activation-agency",
+      "campus-event-accessibility-checklist",
+      "campus-field-marketing-agency",
+      "college-experiential-marketing-agency",
+      "college-tailgate-marketing-agency",
+      "greek-life-marketing-agency",
+      "spring-break-marketing-agency",
+      "student-housing-marketing-agency",
+    ]);
+    const revisedOn = internalLinksRevised.has(slug)
+      ? "2026-11-09"
+      : ctrWaveTwo.has(slug)
+        ? "2026-11-06"
+        : ctrTitleMetaRevised.has(slug)
+          ? "2026-11-03"
           : "2026-10-23";
     assert.equal(post.dateModified, revisedOn, slug);
     const schemaItems = articleFaqSchemaItems(post.faq);
