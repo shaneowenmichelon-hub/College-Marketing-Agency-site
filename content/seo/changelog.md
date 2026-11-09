@@ -1,5 +1,72 @@
 # SEO changelog
 
+## 2026-11-09 — Striking-distance internal links
+
+Search Console showed nine insight URLs already on page 1-3, with impressions and almost no clicks. This pass adds contextual body links into those URLs from guides that already discuss the same job. No article was created. No slug, title, meta description, H1, or byline changed. Bylines stay Shane Michelon, Founder. Gen Z pages and the how-to-market-to-Gen-Z pillar were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
+
+Source: GSC Pages.csv and Queries.csv, Web search, 28 days ending ~Oct 31 2026, pulled Nov 2 2026 ~6:15 AM ET.
+
+Baseline, Pages.csv. Clicks, impressions, CTR, average position:
+
+- `/insights/campus-influencers`: 2 clicks, 123 impressions, 1.63%, position 13.76. Queries: campus influencers, campus influencer, campus brand influencer, college influencers.
+- `/insights/college-marketing-agency`: 0, 61, 0%, 11. Queries: college marketing agency, agency college marketing, college ad agency.
+- `/insights/campus-product-launch`: 0, 53, 0%, 8.58. Queries: campus product launch, campus launch.
+- `/insights/campus-brand-activation-agency`: 0, 41, 0%, 10.1. Query: campus brand activation agency.
+- `/insights/college-experiential-marketing-agency`: 0, 44, 0%, 14.64. Queries: college experiential marketing agency, college experiential marketing.
+- `/insights/university-activations`: 0, 42, 0%, 18.69. Queries: university activations, campus activations.
+- `/insights/student-housing-marketing-agency`: 0, 55, 0%, 24.16. Queries: student housing marketing agency, student housing online marketing, student housing digital marketing.
+- `/insights/on-campus-product-sampling`: 0, 29, 0%, 13.28.
+- `/insights/campus-field-marketing-agency`: 0, 25, 0%, 10.92.
+
+Inbound body links before this pass, counted from article prose only. Related-post cards, topic hubs, the homepage card list, `/services`, and service-detail reading blocks are unchanged.
+
+- `/insights/campus-influencers`: 1 body link (student-influencer-marketing, anchor "a simple scorecard"). Related posts 0. Topic hub 1. Homepage 1. `/services` 0. Service detail 0. Total 3.
+- `/insights/college-marketing-agency`: 0 body. Related 0. Topic hub 1. Homepage 1. `/services` 1 (guides block, "college marketing agency guide"). Service detail 0. Total 3.
+- `/insights/campus-product-launch`: 0 body. Related 0. Topic hub 1. Homepage 1. `/services` 0. Service detail 0. Total 2.
+- `/insights/campus-brand-activation-agency`: 6 body (student-housing, spring-break, college-tailgate, college-experiential, campus-field, campus-event-accessibility). Related 0. Topic hub 1. Homepage 1. `/services` 1. Service detail 1 (`/services/events` reading). Total 10.
+- `/insights/college-experiential-marketing-agency`: 1 body (spring-break). Related 0. Topic hub 1. Homepage 1. `/services` 0. Service detail 0. Total 3.
+- `/insights/university-activations`: 0 body. Related 0. Topic hub 1. Homepage 1. `/services` 0. Service detail 1 (`/services/events` reading). Total 3.
+- `/insights/student-housing-marketing-agency`: 0 body. Related 2 (`/services/events` and `/services/brand-ambassadors`, the three newest posts tagged for those services). Topic hub 1. Homepage 1. `/services` 0. Service detail 0. Total 4.
+- `/insights/on-campus-product-sampling`: 5 body (spring-break, college-tailgate, campus-bookstore-product-placement, college-welcome-bag-inserts, college-tour-marketing). Related 0. Topic hub 1. Homepage 1. `/services` 0. Service detail 1 (`/services/product-placement` reading). Total 8.
+- `/insights/campus-field-marketing-agency`: 1 body (student-housing). Related 0. Topic hub 1. Homepage 1. `/services` 0. Service detail 0. Total 3.
+
+New body links, source, anchor, target. Each target gained 2 to 4. Anchors are varied. No source links to the same target twice.
+
+- `/insights/campus-ambassador-content-rights` — "campus influencers" — `/insights/campus-influencers`
+- `/insights/campus-brand-activation-agency` — "campus brand influencer" — `/insights/campus-influencers`
+- `/insights/campus-field-marketing-agency` — "College influencers" — `/insights/campus-influencers`
+- `/insights/spring-break-marketing-agency` — "a campus influencer" — `/insights/campus-influencers`
+- `/insights/campus-brand-activation-agency` — "college marketing agency" — `/insights/college-marketing-agency`
+- `/insights/campus-field-marketing-agency` — "college ad agency" — `/insights/college-marketing-agency`
+- `/insights/student-housing-marketing-agency` — "how to choose a college marketing agency" — `/insights/college-marketing-agency`
+- `/insights/campus-brand-activation-agency` — "campus product launch" — `/insights/campus-product-launch`
+- `/insights/college-experiential-marketing-agency` — "campus launch" — `/insights/campus-product-launch`
+- `/insights/greek-life-marketing-agency` — "launching a product on campus" — `/insights/campus-product-launch`
+- `/insights/greek-life-marketing-agency` — "campus brand activation agency" — `/insights/campus-brand-activation-agency`
+- `/insights/campus-ambassador-content-rights` — "hiring a campus brand activation agency" — `/insights/campus-brand-activation-agency`
+- `/insights/college-tailgate-marketing-agency` — "college experiential marketing" — `/insights/college-experiential-marketing-agency`
+- `/insights/campus-field-marketing-agency` — "college experiential marketing agency" — `/insights/college-experiential-marketing-agency`
+- `/insights/campus-event-accessibility-checklist` — "a college experiential marketing agency" — `/insights/college-experiential-marketing-agency`
+- `/insights/college-experiential-marketing-agency` — "university activations" — `/insights/university-activations`
+- `/insights/college-tailgate-marketing-agency` — "campus activations" — `/insights/university-activations`
+- `/insights/campus-event-accessibility-checklist` — "activations on a university campus" — `/insights/university-activations`
+- `/insights/campus-field-marketing-agency` — "student housing marketing agency" — `/insights/student-housing-marketing-agency`
+- `/insights/campus-brand-activation-agency` — "student housing online marketing" — `/insights/student-housing-marketing-agency`
+- `/insights/college-experiential-marketing-agency` — "student housing digital marketing" — `/insights/student-housing-marketing-agency`
+- `/insights/greek-life-marketing-agency` — "on-campus product sampling" — `/insights/on-campus-product-sampling`
+- `/insights/campus-brand-activation-agency` — "product sampling on campus" — `/insights/on-campus-product-sampling`
+- `/insights/campus-field-marketing-agency` — "student product sampling" — `/insights/on-campus-product-sampling`
+- `/insights/campus-brand-activation-agency` — "campus field marketing agency" — `/insights/campus-field-marketing-agency`
+- `/insights/college-experiential-marketing-agency` — "campus field marketing" — `/insights/campus-field-marketing-agency`
+- `/insights/college-tailgate-marketing-agency` — "college field marketing agency" — `/insights/campus-field-marketing-agency`
+
+After this pass, body-link counts are 5, 3, 3, 8, 4, 3, 3, 8, and 4 in the same target order as the baseline list. The other inbound categories are unchanged, so totals are 7, 6, 5, 12, 6, 6, 7, 11, and 6.
+
+Older articles in `content/seo/link-backfill-20260921.json` keep their frozen link counts. The new links sit in guides published after that inventory. No statistic, client, result, or review was added. The new sentences do not use SOS Consultants or ZMM figures.
+
+- `dateModified` is `2026-11-09` on `campus-ambassador-content-rights`, `campus-brand-activation-agency`, `campus-event-accessibility-checklist`, `campus-field-marketing-agency`, `college-experiential-marketing-agency`, `college-tailgate-marketing-agency`, `greek-life-marketing-agency`, `spring-break-marketing-agency`, and `student-housing-marketing-agency`. Their `date` values are unchanged, so each of those insight URLs has sitemap `lastmod` 2026-11-09 UTC midnight.
+- `/insights` uses the newer of the newest article revision and `CTR_WAVE_LAST_MODIFIED`, which is now 2026-11-09. Topic hubs that include one of the edited articles take that same revision under the existing rule. `/`, `/services`, `/services/events`, `/work`, and the service detail pages were not edited, so their sitemap dates stay put.
+
 ## 2026-11-06 — Second CTR title and meta pass
 
 Search Console still showed impressions and no clicks on commercial pages that were not in the 2026-11-02 title pass. This pass rewrites the SEO title, the meta description, and the matching Open Graph and Twitter title and description. Article slugs, H1s, and bodies are unchanged. No redirect was added, no article was merged or created, and no Gen Z page was edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.
