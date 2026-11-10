@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CheckCircle2, Loader2, Mail, Sparkles, X } from "lucide-react";
+import { leadDeliveryError } from "@/site.config";
 import { isValidEmail } from "@/lib/utils";
 import { useAttribution, useElapsed } from "@/lib/client-forms";
 import { trackEvent } from "@/lib/analytics";
@@ -111,7 +112,7 @@ export function NewsletterModal() {
       });
       const json = await res.json();
       if (!res.ok || !json.ok) {
-        setError(json?.errors?.email || json?.error || "Something went wrong. Please try again.");
+        setError(json?.errors?.email || json?.error || leadDeliveryError());
         setStatus("idle");
         return;
       }
@@ -123,7 +124,7 @@ export function NewsletterModal() {
         /* ignore */
       }
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError(leadDeliveryError());
       setStatus("idle");
     }
   }

@@ -22,7 +22,13 @@ export type SendEmailArgs = {
   replyTo?: string;
 };
 
-export type SendEmailResult = { ok: boolean; skipped?: boolean; id?: string };
+export type SendEmailResult = {
+  ok: boolean;
+  skipped?: boolean;
+  id?: string;
+  /** Provider reason when ok is false. Callers decide whether to surface it. */
+  error?: string;
+};
 
 const FROM = process.env.EMAIL_FROM || emailDefaults.from;
 
@@ -52,8 +58,9 @@ async function deliver(args: SendEmailArgs): Promise<string | undefined> {
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 /**
- * Send an email. Never throws - a delivery failure is logged and returns
- * { ok: false } so the caller (a form handler) can still respond with success.
+ * Send an email. Never throws. A provider rejection returns { ok: false, error }
+ * with the provider reason. When RESEND_API_KEY is unset, nothing is sent and
+ * the result is { ok: true, skipped: true }.
  */
 export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
   if (!emailEnabled()) {
@@ -80,11 +87,12 @@ export async function sendEmail(args: SendEmailArgs): Promise<SendEmailResult> {
     console.log(`[email] sent "${args.subject}" -> ${Array.isArray(args.to) ? args.to.join(", ") : args.to} (id: ${id})`);
     return { ok: true, id };
   } catch (err) {
+    const redact = (value: string) =>
+      value.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[redacted]");
+    const reason = redact(err instanceof Error ? err.message : String(err));
     console.error(
-      `[email] send FAILED ("${args.subject}"):`,
-      err instanceof Error ? err.message : err,
-      "- check RESEND_API_KEY and that EMAIL_FROM is a VERIFIED sender.",
+      `[email] send FAILED ("${redact(args.subject)}"): ${reason} - check RESEND_API_KEY and that EMAIL_FROM is a VERIFIED sender.`,
     );
-    return { ok: false };
+    return { ok: false, error: reason };
   }
 }

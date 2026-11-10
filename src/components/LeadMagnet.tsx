@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle2, Download, Loader2 } from "lucide-react";
+import { leadDeliveryError } from "@/site.config";
 import { isValidEmail } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 import { useAttribution, useElapsed } from "@/lib/client-forms";
@@ -56,14 +57,14 @@ export function LeadMagnet({
       });
       const json = await res.json();
       if (!res.ok || !json.ok) {
-        setError("Something went wrong. Please try again.");
+        setError((typeof json?.error === "string" && json.error) || leadDeliveryError());
         setStatus("idle");
         return;
       }
       trackEvent("generate_lead", { form: "lead_magnet", resource });
       setStatus("success");
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError(leadDeliveryError());
       setStatus("idle");
     }
   }
