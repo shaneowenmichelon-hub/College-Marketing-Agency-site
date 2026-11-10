@@ -413,6 +413,12 @@ export type CaseStudy = {
   sample?: boolean;
   /** Publish date of the write-up, when one already exists in this file. */
   date?: string;
+  /** Revision date. Sitemap lastmod prefers this over `date`. */
+  dateModified?: string;
+  /** Optional SEO title. The work page falls back to `${brand} case study`. */
+  metaTitle?: string;
+  /** Optional SEO description. The work page falls back to the generated summary. */
+  metaDescription?: string;
   /** Public sources for the factual program description (industry references). */
   sources?: { label: string; url: string }[];
   /**
@@ -567,6 +573,10 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "nutrl-night-school-tour-product-placement",
     date: "2026-08-02",
+    dateModified: "2026-11-10",
+    metaTitle: "NÜTRL Product Placement for Brands",
+    metaDescription:
+      "Brands hire Collegiate Agency for product placement. NÜTRL was presenting sponsor of the Night School Tour: 425 cases and roughly 5M social insights.",
     image: "/images/work/nutrl-can-activation.jpg",
     imageAlt: "Staffer holding a NUTRL can at the branded NUTRL bar cart",
     brand: "NÜTRL",

@@ -5,7 +5,7 @@ import { insightTopicLastModified, insightTopicPath, insightTopics } from "@/lib
 
 /**
  * Date the technical SEO metadata on the static routes was updated.
- * Article and case-study URLs use their own publish dates instead.
+ * Article and case-study URLs use dateModified when set, otherwise their publish date.
  */
 const STATIC_LAST_MODIFIED = "2026-10-20";
 /** Service detail pages gained their FAQ and supporting copy on this date. */
@@ -34,8 +34,12 @@ const SERVICES_HUB_FAQ_LAST_MODIFIED = "2026-11-05";
  * /contact, and /build-a-campaign keep their earlier stamps.
  */
 const CTR_WAVE_LAST_MODIFIED = "2026-11-06";
-/** About page gained Person schema and the expanded brand copy on this date. */
-const ABOUT_LAST_MODIFIED = "2026-10-27";
+/**
+ * /about title, meta description, and AboutPage JSON-LD description were
+ * rewritten on this date. IndexNow only submits lastmod inside 72 hours.
+ * This replaces the 2026-10-27 Person-schema stamp for /about only.
+ */
+const ABOUT_LAST_MODIFIED = "2026-11-10";
 /** /contact and /build-a-campaign gained indexable copy on this date. /work uses CTR_WAVE_LAST_MODIFIED. */
 const THIN_PAGE_LAST_MODIFIED = "2026-10-28";
 
@@ -101,7 +105,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((study) => !study.sample)
     .map((study) => ({
       url: `${siteConfig.url}/work/${study.slug}`,
-      lastModified: lastModified(study.date ?? STATIC_LAST_MODIFIED),
+      lastModified: lastModified(study.dateModified ?? study.date ?? STATIC_LAST_MODIFIED),
       changeFrequency: "monthly",
       priority: 0.7,
     }));

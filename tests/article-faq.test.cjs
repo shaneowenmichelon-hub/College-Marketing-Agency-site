@@ -130,12 +130,17 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "campus-event-accessibility-checklist",
       "campus-field-marketing-agency",
       "college-experiential-marketing-agency",
-      "college-tailgate-marketing-agency",
       "greek-life-marketing-agency",
       "spring-break-marketing-agency",
       "student-housing-marketing-agency",
     ]);
-    const revisedOn = internalLinksRevised.has(slug)
+    const pageOneCtr = new Set([
+      "college-tailgate-marketing-agency",
+      "campus-marketing-agency-rfp",
+    ]);
+    const revisedOn = pageOneCtr.has(slug)
+      ? "2026-11-10"
+      : internalLinksRevised.has(slug)
       ? "2026-11-09"
       : ctrWaveTwo.has(slug)
         ? "2026-11-06"

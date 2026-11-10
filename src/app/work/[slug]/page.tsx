@@ -32,8 +32,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   }
   const result = c.stat && c.statLabel ? ` ${c.stat} ${c.statLabel}` : "";
   return pageMetadata({
-    title: `${c.brand} case study`,
-    description: `${c.type} case study: ${c.headline}.${result}${c.sample ? " (sample)." : "."}`,
+    title: c.metaTitle ?? `${c.brand} case study`,
+    description:
+      c.metaDescription ??
+      `${c.type} case study: ${c.headline}.${result}${c.sample ? " (sample)." : "."}`,
     path: `/work/${slug}`,
     index: !c.sample,
   });
