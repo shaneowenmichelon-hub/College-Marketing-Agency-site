@@ -6,18 +6,42 @@ import { rateLimit, clientIp, sweep } from "@/lib/rate-limit";
 import { ATTRIBUTION_KEYS, type Attribution, type BrandLead } from "@/lib/leads";
 import { captureDeal } from "@/lib/crm/capture";
 import { classifySource, clientIp as analyticsClientIp, hashIp, recordAdminEvent } from "@/lib/admin-analytics";
+import { leadDeliveryError } from "@/site.config";
 
 // Email SDK needs the Node runtime (not edge).
 export const runtime = "nodejs";
 
 /**
  * Brand "Get Started" / contact + lead-magnet submissions.
- * Validate → send brand confirmation + internal notification (parallel, non-blocking
- * on failure) → return success. Always logs a structured submission record so no
- * lead is lost even before email is configured.
+ * Validate (same required fields as the form) → record the lead → email the team.
+ * Budget and "how did you find us?" are optional. An empty budget is stored as
+ * "Not sure yet", which is the contact form's default option.
+ * If Resend rejects the team notification, respond with an error so the sender
+ * is not told it succeeded. Always logs a structured submission record so the
+ * lead is still captured.
  *
  * TODO (optional): also persist to Google Sheet / CRM / DB.
  */
+
+/** The contact form's default budget option. Its value is submitted as "". */
+const NOT_SURE_BUDGET = "Not sure yet";
+
+function budgetForLead(kind: BrandLead["kind"], value: unknown): string {
+  const raw = String(value ?? "").trim();
+  if (kind !== "brand_inquiry") return raw;
+  if (!raw || raw.toLowerCase() === NOT_SURE_BUDGET.toLowerCase()) return NOT_SURE_BUDGET;
+  return raw;
+}
+
+/** Provider text for logs. Strips addresses so the line is not a lead record. */
+function nonPiiReason(reason: string | undefined): string {
+  const text = (reason || "notification email was not accepted")
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[redacted]")
+    .replace(/\s+/g, " ")
+    .trim();
+  return text.slice(0, 300) || "notification email was not accepted";
+}
+
 export async function POST(request: Request) {
   sweep();
   const ip = clientIp(request);
@@ -54,8 +78,6 @@ export async function POST(request: Request) {
 
   const errors: Record<string, string> = {};
   if (kind === "brand_inquiry" && !company) errors.company = "Company is required.";
-  if (kind === "brand_inquiry" && !howHeard) errors.howHeard = "Please tell us how you found us.";
-  if (kind === "brand_inquiry" && !String(body.budget ?? "").trim()) errors.budget = "Please select a budget range.";
   if (!email) errors.email = "Work email is required.";
   else if (!isValidEmail(email)) errors.email = "Enter a valid email.";
 
@@ -78,7 +100,7 @@ export async function POST(request: Request) {
     email,
     phone: String(body.phone ?? ""),
     interests: Array.isArray(body.interests) ? (body.interests as string[]) : [],
-    budget: String(body.budget ?? ""),
+    budget: budgetForLead(kind, body.budget),
     message: String(body.message ?? ""),
     howHeard,
     resource: String(body.resource ?? ""),
@@ -128,13 +150,10 @@ export async function POST(request: Request) {
     payload: lead as unknown as Record<string, unknown>,
   });
 
-  // Fire both emails AFTER the response returns so the sender isn't kept waiting
-  // on Resend. Failures are logged inside sendEmail and never surface to the user.
   const confirmation = brandConfirmation(lead);
   const internal = internalNotification(kind, lead);
-  // Attempt the TEAM notification within the request (awaited) so it's reliably
-  // sent and doesn't depend on after() keep-alive; the sender confirmation goes
-  // after the response so they aren't kept waiting. sendEmail never throws.
+  // The team notification is awaited so a Resend rejection can be returned to
+  // the sender. The confirmation email goes out after the response.
   const notified = await sendEmail({
     to: AGENCY_INBOX,
     subject: internal.subject,
@@ -142,6 +161,10 @@ export async function POST(request: Request) {
     text: internal.text,
     replyTo: email,
   });
+  if (!notified.ok) {
+    console.error(`[lead] send FAILED: ${nonPiiReason(notified.error)}`);
+    return NextResponse.json({ ok: false, error: leadDeliveryError() }, { status: 502 });
+  }
   after(async () => {
     await sendEmail({
       to: email,

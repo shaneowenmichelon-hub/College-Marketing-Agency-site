@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
-import { siteConfig } from "@/site.config";
+import { leadDeliveryError, siteConfig } from "@/site.config";
 import { isValidEmail, cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 import { useAttribution, usePrefill, useElapsed } from "@/lib/client-forms";
+import { serverFieldErrors } from "@/lib/form-errors";
 import { FormField, Input, Select, Textarea } from "@/components/form/Fields";
 import { Button } from "@/components/ui/Button";
 
@@ -16,6 +17,7 @@ const interestOptions = siteConfig.services.map((s) => s.label);
 export function ContactForm() {
   const [interests, setInterests] = useState<string[]>([]);
   const [errors, setErrors] = useState<Errors>({});
+  const [formError, setFormError] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const attribution = useAttribution();
   const prefill = usePrefill();
@@ -55,8 +57,9 @@ export function ContactForm() {
     // Budget and attribution are deliberately NOT required. Forcing a prospect
     // to name a number before they've spoken to anyone loses the ones who don't
     // have one yet, and "how did you find us?" serves our reporting, not them.
-    // Both still submit when filled in.
+    // Both still submit when filled in. The default budget option posts "".
     setErrors(nextErrors);
+    setFormError(null);
     if (Object.keys(nextErrors).length > 0) return;
 
     setStatus("loading");
@@ -66,17 +69,34 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const json = await res.json();
-      if (!res.ok || !json.ok) {
-        if (json.errors) setErrors(json.errors);
+      let json: { ok?: boolean; error?: unknown; errors?: unknown } | null = null;
+      try {
+        json = await res.json();
+      } catch {
+        json = null;
+      }
+      if (!res.ok || !json?.ok) {
+        // Replace, don't merge: a field error stays only when this response rejected it.
+        const rejected = serverFieldErrors(json?.errors);
+        setErrors(rejected);
+        const serverError = typeof json?.error === "string" ? json.error.trim() : "";
+        setFormError(
+          Object.keys(rejected).length > 0
+            ? "Something went wrong. Please review the fields above and try again."
+            : serverError || leadDeliveryError(),
+        );
         setStatus("error");
         return;
       }
       trackEvent("generate_lead", { form: "contact", interests });
+      setErrors({});
+      setFormError(null);
       setStatus("success");
       form.reset();
       setInterests([]);
     } catch {
+      setErrors({});
+      setFormError(leadDeliveryError());
       setStatus("error");
     }
   }
@@ -90,7 +110,15 @@ export function ContactForm() {
           Your message is in. We&apos;ll get back to you shortly with next steps for
           reaching students.
         </p>
-        <Button className="mt-6" onClick={() => setStatus("idle")} variant="secondary">
+        <Button
+          className="mt-6"
+          onClick={() => {
+            setErrors({});
+            setFormError(null);
+            setStatus("idle");
+          }}
+          variant="secondary"
+        >
           Send another message
         </Button>
       </div>
@@ -210,9 +238,9 @@ export function ContactForm() {
         </FormField>
       </div>
 
-      {status === "error" && (
+      {status === "error" && formError && (
         <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600" role="alert">
-          Something went wrong. Please review the fields above and try again.
+          {formError}
         </p>
       )}
 

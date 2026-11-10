@@ -39,7 +39,7 @@ export type BrandLead = {
   interests?: string[];
   budget?: string;
   message?: string;
-  /** Required on brand inquiries: "How did you find us?" (open text). */
+  /** Optional. "How did you find us?" when the brand filled it in. */
   howHeard?: string;
   resource?: string; // for lead magnet
   attribution?: Attribution;

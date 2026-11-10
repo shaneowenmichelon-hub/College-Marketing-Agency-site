@@ -228,6 +228,11 @@ export const emailDefaults = {
   inbox: "shane@zmmevents.com",
 };
 
+/** Public fallback when a lead notification email is rejected. */
+export function leadDeliveryError(): string {
+  return `We couldn't deliver your message. Please email us at ${siteConfig.contact.email}.`;
+}
+
 /** How long ambassador ID images should be retained before deletion. */
 // TODO: implement a scheduled cleanup routine (cron / Vercel Cron) that deletes
 // ambassador-ids/* older than this once verification is complete.
