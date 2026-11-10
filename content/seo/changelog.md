@@ -1,5 +1,39 @@
 # SEO changelog
 
+## 2026-11-10 — Page-one CTR title and meta pass
+
+Search Console showed four URLs already on page 1 with impressions and few or no clicks. None of them were in the 2026-11-02 or 2026-11-06 title passes. This pass rewrites the SEO title, the meta description, and the matching Open Graph and Twitter title and description. Article slugs, H1s, excerpts, and bodies are unchanged. The NÜTRL case-study headline is unchanged. No redirect was added, no article was merged or created, and no Gen Z page was edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited. The contact email and Organization `sameAs` were not changed. Article bylines stay Shane Michelon, Founder, with the LinkedIn profile as the only author URL.
+
+Source: Google Search Console, Web, pulled Nov 9 2026 ~11:27 AM ET. Pages export for the last 3 months, Pages export comparing the last 28 days with the previous 28 days, and Queries export for the last 3 months. The query rows are hints only. Search Console does not say which URL ranks for each query. Re-check CTR in about 2-3 weeks, once Google has recrawled the snippets.
+
+Baseline, last 3 months. Clicks, impressions, CTR, average position:
+
+- `/about`: 4 clicks, 138 impressions, 2.9%, position 6.96
+- `/insights/college-tailgate-marketing-agency`: 1, 62, 1.61%, 5.69
+- `/insights/campus-marketing-agency-rfp`: 1, 10, 10%, 4.4
+- `/work/nutrl-night-school-tour-product-placement`: 2, 12, 16.67%, 5.33
+
+Same pull, last 28 days versus the previous 28 days. Clicks, impressions, CTR, position:
+
+- `/about`: 2 clicks, 123 impressions, 1.63%, position 7.36. Previous 28 days: 2 clicks, 15 impressions, 13.33%, position 3.67.
+- `/insights/college-tailgate-marketing-agency`: 1, 62, 1.61%, 5.69. Previous: 0, 0, 0%, 0.
+- `/insights/campus-marketing-agency-rfp`: 1, 6, 16.67%, 4. Previous: 0, 4, 0%, 5.
+- `/work/nutrl-night-school-tour-product-placement`: 1, 9, 11.11%, 5.56. Previous: 1, 3, 33.33%, 4.67.
+
+Query hints from the 3-month Queries export, not tied to a URL: `college agency` 0 clicks, 183 impressions, position 5.2; `the college agency` 0, 128, position 5.84; `collegiate ambassador` 0, 14, position 5.29; `shane michelon` 0, 16, position 6.75.
+
+Titles below are the rendered document titles. The root template is still `%s | Collegiate Agency`. A lead is left short enough that the suffix fits inside 60 characters. None of the new leads already end in Collegiate Agency, so the brand is not added twice. The description names the brand buyer. No statistic, client, result, or review was added. The NÜTRL figures in that description are the 425 cases and roughly 5M social insights already published on the case study.
+
+- `/about` title: `About the college marketing agency | Collegiate Agency` -> `The College Marketing Agency for Brands | Collegiate Agency`. Adding "Shane Michelon" to that lead would push the rendered title past 60 characters, so the founder stays in the description. Description: `Collegiate Agency is a college marketing agency brands hire for campus events, brand ambassador programs, and product placement. Founder Shane Michelon.` -> `Collegiate Agency is a college marketing agency brands hire to reach college students: events, ambassadors, and product placement. Founder Shane Michelon.` The AboutPage JSON-LD already on this URL keeps the same `@id`s. Its `name` and `description` match the new title and meta. `about` still points at the existing Organization `@id`, and Shane Michelon is still the existing Person `@id` `https://collegiateagency.com/#shane-michelon`. No new entity was created.
+- `/insights/college-tailgate-marketing-agency` title: `College Tailgate Marketing Agency Guide | Collegiate Agency` -> `College Tailgate Marketing Agency | Collegiate Agency`. Adding "for Brands" to the full query would drop the brand suffix. Description: `Hire a college tailgate marketing agency with a named permit path, lot rules, staffing, a weather call, and a recap you can audit.` -> `Brands hire a college tailgate marketing agency for a game-day lot. Collegiate Agency can staff it: permit path, lot rules, a shift, and a recap.` The H1 and the excerpt are unchanged. Article JSON-LD still describes the visible excerpt. The nested WebPage node has no description field.
+- `/insights/campus-marketing-agency-rfp` title: `Campus Marketing Agency RFP: Buyer Checklist` -> `Campus Marketing Agency RFP for Brands | Collegiate Agency`. The old lead was 44 characters, so the brand suffix was omitted. Description: `Write a campus marketing agency RFP that compares access, staffing, permissions, measurement, and pilot deliverables before you choose a partner.` -> `Brands hire Collegiate Agency for events, brand ambassadors, and product placement. A campus marketing agency RFP compares access, staffing, and the pilot.` The H1 and the excerpt are unchanged.
+- `/work/nutrl-night-school-tour-product-placement` title: `NÜTRL case study | Collegiate Agency` -> `NÜTRL Product Placement for Brands | Collegiate Agency`. Description: `Product Placement case study: How NÜTRL turned Night School Tour sponsorship into 425 cases and 5M social insights. 425 total cases moved.` -> `Brands hire Collegiate Agency for product placement. NÜTRL was presenting sponsor of the Night School Tour: 425 cases and roughly 5M social insights.` The headline, challenge, approach, results, and article body are unchanged. This URL has no WebPage JSON-LD node. Other case studies still use the generated `${brand} case study` title.
+
+- `dateModified` is `2026-11-10` on `college-tailgate-marketing-agency` and `campus-marketing-agency-rfp`. Their `date` values stay 2026-10-22 and 2026-09-08, so each insight URL's sitemap `lastmod` is 2026-11-10 UTC midnight.
+- The NÜTRL case study `date` stays `2026-08-02`. `dateModified` is `2026-11-10`, and the sitemap uses that for `/work/nutrl-night-school-tour-product-placement` only. The SOS Consultants case study stays on its publish date, 2026-08-03.
+- `/about` uses `ABOUT_LAST_MODIFIED` (`2026-11-10`) in `src/app/sitemap.ts`. That date supersedes the 2026-10-27 stamp for `/about` only.
+- `/insights` uses the newer of the newest article revision and `CTR_WAVE_LAST_MODIFIED`, which is now 2026-11-10. Topic hubs that include one of the edited articles take that same revision under the existing rule: `campus-sponsorship` includes the tailgate guide, and `campus-marketing-strategy` includes the RFP guide. `/`, `/services`, `/services/events`, `/work`, and the service detail pages were not edited, so their sitemap dates stay put.
+
 ## 2026-11-09 — Striking-distance internal links
 
 Search Console showed nine insight URLs already on page 1-3, with impressions and almost no clicks. This pass adds contextual body links into those URLs from guides that already discuss the same job. No article was created. No slug, title, meta description, H1, or byline changed. Bylines stay Shane Michelon, Founder. Gen Z pages and the how-to-market-to-Gen-Z pillar were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited.

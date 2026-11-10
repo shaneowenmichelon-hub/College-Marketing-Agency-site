@@ -54,10 +54,13 @@ test("about metadata is brand-framed and the title stays within 60 characters", 
   });
   const title = meta.title.absolute;
   assert.equal(title, resolveDocumentTitle(ABOUT_TITLE_LEAD).text);
-  assert.equal(title, "About the college marketing agency | Collegiate Agency");
+  assert.equal(title, "The College Marketing Agency for Brands | Collegiate Agency");
   assert.ok(title.length <= TITLE_LIMIT, `${title} (${title.length})`);
   assert.equal(title.split("Collegiate Agency").length - 1, 1);
-  assert.ok(ABOUT_DESCRIPTION.length <= 160, ABOUT_DESCRIPTION);
+  assert.ok(
+    ABOUT_DESCRIPTION.length >= 140 && ABOUT_DESCRIPTION.length <= 155,
+    `${ABOUT_DESCRIPTION.length}: ${ABOUT_DESCRIPTION}`,
+  );
   assert.match(ABOUT_DESCRIPTION, /brands hire/i);
   assert.match(ABOUT_DESCRIPTION, /Shane Michelon/);
   assert.match(ABOUT_DESCRIPTION, /college marketing agency/);
@@ -79,6 +82,7 @@ test("about JSON-LD reuses the founder Person and describes only on-page people"
   const { renderToStaticMarkup } = require("react-dom/server");
   const { createElement } = require("react");
   const {
+    ABOUT_DESCRIPTION,
     aboutStructuredData,
     aboutTeamPersonStructuredData,
     founderPersonStructuredData,
@@ -118,7 +122,8 @@ test("about JSON-LD reuses the founder Person and describes only on-page people"
   assert.ok(page);
   assert.ok(page["@type"].includes("WebPage"));
   assert.equal(page["@id"], "https://collegiateagency.com/about#webpage");
-  assert.equal(page.name, "About the college marketing agency | Collegiate Agency");
+  assert.equal(page.name, "The College Marketing Agency for Brands | Collegiate Agency");
+  assert.equal(page.description, ABOUT_DESCRIPTION);
   assert.equal(page.about["@id"], ORG_ID);
   assert.equal(page.publisher["@id"], ORG_ID);
   assert.equal(page.isPartOf["@id"], "https://collegiateagency.com/#website");
@@ -194,5 +199,5 @@ test("the about page links the brand routes and keeps Shane's bio free of other 
 
   const { default: sitemap } = loadTs("app/sitemap.ts");
   const about = sitemap().find((entry) => entry.url === "https://collegiateagency.com/about");
-  assert.equal(about.lastModified.toISOString(), "2026-10-27T00:00:00.000Z");
+  assert.equal(about.lastModified.toISOString(), "2026-11-10T00:00:00.000Z");
 });

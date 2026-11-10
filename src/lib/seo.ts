@@ -118,15 +118,20 @@ export function articleAuthorStructuredData(author?: string): Record<string, unk
   return { "@type": "Person", name: author!.trim() };
 }
 
-/** Document title lead for /about. The brand suffix is added when it still fits. */
-export const ABOUT_TITLE_LEAD = "About the college marketing agency";
+/**
+ * Document title lead for /about. The brand suffix is added when it still fits.
+ * "The College Marketing Agency for Brands" names the agency and the buyer.
+ * Shane Michelon's name does not fit beside that phrase inside 60 characters,
+ * so the founder stays in the description.
+ */
+export const ABOUT_TITLE_LEAD = "The College Marketing Agency for Brands";
 
 /**
- * Snippet for /about. Brand-framed: who hires the agency, the three channels,
- * and the founder. No student recruiting pitch and no new claim.
+ * Snippet for /about. Brand-framed: who hires the agency, the audience,
+ * the three channels, and the founder. No student recruiting pitch and no new claim.
  */
 export const ABOUT_DESCRIPTION =
-  "Collegiate Agency is a college marketing agency brands hire for campus events, brand ambassador programs, and product placement. Founder Shane Michelon.";
+  "Collegiate Agency is a college marketing agency brands hire to reach college students: events, ambassadors, and product placement. Founder Shane Michelon.";
 
 /** Stable fragment for a person @id. Shane Michelon matches {@link FOUNDER_PERSON_ID}. */
 export function personSlug(name: string): string {
