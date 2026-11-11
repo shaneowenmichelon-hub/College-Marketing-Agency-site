@@ -1,19 +1,18 @@
 {
   "last_success": {
-    "image_sha256": "accea3e1dbfbe96783fe850253a1cc473e90b84627f8b6b2f3f9583afcce1c31",
-    "primary_keyword": "student housing marketing agency",
-    "run_no": 34,
-    "slug": "student-housing-marketing-agency",
-    "tables": 1,
-    "url": "https://collegiateagency.com/insights/student-housing-marketing-agency",
-    "verified_at": "2026-10-26T16:11:47-05:00",
-    "word_count": 1614
+    "primary_keyword": "back-to-school campus activation",
+    "run_no": 43,
+    "slug": "back-to-school-campus-activation",
+    "url": "https://collegiateagency.com/insights/back-to-school-campus-activation",
+    "word_count": 1237,
+    "note": "Backfill of runs 35-43 on 2026-11-11. verified_at is set after the live check."
   },
-  "next_run_at": "2026-10-28T04:17:27-05:00",
+  "next_run_at": "2026-11-13T05:04:55.740303-06:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-10-26T16:11:47-05:00",
-  "schedule_jitter_seconds": 340,
-  "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility"
+  "schedule_anchor": "2026-11-11T16:54:55.740303-06:00",
+  "schedule_jitter_seconds": 600,
+  "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility",
+  "schedule_repair": "Replaced a stale 2026-10-28 next_run_at on 2026-11-11 after the photo-cap stall. A past or unreadable next_run_at is due, not frozen. This value is 36 hours plus 600 seconds after the backfill so a resumed routine does not burst."
 }

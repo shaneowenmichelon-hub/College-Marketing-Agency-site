@@ -156,6 +156,10 @@ const TOPIC_ARTICLES: Record<string, readonly string[]> = {
     "campus-event-staffing-agency",
     "college-experiential-marketing-agency",
     "why-welcome-week-is-the-highest-leverage-moment-on-campus",
+    "campus-pop-up-activation",
+    "college-event-marketing-agency",
+    "back-to-school-campus-activation",
+    "finals-week-marketing",
   ],
   "product-sampling-and-placement": [
     "campus-product-sampling-ideas",
@@ -164,14 +168,16 @@ const TOPIC_ARTICLES: Record<string, readonly string[]> = {
     "campus-bookstore-product-placement",
     "greek-life-marketing-agency",
     "campus-product-launch",
+    "campus-product-sampling-agency",
   ],
-  "student-influencers": ["campus-influencers", "student-influencer-marketing"],
+  "student-influencers": ["campus-influencers", "student-influencer-marketing", "college-creator-marketing-agency"],
   "campus-sponsorship": [
     "college-event-sponsorship",
     "college-festival-sponsorship",
     "college-tailgate-marketing-agency",
     "college-tour-marketing",
     "spring-break-marketing-agency",
+    "college-sports-marketing-agency",
   ],
   "campus-marketing-strategy": [
     "college-marketing-strategy",
@@ -183,6 +189,8 @@ const TOPIC_ARTICLES: Record<string, readonly string[]> = {
     "switching-campus-marketing-agencies",
     "campus-field-marketing-agency",
     "student-housing-marketing-agency",
+    "hbcu-marketing-agency",
+    "multi-campus-brand-activation",
   ],
 };
 

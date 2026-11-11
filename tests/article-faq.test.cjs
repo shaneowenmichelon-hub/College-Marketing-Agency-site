@@ -106,6 +106,17 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const post = getPost(slug);
     assert.ok(post?.faq, slug);
     assert.ok(post.faq.length >= 3 && post.faq.length <= 5, slug);
+    const backfill = new Set([
+      "hbcu-marketing-agency",
+      "campus-product-sampling-agency",
+      "campus-pop-up-activation",
+      "college-event-marketing-agency",
+      "multi-campus-brand-activation",
+      "college-creator-marketing-agency",
+      "college-sports-marketing-agency",
+      "finals-week-marketing",
+      "back-to-school-campus-activation",
+    ]);
     const strikingDistanceFaq = new Set([
       "campus-influencers",
       "university-activations",
@@ -140,7 +151,9 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-tailgate-marketing-agency",
       "campus-marketing-agency-rfp",
     ]);
-    const revisedOn = strikingDistanceFaq.has(slug)
+    const revisedOn = backfill.has(slug)
+      ? "2026-11-11"
+      : strikingDistanceFaq.has(slug)
       ? "2026-11-11"
       : pageOneCtr.has(slug)
       ? "2026-11-10"
@@ -215,7 +228,7 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
     "campus-events-and-activations": "2026-11-11",
     "campus-sponsorship": "2026-11-11",
     "product-sampling-and-placement": "2026-11-11",
-    "campus-marketing-strategy": "2026-11-10",
+    "campus-marketing-strategy": "2026-11-11",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));

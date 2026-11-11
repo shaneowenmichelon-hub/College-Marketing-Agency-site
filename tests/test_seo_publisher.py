@@ -237,6 +237,39 @@ imageLicense: https://unsplash.com/license
         self.assertEqual(state["next_run_at"],"2026-01-01T00:00:00-06:00", "unverified child advanced cadence")
         self.assertNotIn("secret-token",out.getvalue())
         self.assertIn("verification",out.getvalue())
+        self.assertIn("SEO_STATUS", out.getvalue())
+        self.assertTrue((self.state.parent / "autopublish-status.json").is_file())
+
+    def test_unparseable_next_run_at_is_due_and_does_not_block(self):
+        self.state.write_text(json.dumps({"next_run_at": "not-a-date"}))
+        with patch.object(p, "prepare", return_value={"slug": "campus-pilot", "run_no": 2}), patch.object(p, "publish_prepared"), patch.object(p, "verify_live", return_value=True), contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(p.main(), 0)
+        state = json.loads(self.state.read_text())
+        self.assertEqual(state["schedule_repair"], "unparseable-next-run-at")
+        self.assertNotEqual(state["next_run_at"], "not-a-date")
+        self.assertIsNone(state["pending"])
+
+    def test_blocked_keyword_falls_through_and_a_full_block_advances_cadence(self):
+        calls = {"n": 0}
+
+        def prepare(state, run_no):
+            calls["n"] += 1
+            state["preparing"] = {"keyword": f"keyword-{calls['n']}", "run_no": run_no}
+            raise ValueError(f"reserved-keyword: keyword-{calls['n']}")
+
+        before = json.loads(self.state.read_text())["next_run_at"]
+        with patch.object(p, "prepare", side_effect=prepare), contextlib.redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(p.main(), 1)
+        self.assertEqual(calls["n"], 3)
+        state = json.loads(self.state.read_text())
+        self.assertNotEqual(state["next_run_at"], before)
+        self.assertIsNone(state.get("pending"))
+        self.assertIsNone(state.get("retry_at"))
+        self.assertIn("status=skipped-keyword", out.getvalue())
+        self.assertIn("status=blocked", out.getvalue())
+        status = json.loads((self.state.parent / "autopublish-status.json").read_text())
+        self.assertEqual(status["status"], "blocked")
+        self.assertEqual(status["reason"], "reserved-keyword")
 
 def filled_brief(slug):
     table = (

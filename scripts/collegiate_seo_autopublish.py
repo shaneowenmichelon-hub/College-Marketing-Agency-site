@@ -38,15 +38,46 @@ INTERVAL_HOURS = 36
 # after this time rejects a new article that does not carry them.
 INLINE_PHOTO_REQUIRED_AT = datetime(2026, 10, 25, 4, 30, tzinfo=ZoneInfo("America/New_York"))
 LEDGER_PATH = "content/seo/photo-usage.json"
-# Preferred caps from publisher-operations.md. The hard caps exist because
-# 15 owned photos cannot cover 32 articles at a strict 2-hero / 6-appearance
-# ceiling (30 hero slots, 90 appearance slots, 96 uses). A new article may
-# use a third hero only when every suitable photo is already a hero twice,
-# and may not push any photo past 7 articles or a fourth hero use.
+STATUS_NAME = "autopublish-status.json"
+QUEUE_PATH = "content/seo/keyword-queue.json"
+RUN_KEYWORD_PATH = "content/seo/run-keyword.txt"
+# Rotation replaced the 7-appearance / 3-hero hard stop on 2026-11-11.
+# Fifteen owned photos and three frames per article cannot keep a hard cap
+# without stalling the cadence. A photo stays off the previous
+# RECENT_PHOTO_WINDOW articles, and the hero cannot repeat the previous
+# article's hero. The window shrinks only when fewer than three legal photos
+# remain, so a tight library still publishes. APPEARANCE_HARD_CAP remains
+# only so historical mix checks stay stable. It is not a reason to abort.
+RECENT_PHOTO_WINDOW = 4
 HERO_PREFERRED_CAP = 2
-HERO_HARD_CAP = 3
 APPEARANCE_TARGET = 6
 APPEARANCE_HARD_CAP = 7
+PHOTO_SUPPLY_WARN_APPEARANCES = 8
+MAX_KEYWORD_ATTEMPTS = 3
+BLOCK_REASONS = (
+    "writing-quality",
+    "missing-brief",
+    "brief-sections",
+    "brief-unfilled",
+    "brief-cta",
+    "brief-check",
+    "reserved-keyword",
+    "keyword-lockout",
+    "keyword-queue-empty",
+    "duplicate-article",
+    "keyword-title",
+    "student-intent-keyword",
+    "photo-usage-cap",
+    "hero-photo-cap",
+    "hero-photo-usage-cap",
+    "inline-photo-usage-cap",
+    "inline-photo-mix",
+    "inline-photo-rotation",
+    "hero-photo-rotation",
+    "inline-photo-caption-repeat",
+    "photo-supply-exhausted",
+    "generation-failed",
+)
 PHOTO_SRC = re.compile(r"^/images/(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9._-]+\.(?:jpe?g|png|webp)$")
 FIGURE_LINE = re.compile(r'^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)\s*$')
 
@@ -100,22 +131,58 @@ def schedule_next_interval(state: dict, base: datetime | None = None) -> None:
     save_state(state)
 
 
+def parse_when(value: object) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return None
+
+
 def due_run(state: dict, n: datetime) -> tuple[bool, bool]:
-    retry_at = state.get("retry_at")
-    if retry_at:
-        return n >= datetime.fromisoformat(retry_at), True
-    next_run_at = state.get("next_run_at")
-    if not next_run_at:
+    """A stale or unreadable clock is due. It must not freeze the cadence.
+
+    A missing next_run_at still waits one interval, which is the first-run
+    behavior. A value that does not parse, or a next_run_at already in the
+    past (including many intervals ago), is due now. An unreadable retry_at
+    is cleared so it cannot block that check.
+    """
+    if state.get("retry_at"):
+        retry_at = parse_when(state.get("retry_at"))
+        if retry_at is None:
+            state["retry_at"] = None
+            state["retry_count"] = 0
+            state["schedule_repair"] = "unparseable-retry-at"
+            save_state(state)
+        else:
+            return n >= retry_at, True
+    next_raw = state.get("next_run_at")
+    if not next_raw:
         # First automation run after manual launch should happen one interval later, not immediately.
         schedule_next_interval(state, n)
         return False, False
-    return n >= datetime.fromisoformat(next_run_at), False
+    next_run_at = parse_when(next_raw)
+    if next_run_at is None:
+        state["schedule_repair"] = "unparseable-next-run-at"
+        save_state(state)
+        return True, False
+    return n >= next_run_at, False
 
 
 def publish_with_hermes(run_no: int, worktree: Path) -> subprocess.CompletedProcess[str]:
     """Generation boundary only. The wrapper, never the agent, commits/deploys/verifies."""
+    assigned = ""
+    keyword_file = worktree / RUN_KEYWORD_PATH
+    if keyword_file.is_file():
+        assigned_keyword = keyword_file.read_text().strip()
+        if assigned_keyword:
+            assigned = (
+                f"The primary keyword for this run is exactly: {assigned_keyword}. "
+                "Do not pick a different keyword. If this keyword cannot pass the gates, stop without writing a different article.\n"
+            )
     prompt = f"""Prepare ONE original Collegiate Agency SEO article for run {run_no}.
-Work ONLY in {worktree}. Read content/blog, content/seo/keyword-map.md,
+{assigned}Work ONLY in {worktree}. Read content/blog, content/seo/keyword-map.md,
 content/seo/writing-rules.md, and content/seo/banned-phrases.txt first.
 Before drafting, write content/seo/briefs/<slug>.md from content/seo/briefs/_template.md.
 Fill the primary query, the hypothesis (why this page should win the click), the target
@@ -151,10 +218,13 @@ never invent license URLs or source strings. Follow the exact photo's caption re
 Also place exactly two inline owned photos in the body. Each one is its own line,
 ![Descriptive alt](/images/blog/file.jpg), followed immediately by a Caption: line.
 Do not repeat a photo inside the article, including the hero. Alt text is required.
-Do not caption attendees or bartenders as staff, ambassadors, or reps. The appendix
-names the least-used suitable hero and two inline photos; use that trio unless a
-caption would be false for the section. Keep the premiere step-and-repeat off any
-slug that sells the agency directly.
+Write a new caption for this article. Do not copy a caption already used for that
+photo, and do not caption attendees or bartenders as staff, ambassadors, or reps.
+The appendix names the least-used suitable hero and two inline photos under the
+rotation rule. Use that trio unless a caption would be false for the section.
+A low-photo-supply warning is not a stop. Keep the premiere step-and-repeat off
+any slug that sells the agency directly. The film backdrop is a third party's
+artwork, which is a rights rule, not a usage cap.
 Write 1200-1800 words, 4-6 H2s, direct second-person advice, an actionable checklist,
 short title including the keyword, metaTitle <60 chars and metaDescription <155 chars.
 Include AT LEAST THREE distinct contextual body-link destinations: >=2 internal
@@ -425,18 +495,90 @@ def caption_banned(text: str, bans: list[str]) -> bool:
 
 
 def _under_appearance_cap(uses: list[dict], src: str) -> bool:
+    """Historical mix check only. New articles rotate instead of stopping at this cap."""
     return article_count(uses, src) < APPEARANCE_HARD_CAP
 
 
-def select_article_photos(library: str, uses: list[dict], slug: str) -> dict:
-    """Least-used suitable hero plus two inline photos, mixing shot types."""
+def _publish_run_numbers(worktree: Path) -> dict[str, int]:
+    """Higher run number is more recent. Used when two articles share a date."""
+    log = worktree / "content/seo/publish-log.md"
+    found: dict[str, int] = {}
+    if not log.is_file():
+        return found
+    for line in log.read_text().splitlines():
+        match = re.match(r"\|\s*(\d+)\s*\|[^|]*\|[^|]*\|\s*([a-z0-9-]+)\s*\|", line)
+        if match and match.group(2) != "-":
+            found[match.group(2)] = max(found.get(match.group(2), 0), int(match.group(1)))
+    return found
+
+
+def ordered_article_slugs(worktree: Path, exclude: str = "") -> list[str]:
+    """Published articles, newest first. Same-day ties follow the publish log."""
+    blog = worktree / "content/blog"
+    if not blog.is_dir():
+        return []
+    runs = _publish_run_numbers(worktree)
+    rows: list[tuple[str, int, str]] = []
+    for path in blog.glob("*.mdx"):
+        try:
+            data, _body = frontmatter(path)
+        except ValueError:
+            continue
+        slug = str(data.get("slug") or path.stem)
+        if slug == exclude:
+            continue
+        rows.append((str(data.get("date") or ""), runs.get(slug, 0), slug))
+    rows.sort(key=lambda item: (item[0], item[1], item[2]), reverse=True)
+    return [slug for _date, _run, slug in rows]
+
+
+def _owned_photos(library: str, slug: str) -> list[dict]:
     photos = [photo for photo in parse_photo_library(library).values() if photo["owned"] and not photo["disallowed"]]
     if is_direct_sales_slug(slug):
         photos = [photo for photo in photos if not photo["sales_forbidden"]]
+    return photos
+
+
+def _forbidden_srcs(uses: list[dict], slugs: list[str]) -> set[str]:
+    recent = set(slugs)
+    return {item["src"] for item in uses if item.get("slug") in recent and item.get("src")}
+
+
+def rotation_pool(library: str, uses: list[dict], slug: str, ordered: list[str]) -> tuple[list[dict], int, set[str]]:
+    """Photos legal for this slug. Shrink the recent window until three remain."""
+    photos = _owned_photos(library, slug)
+    if not ordered:
+        return photos, RECENT_PHOTO_WINDOW, set()
+    window = min(RECENT_PHOTO_WINDOW, len(ordered))
+    forbidden: set[str] = set()
+    pool = photos
+    while True:
+        forbidden = _forbidden_srcs(uses, ordered[:window])
+        pool = [photo for photo in photos if photo["src"] not in forbidden]
+        if len(pool) >= 3 or window == 0:
+            break
+        window -= 1
+    return pool, window, forbidden
+
+
+def photo_supply_warning(pool: list[dict], window: int, uses: list[dict]) -> bool:
+    if window < RECENT_PHOTO_WINDOW or len(pool) < 6:
+        return True
+    if pool and min(article_count(uses, photo["src"]) for photo in pool) >= PHOTO_SUPPLY_WARN_APPEARANCES:
+        return True
+    return False
+
+
+def select_article_photos(library: str, uses: list[dict], slug: str, recent_slugs: list[str] | None = None) -> dict:
+    """Least-used suitable hero plus two inline photos, outside the recent window."""
+    ordered = list(recent_slugs or [])
+    pool, window, _forbidden = rotation_pool(library, uses, slug, ordered)
+    if len(pool) < 3:
+        raise ValueError("photo-supply-exhausted")
     chosen: list[tuple[str, dict]] = []
-    pool = photos[:]
+    working = pool[:]
     for role in ("setup", "product", "crowd"):
-        candidates = [photo for photo in pool if role in photo["roles"] and _under_appearance_cap(uses, photo["src"])]
+        candidates = [photo for photo in working if role in photo["roles"]]
         if not candidates:
             continue
         candidates.sort(key=lambda photo: (
@@ -447,34 +589,32 @@ def select_article_photos(library: str, uses: list[dict], slug: str) -> dict:
         ))
         pick = candidates[0]
         chosen.append((role, pick))
-        pool = [photo for photo in pool if photo["src"] != pick["src"]]
+        working = [photo for photo in working if photo["src"] != pick["src"]]
     while len(chosen) < 3:
-        candidates = [photo for photo in pool if _under_appearance_cap(uses, photo["src"])]
-        if not candidates:
-            raise ValueError("photo-usage-cap")
-        candidates.sort(key=lambda photo: (article_count(uses, photo["src"]), photo["src"]))
-        pick = candidates[0]
+        if not working:
+            raise ValueError("photo-supply-exhausted")
+        working.sort(key=lambda photo: (article_count(uses, photo["src"]), photo["src"]))
+        pick = working.pop(0)
         chosen.append((pick["roles"][0] if pick["roles"] else "crowd", pick))
-        pool = [photo for photo in pool if photo["src"] != pick["src"]]
+    previous_hero = ""
+    if ordered:
+        heroes = [item["src"] for item in uses if item.get("slug") == ordered[0] and item.get("role") == "hero"]
+        previous_hero = heroes[0] if heroes else ""
 
     def hero_key(item: tuple[str, dict]) -> tuple:
         photo = item[1]
         heroes = hero_count(uses, photo["src"])
         return (
-            0 if heroes < HERO_HARD_CAP else 1,
+            1 if photo["src"] == previous_hero else 0,
             0 if heroes < HERO_PREFERRED_CAP else 1,
             heroes,
             article_count(uses, photo["src"]),
             photo["src"],
         )
 
-    eligible = [item for item in chosen if hero_count(uses, item[1]["src"]) < HERO_HARD_CAP]
-    if not eligible:
-        raise ValueError("hero-photo-cap")
-    # Prefer a photo still under the 2-hero rule. A third hero use is only
-    # returned when every chosen photo is already at that preferred cap.
-    under_preferred = [item for item in eligible if hero_count(uses, item[1]["src"]) < HERO_PREFERRED_CAP]
-    hero_item = sorted(under_preferred or eligible, key=hero_key)[0]
+    eligible = [item for item in chosen if item[1]["src"] != previous_hero] or chosen
+    hero_item = sorted(eligible, key=hero_key)[0]
+    warning = photo_supply_warning(pool, window, uses)
     return {
         "hero": hero_item[1]["src"],
         "heroAlt": hero_item[1]["alt"],
@@ -483,6 +623,45 @@ def select_article_photos(library: str, uses: list[dict], slug: str) -> dict:
             {"src": item[1]["src"], "alt": item[1]["alt"], "role": item[0]}
             for item in chosen if item[1]["src"] != hero_item[1]["src"]
         ],
+        "window": window,
+        "supply_warning": warning,
+    }
+
+
+def photo_supply_report(worktree: Path, slug: str = "campus-sampling-example") -> dict:
+    library_path = worktree / "content/seo/public-photo-library.md"
+    if not library_path.is_file():
+        return {"owned": 0, "eligible": 0, "window": 0, "warning": True, "detail": "photo library missing"}
+    library = library_path.read_text()
+    uses = load_ledger(worktree)
+    owned = len(_owned_photos(library, slug))
+    ordered = ordered_article_slugs(worktree)
+    try:
+        chosen = select_article_photos(library, uses, slug, ordered)
+    except ValueError as exc:
+        return {
+            "owned": owned,
+            "eligible": 0,
+            "window": 0,
+            "warning": True,
+            "detail": str(exc),
+        }
+    eligible = len({chosen["hero"], *(item["src"] for item in chosen["inline"])})
+    # Report how many photos the rotation actually left free, not just the chosen three.
+    _pool, window, _forbidden = rotation_pool(library, uses, slug, ordered)
+    warning = bool(chosen.get("supply_warning"))
+    detail = (
+        f"{len(_pool)} owned photos are free under a {window}-article rotation"
+        + (" (low-photo-supply warning)" if warning else "")
+        + f". Publishing continues. Preferred hero {chosen['hero']}."
+    )
+    return {
+        "owned": owned,
+        "eligible": len(_pool),
+        "chosen": eligible,
+        "window": window,
+        "warning": warning,
+        "detail": detail,
     }
 
 
@@ -492,11 +671,15 @@ def photo_prompt_guidance(worktree: Path) -> str:
         return "Inline photos: library missing; do not publish."
     library = library_path.read_text()
     uses = load_ledger(worktree)
+    ordered = ordered_article_slugs(worktree)
     lines = [
         "Photo usage rule: 1 hero and 2 inline photos. Prefer the least-used suitable owned photo.",
-        "Each photo is a hero on at most 2 articles, and on a third only when no photo remains under 2.",
-        "Each photo appears on about 6 articles and must not appear on an 8th. No repeats inside an article.",
-        "Mix one crowd/people shot, one setup/staffing shot, and one product-in-hand shot when possible.",
+        f"Rotation: do not reuse a photo from the previous {RECENT_PHOTO_WINDOW} articles.",
+        "Do not use the same hero as the previous article. No repeats inside an article.",
+        "If that window leaves fewer than 3 legal photos, use the shortest recent window that still has 3.",
+        "A low photo supply is a warning. Publish anyway. Do not stop because a photo has already run.",
+        "Mix one crowd/people shot, one setup/staffing shot, and one product-in-hand shot when the rotation still has each role.",
+        "Write a caption for this article. Do not reuse a caption already published for that photo.",
         "Never caption attendees or bartenders as staff. The premiere step-and-repeat stays off agency-sales slugs.",
         "Current owned-photo usage:",
     ]
@@ -509,13 +692,18 @@ def photo_prompt_guidance(worktree: Path) -> str:
             f"sales_forbidden={str(entry['sales_forbidden']).lower()}"
         )
     try:
-        regular = select_article_photos(library, uses, "campus-sampling-example")
-        sales = select_article_photos(library, uses, "campus-marketing-agency-example")
+        regular = select_article_photos(library, uses, "campus-sampling-example", ordered)
+        sales = select_article_photos(library, uses, "campus-marketing-agency-example", ordered)
         lines.append("Preferred trio when the slug does not contain agency: " + json.dumps(regular, sort_keys=True))
         lines.append("Preferred trio when the slug contains agency: " + json.dumps(sales, sort_keys=True))
         lines.append("Use that preferred trio. Do not pick a more-used photo when a preferred one fits the section.")
-    except ValueError:
-        lines.append("No legal photo trio remains under the usage caps. Stop and do not publish.")
+        if regular.get("supply_warning") or sales.get("supply_warning"):
+            lines.append("Low-photo-supply warning: the rotation is tight. Still publish this trio.")
+    except ValueError as exc:
+        if str(exc) == "photo-supply-exhausted":
+            lines.append("Fewer than 3 owned photos are legal for a new article. Stop and do not publish.")
+        else:
+            lines.append("Photo selection failed. Stop and do not publish.")
     return "\n".join(lines)
 
 
@@ -569,25 +757,87 @@ def validate_inline_photos(body: str, data: dict, library: str, worktree: Path) 
             raise ValueError("inline-photo-caption")
         if entry["sales_forbidden"] and is_direct_sales_slug(slug):
             raise ValueError("inline-photo-sales-page")
-        if article_count(uses, src) + 1 > APPEARANCE_HARD_CAP:
-            raise ValueError("inline-photo-usage-cap")
     hero_entry = catalog.get(hero) if hero else None
     if hero_entry and hero_entry["disallowed"]:
         raise ValueError("hero-photo-disallowed")
     if hero_entry and hero_entry["sales_forbidden"] and is_direct_sales_slug(slug):
         raise ValueError("hero-photo-sales-page")
-    if hero and article_count(uses, hero) + 1 > APPEARANCE_HARD_CAP:
-        raise ValueError("hero-photo-usage-cap")
-    if hero_entry and hero_entry["owned"] and hero_count(uses, hero) + 1 > HERO_HARD_CAP:
-        raise ValueError("hero-photo-cap")
     if data.get("imageAlt") and hero_entry and caption_banned(str(data["imageAlt"]), hero_entry["caption_bans"]):
         raise ValueError("hero-photo-caption")
     chosen = {hero, *(photo["src"] for photo in inline)} if hero else {photo["src"] for photo in inline}
-    if hero and len(inline) == 2 and _mix_was_possible(catalog, uses, slug, chosen):
-        raise ValueError("inline-photo-mix")
+    recorded = any(item.get("slug") == slug for item in load_ledger(worktree))
+    if recorded:
+        # Articles already in the ledger keep the historical mix check.
+        if hero and len(inline) == 2 and _mix_was_possible(catalog, uses, slug, chosen):
+            raise ValueError("inline-photo-mix")
+    elif inline or inline_photos_required():
+        _enforce_new_photo_rotation(worktree, library, data, inline, uses)
     if inline_photos_required() and len(inline) != 2:
         raise ValueError("inline-photos-required")
     return inline
+
+
+def _prior_captions(worktree: Path, src: str, slug: str) -> set[str]:
+    found: set[str] = set()
+    blog = worktree / "content/blog"
+    if not blog.is_dir():
+        return found
+    for path in blog.glob("*.mdx"):
+        if path.stem == slug:
+            continue
+        try:
+            _data, body = frontmatter(path)
+        except ValueError:
+            continue
+        for photo in extract_inline_photos(body):
+            caption = (photo.get("caption") or "").strip()
+            if photo["src"] == src and caption:
+                found.add(caption.casefold())
+    return found
+
+
+def _roles_covered(catalog: dict[str, dict], srcs: set[str]) -> set[str]:
+    covered: set[str] = set()
+    for src in srcs:
+        covered.update(catalog.get(src, {}).get("roles") or [])
+    return covered
+
+
+def _enforce_new_photo_rotation(worktree: Path, library: str, data: dict, inline: list[dict], uses: list[dict]) -> None:
+    """New articles rotate. A full library still publishes. An empty one does not."""
+    slug = str(data.get("slug") or "")
+    hero = str(data.get("image") or "")
+    ordered = ordered_article_slugs(worktree, exclude=slug)
+    pool, _window, forbidden = rotation_pool(library, uses, slug, ordered)
+    if len(pool) < 3:
+        raise ValueError("photo-supply-exhausted")
+    catalog = {photo["src"]: photo for photo in pool}
+    for photo in inline:
+        if photo["src"] in forbidden:
+            raise ValueError("inline-photo-rotation")
+        caption = (photo.get("caption") or "").strip()
+        if not caption:
+            raise ValueError("inline-photo-caption")
+        if caption.casefold() in _prior_captions(worktree, photo["src"], slug):
+            raise ValueError("inline-photo-caption-repeat")
+    if hero and hero in forbidden:
+        raise ValueError("hero-photo-rotation")
+    if ordered:
+        previous = [item["src"] for item in uses if item.get("slug") == ordered[0] and item.get("role") == "hero"]
+        if previous and hero == previous[0]:
+            raise ValueError("hero-photo-rotation")
+    chosen = {hero, *(photo["src"] for photo in inline)} if hero else {photo["src"] for photo in inline}
+    if not hero or len(inline) != 2:
+        return
+    covered = _roles_covered(catalog, chosen)
+    missing = {"crowd", "setup", "product"} - covered
+    if not missing:
+        return
+    for entry in pool:
+        if entry["src"] in chosen:
+            continue
+        if missing & set(entry["roles"]):
+            raise ValueError("inline-photo-mix")
 
 
 def record_photo_usage(worktree: Path, artifact: dict) -> None:
@@ -801,6 +1051,93 @@ def validate_article(path: Path, worktree: Path) -> dict:
     return artifact
 
 
+def next_eligible_keyword(worktree: Path, skipped: set[str]) -> str | None:
+    """First queued keyword that is not published, locked, reserved, or skipped this tick."""
+    path = worktree / QUEUE_PATH
+    if not path.is_file():
+        return None
+    payload = json.loads(path.read_text())
+    keywords = payload.get("keywords") if isinstance(payload, dict) else payload
+    if not isinstance(keywords, list):
+        raise ValueError("keyword-queue-empty")
+    blog = worktree / "content/blog"
+    used: set[str] = set()
+    if blog.is_dir():
+        for article in blog.glob("*.mdx"):
+            try:
+                data, _body = frontmatter(article)
+            except ValueError:
+                continue
+            if data.get("primaryKeyword"):
+                used.add(str(data["primaryKeyword"]).casefold())
+    keyword_map = ""
+    keyword_file = worktree / "content/seo/keyword-map.md"
+    if keyword_file.is_file():
+        keyword_map = keyword_file.read_text()
+    locked: set[str] = set()
+    for date, prior_keyword, _slug in re.findall(r"- (\d{4}-\d{2}-\d{2}) - `([^`]+)` - `/insights/([^`]+)`", keyword_map):
+        if datetime.fromisoformat(date).date() >= (now_ct() - timedelta(days=60)).date():
+            locked.add(prior_keyword.casefold())
+    terms = reserved_keyword_terms(keyword_map) if "## Reserved for pillar pages, never target" in keyword_map else []
+    for item in keywords:
+        keyword = item.get("keyword") if isinstance(item, dict) else str(item)
+        keyword = str(keyword or "").strip()
+        folded = keyword.casefold()
+        if not keyword or folded in skipped or folded in used or folded in locked:
+            continue
+        if terms and reserved_keyword_match(keyword, terms):
+            continue
+        return keyword
+    return None
+
+
+def classify_block(exc: BaseException) -> str | None:
+    head = (str(exc).splitlines() or [""])[0].strip()
+    for reason in BLOCK_REASONS:
+        if head == reason or head.startswith(reason + ":") or head.startswith(reason + " "):
+            return reason
+    return None
+
+
+def write_status(state: dict, status: str, reason: str = "", **extra: object) -> None:
+    """Machine-readable result beside operational state. The routine can read this file."""
+    payload = {
+        "status": status,
+        "reason": reason,
+        "next_run_at": state.get("next_run_at"),
+        "retry_at": state.get("retry_at"),
+        "updated_at": now_ct().isoformat(),
+        "run_no": extra.get("run_no"),
+        "keyword": extra.get("keyword"),
+        "slug": extra.get("slug"),
+        "photo_supply": extra.get("photo_supply"),
+        "skipped_keywords": state.get("skipped_keywords") or [],
+        "schedule_repair": state.get("schedule_repair"),
+    }
+    path = STATE.parent / STATUS_NAME
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp = path.with_suffix(".tmp")
+    with temp.open("w") as out:
+        out.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+        out.flush()
+        os.fsync(out.fileno())
+    os.replace(temp, path)
+
+
+def status_line(payload: dict) -> str:
+    warning = "yes" if (payload.get("photo_supply") or {}).get("warning") else "no"
+    return (
+        "SEO_STATUS"
+        f" status={payload.get('status')}"
+        f" run={payload.get('run_no') or ''}"
+        f" slug={payload.get('slug') or ''}"
+        f" keyword={payload.get('keyword') or ''}"
+        f" next_run_at={payload.get('next_run_at') or ''}"
+        f" photo_warning={warning}"
+        f" reason={payload.get('reason') or ''}"
+    )
+
+
 def prepare(state: dict, run_no: int) -> dict:
     if not state.get("preparing"):
         git(REPO, "fetch", "origin", BRANCH)
@@ -828,6 +1165,18 @@ def prepare(state: dict, run_no: int) -> dict:
             # produced an artifact outside our detection path. Require explicit
             # operator recovery rather than silently minting a second article.
             raise RuntimeError("generation-incomplete")
+        if (worktree / QUEUE_PATH).is_file() and not prep.get("keyword"):
+            skipped = {
+                str(item.get("keyword") or "").casefold()
+                for item in (state.get("skipped_keywords") or [])
+                if isinstance(item, dict)
+            }
+            keyword = next_eligible_keyword(worktree, skipped)
+            if not keyword:
+                raise RuntimeError("keyword-queue-empty")
+            prep["keyword"] = keyword
+            (worktree / RUN_KEYWORD_PATH).write_text(keyword + "\n")
+            save_state(state)
         prep["generation_started"] = True
         prep["generation_attempts"] = int(prep.get("generation_attempts") or 0) + 1
         prep["generation_result"] = {"returncode": None, "status": "running", "attempt": prep["generation_attempts"]}
@@ -959,6 +1308,12 @@ def main() -> int:
             return 1
 
 
+def _remember_skip(state: dict, keyword: str, reason: str, n: datetime) -> None:
+    skipped = [item for item in (state.get("skipped_keywords") or []) if isinstance(item, dict)]
+    skipped.append({"keyword": keyword, "reason": reason, "at": n.isoformat()})
+    state["skipped_keywords"] = skipped[-20:]
+
+
 def tick() -> int:
     state = load_state()
     n = now_ct()
@@ -968,39 +1323,109 @@ def tick() -> int:
     run_no = int((state.get("pending") or state.get("preparing") or {}).get("run_no")
                  or state.get("retry_run_no") or (max(log_run_numbers(), default=0) + 1))
     phase = "preparation"
-    try:
-        if not state.get("pending"):
-            state["pending"] = prepare(state, run_no)
+    attempt = 0
+    while attempt < MAX_KEYWORD_ATTEMPTS:
+        attempt += 1
+        try:
+            if not state.get("pending"):
+                state["pending"] = prepare(state, run_no)
+                save_state(state)
+            artifact = state["pending"]
+            run_no = artifact.get("run_no", run_no)
+            phase = "publication"
+            publish_prepared(artifact)
+            phase = "verification"
+            if not verify_live(artifact):
+                raise RuntimeError("live-verification")
+            state["last_success"] = {**artifact, "verified_at": now_ct().isoformat()}
+            state["pending"] = None
+            state.pop("preparing", None)
+            state.pop("last_error_phase", None)
+            state["skipped_keywords"] = []
+            schedule_next_interval(state, datetime.fromisoformat(state["last_success"]["verified_at"]))
+            supply = {}
+            worktree = artifact.get("worktree")
+            if worktree:
+                supply = photo_supply_report(Path(worktree), str(artifact.get("slug") or "campus-sampling-example"))
+            reported = {
+                "status": "ok",
+                "reason": "low-photo-supply" if supply.get("warning") else "",
+                "run_no": run_no,
+                "slug": artifact.get("slug"),
+                "keyword": artifact.get("primaryKeyword"),
+                "next_run_at": state.get("next_run_at"),
+                "photo_supply": supply,
+            }
+            write_status(
+                state, "ok", reported["reason"],
+                run_no=run_no, slug=artifact.get("slug"), keyword=artifact.get("primaryKeyword"),
+                photo_supply=supply,
+            )
+            print(f"SEO article verified live: {LIVE_BASE}/insights/{artifact['slug']}")
+            print(status_line(reported))
+            return 0
+        except Exception as exc:
+            reason = classify_block(exc)
+            # A blocked keyword yields to the next eligible keyword. A pushed
+            # article that is not yet verified stays pending and is retried.
+            if reason and not state.get("pending") and attempt < MAX_KEYWORD_ATTEMPTS:
+                keyword = str((state.get("preparing") or {}).get("keyword") or "")
+                _remember_skip(state, keyword, reason, n)
+                state.pop("preparing", None)
+                state["pending"] = None
+                state["last_error_phase"] = phase
+                save_state(state)
+                reported = {
+                    "status": "skipped-keyword",
+                    "reason": reason,
+                    "run_no": run_no,
+                    "keyword": keyword,
+                    "next_run_at": state.get("next_run_at"),
+                }
+                write_status(state, "skipped-keyword", reason, run_no=run_no, keyword=keyword)
+                print(status_line(reported))
+                phase = "preparation"
+                continue
+            if reason and not state.get("pending"):
+                # Every eligible keyword in this tick was blocked. Advance the
+                # cadence anyway so a stale failure cannot stall the scheduler.
+                keyword = str((state.get("preparing") or {}).get("keyword") or "")
+                if keyword:
+                    _remember_skip(state, keyword, reason, n)
+                state.pop("preparing", None)
+                state["pending"] = None
+                state["retry_at"] = None
+                state["retry_count"] = 0
+                state["retry_run_no"] = None
+                schedule_next_interval(state, n)
+                reported = {
+                    "status": "blocked",
+                    "reason": reason,
+                    "run_no": run_no,
+                    "keyword": keyword,
+                    "next_run_at": state.get("next_run_at"),
+                }
+                write_status(state, "blocked", reason, run_no=run_no, keyword=keyword)
+                print(f"SEO run {run_no}: {phase} blocked ({reason}); cadence continues at {state['next_run_at']}.")
+                print(status_line(reported))
+                return 1
+            # Never relay child stdout, exception messages, URLs with tokens, or credentials.
+            count = int(state.get("retry_count") or 0) + 1
+            retry_at = n + (timedelta(minutes=30) if count == 1 else timedelta(hours=INTERVAL_HOURS))
+            state.update(retry_run_no=run_no, retry_count=count, retry_at=retry_at.isoformat(), last_error_phase=phase)
             save_state(state)
-        artifact = state["pending"]
-        run_no = artifact.get("run_no", run_no)
-        phase = "publication"
-        publish_prepared(artifact)
-        phase = "verification"
-        if not verify_live(artifact):
-            raise RuntimeError("live-verification")
-        state["last_success"] = {**artifact, "verified_at": now_ct().isoformat()}
-        state["pending"] = None
-        state.pop("preparing", None)
-        state.pop("last_error_phase", None)
-        schedule_next_interval(state, datetime.fromisoformat(state["last_success"]["verified_at"]))
-        print(f"SEO article verified live: {LIVE_BASE}/insights/{artifact['slug']}")
-    except Exception as exc:
-        # Never relay child stdout, exception messages, URLs with tokens, or credentials.
-        count = int(state.get("retry_count") or 0) + 1
-        retry_at = n + (timedelta(minutes=30) if count == 1 else timedelta(hours=INTERVAL_HOURS))
-        state.update(retry_run_no=run_no, retry_count=count, retry_at=retry_at.isoformat(), last_error_phase=phase)
-        save_state(state)
-        head = (str(exc).splitlines() or [""])[0]
-        reason = ""
-        for prefix in ("writing-quality", "missing-brief", "brief-sections", "brief-unfilled", "brief-cta", "brief-check", "reserved-keyword"):
-            if head.startswith(prefix):
-                reason = prefix
-                break
-        label = f" ({reason})" if reason else ""
-        print(f"SEO run {run_no}: {phase} failed{label}; pending work retained, no new article on retry. Retry {retry_at:%Y-%m-%d %H:%M %Z}.")
-        return 1
-    return 0
+            reported = {
+                "status": "failed",
+                "reason": phase,
+                "run_no": run_no,
+                "next_run_at": state.get("next_run_at"),
+                "photo_supply": None,
+            }
+            write_status(state, "failed", phase, run_no=run_no)
+            print(f"SEO run {run_no}: {phase} failed; pending work retained, no new article on retry. Retry {retry_at:%Y-%m-%d %H:%M %Z}.")
+            print(status_line(reported))
+            return 1
+    return 1
 
 
 if __name__ == "__main__":

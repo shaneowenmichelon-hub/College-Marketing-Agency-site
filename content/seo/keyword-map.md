@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-10-26
+Last updated: 2026-11-11
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -70,6 +70,20 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-10-23 - `spring break marketing agency` - `/insights/spring-break-marketing-agency`
 - 2026-10-25 - `greek life marketing agency` - `/insights/greek-life-marketing-agency`
 - 2026-10-26 - `student housing marketing agency` - `/insights/student-housing-marketing-agency`
+
+- 2026-11-11 - `hbcu marketing agency` - `/insights/hbcu-marketing-agency`
+- 2026-11-11 - `campus product sampling agency` - `/insights/campus-product-sampling-agency`
+- 2026-11-11 - `campus pop-up activation` - `/insights/campus-pop-up-activation`
+- 2026-11-11 - `college event marketing agency` - `/insights/college-event-marketing-agency`
+- 2026-11-11 - `multi-campus brand activation` - `/insights/multi-campus-brand-activation`
+- 2026-11-11 - `college creator marketing agency` - `/insights/college-creator-marketing-agency`
+- 2026-11-11 - `college sports marketing agency` - `/insights/college-sports-marketing-agency`
+- 2026-11-11 - `finals week marketing` - `/insights/finals-week-marketing`
+- 2026-11-11 - `back-to-school campus activation` - `/insights/back-to-school-campus-activation`
+
+## Runs 35-43 backfill (2026-11-11)
+
+Publishing had stopped after run 34 because every owned photo was at the old 7-appearance cap. These nine articles use the rotation rule instead of that cap. Dates are the publish date, 2026-11-11, not the missed October and November slots. Run 35 is the HBCU keyword the October 28 attempt could not place. The next eight are unused runner-ups and the next unused active-list term, in the order they were left open: campus product sampling agency, campus pop-up activation, college event marketing agency, multi-campus brand activation, college creator marketing agency, college sports marketing agency, finals week marketing, and back-to-school campus activation. `college marketing cost` and `campus media advertising` stayed unused. The first cannibalizes `/pricing`. The second is a weaker fit than an on-campus hire.
 
 ## Run 30 research note (2026-10-20)
 
