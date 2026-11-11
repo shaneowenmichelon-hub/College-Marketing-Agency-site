@@ -1,5 +1,9 @@
 # SEO changelog
 
+## 2026-11-11 — Autopublisher repair and nine-article backfill
+
+Runs 35 through 43 published on 2026-11-11. The October 28 attempt (HBCU marketing agency) had stopped because every owned photo was at the 7-appearance cap. The cap is now a rotation: a photo stays off the previous four articles, the hero does not repeat the previous article, and captions are rewritten for each use. A tight library warns and still publishes. A blocked keyword yields to the next keyword in `content/seo/keyword-queue.json` instead of freezing the cadence. A past or unreadable `next_run_at` is due. The committed status file is `content/seo/autopublish-status.json`. Dates are the publish date, not the missed slots. Photo supply after the backfill is three owned frames outside the four-article window, so the next runs should keep publishing, and new approved photos would restore headroom.
+
 ## 2026-11-11 — Striking-distance insight FAQs
 
 Search Console showed five insight URLs in striking distance, roughly positions 8 to 15, with impressions and almost no clicks. This pass rewrites the existing frontmatter `faq` on each of those articles so the visible questions match the queries the pages already receive impressions for. Each page already had one FAQ. The new questions replace the earlier section-prompt questions in that same list. The page still renders one FAQ block, and it still emits one FAQPage JSON-LD from those same questions and answers. No second FAQ block was added. No article was created. Slugs, titles, meta descriptions, H1s, excerpts, and bodies are unchanged. Gen Z pages were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited. The byline stays Shane Michelon, Founder, with the LinkedIn profile as the only author URL.

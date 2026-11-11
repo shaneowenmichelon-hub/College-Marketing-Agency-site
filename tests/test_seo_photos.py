@@ -130,7 +130,19 @@ class PhotoRuleTests(unittest.TestCase):
         ledger = self.root / "content/seo/photo-usage.json"
         ledger.parent.mkdir(parents=True)
         ledger.write_text(json.dumps({"uses": uses}))
-        with self.assertRaisesRegex(ValueError, "inline-photo-usage-cap"):
+        # A photo already on 7 articles can run again when it is not in the recent window.
+        p.validate_inline_photos(body, data, self.library(), self.root)
+        recent = self.root / "content/blog"
+        recent.mkdir(parents=True)
+        recent_article = recent / "recent-guide.mdx"
+        recent_article.write_text(
+            "---\nslug: recent-guide\ndate: 2026-11-01\nprimaryKeyword: recent guide\n---\n\n"
+            "![Attendees holding cans at the sampling table](/images/blog/crowd.jpg)\n"
+            "Caption: Two attendees holding cans at an earlier activation.\n"
+        )
+        uses.append({"slug": "recent-guide", "src": "/images/blog/crowd.jpg", "role": "inline"})
+        ledger.write_text(json.dumps({"uses": uses}))
+        with self.assertRaisesRegex(ValueError, "inline-photo-rotation"):
             p.validate_inline_photos(body, data, self.library(), self.root)
         # Recording a publish replaces any earlier rows for the same slug.
         artifact = {"slug": "new-article", "image": "/images/blog/product.jpg", "inline_photos": [
@@ -154,7 +166,7 @@ class PhotoRuleTests(unittest.TestCase):
     def test_every_published_article_has_two_inline_photos(self):
         library = (ROOT / "content/seo/public-photo-library.md").read_text()
         articles = sorted((ROOT / "content/blog").glob("*.mdx"))
-        self.assertEqual(len(articles), 34)
+        self.assertEqual(len(articles), 43)
         expected = []
         for path in articles:
             data, body = p.frontmatter(path)
@@ -166,6 +178,20 @@ class PhotoRuleTests(unittest.TestCase):
             expected.extend({"slug": data["slug"], "src": item["src"], "role": "inline"} for item in inline)
         ledger = json.loads((ROOT / "content/seo/photo-usage.json").read_text())["uses"]
         self.assertEqual(ledger, sorted(expected, key=lambda item: (item["slug"], item["role"], item["src"])))
+
+    def test_same_day_articles_rotate_by_publish_run_not_slug(self):
+        blog = self.root / "content/blog"
+        seo = self.root / "content/seo"
+        blog.mkdir(parents=True)
+        seo.mkdir(parents=True)
+        (seo / "publish-log.md").write_text(
+            "| 2 | 2026-11-11 | 12:00 CST | zebra-guide | zebra guide | 1300 | prepared |\n"
+            "| 3 | 2026-11-11 | 13:00 CST | alpha-guide | alpha guide | 1300 | prepared |\n"
+        )
+        for slug in ("alpha-guide", "zebra-guide", "middle-guide"):
+            (blog / f"{slug}.mdx").write_text(f"---\nslug: {slug}\ndate: 2026-11-11\n---\n\nBody.\n")
+        ordered = p.ordered_article_slugs(self.root, exclude="middle-guide")
+        self.assertEqual(ordered[:2], ["alpha-guide", "zebra-guide"])
 
     def test_prompt_names_the_least_used_trio(self):
         library = self.root / "content/seo/public-photo-library.md"

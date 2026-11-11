@@ -35,26 +35,33 @@ case these were cleared into.
 ## How many times a photo may run
 
 Each article carries **1 hero and 2 inline photos**. Inline photos are markdown
-figures, `![alt](/images/...)` plus an optional `Caption:` line, and they have
-to be one of the owned assets below. Do not repeat a photo inside an article.
+figures, `![alt](/images/...)` plus a `Caption:` line, and they have to be one
+of the owned assets below. Do not repeat a photo inside an article.
 
-Spread, enforced by `content/seo/photo-usage.json` and the publisher:
+Rotation, enforced by `content/seo/photo-usage.json` and the publisher
+(replaced the old 7-appearance / 3-hero hard stop on 2026-11-11):
 
 - Prefer the least-used suitable photo.
-- A photo is the **hero on at most 2 articles**. A third hero use is allowed
-  only when every suitable photo is already a hero twice, and a fourth is not.
-- A photo **appears on about 6 articles**. Seven is the hard stop, because 15
-  photos cannot cover 32 articles at a strict six (32 × 3 uses = 96, and
-  15 × 6 = 90). The publisher stops rather than place a photo on an 8th article.
-- When the catalog allows it, the three frames on an article are one
-  **crowd/people** shot, one **setup/staffing** shot, and one
+- A photo does not appear in any of the **previous 4 articles** (newest
+  `date` first). The hero is not the same file as the previous article's hero.
+- If that window leaves fewer than 3 legal photos, the publisher shortens the
+  window until 3 remain, then publishes. A tight library is a
+  **low-photo-supply warning**, not a reason to abort the run.
+- The publisher stops only when fewer than 3 owned photos are legal at all
+  (`photo-supply-exhausted`).
+- When the photos still outside the window include each role, the three frames
+  are one **crowd/people** shot, one **setup/staffing** shot, and one
   **product-in-hand** shot. `Shot:` on each entry is that list, first role first.
+- Write a **new caption** for the article in front of you. Do not reuse a
+  caption already published for that file. The caption has to match what the
+  frame actually shows.
 - `Caption ban:` words must not appear in the alt or caption. Attendees and
   bartenders are not staff, ambassadors, or reps. The performer is not a
   client, sponsor, endorser, or ambassador, and is not named.
-- `Sales pages: forbidden` keeps that frame off any insights slug containing
-  `agency`, including `/insights/college-marketing-agency`. Editorial topic
-  pages such as `/insights/campus-influencers` can still use it.
+- `Sales pages: forbidden` stays on the premiere step-and-repeat. That frame
+  shows a third party's film artwork, so it stays off any insights slug
+  containing `agency`. This is a rights rule, not a usage cap. Editorial topic
+  pages can still use it.
 
 Do not use photographs that are not listed here. Files under
 `public/images/thaw-out`, `public/images/hero` (except the BEATBOX trio, which

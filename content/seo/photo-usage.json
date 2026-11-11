@@ -2,14 +2,29 @@
   "rules": {
     "heroPerArticle": 1,
     "inlinePerArticle": 2,
-    "heroPreferredCap": 2,
-    "heroHardCap": 3,
+    "recentArticleWindow": 4,
+    "heroRepeatsPrevious": false,
     "appearanceTarget": 6,
-    "appearanceHardCap": 7,
-    "note": "Usage ledger for owned article photographs. The publisher prefers the least-used suitable photo and appends the hero and inline uses when it commits a new article. Caps are documented in content/seo/public-photo-library.md."
+    "lowSupplyWarningBelow": 6,
+    "note": "Usage ledger for owned article photographs. Rotation replaced the 7-appearance and 3-hero hard stop on 2026-11-11. A photo stays off the previous 4 articles, the hero does not repeat the previous article, and captions are rewritten for each use. The window shrinks when fewer than 3 legal photos remain, and that case is a warning rather than a stop. The premiere step-and-repeat stays off agency slugs. Rules are documented in content/seo/public-photo-library.md."
   },
   "uses": [
     {
+      "slug": "back-to-school-campus-activation",
+      "src": "/images/blog/bloom-sampling-campus-nightlife.jpg",
+      "role": "hero"
+    },
+    {
+      "slug": "back-to-school-campus-activation",
+      "src": "/images/blog/beatbox-stage-crowd-festival.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "back-to-school-campus-activation",
+      "src": "/images/blog/beatbox-trio-venue-activation.jpg",
+      "role": "inline"
+    },
+    {
       "slug": "campus-activation-ideas",
       "src": "/images/blog/dazed-merch-table-activation.jpg",
       "role": "hero"
@@ -160,6 +175,21 @@
       "role": "inline"
     },
     {
+      "slug": "campus-pop-up-activation",
+      "src": "/images/blog/beatbox-premiere-step-and-repeat.jpg",
+      "role": "hero"
+    },
+    {
+      "slug": "campus-pop-up-activation",
+      "src": "/images/blog/beatbox-attendees-venue-pair.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "campus-pop-up-activation",
+      "src": "/images/blog/nutrl-koozies-sunglasses-giveaway.jpg",
+      "role": "inline"
+    },
+    {
       "slug": "campus-product-launch",
       "src": "/images/blog/nutrl-koozies-sunglasses-giveaway.jpg",
       "role": "hero"
@@ -172,6 +202,21 @@
     {
       "slug": "campus-product-launch",
       "src": "/images/blog/nutrl-crowd-campus-event.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "campus-product-sampling-agency",
+      "src": "/images/blog/nutrl-outdoor-campus-event.jpg",
+      "role": "hero"
+    },
+    {
+      "slug": "campus-product-sampling-agency",
+      "src": "/images/blog/beatbox-poured-behind-bar.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "campus-product-sampling-agency",
+      "src": "/images/blog/nutrl-bar-takeover.jpg",
       "role": "inline"
     },
     {
@@ -220,6 +265,36 @@
       "role": "inline"
     },
     {
+      "slug": "college-creator-marketing-agency",
+      "src": "/images/blog/beatbox-performer-on-stage.jpg",
+      "role": "hero"
+    },
+    {
+      "slug": "college-creator-marketing-agency",
+      "src": "/images/blog/dazed-merch-table-activation.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "college-creator-marketing-agency",
+      "src": "/images/blog/nutrl-toast-tent-activation.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "college-event-marketing-agency",
+      "src": "/images/blog/beatbox-stage-crowd-festival.jpg",
+      "role": "hero"
+    },
+    {
+      "slug": "college-event-marketing-agency",
+      "src": "/images/blog/beatbox-trio-venue-activation.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "college-event-marketing-agency",
+      "src": "/images/blog/bloom-sampling-campus-nightlife.jpg",
+      "role": "inline"
+    },
+    {
       "slug": "college-event-sponsorship",
       "src": "/images/blog/nutrl-attendees-sponsored-show.jpg",
       "role": "hero"
@@ -295,6 +370,21 @@
       "role": "inline"
     },
     {
+      "slug": "college-sports-marketing-agency",
+      "src": "/images/blog/nutrl-bar-takeover.jpg",
+      "role": "hero"
+    },
+    {
+      "slug": "college-sports-marketing-agency",
+      "src": "/images/blog/beatbox-poured-behind-bar.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "college-sports-marketing-agency",
+      "src": "/images/blog/nutrl-outdoor-campus-event.jpg",
+      "role": "inline"
+    },
+    {
       "slug": "college-tailgate-marketing-agency",
       "src": "/images/blog/nutrl-outdoor-campus-event.jpg",
       "role": "hero"
@@ -337,6 +427,21 @@
     {
       "slug": "college-welcome-bag-inserts",
       "src": "/images/blog/nutrl-toast-tent-activation.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "finals-week-marketing",
+      "src": "/images/blog/nutrl-koozies-sunglasses-giveaway.jpg",
+      "role": "hero"
+    },
+    {
+      "slug": "finals-week-marketing",
+      "src": "/images/blog/beatbox-attendees-venue-pair.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "finals-week-marketing",
+      "src": "/images/blog/beatbox-premiere-step-and-repeat.jpg",
       "role": "inline"
     },
     {
@@ -385,6 +490,21 @@
       "role": "inline"
     },
     {
+      "slug": "hbcu-marketing-agency",
+      "src": "/images/blog/dazed-merch-table-activation.jpg",
+      "role": "hero"
+    },
+    {
+      "slug": "hbcu-marketing-agency",
+      "src": "/images/blog/beatbox-performer-on-stage.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "hbcu-marketing-agency",
+      "src": "/images/blog/nutrl-toast-tent-activation.jpg",
+      "role": "inline"
+    },
+    {
       "slug": "how-to-market-to-college-students",
       "src": "/images/blog/nutrl-toast-tent-activation.jpg",
       "role": "hero"
@@ -397,6 +517,21 @@
     {
       "slug": "how-to-market-to-college-students",
       "src": "/images/blog/nutrl-koozies-sunglasses-giveaway.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "multi-campus-brand-activation",
+      "src": "/images/blog/nutrl-crowd-campus-event.jpg",
+      "role": "hero"
+    },
+    {
+      "slug": "multi-campus-brand-activation",
+      "src": "/images/blog/dazed-branded-hats-activation.jpg",
+      "role": "inline"
+    },
+    {
+      "slug": "multi-campus-brand-activation",
+      "src": "/images/blog/nutrl-attendees-sponsored-show.jpg",
       "role": "inline"
     },
     {

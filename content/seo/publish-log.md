@@ -38,3 +38,12 @@
 | 32 | 2026-10-23 | 15:39 CDT | spring-break-marketing-agency | spring break marketing agency | 1685 | prepared; live receipt in publisher state |
 | 33 | 2026-10-25 | 03:39 CDT | greek-life-marketing-agency | greek life marketing agency | 1698 | prepared; live receipt in publisher state |
 | 34 | 2026-10-26 | 15:52 CDT | student-housing-marketing-agency | student housing marketing agency | 1614 | prepared; live receipt in publisher state |
+| 35 | 2026-11-11 | 16:40 CST | hbcu-marketing-agency | hbcu marketing agency | 1471 | prepared; live receipt in publisher state |
+| 36 | 2026-11-11 | 16:55 CST | campus-product-sampling-agency | campus product sampling agency | 1238 | prepared; live receipt in publisher state |
+| 37 | 2026-11-11 | 17:10 CST | campus-pop-up-activation | campus pop-up activation | 1254 | prepared; live receipt in publisher state |
+| 38 | 2026-11-11 | 17:25 CST | college-event-marketing-agency | college event marketing agency | 1258 | prepared; live receipt in publisher state |
+| 39 | 2026-11-11 | 17:40 CST | multi-campus-brand-activation | multi-campus brand activation | 1322 | prepared; live receipt in publisher state |
+| 40 | 2026-11-11 | 18:00 CST | college-creator-marketing-agency | college creator marketing agency | 1339 | prepared; live receipt in publisher state |
+| 41 | 2026-11-11 | 18:20 CST | college-sports-marketing-agency | college sports marketing agency | 1244 | prepared; live receipt in publisher state |
+| 42 | 2026-11-11 | 18:20 CST | finals-week-marketing | finals week marketing | 1200 | prepared; live receipt in publisher state |
+| 43 | 2026-11-11 | 18:40 CST | back-to-school-campus-activation | back-to-school campus activation | 1237 | prepared; live receipt in publisher state |
