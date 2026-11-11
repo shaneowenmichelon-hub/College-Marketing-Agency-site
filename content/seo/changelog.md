@@ -1,5 +1,25 @@
 # SEO changelog
 
+## 2026-11-11 — Striking-distance insight FAQs
+
+Search Console showed five insight URLs in striking distance, roughly positions 8 to 15, with impressions and almost no clicks. This pass rewrites the existing frontmatter `faq` on each of those articles so the visible questions match the queries the pages already receive impressions for. Each page already had one FAQ. The new questions replace the earlier section-prompt questions in that same list. The page still renders one FAQ block, and it still emits one FAQPage JSON-LD from those same questions and answers. No second FAQ block was added. No article was created. Slugs, titles, meta descriptions, H1s, excerpts, and bodies are unchanged. Gen Z pages were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited. The byline stays Shane Michelon, Founder, with the LinkedIn profile as the only author URL.
+
+Source: Google Search Console, Web, pulled Nov 9 2026 ~11:27 AM ET. Pages export comparing the last 28 days (Oct 11–Nov 7 2026) with the previous 28 days, and the Queries export for that same window. The Queries export does not attach a URL to each query. The queries below are the ones named for these pages from that export. Re-check clicks and position in about 2-3 weeks, once Google and Bing have recrawled the pages. IndexNow submits a URL when its sitemap `lastmod` is inside 72 hours, so `dateModified` on these five articles is 2026-11-11.
+
+Baseline, last 28 days. Clicks, impressions, CTR, average position. Previous 28 days in parentheses:
+
+- `/insights/campus-influencers`: 2 clicks, 394 impressions, 0.51%, position 12.79 (previous: 1 click, 66 impressions, 1.52%, position 14.35). Queries: "how to influencer marketing for college students" 0 clicks, 22 impressions, position 2.73; "campus influencers" 1 click, 17 impressions, position 10.24; "campus creators" 0 clicks, 13 impressions, position 14.15.
+- `/insights/university-activations`: 1, 200, 0.5%, 13.44 (previous: 0, 37, 0%, 13.11). Queries: "campus activations" 0 clicks, 28 impressions, position 23.86; "on-campus activation" 0, 14, position 16.21; "campus activation" 0 clicks, 13 impressions, position 10.77.
+- `/insights/college-event-sponsorship`: 2, 174, 1.15%, 8.37 (previous: 0, 57, 0%, 8.96). Queries: "college event sponsorship" 0 clicks, 4 impressions, position 5; "sponsorship for college events" 0, 4, position 9.75.
+- `/insights/campus-product-launch`: 0, 142, 0%, 8.16 (previous: 0, 41, 0%, 6.71). Query: "campus launch" 0 clicks, 32 impressions, position 8.84.
+- `/insights/on-campus-product-sampling`: 2, 114, 1.75%, 14.91 (previous: 1, 29, 3.45%, 11.55). Queries: "student product sampling" 0 clicks, 38 impressions, position 15.45; "student product samples" 0, 16, position 23.69.
+
+Each article now has five questions. Answers are 40 to 80 words, name Collegiate Agency, and use only facts already in that article, `site.config.ts`, or the published rates: `$150 / ambassador / month`, `$2,500 / campus`, event packages from `$500` to `$500,000`, 7 days from a signed SOW to boots on the ground, and a reply within one business day with a tailored plan and firm pricing. A brief those rates do not cover stays quoted per campaign. Links in answers go only to `/services/events`, `/services/brand-ambassadors`, `/services/product-placement`, `/pricing`, or `/contact`. No statistic, client, result, testimonial, or review was added.
+
+- `dateModified` is `2026-11-11` on `campus-influencers`, `university-activations`, `college-event-sponsorship`, `campus-product-launch`, and `on-campus-product-sampling`. Their `date` values stay 2026-08-07, 2026-08-16, 2026-08-05, 2026-08-18, and 2026-07-31, so each insight URL's sitemap `lastmod` is 2026-11-11 UTC midnight.
+- `/insights` uses the newer of the newest article revision and `CTR_WAVE_LAST_MODIFIED`. The newest revision is now 2026-11-11, so `/insights` `lastmod` is 2026-11-11.
+- Topic hubs that include an edited article take that revision under the existing rule: `student-influencers`, `campus-events-and-activations`, `campus-sponsorship`, and `product-sampling-and-placement` are 2026-11-11. `campus-marketing-strategy` stays 2026-11-10. `/`, `/services`, `/services/events`, `/work`, and `/about` were not edited, so their sitemap dates stay put.
+
 ## 2026-11-10 — Page-one CTR title and meta pass
 
 Search Console showed four URLs already on page 1 with impressions and few or no clicks. None of them were in the 2026-11-02 or 2026-11-06 title passes. This pass rewrites the SEO title, the meta description, and the matching Open Graph and Twitter title and description. Article slugs, H1s, excerpts, and bodies are unchanged. The NÜTRL case-study headline is unchanged. No redirect was added, no article was merged or created, and no Gen Z page was edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited. The contact email and Organization `sameAs` were not changed. Article bylines stay Shane Michelon, Founder, with the LinkedIn profile as the only author URL.

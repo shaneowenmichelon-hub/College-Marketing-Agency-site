@@ -106,19 +106,21 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const post = getPost(slug);
     assert.ok(post?.faq, slug);
     assert.ok(post.faq.length >= 3 && post.faq.length <= 5, slug);
-    const ctrTitleMetaRevised = new Set([
+    const strikingDistanceFaq = new Set([
       "campus-influencers",
-      "college-marketing-agency",
-      "campus-product-launch",
+      "university-activations",
       "college-event-sponsorship",
+      "campus-product-launch",
+      "on-campus-product-sampling",
+    ]);
+    const ctrTitleMetaRevised = new Set([
+      "college-marketing-agency",
       "college-experiential-marketing-agency",
       "campus-brand-activation-agency",
     ]);
     const ctrWaveTwo = new Set([
       "college-tour-marketing",
       "campus-field-marketing-agency",
-      "on-campus-product-sampling",
-      "university-activations",
       "campus-product-sampling-ideas",
       "college-festival-sponsorship",
       "college-brand-ambassador-program",
@@ -138,7 +140,9 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-tailgate-marketing-agency",
       "campus-marketing-agency-rfp",
     ]);
-    const revisedOn = pageOneCtr.has(slug)
+    const revisedOn = strikingDistanceFaq.has(slug)
+      ? "2026-11-11"
+      : pageOneCtr.has(slug)
       ? "2026-11-10"
       : internalLinksRevised.has(slug)
       ? "2026-11-09"
@@ -180,6 +184,90 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
         /Celsius|NÜTRL|NUTRL|SOS Consultants|11x|1,200|100K|testimonial|years of/i,
       );
     });
+  }
+});
+
+test("striking-distance articles render one FAQPage whose Q&A matches the visible FAQ", () => {
+  const { getPost } = loadTs("lib/content.ts");
+  const { articleFaqSchemaItems } = loadTs("lib/article-faq.ts");
+  const { insightTopicLastModified } = loadTs("lib/insight-topics.ts");
+  const { ArticleFaq, FaqPageJsonLd } = loadTs("components/services/ServiceFaq.tsx");
+  const { default: sitemap } = loadTs("app/sitemap.ts");
+  const React = require("react");
+  const { renderToStaticMarkup } = require("react-dom/server");
+  const page = fs.readFileSync(path.join(__dirname, "../src/app/insights/[slug]/page.tsx"), "utf8");
+  assert.equal(page.match(/<FaqPageJsonLd /g).length, 1);
+  assert.match(page, /<ArticleFaq items=\{post\.faq\} \/>/);
+
+  const slugs = {
+    "campus-influencers": [
+      /how do you do influencer marketing for college students/i,
+      /campus influencers/i,
+      /campus creators/i,
+    ],
+    "university-activations": [/campus activations/i, /on-campus activation/i, /university activation/i],
+    "college-event-sponsorship": [/college event sponsorship/i, /sponsorship for college events/i],
+    "campus-product-launch": [/campus product launch/i, /campus launch/i],
+    "on-campus-product-sampling": [/student product sampling/i, /student product samples/i],
+  };
+  const hubs = {
+    "student-influencers": "2026-11-11",
+    "campus-events-and-activations": "2026-11-11",
+    "campus-sponsorship": "2026-11-11",
+    "product-sampling-and-placement": "2026-11-11",
+    "campus-marketing-strategy": "2026-11-10",
+  };
+
+  const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-11T00:00:00.000Z");
+  for (const [topic, stamp] of Object.entries(hubs)) {
+    assert.equal(insightTopicLastModified(topic), stamp, topic);
+    assert.equal(
+      byLoc.get(`https://collegiateagency.com/insights/topics/${topic}`).lastModified.toISOString(),
+      `${stamp}T00:00:00.000Z`,
+      topic,
+    );
+  }
+  assert.equal(getPost("gen-z-marketing").dateModified, "2026-10-23");
+  assert.equal(getPost("gen-z-experiential-marketing").dateModified, "2026-10-23");
+
+  for (const [slug, patterns] of Object.entries(slugs)) {
+    const post = getPost(slug);
+    assert.ok(post?.faq, slug);
+    assert.ok(post.faq.length >= 4 && post.faq.length <= 6, `${slug} ${post.faq.length}`);
+    assert.equal(post.dateModified, "2026-11-11", slug);
+    assert.equal(post.date === "2026-11-11", false, slug);
+    const schemaItems = articleFaqSchemaItems(post.faq);
+    const html = renderToStaticMarkup(
+      React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(FaqPageJsonLd, { items: schemaItems, path: `/insights/${slug}` }),
+        React.createElement(ArticleFaq, { items: post.faq }),
+      ),
+    );
+    const blocks = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
+    assert.equal(blocks.length, 1, slug);
+    assert.equal((html.match(/"@type":"FAQPage"/g) || []).length, 1, slug);
+    const data = JSON.parse(blocks[0].replace(/^<script type="application\/ld\+json">/, "").replace(/<\/script>$/, ""));
+    assert.equal(data["@type"], "FAQPage");
+    assert.equal(data["@id"], `https://collegiateagency.com/insights/${slug}#faq`);
+    assert.equal(data.mainEntity.length, post.faq.length);
+    const questions = [...html.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((match) => decode(match[1]));
+    const answers = [...html.matchAll(/<dd[^>]*>([\s\S]*?)<\/dd>/g)].map((match) => decode(match[1]));
+    assert.deepEqual(questions, post.faq.map((item) => item.question));
+    assert.deepEqual(answers, schemaItems.map((item) => item.answer));
+    data.mainEntity.forEach((entity, index) => {
+      assert.equal(entity.name, questions[index]);
+      assert.equal(entity.acceptedAnswer.text, answers[index]);
+    });
+    const visible = `${questions.join(" ")} ${answers.join(" ")}`;
+    for (const pattern of patterns) assert.match(visible, pattern, slug);
+    assert.equal(
+      byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
+      "2026-11-11T00:00:00.000Z",
+      slug,
+    );
   }
 });
 
