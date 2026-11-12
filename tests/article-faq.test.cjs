@@ -106,6 +106,14 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const post = getPost(slug);
     assert.ok(post?.faq, slug);
     assert.ok(post.faq.length >= 3 && post.faq.length <= 5, slug);
+    const buyerFaq = new Set([
+      "college-marketing-agency",
+      "campus-brand-activation-agency",
+      "college-experiential-marketing-agency",
+      "student-housing-marketing-agency",
+      "campus-field-marketing-agency",
+      "college-tour-marketing",
+    ]);
     const backfill = new Set([
       "hbcu-marketing-agency",
       "campus-product-sampling-agency",
@@ -151,7 +159,9 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-tailgate-marketing-agency",
       "campus-marketing-agency-rfp",
     ]);
-    const revisedOn = backfill.has(slug)
+    const revisedOn = buyerFaq.has(slug)
+      ? "2026-11-12"
+      : backfill.has(slug)
       ? "2026-11-11"
       : strikingDistanceFaq.has(slug)
       ? "2026-11-11"
@@ -225,14 +235,14 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
   };
   const hubs = {
     "student-influencers": "2026-11-11",
-    "campus-events-and-activations": "2026-11-11",
-    "campus-sponsorship": "2026-11-11",
+    "campus-events-and-activations": "2026-11-12",
+    "campus-sponsorship": "2026-11-12",
     "product-sampling-and-placement": "2026-11-11",
-    "campus-marketing-strategy": "2026-11-11",
+    "campus-marketing-strategy": "2026-11-12",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-11T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-12T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -282,6 +292,122 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
       slug,
     );
   }
+});
+
+test("next striking-distance articles render one FAQPage from the rewritten FAQ", () => {
+  const { getPost } = loadTs("lib/content.ts");
+  const { articleFaqSchemaItems } = loadTs("lib/article-faq.ts");
+  const { insightTopicLastModified } = loadTs("lib/insight-topics.ts");
+  const { ArticleFaq, FaqPageJsonLd } = loadTs("components/services/ServiceFaq.tsx");
+  const { default: sitemap } = loadTs("app/sitemap.ts");
+  const React = require("react");
+  const { renderToStaticMarkup } = require("react-dom/server");
+  const page = fs.readFileSync(path.join(__dirname, "../src/app/insights/[slug]/page.tsx"), "utf8");
+  assert.equal(page.match(/<FaqPageJsonLd /g).length, 1);
+  assert.equal(page.match(/<ArticleFaq /g).length, 1);
+
+  const slugs = {
+    "college-marketing-agency": [
+      /college marketing agency/i,
+      /agency college marketing/i,
+      /campus marketing agency/i,
+      /college ad agency/i,
+      /campus marketing providers should brands compare for college campaigns/i,
+    ],
+    "campus-brand-activation-agency": [
+      /brand activation agency that specializes in universities and colleges/i,
+      /campus brand activation agency/i,
+      /campus activation/i,
+      /on-campus activation/i,
+      /experiential brand activation for universities/i,
+    ],
+    "college-experiential-marketing-agency": [
+      /experiential marketing in college campuses/i,
+      /college experiential marketing agency/i,
+      /college experiential marketing/i,
+    ],
+    "student-housing-marketing-agency": [
+      /student housing marketing company/i,
+      /student housing marketing agency/i,
+      /student housing online marketing/i,
+      /student housing digital marketing/i,
+    ],
+    "campus-field-marketing-agency": [/campus marketing specialists/i, /campus field marketing/i],
+    "college-tour-marketing": [/college tour marketing/i, /10-campus tour/i, /localized creative/i, /short-run retail/i],
+  };
+  const published = {
+    "college-marketing-agency": "2026-07-29",
+    "campus-brand-activation-agency": "2026-10-13",
+    "college-experiential-marketing-agency": "2026-10-20",
+    "student-housing-marketing-agency": "2026-10-26",
+    "campus-field-marketing-agency": "2026-10-15",
+    "college-tour-marketing": "2026-08-14",
+  };
+  const hubs = {
+    "campus-events-and-activations": "2026-11-12",
+    "campus-sponsorship": "2026-11-12",
+    "campus-marketing-strategy": "2026-11-12",
+    "student-influencers": "2026-11-11",
+    "product-sampling-and-placement": "2026-11-11",
+  };
+
+  const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-12T00:00:00.000Z");
+  for (const [topic, stamp] of Object.entries(hubs)) {
+    assert.equal(insightTopicLastModified(topic), stamp, topic);
+    assert.equal(
+      byLoc.get(`https://collegiateagency.com/insights/topics/${topic}`).lastModified.toISOString(),
+      `${stamp}T00:00:00.000Z`,
+      topic,
+    );
+  }
+
+  for (const [slug, patterns] of Object.entries(slugs)) {
+    const post = getPost(slug);
+    assert.ok(post?.faq, slug);
+    assert.equal(post.faq.length, 5, slug);
+    assert.equal(post.dateModified, "2026-11-12", slug);
+    assert.equal(post.date, published[slug], slug);
+    assert.equal(post.author, "Shane Michelon", slug);
+    const schemaItems = articleFaqSchemaItems(post.faq);
+    const html = renderToStaticMarkup(
+      React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(FaqPageJsonLd, { items: schemaItems, path: `/insights/${slug}` }),
+        React.createElement(ArticleFaq, { items: post.faq }),
+      ),
+    );
+    const blocks = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
+    assert.equal(blocks.length, 1, slug);
+    assert.equal((html.match(/"@type":"FAQPage"/g) || []).length, 1, slug);
+    const data = JSON.parse(blocks[0].replace(/^<script type="application\/ld\+json">/, "").replace(/<\/script>$/, ""));
+    assert.equal(data["@type"], "FAQPage");
+    assert.equal(data["@id"], `https://collegiateagency.com/insights/${slug}#faq`);
+    assert.equal(data.mainEntity.length, post.faq.length);
+    const questions = [...html.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((match) => decode(match[1]));
+    const answers = [...html.matchAll(/<dd[^>]*>([\s\S]*?)<\/dd>/g)].map((match) => decode(match[1]));
+    assert.deepEqual(questions, post.faq.map((item) => item.question));
+    assert.deepEqual(answers, schemaItems.map((item) => item.answer));
+    data.mainEntity.forEach((entity, index) => {
+      assert.equal(entity.name, questions[index]);
+      assert.equal(entity.acceptedAnswer.text, answers[index]);
+    });
+    const visible = `${questions.join(" ")} ${answers.join(" ")}`;
+    for (const pattern of patterns) assert.match(visible, pattern, slug);
+    assert.doesNotMatch(visible, /1,000|intern|agency for students/i, slug);
+    assert.equal(
+      byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
+      "2026-11-12T00:00:00.000Z",
+      slug,
+    );
+  }
+
+  const tour = getPost("college-tour-marketing");
+  const tourText = tour.faq.map((item) => `${item.question} ${item.answer}`).join(" ");
+  assert.match(tourText, /does not publish a 10-campus tour package or a daily attendee capacity/i);
+  assert.match(tourText, /does not publish a separate short-run retail activation package/i);
+  assert.match(tourText, /four campuses/);
 });
 
 test("newly linked articles point at routes that exist", () => {

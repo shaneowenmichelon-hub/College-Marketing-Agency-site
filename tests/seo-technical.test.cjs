@@ -166,6 +166,11 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     "college-brand-ambassador-program": "College Brand Ambassador Program",
     "student-housing-marketing-agency": "Student Housing Marketing Agency",
   };
+  const buyerFaq = new Set([
+    "college-tour-marketing",
+    "campus-field-marketing-agency",
+    "student-housing-marketing-agency",
+  ]);
   const linkRevised = new Set(["campus-field-marketing-agency", "student-housing-marketing-agency"]);
   const faqRevised = new Set(["on-campus-product-sampling", "university-activations"]);
   for (const [slug, lead] of Object.entries(expected)) {
@@ -174,7 +179,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     assert.equal(post.metaTitle, lead);
     assert.equal(
       post.dateModified,
-      faqRevised.has(slug) ? "2026-11-11" : linkRevised.has(slug) ? "2026-11-09" : "2026-11-06",
+      buyerFaq.has(slug) ? "2026-11-12" : faqRevised.has(slug) ? "2026-11-11" : linkRevised.has(slug) ? "2026-11-09" : "2026-11-06",
     );
     assert.equal(post.date === "2026-11-06", false, slug);
     const title = resolveDocumentTitle(post.metaTitle).text;
@@ -241,7 +246,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   for (const slug of Object.keys(expected)) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      faqRevised.has(slug)
+      buyerFaq.has(slug)
+        ? "2026-11-12T00:00:00.000Z"
+        : faqRevised.has(slug)
         ? "2026-11-11T00:00:00.000Z"
         : linkRevised.has(slug)
           ? "2026-11-09T00:00:00.000Z"
@@ -249,7 +256,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
       slug,
     );
   }
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-11T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-12T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
@@ -408,7 +415,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     byLoc.get("https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors").lastModified.toISOString(),
     "2026-08-03T00:00:00.000Z",
   );
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-11T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-12T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
@@ -479,7 +486,7 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
   assert.equal(byLoc.has("https://collegiateagency.com/work/nutrl-night-school-tour-product-placement"), true);
 
   const article = byLoc.get("https://collegiateagency.com/insights/college-marketing-agency");
-  assert.equal(article.lastModified.toISOString(), "2026-11-03T00:00:00.000Z");
+  assert.equal(article.lastModified.toISOString(), "2026-11-12T00:00:00.000Z");
   for (const slug of ["campus-influencers", "campus-product-launch", "college-event-sponsorship"]) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
@@ -490,7 +497,7 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
   for (const slug of ["college-experiential-marketing-agency", "campus-brand-activation-agency"]) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      "2026-11-09T00:00:00.000Z",
+      "2026-11-12T00:00:00.000Z",
       slug,
     );
   }
