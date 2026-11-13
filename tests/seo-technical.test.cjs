@@ -166,6 +166,11 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     "college-brand-ambassador-program": "College Brand Ambassador Program",
     "student-housing-marketing-agency": "Student Housing Marketing Agency",
   };
+  const faqBatchThree = new Set([
+    "campus-product-sampling-ideas",
+    "college-festival-sponsorship",
+    "college-brand-ambassador-program",
+  ]);
   const buyerFaq = new Set([
     "college-tour-marketing",
     "campus-field-marketing-agency",
@@ -179,7 +184,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     assert.equal(post.metaTitle, lead);
     assert.equal(
       post.dateModified,
-      buyerFaq.has(slug) ? "2026-11-12" : faqRevised.has(slug) ? "2026-11-11" : linkRevised.has(slug) ? "2026-11-09" : "2026-11-06",
+      faqBatchThree.has(slug) ? "2026-11-13" : buyerFaq.has(slug) ? "2026-11-12" : faqRevised.has(slug) ? "2026-11-11" : linkRevised.has(slug) ? "2026-11-09" : "2026-11-06",
     );
     assert.equal(post.date === "2026-11-06", false, slug);
     const title = resolveDocumentTitle(post.metaTitle).text;
@@ -246,7 +251,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   for (const slug of Object.keys(expected)) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      buyerFaq.has(slug)
+      faqBatchThree.has(slug)
+        ? "2026-11-13T00:00:00.000Z"
+        : buyerFaq.has(slug)
         ? "2026-11-12T00:00:00.000Z"
         : faqRevised.has(slug)
         ? "2026-11-11T00:00:00.000Z"
@@ -256,8 +263,8 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
       slug,
     );
   }
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-12T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
@@ -415,10 +422,10 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     byLoc.get("https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors").lastModified.toISOString(),
     "2026-08-03T00:00:00.000Z",
   );
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-12T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
 });
 
@@ -667,7 +674,7 @@ test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
-    "2026-11-06T00:00:00.000Z",
+    "2026-11-13T00:00:00.000Z",
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/brand-ambassadors").lastModified.toISOString(),

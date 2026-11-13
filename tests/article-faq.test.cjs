@@ -140,9 +140,6 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const ctrWaveTwo = new Set([
       "college-tour-marketing",
       "campus-field-marketing-agency",
-      "campus-product-sampling-ideas",
-      "college-festival-sponsorship",
-      "college-brand-ambassador-program",
       "student-housing-marketing-agency",
     ]);
     const internalLinksRevised = new Set([
@@ -159,7 +156,17 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-tailgate-marketing-agency",
       "campus-marketing-agency-rfp",
     ]);
-    const revisedOn = buyerFaq.has(slug)
+    const faqBatchThree = new Set([
+      "campus-product-sampling-ideas",
+      "student-brand-reps",
+      "college-brand-ambassadors",
+      "campus-activation-ideas",
+      "college-festival-sponsorship",
+      "college-brand-ambassador-program",
+    ]);
+    const revisedOn = faqBatchThree.has(slug)
+      ? "2026-11-13"
+      : buyerFaq.has(slug)
       ? "2026-11-12"
       : backfill.has(slug)
       ? "2026-11-11"
@@ -235,14 +242,14 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
   };
   const hubs = {
     "student-influencers": "2026-11-11",
-    "campus-events-and-activations": "2026-11-12",
-    "campus-sponsorship": "2026-11-12",
-    "product-sampling-and-placement": "2026-11-11",
+    "campus-events-and-activations": "2026-11-13",
+    "campus-sponsorship": "2026-11-13",
+    "product-sampling-and-placement": "2026-11-13",
     "campus-marketing-strategy": "2026-11-12",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-12T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -344,15 +351,15 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
     "college-tour-marketing": "2026-08-14",
   };
   const hubs = {
-    "campus-events-and-activations": "2026-11-12",
-    "campus-sponsorship": "2026-11-12",
+    "campus-events-and-activations": "2026-11-13",
+    "campus-sponsorship": "2026-11-13",
     "campus-marketing-strategy": "2026-11-12",
     "student-influencers": "2026-11-11",
-    "product-sampling-and-placement": "2026-11-11",
+    "product-sampling-and-placement": "2026-11-13",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-12T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -408,6 +415,158 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
   assert.match(tourText, /does not publish a 10-campus tour package or a daily attendee capacity/i);
   assert.match(tourText, /does not publish a separate short-run retail activation package/i);
   assert.match(tourText, /four campuses/);
+});
+
+test("third striking-distance batch renders one FAQPage from the rewritten FAQ", () => {
+  const { getPost } = loadTs("lib/content.ts");
+  const { articleFaqSchemaItems } = loadTs("lib/article-faq.ts");
+  const { insightTopicLastModified } = loadTs("lib/insight-topics.ts");
+  const { servicePageSeo } = loadTs("lib/service-faqs.ts");
+  const { ArticleFaq, FaqPageJsonLd } = loadTs("components/services/ServiceFaq.tsx");
+  const { default: sitemap } = loadTs("app/sitemap.ts");
+  const React = require("react");
+  const { renderToStaticMarkup } = require("react-dom/server");
+  const page = fs.readFileSync(path.join(__dirname, "../src/app/insights/[slug]/page.tsx"), "utf8");
+  const eventsPage = fs.readFileSync(path.join(__dirname, "../src/app/services/events/page.tsx"), "utf8");
+  const servicePage = fs.readFileSync(path.join(__dirname, "../src/components/services/ServicePage.tsx"), "utf8");
+  assert.equal(page.match(/<FaqPageJsonLd /g).length, 1);
+  assert.equal(page.match(/<ArticleFaq /g).length, 1);
+  assert.equal(eventsPage.match(/<FaqPageJsonLd /g) || [].length, 0);
+  assert.equal(servicePage.match(/<FaqPageJsonLd /g).length, 1);
+
+  const slugs = {
+    "campus-product-sampling-ideas": [
+      /campus product sampling ideas/i,
+      /product sampling at a university/i,
+      /on-campus product sampling agency/i,
+      /college sampling programs/i,
+      /campus product sampling/i,
+    ],
+    "student-brand-reps": [/student brand reps/i, /field brief/i, /30 days/i],
+    "college-brand-ambassadors": [
+      /college brand ambassadors/i,
+      /campus brand ambassadors/i,
+      /brand ambassador for college students/i,
+    ],
+    "campus-activation-ideas": [
+      /campus activation ideas/i,
+      /campus activation mean/i,
+      /college campus activation/i,
+      /school activation campaigns/i,
+    ],
+    "college-festival-sponsorship": [
+      /sponsors for a college fest/i,
+      /festival sponsorship activations/i,
+      /college fest sponsorship/i,
+      /college festival sponsorship/i,
+    ],
+    "college-brand-ambassador-program": [
+      /collegiate ambassador programs/i,
+      /collegiate ambassador/i,
+      /paid college ambassador programs/i,
+      /campus ambassador programs/i,
+      /paid ambassador program/i,
+    ],
+  };
+  const published = {
+    "campus-product-sampling-ideas": "2026-08-26",
+    "student-brand-reps": "2026-08-03",
+    "college-brand-ambassadors": "2026-08-12",
+    "campus-activation-ideas": "2026-09-03",
+    "college-festival-sponsorship": "2026-08-30",
+    "college-brand-ambassador-program": "2026-08-24",
+  };
+  const hubs = {
+    "brand-ambassador-programs": "2026-11-13",
+    "campus-events-and-activations": "2026-11-13",
+    "product-sampling-and-placement": "2026-11-13",
+    "campus-sponsorship": "2026-11-13",
+    "campus-marketing-strategy": "2026-11-12",
+    "student-influencers": "2026-11-11",
+  };
+
+  const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
+    "2026-11-13T00:00:00.000Z",
+  );
+  for (const [topic, stamp] of Object.entries(hubs)) {
+    assert.equal(insightTopicLastModified(topic), stamp, topic);
+    assert.equal(
+      byLoc.get(`https://collegiateagency.com/insights/topics/${topic}`).lastModified.toISOString(),
+      `${stamp}T00:00:00.000Z`,
+      topic,
+    );
+  }
+  assert.equal(getPost("gen-z-marketing").dateModified, "2026-10-23");
+  assert.equal(getPost("gen-z-experiential-marketing").dateModified, "2026-10-23");
+  assert.equal(getPost("hbcu-marketing-agency").dateModified, "2026-11-11");
+  assert.equal(getPost("campus-product-sampling-agency").dateModified, "2026-11-11");
+
+  for (const [slug, patterns] of Object.entries(slugs)) {
+    const post = getPost(slug);
+    assert.ok(post?.faq, slug);
+    assert.equal(post.faq.length, 5, slug);
+    assert.equal(post.dateModified, "2026-11-13", slug);
+    assert.equal(post.date, published[slug], slug);
+    assert.equal(post.author, "Shane Michelon", slug);
+    const source = fs.readFileSync(path.join(__dirname, `../content/blog/${slug}.mdx`), "utf8");
+    assert.match(source, /^author: Collegiate Agency$/m, slug);
+    const schemaItems = articleFaqSchemaItems(post.faq);
+    const html = renderToStaticMarkup(
+      React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(FaqPageJsonLd, { items: schemaItems, path: `/insights/${slug}` }),
+        React.createElement(ArticleFaq, { items: post.faq }),
+      ),
+    );
+    const blocks = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g) || [];
+    assert.equal(blocks.length, 1, slug);
+    assert.equal((html.match(/"@type":"FAQPage"/g) || []).length, 1, slug);
+    const data = JSON.parse(blocks[0].replace(/^<script type="application\/ld\+json">/, "").replace(/<\/script>$/, ""));
+    assert.equal(data["@type"], "FAQPage");
+    assert.equal(data["@id"], `https://collegiateagency.com/insights/${slug}#faq`);
+    assert.equal(data.mainEntity.length, post.faq.length);
+    const questions = [...html.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((match) => decode(match[1]));
+    const answers = [...html.matchAll(/<dd[^>]*>([\s\S]*?)<\/dd>/g)].map((match) => decode(match[1]));
+    assert.deepEqual(questions, post.faq.map((item) => item.question));
+    assert.deepEqual(answers, schemaItems.map((item) => item.answer));
+    data.mainEntity.forEach((entity, index) => {
+      assert.equal(entity.name, questions[index]);
+      assert.equal(entity.acceptedAnswer.text, answers[index]);
+    });
+    const visible = `${questions.join(" ")} ${answers.join(" ")}`;
+    for (const pattern of patterns) assert.match(visible, pattern, slug);
+    assert.doesNotMatch(visible, /1,000|intern|agency for students/i, slug);
+    assert.equal(
+      byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
+      "2026-11-13T00:00:00.000Z",
+      slug,
+    );
+  }
+
+  const events = servicePageSeo("events");
+  assert.equal(events.faqs.length, 5);
+  const eventVisible = events.faqs.map((item) => `${item.question} ${item.answer}`).join(" ");
+  for (const pattern of [
+    /campus activations/i,
+    /on-campus activation/i,
+    /college event marketing/i,
+    /college activations/i,
+    /university activation/i,
+    /school activations/i,
+    /sponsorship for college events/i,
+    /end-to-end brand activation programs for higher education institutions/i,
+  ]) {
+    assert.match(eventVisible, pattern);
+  }
+  assert.doesNotMatch(eventVisible, /intern|agency for students/i);
+  const eventHtml = renderToStaticMarkup(
+    React.createElement(FaqPageJsonLd, { items: events.faqs, path: "/services/events" }),
+  );
+  assert.equal((eventHtml.match(/"@type":"FAQPage"/g) || []).length, 1);
 });
 
 test("newly linked articles point at routes that exist", () => {

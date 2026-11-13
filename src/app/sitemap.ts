@@ -28,12 +28,19 @@ const SERVICES_HUB_FAQ_LAST_MODIFIED = "2026-11-05";
 /**
  * Second CTR title and meta pass on commercial pages that still had
  * impressions and no clicks. IndexNow only submits lastmod inside 72 hours.
- * Applies to /services/events, /work, and as a floor for /insights.
+ * Applies to /work and as a floor for /insights.
+ * /services/events uses EVENTS_FAQ_LAST_MODIFIED.
  * / stays on HOME_FAQ_LAST_MODIFIED. /services stays on
  * SERVICES_HUB_FAQ_LAST_MODIFIED. /services/brand-ambassadors,
  * /contact, and /build-a-campaign keep their earlier stamps.
  */
 const CTR_WAVE_LAST_MODIFIED = "2026-11-06";
+/**
+ * /services/events FAQ was rewritten to the queries that page already
+ * receives impressions for. IndexNow only submits lastmod inside 72 hours.
+ * /work stays on CTR_WAVE_LAST_MODIFIED.
+ */
+const EVENTS_FAQ_LAST_MODIFIED = "2026-11-13";
 /**
  * /about title, meta description, and AboutPage JSON-LD description were
  * rewritten on this date. IndexNow only submits lastmod inside 72 hours.
@@ -87,8 +94,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
             ? SERVICES_HUB_FAQ_LAST_MODIFIED
             : route === "/about"
               ? ABOUT_LAST_MODIFIED
-              : route === "/services/events" || route === "/work"
-                ? CTR_WAVE_LAST_MODIFIED
+              : route === "/services/events"
+                ? EVENTS_FAQ_LAST_MODIFIED
+                : route === "/work"
+                  ? CTR_WAVE_LAST_MODIFIED
                 : route === "/services/brand-ambassadors"
                   ? SERVICE_DETAIL_LAST_MODIFIED
                   : route === "/pricing" || route === "/services/product-placement"

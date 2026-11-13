@@ -108,32 +108,27 @@ function eventFaqs(): ServiceFaq[] {
   const { min, max } = eventPackageBounds();
   return [
     {
-      question: "What does a Collegiate Agency campus event activation include?",
+      question: "What are campus activations?",
       answer:
-        "Collegiate Agency plans, staffs, and runs a campus activation from the first permit to the post-event recap, covering logistics, permits, product, and the people on the ground. Formats include Welcome Week takeovers, tailgates and sampling, pop-ups, Greek and student-club sponsorships, product sampling, experiential moments, and custom builds. Collegiate Agency hands back the captured assets and a results recap.",
+        "Campus activations are live moments brands hire Collegiate Agency to plan, staff, and run where college students already gather, including move-in, game day, finals, and the first warm week of spring. Formats include Welcome Week takeovers, tailgates and sampling, pop-ups, product sampling, experiential moments, and custom builds. Collegiate Agency captures content throughout and hands the brand the assets plus a results recap.",
     },
     {
-      question: "How does Collegiate Agency choose campuses for an event?",
-      answer: `Collegiate Agency aligns on the goal, the audience, and a concept that fits the campus, then places the activation where students already gather, including move-in, game day, finals, and the first warm week of spring. The published network covers ${campuses} campuses, and a brand chooses markets in the campaign builder or tells Collegiate Agency the campuses that matter. Welcome Week is the busiest two weeks of the year, and Collegiate Agency runs takeovers in that window.`,
+      question: "What is an on-campus activation?",
+      answer: `An on-campus activation is a campus activation brands hire Collegiate Agency to place on a college campus, including college activations, a university activation, and school activations at the schools a brand names. Collegiate Agency's published network covers ${campuses} campuses, and a brand chooses markets in the campaign builder or names the campuses that matter.`,
     },
     {
-      question: "How does Collegiate Agency report campus event results?",
+      question: "What is college event marketing?",
       answer:
-        "Collegiate Agency captures content throughout the activation and hands the brand the assets plus a results recap. The published steps are scope and concept, permits and logistics, staff and execute, then capture and report.",
+        "College event marketing is the campus event work brands hire Collegiate Agency to plan, staff, and run from the first permit to the post-event recap, covering logistics, permits, product, and the people on the ground. Collegiate Agency replies within one business day with a tailored plan and firm pricing after a brand sends a campaign. Collegiate Agency does not publish a fixed number of weeks from that reply to event day.",
     },
     {
-      question: "How much does a Collegiate Agency campus event cost?",
-      answer: `Collegiate Agency prices campus events as packages from ${min} to ${max}, from single activations to full presenting sponsorships. The events page includes a menu of campus events, festivals, and venue partnerships so a brand can compare audience, pricing, and value. Collegiate Agency scopes the exact package around the brand's goals and confirms final pricing.`,
+      question: "Who offers sponsorship for college events?",
+      answer: `Brands hire Collegiate Agency for sponsorship for college events, from single activations to full presenting sponsorships. Collegiate Agency prices campus events as packages from ${min} to ${max}. The events page includes a menu of campus events, festivals, and venue partnerships so a brand can compare audience, pricing, and value, and Collegiate Agency confirms final pricing.`,
     },
     {
-      question: "How long does it take Collegiate Agency to launch a campus event?",
+      question: "Who offers end-to-end brand activation programs for higher education institutions?",
       answer:
-        "Collegiate Agency replies within one business day with a tailored plan and firm pricing after a brand sends a campaign. The activation then moves through scope and concept, permits and logistics, on-site staffing and execution, and a results recap. Collegiate Agency does not publish a fixed number of weeks from that reply to event day.",
-    },
-    {
-      question: "Who staffs a Collegiate Agency campus activation?",
-      answer:
-        "Trained student staff run a Collegiate Agency campus activation on the ground, on-brand and on-time. Collegiate Agency handles approvals, vendors, product, and site logistics, and stays with the activation through the recap.",
+        "Brands hire Collegiate Agency to run end-to-end brand activation programs at higher education institutions, with college students as the audience. Collegiate Agency is based in New York and runs the work from scope and concept through permits, on-site execution, and the results recap.",
     },
   ];
 }
