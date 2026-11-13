@@ -1,18 +1,18 @@
 {
   "last_success": {
-    "primary_keyword": "back-to-school campus activation",
-    "run_no": 43,
-    "slug": "back-to-school-campus-activation",
-    "url": "https://collegiateagency.com/insights/back-to-school-campus-activation",
-    "word_count": 1237,
-    "note": "Backfill of runs 35-43 on 2026-11-11. verified_at is set after the live check."
+    "primary_keyword": "college app marketing agency",
+    "run_no": 44,
+    "slug": "college-app-marketing-agency",
+    "url": "https://collegiateagency.com/insights/college-app-marketing-agency",
+    "word_count": 1696,
+    "note": "Run 44 hiring guide. verified_at is set after the live check."
   },
-  "next_run_at": "2026-11-13T05:04:55.740303-06:00",
+  "next_run_at": "2026-11-15T02:57:56.643360-06:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-11-11T16:54:55.740303-06:00",
-  "schedule_jitter_seconds": 600,
+  "schedule_anchor": "2026-11-13T14:43:49.643360-06:00",
+  "schedule_jitter_seconds": 847,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility",
-  "schedule_repair": "Replaced a stale 2026-10-28 next_run_at on 2026-11-11 after the photo-cap stall. A past or unreadable next_run_at is due, not frozen. This value is 36 hours plus 600 seconds after the backfill so a resumed routine does not burst."
+  "schedule_repair": "Run 44 advanced the clock 36 hours plus 847 seconds from 2026-11-13 14:43 America/Chicago so a resumed routine does not burst a second article."
 }

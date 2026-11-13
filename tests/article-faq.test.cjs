@@ -164,7 +164,8 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-festival-sponsorship",
       "college-brand-ambassador-program",
     ]);
-    const revisedOn = faqBatchThree.has(slug)
+    const run44 = new Set(["college-app-marketing-agency"]);
+    const revisedOn = run44.has(slug) || faqBatchThree.has(slug)
       ? "2026-11-13"
       : buyerFaq.has(slug)
       ? "2026-11-12"
@@ -245,7 +246,7 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
     "campus-events-and-activations": "2026-11-13",
     "campus-sponsorship": "2026-11-13",
     "product-sampling-and-placement": "2026-11-13",
-    "campus-marketing-strategy": "2026-11-12",
+    "campus-marketing-strategy": "2026-11-13",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
@@ -353,7 +354,7 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
   const hubs = {
     "campus-events-and-activations": "2026-11-13",
     "campus-sponsorship": "2026-11-13",
-    "campus-marketing-strategy": "2026-11-12",
+    "campus-marketing-strategy": "2026-11-13",
     "student-influencers": "2026-11-11",
     "product-sampling-and-placement": "2026-11-13",
   };
@@ -481,7 +482,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     "campus-events-and-activations": "2026-11-13",
     "product-sampling-and-placement": "2026-11-13",
     "campus-sponsorship": "2026-11-13",
-    "campus-marketing-strategy": "2026-11-12",
+    "campus-marketing-strategy": "2026-11-13",
     "student-influencers": "2026-11-11",
   };
 

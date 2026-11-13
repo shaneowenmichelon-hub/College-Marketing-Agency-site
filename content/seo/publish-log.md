@@ -47,3 +47,4 @@
 | 41 | 2026-11-11 | 18:20 CST | college-sports-marketing-agency | college sports marketing agency | 1244 | prepared; live receipt in publisher state |
 | 42 | 2026-11-11 | 18:20 CST | finals-week-marketing | finals week marketing | 1200 | prepared; live receipt in publisher state |
 | 43 | 2026-11-11 | 18:40 CST | back-to-school-campus-activation | back-to-school campus activation | 1237 | prepared; live receipt in publisher state |
+| 44 | 2026-11-13 | 14:43 CST | college-app-marketing-agency | college app marketing agency | 1696 | prepared; live receipt in publisher state |

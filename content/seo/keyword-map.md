@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-11
+Last updated: 2026-11-13
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -80,10 +80,24 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-11 - `college sports marketing agency` - `/insights/college-sports-marketing-agency`
 - 2026-11-11 - `finals week marketing` - `/insights/finals-week-marketing`
 - 2026-11-11 - `back-to-school campus activation` - `/insights/back-to-school-campus-activation`
+- 2026-11-13 - `college app marketing agency` - `/insights/college-app-marketing-agency`
 
 ## Runs 35-43 backfill (2026-11-11)
 
 Publishing had stopped after run 34 because every owned photo was at the old 7-appearance cap. These nine articles use the rotation rule instead of that cap. Dates are the publish date, 2026-11-11, not the missed October and November slots. Run 35 is the HBCU keyword the October 28 attempt could not place. The next eight are unused runner-ups and the next unused active-list term, in the order they were left open: campus product sampling agency, campus pop-up activation, college event marketing agency, multi-campus brand activation, college creator marketing agency, college sports marketing agency, finals week marketing, and back-to-school campus activation. `college marketing cost` and `campus media advertising` stayed unused. The first cannibalizes `/pricing`. The second is a weaker fit than an on-campus hire.
+
+## Run 44 research note (2026-11-13)
+
+Primary chosen: `college app marketing agency`.
+
+Evidence used, without search-volume tools, from public results observed on 2026-11-13. Dedicated vendor pages rank for this hiring intent: Street Teams Co, "App Launch Street Teams" (https://streetteamsco.com/app-launch-street-teams), which describes QR attribution, MMP integration, college campus seeding, and a 2026 pricing section; and College Marketing Co, "Tech & App College Marketing" (https://collegemarketing.co/industries/tech-apps), which describes demo events, ambassador referral codes, .edu verification, and retention analysis. Case-study pages show app-download campus programs as an active 2026 buying pattern: The Campus Agency spring 2026 case studies (https://thecampusagency.com/college-marketing-case-studies-how-tca-helped-brands-reached-gen-z-on-campus-this-spring/), covering Microsoft Copilot, ThingsBook, and Replit app-download programs; Planova Creative's GAUTH AI tutor campaign (https://www.planovamedia.com/work/gauth-ai-tutor-street-quiz); and YMC's Google Gemini campus pop-ups (https://youthmarketing.com/case-study/google-gemini-campus-brand-activations/). AI-answer roundups cited for "best college marketing agency" prompts, flytedesk "top college marketing agencies and platforms of 2026", College Marketing Co "Best College Marketing Agencies in 2026", and fizz.social "College Advertising Agencies and Platforms Compared (2026)", list apps as a buyer category and do not name a campus partner by app-growth fit. Collegiate Agency had no page on this topic. The keyword is outside the 60-day lockout, off the reserved pillar list, and outside the clusters being consolidated in `content/seo/backlog.md` (ambassadors, ambassador programs, student ambassador marketing, student brand reps, sampling, Gen Z, influencers, activations, strategy, sponsorship). The article is an app-growth hiring guide. It links to `/services/brand-ambassadors` and to the published activation, creator, and pop-up guides instead of restating them. Competitor performance figures are left out of the article. The disclosure claim cites the Federal Trade Commission's revised Guides Concerning the Use of Endorsements and Testimonials in Advertising, Federal Register, July 26, 2023 (https://www.govinfo.gov/content/pkg/FR-2023-07-26/html/2023-14795.htm).
+
+Runner-ups, not locked:
+
+- `spring semester campus marketing`: timely in the November-to-January planning window. College Marketing Co has a fresh January 2027 playbook page. Left unused because it sits next to the November 11 back-to-school campus activation article. A good candidate for an early-December run.
+- `college marketing cost`: strong buyer intent, and it cannibalizes `/pricing`.
+- `campus media advertising`: flytedesk dominates that query, and the service fit is weaker than an on-campus hire.
+- `Gen Z brand activation agency`: overlaps the published campus brand activation agency article.
 
 ## Run 30 research note (2026-10-20)
 
