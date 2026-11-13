@@ -154,6 +154,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
       "student-housing-marketing-agency",
       "hbcu-marketing-agency",
       "multi-campus-brand-activation",
+      "college-app-marketing-agency",
     ],
   };
 

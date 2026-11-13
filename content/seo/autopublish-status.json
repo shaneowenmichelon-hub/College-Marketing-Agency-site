@@ -1,28 +1,17 @@
 {
-  "status": "backfill-prepared",
+  "status": "prepared",
   "reason": "low-photo-supply",
-  "next_run_at": "2026-11-13T05:04:55.740303-06:00",
-  "updated_at": "2026-11-11T16:54:55.740303-06:00",
-  "run_no": 43,
-  "slug": "back-to-school-campus-activation",
-  "keyword": "back-to-school campus activation",
+  "next_run_at": "2026-11-15T02:57:56.643360-06:00",
+  "updated_at": "2026-11-13T14:43:49.643360-06:00",
+  "run_no": 44,
+  "slug": "college-app-marketing-agency",
+  "keyword": "college app marketing agency",
   "photo_supply": {
     "owned": 15,
     "eligible": 3,
     "chosen": 3,
     "window": 4,
     "warning": true,
-    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/nutrl-attendees-sponsored-show.jpg."
-  },
-  "published_slugs": [
-    "hbcu-marketing-agency",
-    "campus-product-sampling-agency",
-    "campus-pop-up-activation",
-    "college-event-marketing-agency",
-    "multi-campus-brand-activation",
-    "college-creator-marketing-agency",
-    "college-sports-marketing-agency",
-    "finals-week-marketing",
-    "back-to-school-campus-activation"
-  ]
+    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/nutrl-toast-tent-activation.jpg."
+  }
 }
