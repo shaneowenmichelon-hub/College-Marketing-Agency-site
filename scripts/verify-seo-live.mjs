@@ -163,7 +163,13 @@ export async function verify(artifact, base = 'https://collegiateagency.com') {
     if (Array.isArray(artifact.inline_photos) && artifact.inline_photos.length) {
       const libraryPath = path.join(process.cwd(), 'content/seo/public-photo-library.md');
       assertOwnedInlinePhotos(artifact.inline_photos, fs.readFileSync(libraryPath, 'utf8'), artifact.image);
-      const figures = await page.locator('article figure img').evaluateAll(async (imgs) => {
+      const figureImages = page.locator('article figure img');
+      // Next/Image lazy-loads figures below the fold. decode() never settles
+      // until the browser starts the request, so bring each one into view first.
+      for (let index = 0; index < await figureImages.count(); index += 1) {
+        await figureImages.nth(index).scrollIntoViewIfNeeded();
+      }
+      const figures = await figureImages.evaluateAll(async (imgs) => {
         const out = [];
         for (const img of imgs) {
           try { await img.decode(); } catch { /* status check below still runs on the file URL */ }
