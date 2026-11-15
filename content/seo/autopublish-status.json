@@ -1,17 +1,17 @@
 {
   "status": "prepared",
   "reason": "low-photo-supply",
-  "next_run_at": "2026-11-15T02:57:56.643360-06:00",
-  "updated_at": "2026-11-13T14:43:49.643360-06:00",
-  "run_no": 44,
-  "slug": "college-app-marketing-agency",
-  "keyword": "college app marketing agency",
+  "next_run_at": "2026-11-16T14:48:48.641675-06:00",
+  "updated_at": "2026-11-15T02:45:24.641675-06:00",
+  "run_no": 45,
+  "slug": "spring-semester-campus-marketing",
+  "keyword": "spring semester campus marketing",
   "photo_supply": {
     "owned": 15,
     "eligible": 3,
     "chosen": 3,
     "window": 4,
     "warning": true,
-    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/nutrl-toast-tent-activation.jpg."
+    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/bloom-sampling-campus-nightlife.jpg."
   }
 }

@@ -1,18 +1,18 @@
 {
   "last_success": {
-    "primary_keyword": "college app marketing agency",
-    "run_no": 44,
-    "slug": "college-app-marketing-agency",
-    "url": "https://collegiateagency.com/insights/college-app-marketing-agency",
-    "word_count": 1696,
-    "note": "Run 44 hiring guide. verified_at is set after the live check."
+    "primary_keyword": "spring semester campus marketing",
+    "run_no": 45,
+    "slug": "spring-semester-campus-marketing",
+    "url": "https://collegiateagency.com/insights/spring-semester-campus-marketing",
+    "word_count": 1693,
+    "note": "Run 45 January 2027 hiring guide. verified_at is set after the live check."
   },
-  "next_run_at": "2026-11-15T02:57:56.643360-06:00",
+  "next_run_at": "2026-11-16T14:48:48.641675-06:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-11-13T14:43:49.643360-06:00",
-  "schedule_jitter_seconds": 847,
+  "schedule_anchor": "2026-11-15T02:45:24.641675-06:00",
+  "schedule_jitter_seconds": 204,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility",
-  "schedule_repair": "Run 44 advanced the clock 36 hours plus 847 seconds from 2026-11-13 14:43 America/Chicago so a resumed routine does not burst a second article."
+  "schedule_repair": "Run 45 advanced the clock 36 hours plus 204 seconds from 2026-11-15 02:45 America/Chicago so a resumed routine does not burst a second article."
 }

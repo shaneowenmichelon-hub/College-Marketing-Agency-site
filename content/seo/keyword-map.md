@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-13
+Last updated: 2026-11-15
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -81,10 +81,35 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-11 - `finals week marketing` - `/insights/finals-week-marketing`
 - 2026-11-11 - `back-to-school campus activation` - `/insights/back-to-school-campus-activation`
 - 2026-11-13 - `college app marketing agency` - `/insights/college-app-marketing-agency`
+- 2026-11-15 - `spring semester campus marketing` - `/insights/spring-semester-campus-marketing`
 
 ## Runs 35-43 backfill (2026-11-11)
 
 Publishing had stopped after run 34 because every owned photo was at the old 7-appearance cap. These nine articles use the rotation rule instead of that cap. Dates are the publish date, 2026-11-11, not the missed October and November slots. Run 35 is the HBCU keyword the October 28 attempt could not place. The next eight are unused runner-ups and the next unused active-list term, in the order they were left open: campus product sampling agency, campus pop-up activation, college event marketing agency, multi-campus brand activation, college creator marketing agency, college sports marketing agency, finals week marketing, and back-to-school campus activation. `college marketing cost` and `campus media advertising` stayed unused. The first cannibalizes `/pricing`. The second is a weaker fit than an on-campus hire.
+
+## Run 45 research note (2026-11-15)
+
+Primary chosen: `spring semester campus marketing`.
+
+Evidence used, without search-volume tools, from public pages read on 2026-11-15. The term was the unused runner-up in the Run 44 note, outside the 60-day lockout, not yet in `keyword-queue.json`, off the reserved pillar list, and outside the clusters being consolidated in `content/seo/backlog.md`. Collegiate Agency had no page on a January return. The article is a brand hiring guide for a January 2027 program. It links to the November 11 back-to-school and finals-week guides, and to the pop-up guide, instead of restating them. It does not target ambassador, ambassador-program, or student-rep terms.
+
+Dated pages cited in the article:
+
+- Follett Media Network, Vinny Disilvestro, "Back on Campus in January: How Brands Win the Spring Semester," published November 5, 2026 (https://www.follettmedianetwork.com/insights/back-on-campus-january-brands-win-spring-semester). January is a second back-to-school. Plan in December. Spring start dates vary, and some schools run a short January term first. Bookstore media figures on that page were not copied into the article.
+- College Marketing Co., "When to Market to College Students: The Complete 2026 Campus Calendar," published June 25, 2026 (https://collegemarketing.co/blog/when-to-market-to-college-students-2026-calendar). January is listed as a spring move-in and a secondary move-in.
+- Barnes & Noble College, brand partnerships page, modified October 21, 2026 (https://www.bncollege.com/brand-partnerships/). The calendar lists January as Back-to-School and February as career fairs and midterms.
+- American Guerrilla Marketing, "University Marketing: Complete Ground-Level Strategy for Reaching College Students at Scale," published August 10, 2026 (https://americanguerrillamarketing.com/articles/university-marketing/). The January spring-semester launch is named as a second intensive activation window.
+- flytedesk, "The top college marketing agencies and platforms of 2026," published November 13, 2026 (https://www.flytedesk.com/insights/top-college-engagement-marketing-agencies). The page does not mention January or the spring semester, so it does not rank a partner for this window. The older `/blog/` URL redirects here.
+
+Read the same day and not cited in the article, because the page has no publication date in its HTML or JSON-LD: College Marketing Co., "Spring Semester Campus Marketing 2027 | January Playbook" (https://collegemarketing.co/spring-semester-campus-marketing). It says October through December is the planning window, many campus offices close over winter break, and a multi-campus program should roll out in waves grouped by start date. The article turns the varying start dates into a staffing rule using the dated Follett page, and it tells the buyer to ask when each reservation office closes. It does not attribute those undated sentences.
+
+Runner-ups, not locked:
+
+- `college marketing for fintech brands` / banking: College Marketing Co. has a financial-services and fintech industry page (https://collegemarketing.co/industries/financial-services-fintech), and Refuel has a financial marketing page (https://www.refuelagency.com/financial-marketing-to-college-students/). Partly touched by the college app marketing agency article. Performance figures on those pages were not checked into this note.
+- `campus ugc program`: overlaps the creator cluster.
+- `welcome week brand activation`: a long-tail of the back-to-school campus activation article. Already sitting in the keyword queue.
+- `student organization sponsorship for brands`: overlaps the sponsorship cluster and the Greek-life article.
+- `college marketing cost`: strong buyer intent, and it cannibalizes `/pricing`.
 
 ## Run 44 research note (2026-11-13)
 
