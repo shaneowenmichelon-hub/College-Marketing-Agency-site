@@ -159,6 +159,7 @@ const TOPIC_ARTICLES: Record<string, readonly string[]> = {
     "campus-pop-up-activation",
     "college-event-marketing-agency",
     "back-to-school-campus-activation",
+    "spring-semester-campus-marketing",
     "finals-week-marketing",
   ],
   "product-sampling-and-placement": [

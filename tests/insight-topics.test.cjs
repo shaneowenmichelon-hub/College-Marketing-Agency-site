@@ -122,6 +122,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
       "campus-pop-up-activation",
       "college-event-marketing-agency",
       "back-to-school-campus-activation",
+      "spring-semester-campus-marketing",
       "finals-week-marketing",
     ],
     "product-sampling-and-placement": [
