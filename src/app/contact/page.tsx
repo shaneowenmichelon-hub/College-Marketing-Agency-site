@@ -54,17 +54,24 @@ export default function ContactPage() {
         scroll to them. Letting the items shrink is what lets the column track
         the viewport.
       */}
-      <div className="grid gap-12 [&>*]:min-w-0 lg:grid-cols-2">
-        {/* Left: pitch + info */}
-        <Reveal>
+      <div className="grid gap-12 [&>*]:min-w-0 lg:grid-cols-2 lg:items-start">
+        {/* Heading first on a phone, so the form is the next thing. On desktop it stays in the left column. */}
+        <Reveal className="lg:col-start-1 lg:row-start-1">
           <Badge className="mb-4">Book a Call</Badge>
           <h1 className="text-balance font-display text-4xl font-bold leading-[1.05] text-ink sm:text-5xl">
             {CONTACT_H1}
           </h1>
           <CopyBlocks blocks={[contactLead()]} className="mt-4 max-w-md" />
+        </Reveal>
 
-          {/* Real activation photo: sits left of the form on desktop, above it on mobile */}
-          <figure className="mt-8 max-w-md">
+        {/* Form second on a phone. On desktop it occupies the right column beside the heading and the proof. */}
+        <Reveal delay={0.1} className="lg:col-start-2 lg:row-start-1 lg:row-span-2">
+          <ContactForm />
+        </Reveal>
+
+        <Reveal className="lg:col-start-1 lg:row-start-2">
+          {/* Real activation photo: beside the form on desktop, after it on a phone */}
+          <figure className="max-w-md">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[3px] border-2 border-ink shadow-[8px_8px_0_var(--ink)]">
               <Image
                 src={leadPhoto.src}
@@ -138,11 +145,6 @@ export default function ContactPage() {
               {siteConfig.credibilityLine}
             </p>
           )}
-        </Reveal>
-
-        {/* Right: form */}
-        <Reveal delay={0.1}>
-          <ContactForm />
         </Reveal>
       </div>
     </Section>

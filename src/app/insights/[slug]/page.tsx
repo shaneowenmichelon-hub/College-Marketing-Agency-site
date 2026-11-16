@@ -16,6 +16,8 @@ import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/
 import { articleBreadcrumbItems, insightTopicPath, topicForPost } from "@/lib/insight-topics";
 import { ArticleArt } from "@/components/insights/ArticleArt";
 import { ArticleByline } from "@/components/insights/ArticleByline";
+import { inquiryHref } from "@/lib/inquiry-handoff";
+import { siteConfig } from "@/site.config";
 
 type Params = Promise<{ slug: string }>;
 
@@ -33,11 +35,16 @@ type Params = Promise<{ slug: string }>;
  * demoted to a secondary link, and students get an explicit way out so they
  * self-select instead of travelling down the brand funnel.
  */
+function serviceInterest(slug: Post["ctaService"]): string | undefined {
+  return siteConfig.services.find((service) => service.slug === slug)?.label;
+}
+
 const SERVICE_CTA: Record<
   Post["ctaService"],
   {
     heading: string;
     blurb: string;
+    interest?: string;
     primary: { label: string; href: string };
     secondary: { label: string; href: string };
   }
@@ -46,21 +53,33 @@ const SERVICE_CTA: Record<
     heading: "Want ambassadors on your campuses?",
     blurb:
       "We screen, verify and manage campus ambassadors, so brands get reliable representation rather than a gamble. Price a program in about a minute.",
-    primary: { label: "Build a campaign", href: "/build-a-campaign" },
+    interest: serviceInterest("brand-ambassadors"),
+    primary: {
+      label: "Build a campaign",
+      href: inquiryHref("/build-a-campaign", { service: "ambassadors" }),
+    },
     secondary: { label: "How the program works", href: "/services/brand-ambassadors" },
   },
   events: {
     heading: "Planning a campus activation?",
     blurb:
       "Plug into the Night School Tour and our welcome-week network across campus markets. Tell us the goal and we will come back with a plan and firm pricing.",
-    primary: { label: "Book a call", href: "/contact" },
+    interest: serviceInterest("events"),
+    primary: {
+      label: "Book a call",
+      href: inquiryHref("/contact", { interest: serviceInterest("events") }),
+    },
     secondary: { label: "How events work", href: "/services/events" },
   },
   "product-placement": {
     heading: "Want product in students' hands?",
     blurb:
       "Place product directly into campus events, student organizations, venues and ambassador-led content. Price a run across the campuses you care about.",
-    primary: { label: "Build a campaign", href: "/build-a-campaign" },
+    interest: serviceInterest("product-placement"),
+    primary: {
+      label: "Build a campaign",
+      href: inquiryHref("/build-a-campaign", { service: "product-placement" }),
+    },
     secondary: { label: "How placement works", href: "/services/product-placement" },
   },
 };
@@ -246,7 +265,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
         </Section>
       </article>
 
-      <ArticleFooterCta slug={post.slug} />
+      <ArticleFooterCta slug={post.slug} interest={cta.interest} />
     </>
   );
 }

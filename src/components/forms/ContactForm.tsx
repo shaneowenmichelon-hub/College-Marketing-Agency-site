@@ -1,12 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { leadDeliveryError, siteConfig } from "@/site.config";
 import { isValidEmail, cn } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 import { useAttribution, usePrefill, useElapsed } from "@/lib/client-forms";
 import { serverFieldErrors } from "@/lib/form-errors";
+import {
+  INQUIRY_REPLY_LINE,
+  INQUIRY_REQUIRED_LINE,
+  firstInvalidInquiryField,
+  interestsFromQuery,
+} from "@/lib/inquiry-handoff";
 import { FormField, Input, Select, Textarea } from "@/components/form/Fields";
 import { Button } from "@/components/ui/Button";
 
@@ -22,6 +28,20 @@ export function ContactForm() {
   const attribution = useAttribution();
   const prefill = usePrefill();
   const getElapsed = useElapsed();
+
+  useEffect(() => {
+    const picked = interestsFromQuery(window.location.search, interestOptions);
+    if (picked.length === 0) return;
+    setInterests((current) => (current.length > 0 ? current : picked));
+  }, []);
+
+  function focusField(id: string) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+    el.focus({ preventScroll: true });
+  }
 
   function toggleInterest(label: string) {
     setInterests((prev) =>
@@ -60,7 +80,11 @@ export function ContactForm() {
     // Both still submit when filled in. The default budget option posts "".
     setErrors(nextErrors);
     setFormError(null);
-    if (Object.keys(nextErrors).length > 0) return;
+    const invalid = firstInvalidInquiryField(nextErrors);
+    if (invalid) {
+      requestAnimationFrame(() => focusField(invalid));
+      return;
+    }
 
     setStatus("loading");
     try {
@@ -79,6 +103,8 @@ export function ContactForm() {
         // Replace, don't merge: a field error stays only when this response rejected it.
         const rejected = serverFieldErrors(json?.errors);
         setErrors(rejected);
+        const invalid = firstInvalidInquiryField(rejected);
+        if (invalid) requestAnimationFrame(() => focusField(invalid));
         const serverError = typeof json?.error === "string" ? json.error.trim() : "";
         setFormError(
           Object.keys(rejected).length > 0
@@ -107,8 +133,7 @@ export function ContactForm() {
         <CheckCircle2 className="h-12 w-12 text-accent" aria-hidden />
         <h3 className="mt-4 font-display text-2xl font-bold text-ink">Thanks - we&apos;re on it.</h3>
         <p className="mt-2 max-w-sm text-sm text-[color:var(--muted-on-light)]">
-          Your message is in. We&apos;ll get back to you shortly with next steps for
-          reaching students.
+          Your message is in. {INQUIRY_REPLY_LINE}
         </p>
         <Button
           className="mt-6"
@@ -137,6 +162,8 @@ export function ContactForm() {
         <input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" />
       </div>
 
+      <p className="mb-5 text-sm text-[color:var(--muted-on-light)]">{INQUIRY_REQUIRED_LINE}</p>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <FormField label="First name" htmlFor="firstName">
           <Input
@@ -162,6 +189,7 @@ export function ContactForm() {
             name="company"
             autoComplete="organization"
             error={errors.company}
+            aria-describedby={errors.company ? "company-error" : undefined}
             defaultValue={prefill.company}
             key={`co-${prefill.company ?? ""}`}
           />
@@ -173,6 +201,7 @@ export function ContactForm() {
             type="email"
             autoComplete="email"
             error={errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
             defaultValue={prefill.email}
             key={`em-${prefill.email ?? ""}`}
           />
@@ -195,7 +224,7 @@ export function ContactForm() {
                 onClick={() => toggleInterest(label)}
                 aria-pressed={active}
                 className={cn(
-                  "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+                  "min-h-11 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
                   active
                     ? "border-accent bg-accent text-white"
                     : "border-[color:var(--border-on-light)] bg-white text-ink hover:border-accent/40",
@@ -238,11 +267,19 @@ export function ContactForm() {
         </FormField>
       </div>
 
+      {status !== "error" && (errors.company || errors.email) && (
+        <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600" role="alert">
+          {errors.company && errors.email ? INQUIRY_REQUIRED_LINE : errors.company || errors.email}
+        </p>
+      )}
+
       {status === "error" && formError && (
         <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600" role="alert">
           {formError}
         </p>
       )}
+
+      <p className="mt-4 text-xs leading-relaxed text-[color:var(--muted-on-light)]">{INQUIRY_REPLY_LINE}</p>
 
       <Button type="submit" size="lg" className="mt-6 w-full" disabled={status === "loading"}>
         {status === "loading" ? (

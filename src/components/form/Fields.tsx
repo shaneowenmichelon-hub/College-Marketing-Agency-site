@@ -50,7 +50,7 @@ export function FormField({
         <p className="text-xs text-[color:var(--muted-on-light)]">{hint}</p>
       )}
       {error && (
-        <p className="text-xs font-medium text-red-500" role="alert">
+        <p id={`${htmlFor}-error`} className="text-xs font-medium text-red-500" role="alert">
           {error}
         </p>
       )}

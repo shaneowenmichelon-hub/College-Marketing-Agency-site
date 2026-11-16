@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
@@ -27,9 +27,10 @@ import {
   campaignSchools,
   formatUSD,
 } from "@/lib/campaign-inventory";
-import { cn } from "@/lib/utils";
+import { cn, isValidEmail } from "@/lib/utils";
 import { trackEvent } from "@/lib/analytics";
 import { useAttribution } from "@/lib/client-forms";
+import { INQUIRY_REPLY_LINE, servicesFromQuery } from "@/lib/inquiry-handoff";
 
 type ServiceKey = "events" | "product-placement" | "ambassadors";
 
@@ -81,7 +82,7 @@ function Stepper({
         type="button"
         aria-label={`decrease ${ariaLabel}`}
         onClick={() => onChange(Math.max(min, value - 1))}
-        className="flex h-9 w-9 items-center justify-center text-ink transition-colors hover:bg-[color:var(--surface-muted)]"
+        className="flex h-11 w-11 items-center justify-center text-ink transition-colors hover:bg-[color:var(--surface-muted)]"
       >
         <Minus className="h-4 w-4" />
       </button>
@@ -96,13 +97,13 @@ function Stepper({
           const n = parseInt(e.target.value, 10);
           onChange(Number.isNaN(n) ? min : Math.min(max, Math.max(min, n)));
         }}
-        className="h-9 w-12 border-x-2 border-ink text-center font-display text-base font-bold text-ink outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        className="h-11 w-12 border-x-2 border-ink text-center font-display text-base font-bold text-ink outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
       />
       <button
         type="button"
         aria-label={`increase ${ariaLabel}`}
         onClick={() => onChange(Math.min(max, value + 1))}
-        className="flex h-9 w-9 items-center justify-center text-ink transition-colors hover:bg-[color:var(--surface-muted)]"
+        className="flex h-11 w-11 items-center justify-center text-ink transition-colors hover:bg-[color:var(--surface-muted)]"
       >
         <Plus className="h-4 w-4" />
       </button>
@@ -128,6 +129,17 @@ export function CampaignBuilder() {
   const [submitState, setSubmitState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const attribution = useAttribution();
   const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    const picked = servicesFromQuery(window.location.search);
+    if (picked.length === 0) return;
+    setServices((current) => {
+      if (current.events || current["product-placement"] || current.ambassadors) return current;
+      const next = { ...current };
+      for (const key of picked) next[key] = true;
+      return next;
+    });
+  }, []);
 
   const wantsSchools = services.ambassadors || services["product-placement"];
   const steps = useMemo(() => {
@@ -190,6 +202,12 @@ export function CampaignBuilder() {
   async function submit() {
     if (!contact.email.trim()) {
       setErrorMsg("Please add a work email so we can send your campaign back to you.");
+      document.getElementById("campaign-email")?.focus();
+      return;
+    }
+    if (!isValidEmail(contact.email)) {
+      setErrorMsg("Enter a valid email.");
+      document.getElementById("campaign-email")?.focus();
       return;
     }
     setSubmitState("sending");
@@ -669,14 +687,67 @@ export function CampaignBuilder() {
                 <div className="rounded-[4px] border-2 border-ink bg-white p-5 shadow-[4px_4px_0_var(--ink)]">
                   <p className="mono-label text-[11px] font-bold text-ink">Where do we send it?</p>
                   <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                    <input className={inputCls} placeholder="First name" value={contact.firstName} onChange={(e) => setContact({ ...contact, firstName: e.target.value })} />
-                    <input className={inputCls} placeholder="Last name" value={contact.lastName} onChange={(e) => setContact({ ...contact, lastName: e.target.value })} />
+                    <label className="block text-sm font-medium text-ink" htmlFor="campaign-first-name">
+                      First name
+                      <input
+                        id="campaign-first-name"
+                        autoComplete="given-name"
+                        className={cn(inputCls, "mt-1.5")}
+                        value={contact.firstName}
+                        onChange={(e) => setContact({ ...contact, firstName: e.target.value })}
+                      />
+                    </label>
+                    <label className="block text-sm font-medium text-ink" htmlFor="campaign-last-name">
+                      Last name
+                      <input
+                        id="campaign-last-name"
+                        autoComplete="family-name"
+                        className={cn(inputCls, "mt-1.5")}
+                        value={contact.lastName}
+                        onChange={(e) => setContact({ ...contact, lastName: e.target.value })}
+                      />
+                    </label>
                   </div>
-                  <input className={cn(inputCls, "mt-3")} placeholder="Company" value={contact.company} onChange={(e) => setContact({ ...contact, company: e.target.value })} />
-                  <input className={cn(inputCls, "mt-3")} type="email" placeholder="Work email *" value={contact.email} onChange={(e) => setContact({ ...contact, email: e.target.value })} />
-                  <input className={cn(inputCls, "mt-3")} type="tel" placeholder="Phone (optional)" value={contact.phone} onChange={(e) => setContact({ ...contact, phone: e.target.value })} />
+                  <label className="mt-3 block text-sm font-medium text-ink" htmlFor="campaign-company">
+                    Company
+                    <input
+                      id="campaign-company"
+                      autoComplete="organization"
+                      className={cn(inputCls, "mt-1.5")}
+                      value={contact.company}
+                      onChange={(e) => setContact({ ...contact, company: e.target.value })}
+                    />
+                  </label>
+                  <label className="mt-3 block text-sm font-medium text-ink" htmlFor="campaign-email">
+                    Work email <span className="text-accent">*</span>
+                    <input
+                      id="campaign-email"
+                      type="email"
+                      autoComplete="email"
+                      className={cn(inputCls, "mt-1.5")}
+                      value={contact.email}
+                      onChange={(e) => setContact({ ...contact, email: e.target.value })}
+                    />
+                  </label>
+                  <label className="mt-3 block text-sm font-medium text-ink" htmlFor="campaign-phone">
+                    Phone
+                    <input
+                      id="campaign-phone"
+                      type="tel"
+                      autoComplete="tel"
+                      className={cn(inputCls, "mt-1.5")}
+                      value={contact.phone}
+                      onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+                    />
+                  </label>
 
-                  {errorMsg && <p className="mt-3 text-sm font-medium text-[color:var(--magenta)]">{errorMsg}</p>}
+                  <p className="mt-3 text-xs leading-relaxed text-[color:var(--muted-on-light)]">{INQUIRY_REPLY_LINE}</p>
+
+                  {errorMsg && (
+                    <p className="mt-3 text-sm font-medium text-[color:var(--magenta)]" role="alert">
+                      {errorMsg}
+                    </p>
+                  )}
 
                   <button
                     type="button"
@@ -729,7 +800,7 @@ export function CampaignBuilder() {
 }
 
 const inputCls =
-  "w-full rounded-[3px] border-2 border-ink bg-white p-2.5 text-base text-ink outline-none focus:shadow-[3px_3px_0_var(--accent)]";
+  "min-h-11 w-full rounded-[3px] border-2 border-ink bg-white p-2.5 text-base text-ink outline-none focus:shadow-[3px_3px_0_var(--accent)]";
 
 function ReviewCard({ title, accent, children }: { title: string; accent: string; children: React.ReactNode }) {
   return (

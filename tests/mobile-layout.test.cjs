@@ -21,13 +21,29 @@ const read = (p) => fs.readFileSync(path.join(root, p), "utf8");
 
 test("the contact grid lets its columns shrink below min-content", () => {
   const src = read("src/app/contact/page.tsx");
-  const grid = src.match(/className="grid[^"]*lg:grid-cols-2"/);
+  const grid = src.match(/className="grid[^"]*lg:grid-cols-2[^"]*"/);
   assert.ok(grid, "could not find the contact two-column grid");
   assert.match(
     grid[0],
     /\[&>\*\]:min-w-0|min-w-0/,
     "contact grid items must be allowed to shrink, or the column is pinned to its widest child and the form is clipped on phones",
   );
+});
+
+test("on a phone the inquiry form comes before the photo and the offices", () => {
+  const src = read("src/app/contact/page.tsx");
+  const form = src.indexOf("<ContactForm");
+  const photo = src.indexOf("<figure");
+  const offices = src.indexOf("Offices");
+  assert.ok(form > 0 && photo > form && offices > form, "the form has to be reachable before the proof column");
+  assert.match(src, /lg:col-start-2/, "desktop keeps the form in the right column");
+  assert.match(src, /lg:row-span-2/);
+});
+
+test("the mobile header keeps a brand inquiry button", () => {
+  const src = read("src/components/Navbar.tsx");
+  assert.match(src, /lg:hidden[\s\S]*Book a Call/);
+  assert.match(src, /href="\/contact"/);
 });
 
 test("wide fixed-width containers on contact stay inside a shrinkable column", () => {

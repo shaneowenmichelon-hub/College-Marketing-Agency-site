@@ -1,5 +1,11 @@
 # SEO changelog
 
+## 2026-11-16 — Brand inquiry path
+
+No article, title, H1, slug, byline, or contact detail changed. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. Schema, canonicals, FAQ blocks, and sitemap entries were not removed. `/contact` sitemap `lastmod` stays `2026-10-28`.
+
+The contact form on a phone now follows the heading, ahead of the photo, logo marquee, and offices. Company and work email stay the only required fields. The form states that, and it repeats the reply already published on `/contact`: Collegiate Agency replies within one business day with a tailored plan and firm pricing. A failed check scrolls to the first invalid field and leaves what was typed. Service pages, event sponsorship inquiries, and insight CTAs pass the chosen service into `/contact` or `/build-a-campaign`. The campaign review step labels its fields and keeps them when email validation fails. Phones get a header Book a Call button on every page.
+
 ## 2026-11-16 — Hub and index FAQs for pages with impressions and weak rank
 
 Search Console, URL-prefix property, Web, last 3 months (Oct 23 to Nov 14 2026), exported Nov 16 2026 ~8:40 AM ET, showed index and hub URLs with impressions and almost no clicks. This pass follows the thin-page pattern that moved `/contact`, `/work`, and `/insights` after the earlier server-rendered copy and FAQ work. No article was created. Slugs, article H1s, article bodies, and bylines were not edited. Gen Z articles were not edited, and no Gen Z hub was added. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited. The byline stays Shane Michelon, Founder, with the LinkedIn profile as the only author URL. The contact email and Organization `sameAs` were not changed.

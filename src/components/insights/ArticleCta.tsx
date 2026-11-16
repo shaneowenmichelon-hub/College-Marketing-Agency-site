@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CTASection } from "@/components/CTASection";
 import { trackEvent } from "@/lib/analytics";
+import { articleInquiryHref, inquiryHref } from "@/lib/inquiry-handoff";
 
 export type ArticleCtaCopy = {
   heading: string;
@@ -14,8 +15,7 @@ export type ArticleCtaCopy = {
 
 /** Carry the article slug onto the brand form so the lead stores where it started. */
 export function articleCtaHref(href: string, slug: string): string {
-  if (href !== "/contact" && href !== "/build-a-campaign") return href;
-  return `${href}?article=${encodeURIComponent(slug)}`;
+  return articleInquiryHref(href, slug);
 }
 
 function trackCta(slug: string, position: string, destination: string) {
@@ -73,8 +73,8 @@ export function ArticleCtaCard({
 }
 
 /** The dark band at the bottom of an article. Same destination as the events call, with the article attached. */
-export function ArticleFooterCta({ slug }: { slug: string }) {
-  const href = articleCtaHref("/contact", slug);
+export function ArticleFooterCta({ slug, interest }: { slug: string; interest?: string }) {
+  const href = articleCtaHref(inquiryHref("/contact", { interest }), slug);
   return (
     <div onClickCapture={(event) => {
       const link = (event.target as HTMLElement).closest("a");

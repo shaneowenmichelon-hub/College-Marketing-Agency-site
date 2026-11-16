@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ArrowRight, Check } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/SectionHeading";
-import { eventSponsorships, type SponsorshipGroup, type SponsorshipItem } from "@/site.config";
+import { eventSponsorships, siteConfig, type SponsorshipGroup, type SponsorshipItem } from "@/site.config";
 
 function inquireHref(groupId: string, tier: string, item?: string, msg?: string) {
   const p = new URLSearchParams({
@@ -14,6 +14,8 @@ function inquireHref(groupId: string, tier: string, item?: string, msg?: string)
   });
   if (item) p.set("utm_term", item);
   if (msg) p.set("msg", msg);
+  const interest = siteConfig.services.find((service) => service.slug === "events")?.label;
+  if (interest) p.set("interest", interest);
   return `/contact?${p.toString()}`;
 }
 
