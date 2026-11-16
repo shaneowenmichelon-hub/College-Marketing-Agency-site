@@ -7,6 +7,8 @@ import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { CollectionPageJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { FaqPageJsonLd, ServiceFaq } from "@/components/services/ServiceFaq";
+import { insightTopicFaqTitle, insightTopicFaqs } from "@/lib/insight-topic-faqs";
 import { Badge } from "@/components/ui/Badge";
 import { Section } from "@/components/ui/Section";
 import { formatDate } from "@/lib/content";
@@ -45,6 +47,7 @@ export default async function InsightTopicPage({ params }: { params: Params }) {
   const articles = postsForInsightTopic(topic.slug);
   const path = insightTopicPath(topic.slug);
   const documentTitle = resolveDocumentTitle(topic.title).text;
+  const faqs = insightTopicFaqs(topic.slug);
 
   return (
     <>
@@ -61,6 +64,7 @@ export default async function InsightTopicPage({ params }: { params: Params }) {
           { name: topic.breadcrumb, path },
         ]}
       />
+      <FaqPageJsonLd items={faqs} path={path} />
       <Section tone="light">
         <Link
           href="/insights"
@@ -126,6 +130,11 @@ export default async function InsightTopicPage({ params }: { params: Params }) {
             Articles assigned to this topic will be listed here.
           </p>
         )}
+      </Section>
+
+      <Section id="faq" tone="muted" className="scroll-mt-24">
+        <SectionHeading as="h2" eyebrow="FAQ" title={insightTopicFaqTitle(topic.slug)} />
+        <ServiceFaq items={faqs} />
       </Section>
 
       <CTASection

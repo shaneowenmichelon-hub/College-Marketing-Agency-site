@@ -8,8 +8,17 @@ import { EventImage } from "@/components/EventImage";
 import { CaseStudyCover } from "@/components/work/CaseStudyCover";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { FaqPageJsonLd, ServiceFaq } from "@/components/services/ServiceFaq";
 import { caseStudies } from "@/lib/content";
-import { caseStudyBlurb, WORK_DESCRIPTION, WORK_H1, WORK_TITLE, workIntro } from "@/lib/indexable-pages";
+import {
+  caseStudyBlurb,
+  WORK_DESCRIPTION,
+  WORK_FAQ_TITLE,
+  WORK_H1,
+  WORK_TITLE,
+  workFaqs,
+  workIntro,
+} from "@/lib/indexable-pages";
 import { pageMetadata } from "@/lib/seo";
 import { CopyBlocks } from "@/components/seo/CopyBlocks";
 
@@ -20,6 +29,7 @@ export const metadata = pageMetadata({
 });
 
 export default function WorkPage() {
+  const faqs = workFaqs();
   return (
     <>
       <BreadcrumbJsonLd
@@ -28,6 +38,7 @@ export default function WorkPage() {
           { name: "Work", path: "/work" },
         ]}
       />
+      <FaqPageJsonLd items={faqs} path="/work" />
       <Section tone="light">
         <SectionHeading as="h1" eyebrow="Work" title={WORK_H1} />
         <CopyBlocks blocks={workIntro()} className="mt-8 max-w-3xl" />
@@ -84,6 +95,11 @@ export default function WorkPage() {
             </Reveal>
           ))}
         </div>
+      </Section>
+
+      <Section id="faq" tone="light" className="scroll-mt-24">
+        <SectionHeading as="h2" eyebrow="FAQ" title={WORK_FAQ_TITLE} />
+        <ServiceFaq items={faqs} />
       </Section>
 
       <CTASection

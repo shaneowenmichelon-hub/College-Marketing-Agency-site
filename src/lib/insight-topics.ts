@@ -12,8 +12,14 @@ import { posts, type Post } from "@/lib/content";
  * the reserved pillar phrase in hub copy.
  */
 
-/** Date the hub pages were added. Sitemap lastmod is at least this day. */
+/** Date the hub pages were added. Article revisions are compared with this floor. */
 export const INSIGHT_TOPICS_UPDATED = "2026-10-30";
+/**
+ * Titles, descriptions, and FAQs on every hub were updated on this day.
+ * Sitemap lastmod is at least this day so IndexNow sees the edit. A newer
+ * article revision still wins.
+ */
+export const INSIGHT_TOPIC_CONTENT_UPDATED = "2026-11-16";
 
 export const INSIGHT_TOPIC_SERVICE_PATHS = [
   "/services/brand-ambassadors",
@@ -45,14 +51,14 @@ export type InsightTopic = {
 export const insightTopics: InsightTopic[] = [
   {
     slug: "brand-ambassador-programs",
-    title: "Ambassador program guides",
+    title: "College Brand Ambassador Programs",
     description:
-      "Collegiate Agency notes on brand ambassador programs brands hire to reach college students, from the roster and the reps to content rights.",
+      "College brand ambassador programs and campus ambassador programs for brands hiring Collegiate Agency to reach college students, from roster to content rights.",
     heading: "Brand ambassador programs for brands.",
     breadcrumb: "Brand ambassador programs",
     navLabel: "Brand ambassador programs",
     intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover brand ambassador programs: building a roster, running student reps, and the rights a brand has in the content those reps create.",
+      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover college brand ambassador programs and campus ambassador programs: building a roster, running student reps, and the rights a brand has in the content those reps create.",
     serviceHref: "/services/brand-ambassadors",
     serviceLabel: "See the brand ambassador program",
     ogTitle: "Ambassador programs",
@@ -60,77 +66,77 @@ export const insightTopics: InsightTopic[] = [
   },
   {
     slug: "campus-events-and-activations",
-    title: "Campus events and activations",
+    title: "Campus Activations for Brands",
     description:
-      "Collegiate Agency notes on campus events and activations brands hire, including field plans, staffing, welcome week, and accessibility.",
+      "Campus activations and on-campus activation guides for brands hiring Collegiate Agency. Field plans, staffing, welcome week, and college event marketing.",
     heading: "Campus events and activations for brands.",
     breadcrumb: "Campus events and activations",
     navLabel: "Campus events and activations",
     intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover campus events and activations: field plans, staffing, welcome week, accessibility, and what to settle before a brand approves the work.",
+      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover campus activations and on-campus activation work: field plans, staffing, welcome week, college event marketing, accessibility, and what to settle before a brand approves the work.",
     serviceHref: "/services/events",
     serviceLabel: "See campus events",
-    ogTitle: "Events and activations",
+    ogTitle: "Campus activations",
     ogAccent: "Activations brands hire",
   },
   {
     slug: "product-sampling-and-placement",
-    title: "Sampling and placement guides",
+    title: "Campus Product Sampling for Brands",
     description:
-      "Collegiate Agency notes on product sampling and placement for brands, including trial, welcome-bag inserts, bookstore shelves, and Greek life.",
+      "Campus product sampling and student product sampling for brands hiring Collegiate Agency, plus product placement, welcome bags, bookstores, and Greek life.",
     heading: "Product sampling and placement on campus.",
     breadcrumb: "Product sampling and placement",
     navLabel: "Product sampling and placement",
     intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover product sampling and placement: trial on campus, welcome-bag inserts, bookstore shelves, and Greek-life placement.",
+      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover campus product sampling and student product sampling, plus product placement: trial on campus, welcome-bag inserts, bookstore shelves, and Greek-life placement.",
     serviceHref: "/services/product-placement",
     serviceLabel: "See product placement",
-    ogTitle: "Sampling and placement",
+    ogTitle: "Product sampling",
     ogAccent: "Sampling brands hire",
   },
   {
     slug: "student-influencers",
-    title: "Student influencer guides",
+    title: "Campus Influencers for Brands",
     description:
-      "Collegiate Agency notes on student influencers and campus creators for brands that hire an agency to reach college students.",
+      "Campus influencers and student influencer marketing for brands hiring Collegiate Agency. Guides on campus creators that brands brief to reach college students.",
     heading: "Student influencers and campus content.",
     breadcrumb: "Student influencers and content",
     navLabel: "Student influencers and content",
     intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover student influencers and campus creators: finding them, briefing them, and tying their content to a campus moment.",
+      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover campus influencers and student influencer marketing: finding campus creators, briefing them, and tying their content to a campus moment.",
     serviceHref: "/services/brand-ambassadors",
     serviceLabel: "See the brand ambassador program",
-    ogTitle: "Student influencers",
+    ogTitle: "Campus influencers",
     ogAccent: "Creators brands hire",
   },
   {
     slug: "campus-sponsorship",
-    title: "Campus sponsorship guides",
+    title: "Sponsorship for College Events",
     description:
-      "Collegiate Agency notes on sponsorship brands hire for college events, festivals, tailgates, tours, and spring break.",
+      "College event sponsorship for brands hiring Collegiate Agency. Guides cover sponsorship for college events, festivals, tailgates, tours, and spring break.",
     heading: "Sponsorship for campus events, festivals, tailgates, and tours.",
     breadcrumb: "Campus sponsorship",
     navLabel: "Campus sponsorship",
     intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover sponsorship for college events, festivals, tailgates, tours, and spring break, and what a brand should settle before it shows up.",
+      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover college event sponsorship and sponsorship for college events, festivals, tailgates, tours, and spring break, and what a brand should settle before it shows up.",
     serviceHref: "/services/events",
     serviceLabel: "See campus events",
-    ogTitle: "Campus sponsorship",
+    ogTitle: "Event sponsorship",
     ogAccent: "Events, festivals, and tours",
   },
   {
     slug: "campus-marketing-strategy",
-    title: "Strategy and agency selection",
+    title: "Campus Marketing Strategy for Brands",
     description:
-      "Collegiate Agency notes on campus marketing strategy for brands, including RFPs, switching agencies, and choosing a partner.",
+      "Campus marketing strategy and agency selection for brands hiring Collegiate Agency. College marketing strategies, RFPs, and a campus marketing agency.",
     heading: "Campus marketing strategy and agency selection.",
     breadcrumb: "Campus marketing strategy",
     navLabel: "Campus marketing strategy",
     intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover campus marketing strategy and agency selection: a campus plan, an RFP, a handover when a brand switches partners, and how a brand chooses who to hire.",
+      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover campus marketing strategy and agency selection: college marketing strategies, a campus plan, an RFP, a handover when a brand switches partners, and how a brand chooses a campus marketing agency.",
     serviceHref: "/pricing",
     serviceLabel: "See published pricing",
-    ogTitle: "Strategy and hiring",
+    ogTitle: "Campus strategy",
     ogAccent: "Plans, RFPs, and hiring",
   },
 ];
@@ -252,6 +258,12 @@ export function postsForInsightTopic(topicSlug: string): Post[] {
 export function insightTopicLastModified(topicSlug: string): string {
   const stamps = postsForInsightTopic(topicSlug).map((post) => post.dateModified ?? post.date);
   return stamps.reduce((latest, stamp) => (stamp > latest ? stamp : latest), INSIGHT_TOPICS_UPDATED);
+}
+
+/** Sitemap lastmod: newer of the newest article revision and the hub content edit. */
+export function insightTopicSitemapLastModified(topicSlug: string): string {
+  const revision = insightTopicLastModified(topicSlug);
+  return revision > INSIGHT_TOPIC_CONTENT_UPDATED ? revision : INSIGHT_TOPIC_CONTENT_UPDATED;
 }
 
 export function articleBreadcrumbItems(post: Pick<Post, "slug" | "title" | "topic">): { name: string; path: string }[] {

@@ -50,7 +50,7 @@ test("document titles stay within 60 characters and do not double the brand", ()
     "Campus Event Marketing for Brands",
     "Brand ambassador programs",
     "Campus Marketing Insights for Brands",
-    "Build a college marketing campaign",
+    "Build a campus marketing campaign",
     "Become a campus ambassador",
     "Campus marketing pricing",
     "Greek life product placement",
@@ -265,7 +265,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   }
   assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-15T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-16T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
   assert.equal(
@@ -275,7 +275,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   assert.equal(byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(), "2026-10-28T00:00:00.000Z");
   assert.equal(
     byLoc.get("https://collegiateagency.com/build-a-campaign").lastModified.toISOString(),
-    "2026-10-28T00:00:00.000Z",
+    "2026-11-16T00:00:00.000Z",
   );
 });
 
@@ -426,7 +426,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-06T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-16T00:00:00.000Z");
 });
 
 test("organization JSON-LD is one node with a real address, logo, and website", () => {

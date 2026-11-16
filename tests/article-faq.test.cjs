@@ -258,7 +258,7 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/topics/${topic}`).lastModified.toISOString(),
-      `${stamp}T00:00:00.000Z`,
+      "2026-11-16T00:00:00.000Z",
       topic,
     );
   }
@@ -368,7 +368,7 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/topics/${topic}`).lastModified.toISOString(),
-      `${stamp}T00:00:00.000Z`,
+      "2026-11-16T00:00:00.000Z",
       topic,
     );
   }
@@ -499,7 +499,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/topics/${topic}`).lastModified.toISOString(),
-      `${stamp}T00:00:00.000Z`,
+      "2026-11-16T00:00:00.000Z",
       topic,
     );
   }

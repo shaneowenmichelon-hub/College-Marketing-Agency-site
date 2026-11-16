@@ -54,7 +54,9 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
     topicForPost,
     articleBreadcrumbItems,
     insightTopicLastModified,
+    insightTopicSitemapLastModified,
     INSIGHT_TOPICS_UPDATED,
+    INSIGHT_TOPIC_CONTENT_UPDATED,
   } = loadTs("lib/insight-topics.ts");
   const { assertInsightArticleSlug } = loadTs("lib/blog-files.ts");
 
@@ -191,12 +193,16 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
   assert.throws(() => assertInsightArticleSlug("topics", "topics.mdx"), /reserved slug/);
   assert.equal(posts.some((post) => post.slug === "topics"), false);
   assert.ok(insightTopicLastModified("campus-marketing-strategy") >= INSIGHT_TOPICS_UPDATED);
+  assert.equal(INSIGHT_TOPIC_CONTENT_UPDATED, "2026-11-16");
+  for (const topic of insightTopics) {
+    assert.equal(insightTopicSitemapLastModified(topic.slug), "2026-11-16", topic.slug);
+  }
 
   const source = fs.readFileSync(path.join(__dirname, "../src/lib/insight-topics.ts"), "utf8");
   assert.doesNotMatch(source, RESERVED_PHRASE);
   const hubPage = fs.readFileSync(path.join(__dirname, "../src/app/insights/topics/[slug]/page.tsx"), "utf8");
-  assert.equal(hubPage.includes("FaqPage"), false);
-  assert.equal(hubPage.includes("FAQPage"), false);
+  assert.equal((hubPage.match(/<FaqPageJsonLd /g) || []).length, 1);
+  assert.equal((hubPage.match(/<ServiceFaq /g) || []).length, 1);
   assert.match(hubPage, /CollectionPageJsonLd/);
   assert.match(hubPage, /BreadcrumbJsonLd/);
   assert.match(hubPage, /topic\.serviceHref/);
@@ -215,14 +221,14 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
 
 test("sitemap, llms.txt, and llms-full.txt list every topic hub", async () => {
   const { default: sitemap } = loadTs("app/sitemap.ts");
-  const { insightTopics, insightTopicPath, insightTopicLastModified } = loadTs("lib/insight-topics.ts");
+  const { insightTopics, insightTopicPath, insightTopicSitemapLastModified } = loadTs("lib/insight-topics.ts");
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
 
   for (const topic of insightTopics) {
     const url = `https://collegiateagency.com${insightTopicPath(topic.slug)}`;
     const entry = byLoc.get(url);
     assert.ok(entry, url);
-    assert.equal(entry.lastModified.toISOString(), `${insightTopicLastModified(topic.slug)}T00:00:00.000Z`);
+    assert.equal(entry.lastModified.toISOString(), `${insightTopicSitemapLastModified(topic.slug)}T00:00:00.000Z`);
     assert.equal(entry.images, undefined);
   }
 
@@ -347,4 +353,115 @@ test("insights index JSON-LD lists the posts the page renders", () => {
   const page = fs.readFileSync(path.join(__dirname, "../src/app/insights/page.tsx"), "utf8");
   assert.match(page, /items=\{posts\.map/);
   assert.equal(page.includes("why-welcome-week"), false);
+});
+
+function decode(html) {
+  return html
+    .replace(/<[^>]+>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#x27;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+test("each topic hub renders one FAQPage that matches the visible FAQ", () => {
+  const React = require("react");
+  const { renderToStaticMarkup } = require("react-dom/server");
+  const { insightTopics, insightTopicPath } = loadTs("lib/insight-topics.ts");
+  const { insightTopicFaqs, insightTopicFaqTitle } = loadTs("lib/insight-topic-faqs.ts");
+  const { faqAnswerPlainText } = loadTs("lib/article-faq.ts");
+  const { faqPageStructuredData } = loadTs("lib/service-faqs.ts");
+  const { resolveDocumentTitle, pageMetadata, TITLE_LIMIT } = loadTs("lib/seo.ts");
+  const { CollectionPageJsonLd, BreadcrumbJsonLd } = loadTs("components/seo/JsonLd.tsx");
+  const { FaqPageJsonLd, ServiceFaq } = loadTs("components/services/ServiceFaq.tsx");
+  const { postsForInsightTopic } = loadTs("lib/insight-topics.ts");
+
+  const expectedTitles = {
+    "brand-ambassador-programs": "College Brand Ambassador Programs | Collegiate Agency",
+    "campus-events-and-activations": "Campus Activations for Brands | Collegiate Agency",
+    "product-sampling-and-placement": "Campus Product Sampling for Brands | Collegiate Agency",
+    "student-influencers": "Campus Influencers for Brands | Collegiate Agency",
+    "campus-sponsorship": "Sponsorship for College Events | Collegiate Agency",
+    "campus-marketing-strategy": "Campus Marketing Strategy for Brands | Collegiate Agency",
+  };
+
+  for (const topic of insightTopics) {
+    const faqs = insightTopicFaqs(topic.slug);
+    const pathName = insightTopicPath(topic.slug);
+    const title = resolveDocumentTitle(topic.title).text;
+    assert.equal(title, expectedTitles[topic.slug], topic.slug);
+    assert.ok(title.length <= TITLE_LIMIT, title);
+    assert.ok(title.endsWith("| Collegiate Agency"), title);
+    const sentences = topic.intro.split(/(?<=[.!?])\s+/).filter(Boolean);
+    assert.ok(sentences.length >= 2 && sentences.length <= 4, `${topic.slug} intro ${sentences.length}`);
+    const meta = pageMetadata({ title: topic.title, description: topic.description, path: pathName });
+    assert.equal(meta.openGraph.title.absolute, title);
+    assert.equal(meta.openGraph.description, topic.description);
+    assert.equal(meta.twitter.title.absolute, title);
+    assert.equal(meta.twitter.description, topic.description);
+
+    const articles = postsForInsightTopic(topic.slug);
+    const html = renderToStaticMarkup(
+      React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(CollectionPageJsonLd, {
+          name: title,
+          description: topic.description,
+          path: pathName,
+          items: articles.map((post) => ({ name: post.title, path: `/insights/${post.slug}` })),
+        }),
+        React.createElement(BreadcrumbJsonLd, {
+          items: [
+            { name: "Home", path: "/" },
+            { name: "Insights", path: "/insights" },
+            { name: topic.breadcrumb, path: pathName },
+          ],
+        }),
+        React.createElement(FaqPageJsonLd, { items: faqs, path: pathName }),
+        React.createElement(ServiceFaq, { items: faqs }),
+      ),
+    );
+    assert.equal((html.match(/"@type":"FAQPage"/g) || []).length, 1, topic.slug);
+    assert.equal((html.match(/"@type":"CollectionPage"/g) || []).length, 1, topic.slug);
+    const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((match) =>
+      JSON.parse(match[1]),
+    );
+    const collection = blocks.find((block) => block["@type"] === "CollectionPage");
+    const faq = blocks.find((block) => block["@type"] === "FAQPage");
+    assert.equal(collection.name, title);
+    assert.equal(collection.description, topic.description);
+    assert.equal(faq["@id"], `https://collegiateagency.com${pathName}#faq`);
+    assert.deepEqual(faq, faqPageStructuredData(faqs, pathName));
+    const questions = [...html.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((match) => decode(match[1]));
+    const answers = [...html.matchAll(/<dd[^>]*>([\s\S]*?)<\/dd>/g)].map((match) => decode(match[1]));
+    assert.deepEqual(questions, faqs.map((item) => item.question));
+    assert.equal(questions.length >= 4 && questions.length <= 5, true, topic.slug);
+    faq.mainEntity.forEach((entity, index) => {
+      assert.equal(entity.name, questions[index]);
+      assert.equal(entity.acceptedAnswer.text, answers[index]);
+      assert.equal(entity.acceptedAnswer.text, faqAnswerPlainText(faqs[index].answer));
+    });
+    assert.ok(insightTopicFaqTitle(topic.slug).length > 10, topic.slug);
+  }
+
+  const strategy = insightTopicFaqs("campus-marketing-strategy")
+    .map((item) => `${item.question} ${item.answer}`)
+    .join(" ");
+  assert.match(strategy, /campus marketing strategy/i);
+  assert.match(strategy, /campus marketing agency/i);
+  assert.match(strategy, /college marketing strategies/i);
+  assert.match(strategy, /where can brands hire reliable campus marketing specialists/i);
+  assert.match(strategy, /college ad agency/i);
+  assert.match(strategy, /college branding agency/i);
+  const influencers = `${insightTopics.find((topic) => topic.slug === "student-influencers").description} ${insightTopicFaqs("student-influencers").map((item) => item.question).join(" ")}`;
+  assert.match(influencers, /campus influencers/i);
+  assert.match(influencers, /student influencer marketing/i);
+  assert.match(influencers, /campus creators/i);
+  const events = insightTopicFaqs("campus-events-and-activations").map((item) => `${item.question} ${item.answer}`).join(" ");
+  assert.match(events, /campus activations/i);
+  assert.match(events, /does not publish a fixed number of weeks/i);
+  assert.doesNotMatch(events, /7 days/i);
 });

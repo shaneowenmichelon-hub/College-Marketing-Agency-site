@@ -72,7 +72,8 @@ test("thin pages have unique titles, descriptions, and 150 to 350 words", () => 
     assert.equal(meta.twitter.description, description);
 
     const words = pages.countWords(pages[textKey]());
-    assert.ok(words >= 150 && words <= 350, `${textKey} has ${words} words`);
+    const max = textKey === "contactIndexableText" ? 350 : 620;
+    assert.ok(words >= 150 && words <= max, `${textKey} has ${words} words`);
   }
 });
 
@@ -156,6 +157,77 @@ test("contact FAQ JSON-LD matches the visible questions", () => {
   });
 });
 
+test("work and build FAQs match one FAQPage and stay on published facts", () => {
+  const React = require("react");
+  const { renderToStaticMarkup } = require("react-dom/server");
+  const pages = loadTs("lib/indexable-pages.ts");
+  const { faqAnswerPlainText } = loadTs("lib/article-faq.ts");
+  const { faqPageStructuredData } = loadTs("lib/service-faqs.ts");
+  const { FaqPageJsonLd, ServiceFaq } = loadTs("components/services/ServiceFaq.tsx");
+  const { resolveDocumentTitle } = loadTs("lib/seo.ts");
+
+  assert.equal(
+    resolveDocumentTitle(pages.BUILD_TITLE).text,
+    "Build a campus marketing campaign | Collegiate Agency",
+  );
+  assert.match(pages.BUILD_DESCRIPTION, /campus marketing campaign/);
+  assert.match(pages.BUILD_DESCRIPTION, /starting estimate/);
+  assert.match(pages.BUILD_DESCRIPTION, /Firm pricing follows/);
+  assert.equal(pages.WORK_TITLE, "Campus Marketing Case Studies for Brands");
+
+  for (const [label, faqs, pathName] of [
+    ["work", pages.workFaqs(), "/work"],
+    ["build", pages.buildFaqs(), "/build-a-campaign"],
+  ]) {
+    assert.ok(faqs.length >= 4 && faqs.length <= 5, label);
+    const html = renderToStaticMarkup(
+      React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(FaqPageJsonLd, { items: faqs, path: pathName }),
+        React.createElement(ServiceFaq, { items: faqs }),
+      ),
+    );
+    assert.equal((html.match(/"@type":"FAQPage"/g) || []).length, 1, label);
+    const data = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+    assert.deepEqual(data, faqPageStructuredData(faqs, pathName));
+    const questions = [...html.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/g)].map((match) =>
+      match[1].replace(/<[^>]+>/g, ""),
+    );
+    const answers = [...html.matchAll(/<dd[^>]*>([\s\S]*?)<\/dd>/g)].map((match) =>
+      match[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(),
+    );
+    data.mainEntity.forEach((entity, index) => {
+      assert.equal(entity.name, questions[index]);
+      assert.equal(entity.acceptedAnswer.text, answers[index]);
+      assert.equal(entity.acceptedAnswer.text, faqAnswerPlainText(faqs[index].answer));
+    });
+    const visible = `${questions.join(" ")} ${answers.join(" ")}`;
+    assert.match(visible, /within one business day/);
+    assert.match(visible, /7 days from a signed SOW to boots on the ground/);
+    assert.match(visible, /does not publish a fixed number of weeks/);
+    assert.match(visible, /\$150 \/ ambassador \/ month/);
+    assert.match(visible, /\$2,500 \/ campus/);
+    assert.match(visible, /\$500 to \$500,000/);
+    assert.doesNotMatch(visible, /intern|agency for students|@/i);
+  }
+
+  const workAnswers = pages.workFaqs().map((item) => item.answer).join(" ");
+  assert.match(workAnswers, /New York, NY/);
+  assert.match(workAnswers, /21 campuses/);
+
+  const buildVisible = pages.buildFaqs().map((item) => `${item.question} ${item.answer}`).join(" ");
+  assert.match(buildVisible, /campus marketing campaign/);
+  assert.match(buildVisible, /starting estimate/);
+  assert.match(buildVisible, /firm pricing/i);
+  assert.match(buildVisible, /what should a brand include in a campus marketing brief/i);
+  assert.match(buildVisible, /which services can a brand combine/i);
+  const workVisible = pages.workFaqs().map((item) => item.question).join(" ");
+  assert.match(workVisible, /what campus campaigns do brands hire/i);
+  assert.match(workVisible, /what does a collegiate agency case study cover/i);
+  assert.match(workVisible, /where does collegiate agency run campus campaigns/i);
+});
+
 test("the three pages render the copy in server components and keep the forms", () => {
   const work = readPage("work/page.tsx");
   const contact = readPage("contact/page.tsx");
@@ -172,6 +244,9 @@ test("the three pages render the copy in server components and keep the forms", 
   assert.match(work, /<CopyBlocks blocks=\{workIntro\(\)\}/);
   assert.match(work, /caseStudyBlurb\(c\)/);
   assert.match(work, /<BreadcrumbJsonLd/);
+  assert.match(work, /<FaqPageJsonLd items=\{faqs\} path="\/work" \/>/);
+  assert.match(work, /<ServiceFaq items=\{faqs\} \/>/);
+  assert.equal((work.match(/<FaqPageJsonLd /g) || []).length, 1);
   assert.match(work, /<h3 /);
 
   assert.match(contact, /title: CONTACT_TITLE/);
@@ -191,6 +266,9 @@ test("the three pages render the copy in server components and keep the forms", 
   assert.match(build, /<ArticleTable block=\{buildTable\(\)\}/);
   assert.match(build, /<CampaignBuilder \/>/);
   assert.match(build, /<BreadcrumbJsonLd/);
+  assert.match(build, /<FaqPageJsonLd items=\{faqs\} path="\/build-a-campaign" \/>/);
+  assert.match(build, /<ServiceFaq items=\{faqs\} \/>/);
+  assert.equal((build.match(/<FaqPageJsonLd /g) || []).length, 1);
 
   assert.match(detail, /index: !c\.sample/);
   assert.match(builder, /trackEvent\("generate_lead", \{ form: "campaign_builder"/);
@@ -201,14 +279,15 @@ test("the three pages render the copy in server components and keep the forms", 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
   assert.equal(
     byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(),
-    "2026-11-06T00:00:00.000Z",
+    "2026-11-16T00:00:00.000Z",
   );
-  for (const route of ["/contact", "/build-a-campaign"]) {
-    assert.equal(
-      byLoc.get(`https://collegiateagency.com${route}`).lastModified.toISOString(),
-      "2026-10-28T00:00:00.000Z",
-      route,
-    );
-  }
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(),
+    "2026-10-28T00:00:00.000Z",
+  );
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/build-a-campaign").lastModified.toISOString(),
+    "2026-11-16T00:00:00.000Z",
+  );
   assert.equal(byLoc.has("https://collegiateagency.com/work/celsius-campus-sampling"), false);
 });
