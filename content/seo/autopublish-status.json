@@ -1,11 +1,11 @@
 {
   "status": "prepared",
   "reason": "low-photo-supply",
-  "next_run_at": "2026-11-16T14:48:48.641675-06:00",
-  "updated_at": "2026-11-15T02:45:24.641675-06:00",
-  "run_no": 45,
-  "slug": "spring-semester-campus-marketing",
-  "keyword": "spring semester campus marketing",
+  "next_run_at": "2026-11-18T03:16:11.826611-06:00",
+  "updated_at": "2026-11-16T14:51:32.826611-06:00",
+  "run_no": 46,
+  "slug": "college-marketing-for-beauty-brands",
+  "keyword": "college marketing for beauty brands",
   "photo_supply": {
     "owned": 15,
     "eligible": 3,

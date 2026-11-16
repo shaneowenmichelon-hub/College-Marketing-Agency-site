@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-15
+Last updated: 2026-11-16
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -82,10 +82,43 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-11 - `back-to-school campus activation` - `/insights/back-to-school-campus-activation`
 - 2026-11-13 - `college app marketing agency` - `/insights/college-app-marketing-agency`
 - 2026-11-15 - `spring semester campus marketing` - `/insights/spring-semester-campus-marketing`
+- 2026-11-16 - `college marketing for beauty brands` - `/insights/college-marketing-for-beauty-brands`
 
 ## Runs 35-43 backfill (2026-11-11)
 
 Publishing had stopped after run 34 because every owned photo was at the old 7-appearance cap. These nine articles use the rotation rule instead of that cap. Dates are the publish date, 2026-11-11, not the missed October and November slots. Run 35 is the HBCU keyword the October 28 attempt could not place. The next eight are unused runner-ups and the next unused active-list term, in the order they were left open: campus product sampling agency, campus pop-up activation, college event marketing agency, multi-campus brand activation, college creator marketing agency, college sports marketing agency, finals week marketing, and back-to-school campus activation. `college marketing cost` and `campus media advertising` stayed unused. The first cannibalizes `/pricing`. The second is a weaker fit than an on-campus hire.
+
+## Run 46 research note (2026-11-16)
+
+Primary chosen: `college marketing for beauty brands`.
+
+Evidence used, without search-volume tools, from public pages re-opened on 2026-11-16. The term is outside the 60-day lockout, not in `keyword-queue.json` before this run, off the reserved pillar list, and outside the clusters being consolidated in `content/seo/backlog.md`. Collegiate Agency had no beauty article. The page is a vertical hiring guide: shade rules, single-use applicators, ingredient sentences the brand already approved, sorority or beauty-club lines, a retailer code, and a disclosure. It links to the sampling, Greek-life, and creator guides instead of restating them. Competitor performance figures are left out of the article.
+
+Dated pages cited in the article:
+
+- National Student Clearinghouse Research Center, "Final Spring Enrollment Trends," June 4, 2026 (https://nscresearchcenter.org/final-spring-enrollment-trends/). Spring 2026 postsecondary enrollment totaled 18.6 million students, up 1.0 percent from spring 2025. The older Current Term Enrollment Estimates URL still presents the spring 2025 report, so the article cites this page, which says it replaces the spring CTEE. Undergraduate and sector breakdowns on the page were not copied in. BeautyMatter's unsourced teen beauty-spend lines were not copied in.
+- BeautyMatter, Alice Manners, "Back-to-School Beauty: The Brands on Campus," published September 10, 2026 (https://beautymatter.com/articles/back-to-school-beauty-the-brands-on-campus). The article describes beauty brands using sorority recruitment and campus organizations.
+- flytedesk, "The top college marketing agencies and platforms of 2026," published November 12, 2026 (https://www.flytedesk.com/insights/top-college-engagement-marketing-agencies). The Her Campus entry lists beauty among content campaigns aimed at college women. The roundup does not name a campus partner by shade protocol, single-use applicators, or a skin-type step. Reach and campaign results on that page were not copied in.
+- The Campus Agency, "NARS Cosmetics - Marketing Case Study," datePublished January 3, 2025 (https://thecampusagency.com/nars-cosmetics-marketing-case-study/). The page describes campus tabling for samples, product recommendations, or shade matching, and tutorial events with groups such as a sorority. Applicant and content totals were not copied in.
+- Guru Today, Jin Lee, "K-Beauty Brand Anua Ignites U.S. Gen Z Market with College Glow Up Tour," October 10, 2025 (https://guru.today/anua-college-glow-up-tour-ulta-genz-usa-2025/). The College Glow Up Tour ran September 16 to 26 with Ulta Beauty and Her Campus at six Southeast universities, including the University of Miami, Georgia Tech, and Spelman College. Students received full-sized Heartleaf Double Cleansing Duo kits. Store counts and performance claims were not copied in.
+- Pulse by Maeil Business, "Gowoonseang Cosmetics spreads K-beauty culture across U.S. campuses," October 13, 2025 (https://pulse.mk.co.kr/news/english/11439983). Gowoonsesang Cosmetics, owner of Dr. G, had campus booths at 12 US universities since late August and, as of that date, planned to reach 20 by the end of October. The article describes a Skin Type Analysis Zone and a company note that American consumers of different skin tones showed more interest in a sunscreen that leaves no white cast than in a tone-up sunscreen. The attendance figure was not copied in.
+- Federal Trade Commission, "Guides Concerning the Use of Endorsements and Testimonials in Advertising," Federal Register, July 26, 2023 (https://www.govinfo.gov/content/pkg/FR-2023-07-26/html/2023-14795.htm). Material connections include payment, free or discounted products, and prizes. A disclosure must be clear and conspicuous, meaning difficult to miss. On social media it should be unavoidable. A profile-only disclosure is not enough. The guides include a college student who earns points for posts.
+
+Read the same day and not cited, because the page had no publication date, blocked the fetch, or was a section index rather than a claim the article needed:
+
+- College Marketing Co., "Beauty & Personal Care College Marketing" (https://collegemarketing.co/industries/beauty-personal-care). No publication date in the fetched page. It describes sampling and makeover events, dorm beauty-box drops, campus beauty creators, and sorority and organization partnerships. Performance lines were not used. The single-use and license requirements in the article are buyer rules, not a citation of this page.
+- Street Teams Co., "Beauty Brand Sampling" (https://streetteamsco.com/beauty-brand-sampling). Footer copyright 2026, no article date. It describes campus beauty bars, mini-makeovers where licensed, and single-use applicators. Conversion figures were not used.
+- EvolveZ FAQ (https://evolvez.co/faq). The fetch returned HTTP 403, so the page was not cited.
+- Youth Marketing Connection case studies for Glow Recipe (redirects to https://youthmarketing.com/case-study/glow-recipe-campus-ambassador-program/), La Roche-Posay (redirects to https://youthmarketing.com/case-study/la-roche-posay-campus-student-ambassador-program/), and Dermalogica (https://youthmarketing.com/case-study/dermalogica/). No datePublished field was found, so none were cited.
+- Glossy Campus (https://www.glossy.co/campus/). Section index with datePublished December 4, 2025. Not used as a factual source.
+- College Marketing Co., "Best College Marketing Agencies in 2026" (https://collegemarketing.co/blog/best-college-marketing-agencies-2026). No publication date in the fetched page. The table does not name a beauty field specialist. Not cited.
+
+Runner-ups, not locked:
+
+- `college marketing for fintech brands`. Still open. College Marketing Co. has a financial-services page. Partly touched by the college app marketing article.
+- `welcome week brand activation`. Already in `keyword-queue.json`. A long-tail of the back-to-school article.
+- `campus ugc program`. Already in `keyword-queue.json`. Overlaps the creator cluster.
+- `college marketing cost`. Strong buyer intent, and it cannibalizes `/pricing`.
 
 ## Run 45 research note (2026-11-15)
 

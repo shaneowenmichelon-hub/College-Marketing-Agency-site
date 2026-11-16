@@ -49,3 +49,4 @@
 | 43 | 2026-11-11 | 18:40 CST | back-to-school-campus-activation | back-to-school campus activation | 1237 | prepared; live receipt in publisher state |
 | 44 | 2026-11-13 | 14:43 CST | college-app-marketing-agency | college app marketing agency | 1696 | prepared; live receipt in publisher state |
 | 45 | 2026-11-15 | 02:45 CST | spring-semester-campus-marketing | spring semester campus marketing | 1693 | prepared; live receipt in publisher state |
+| 46 | 2026-11-16 | 14:51 CST | college-marketing-for-beauty-brands | college marketing for beauty brands | 1672 | prepared; live receipt in publisher state |
