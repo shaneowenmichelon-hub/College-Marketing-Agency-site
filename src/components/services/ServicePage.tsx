@@ -14,6 +14,7 @@ import { BreadcrumbJsonLd, ServiceJsonLd } from "@/components/seo/JsonLd";
 import { FaqPageJsonLd, ServiceFaq, ServiceReading } from "@/components/services/ServiceFaq";
 import { serviceBreadcrumbItems } from "@/lib/seo";
 import { servicePageSeo } from "@/lib/service-faqs";
+import { inquiryHref } from "@/lib/inquiry-handoff";
 import { RelatedInsights } from "@/components/RelatedInsights";
 import { postsForService } from "@/lib/content";
 
@@ -58,6 +59,8 @@ export function ServicePage({
 }: ServicePageProps) {
   const related = postsForService(slug);
   const price = pricing[slug];
+  const interest = siteConfig.services.find((service) => service.slug === slug)?.label;
+  const contactHref = inquiryHref("/contact", { interest });
   const pageSeo = servicePageSeo(slug);
   return (
     <>
@@ -81,7 +84,7 @@ export function ServicePage({
                 {intro}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button href="/contact" variant="lime" size="lg">
+                <Button href={contactHref} variant="lime" size="lg">
                   Get Started <ArrowRight className="h-4 w-4" />
                 </Button>
                 {secondaryCta && (
@@ -161,7 +164,7 @@ export function ServicePage({
               <Link href="/pricing" className="mt-4 inline-flex text-sm font-semibold text-accent">
                 How pricing works
               </Link>
-              <Button href="/contact" variant="primary" size="md" className="mt-6">
+              <Button href={contactHref} variant="primary" size="md" className="mt-6">
                 Get a custom quote <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
@@ -271,7 +274,7 @@ export function ServicePage({
             )}
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href="/contact" variant="lime" size="lg">
+            <Button href={contactHref} variant="lime" size="lg">
               Get Started <ArrowRight className="h-4 w-4" />
             </Button>
             {secondaryCta && (

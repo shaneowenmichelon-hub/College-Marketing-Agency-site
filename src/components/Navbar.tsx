@@ -83,16 +83,24 @@ export function Navbar() {
           </Button>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink lg:hidden"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((v) => !v)}
-        >
-          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        {/* Mobile: the brand CTA stays visible. Desktop keeps it in the group above. */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <Link
+            href="/contact"
+            className="brutal-press inline-flex h-11 shrink-0 items-center justify-center rounded-[3px] border-2 border-ink bg-accent px-3 text-[11px] font-bold uppercase leading-none tracking-wide text-white shadow-[3px_3px_0_var(--ink)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            Book a Call
+          </Link>
+          <button
+            type="button"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </nav>
 
       {/* Full-height editorial nav panel (portaled to body to escape the header's
