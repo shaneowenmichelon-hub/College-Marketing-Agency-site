@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/site.config";
 import { caseStudies, posts } from "@/lib/content";
-import { insightTopicLastModified, insightTopicPath, insightTopics } from "@/lib/insight-topics";
+import { insightTopicPath, insightTopicSitemapLastModified, insightTopics } from "@/lib/insight-topics";
 
 /**
  * Date the technical SEO metadata on the static routes was updated.
@@ -28,11 +28,13 @@ const SERVICES_HUB_FAQ_LAST_MODIFIED = "2026-11-05";
 /**
  * Second CTR title and meta pass on commercial pages that still had
  * impressions and no clicks. IndexNow only submits lastmod inside 72 hours.
- * Applies to /work and as a floor for /insights.
+ * Applies as a floor for /insights.
  * /services/events uses EVENTS_FAQ_LAST_MODIFIED.
+ * /work uses WORK_FAQ_LAST_MODIFIED.
+ * /build-a-campaign uses BUILD_FAQ_LAST_MODIFIED.
  * / stays on HOME_FAQ_LAST_MODIFIED. /services stays on
- * SERVICES_HUB_FAQ_LAST_MODIFIED. /services/brand-ambassadors,
- * /contact, and /build-a-campaign keep their earlier stamps.
+ * SERVICES_HUB_FAQ_LAST_MODIFIED. /services/brand-ambassadors
+ * and /contact keep their earlier stamps.
  */
 const CTR_WAVE_LAST_MODIFIED = "2026-11-06";
 /**
@@ -42,12 +44,24 @@ const CTR_WAVE_LAST_MODIFIED = "2026-11-06";
  */
 const EVENTS_FAQ_LAST_MODIFIED = "2026-11-13";
 /**
+ * /work gained a visible FAQ and matching FAQPage JSON-LD on this date.
+ * IndexNow only submits lastmod inside 72 hours. /insights keeps the
+ * newest-article rule against CTR_WAVE_LAST_MODIFIED.
+ */
+const WORK_FAQ_LAST_MODIFIED = "2026-11-16";
+/**
+ * /build-a-campaign gained a visible FAQ, matching FAQPage JSON-LD, and a
+ * campus-marketing-campaign title on this date. /contact stays on
+ * THIN_PAGE_LAST_MODIFIED.
+ */
+const BUILD_FAQ_LAST_MODIFIED = "2026-11-16";
+/**
  * /about title, meta description, and AboutPage JSON-LD description were
  * rewritten on this date. IndexNow only submits lastmod inside 72 hours.
  * This replaces the 2026-10-27 Person-schema stamp for /about only.
  */
 const ABOUT_LAST_MODIFIED = "2026-11-10";
-/** /contact and /build-a-campaign gained indexable copy on this date. /work uses CTR_WAVE_LAST_MODIFIED. */
+/** /contact gained indexable copy on this date. /build-a-campaign uses BUILD_FAQ_LAST_MODIFIED. /work uses WORK_FAQ_LAST_MODIFIED. */
 const THIN_PAGE_LAST_MODIFIED = "2026-10-28";
 
 function lastModified(iso: string): Date {
@@ -97,14 +111,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
               : route === "/services/events"
                 ? EVENTS_FAQ_LAST_MODIFIED
                 : route === "/work"
-                  ? CTR_WAVE_LAST_MODIFIED
-                : route === "/services/brand-ambassadors"
-                  ? SERVICE_DETAIL_LAST_MODIFIED
-                  : route === "/pricing" || route === "/services/product-placement"
-                    ? SEO_BATCH_LAST_MODIFIED
-                    : route === "/contact" || route === "/build-a-campaign"
-                      ? THIN_PAGE_LAST_MODIFIED
-                      : STATIC_LAST_MODIFIED,
+                  ? WORK_FAQ_LAST_MODIFIED
+                  : route === "/services/brand-ambassadors"
+                    ? SERVICE_DETAIL_LAST_MODIFIED
+                    : route === "/pricing" || route === "/services/product-placement"
+                      ? SEO_BATCH_LAST_MODIFIED
+                      : route === "/build-a-campaign"
+                        ? BUILD_FAQ_LAST_MODIFIED
+                        : route === "/contact"
+                          ? THIN_PAGE_LAST_MODIFIED
+                          : STATIC_LAST_MODIFIED,
     ),
     changeFrequency: "monthly",
     priority: route === "" ? 1 : 0.7,
@@ -135,7 +151,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const topicEntries: MetadataRoute.Sitemap = insightTopics.map((topic) => ({
     url: `${siteConfig.url}${insightTopicPath(topic.slug)}`,
-    lastModified: lastModified(insightTopicLastModified(topic.slug)),
+    lastModified: lastModified(insightTopicSitemapLastModified(topic.slug)),
     changeFrequency: "monthly",
     priority: 0.7,
   }));

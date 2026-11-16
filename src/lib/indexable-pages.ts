@@ -23,15 +23,17 @@ export const CONTACT_TITLE = "Contact the college marketing agency";
 export const CONTACT_DESCRIPTION =
   "Brands, marketing teams, and agencies contact Collegiate Agency about campus events, brand ambassador programs, and product placement.";
 
-export const BUILD_TITLE = "Build a college marketing campaign";
+export const BUILD_TITLE = "Build a campus marketing campaign";
 export const BUILD_DESCRIPTION =
-  "Build a Collegiate Agency campaign: pick campus events, brand ambassadors, and product placement, then send a starting estimate for firm pricing.";
+  "Build a campus marketing campaign with Collegiate Agency: events, brand ambassadors, and product placement. Send a starting estimate. Firm pricing follows.";
 
 export const WORK_H1 = "Campus campaigns brands hire Collegiate Agency to run.";
 export const CONTACT_H1 = "Contact Collegiate Agency about a campus campaign.";
 export const BUILD_H1 = "Build a college marketing campaign.";
 
 export const CONTACT_FAQ_TITLE = "Questions brands ask before they write.";
+export const WORK_FAQ_TITLE = "Questions brands ask about these case studies.";
+export const BUILD_FAQ_TITLE = "Questions brands ask before they send a campaign.";
 
 const linkClassPages = [
   "/services/events",
@@ -163,6 +165,48 @@ export function contactBody(): CopyBlock[] {
   ];
 }
 
+function speedStat(): { value: string; label: string } {
+  const stat = siteConfig.stats.find((item) => item.key === "speedToActivation");
+  if (!stat) throw new Error("Missing speedToActivation stat");
+  return { value: stat.value, label: stat.label };
+}
+
+function eventPackagePhrase(): string {
+  const amounts = publishedRate("events").match(/\$[\d,]+/g);
+  if (!amounts || amounts.length < 2) {
+    throw new Error("events pricing range must include a minimum and a maximum");
+  }
+  return `event packages from ${amounts[0]} to ${amounts[1]}`;
+}
+
+export function workFaqs(): ServiceFaq[] {
+  const speed = speedStat();
+  return [
+    {
+      question: "What campus campaigns do brands hire Collegiate Agency for?",
+      answer:
+        "Brands hire Collegiate Agency for campus events, brand ambassador programs, and product placement that reach college students. The cards on this page are the published write-ups for those channels, plus one industry example that is not a verified client result.",
+    },
+    {
+      question: "What does a Collegiate Agency case study cover?",
+      answer:
+        "A Collegiate Agency case study covers the challenge, the approach, and the results already published on that card. One card is labeled an industry example and is not a verified client result.",
+    },
+    {
+      question: "How does a brand start a similar campus campaign?",
+      answer: `A brand that wants a program in this shape can build a campaign or contact Collegiate Agency. Collegiate Agency replies within one business day with a tailored plan and firm pricing, and it publishes ${speed.value} from a ${speed.label}. The events page says Collegiate Agency does not publish a fixed number of weeks from that reply to event day.`,
+    },
+    {
+      question: "Where does Collegiate Agency run campus campaigns?",
+      answer: `Collegiate Agency is based in ${siteConfig.contact.location}. The published network covers ${campusCount()} campuses, and a brand chooses schools from that list or names the campuses that matter.`,
+    },
+    {
+      question: "How much does a campus campaign like these cost?",
+      answer: `Collegiate Agency publishes ${publishedRate("brand-ambassadors")} for ambassadors, product placement at ${publishedRate("product-placement")}, and ${eventPackagePhrase()}. A brief the rate table does not cover is quoted per campaign.`,
+    },
+  ];
+}
+
 export function contactFaqs(): ServiceFaq[] {
   const ambassadors = publishedRate("brand-ambassadors");
   const placement = publishedRate("product-placement");
@@ -186,6 +230,37 @@ export function contactFaqs(): ServiceFaq[] {
     {
       question: "How much does a Collegiate Agency campus campaign cost?",
       answer: `Collegiate Agency publishes ${ambassadors} for ambassadors, product placement at ${placement}, and ${events.toLowerCase()} for events. A brief the rate table does not cover is quoted per campaign.`,
+    },
+  ];
+}
+
+export function buildFaqs(): ServiceFaq[] {
+  const speed = speedStat();
+  const ambassadors = publishedRate("brand-ambassadors");
+  const placement = publishedRate("product-placement");
+  return [
+    {
+      question: "How does Collegiate Agency price a campus marketing campaign?",
+      answer: `The builder multiplies ${ambassadors} by the ambassador count and the months a brand sets, then adds ${placement} for each campus marked for product placement. Selected events add the lowest published fee for that inventory item, inside ${eventPackagePhrase()}. The on-screen total is a starting estimate, and firm pricing is the reply.`,
+    },
+    {
+      question: "How long does a campus marketing campaign take to start?",
+      answer: `Collegiate Agency replies within one business day with a tailored plan and firm pricing after a brand sends a campaign. Collegiate Agency publishes ${speed.value} from a ${speed.label}. The events page says Collegiate Agency does not publish a fixed number of weeks from that reply to event day.`,
+    },
+    {
+      question: "What should a brand include in a campus marketing brief?",
+      answer:
+        "A brief needs the company name and a work email, and it should name campus events, brand ambassadors, product placement, or more than one. It should also say what the brand is launching, which campuses matter, and a target budget. The builder review step is where the brand edits that budget, adds notes, and sends the work email.",
+    },
+    {
+      question: "Which services can a brand combine in one campus marketing campaign?",
+      answer:
+        "A brand can pick campus events, a brand ambassador program, product placement, or all three. Campuses appears when ambassadors or product placement is selected, and events appears when events are selected. Collegiate Agency prices each selected channel from the published rates.",
+    },
+    {
+      question: "Who is the campus marketing campaign builder for?",
+      answer:
+        "Brands use this builder to hire Collegiate Agency for campus events, brand ambassadors, and product placement that reach college students. The on-screen total is a starting estimate, and firm pricing follows in the reply.",
     },
   ];
 }
@@ -285,7 +360,10 @@ export function countWords(text: string): number {
 
 export function workIndexableText(): string {
   const cards = caseStudies.map((study) => `${study.headline}\n${caseStudyBlurb(study)}`).join("\n");
-  return [WORK_H1, blocksText(workIntro()), cards].join("\n");
+  const faqs = workFaqs()
+    .map((item) => `${item.question}\n${item.answer}`)
+    .join("\n");
+  return [WORK_H1, blocksText(workIntro()), cards, WORK_FAQ_TITLE, faqs].join("\n");
 }
 
 export function contactIndexableText(): string {
@@ -296,9 +374,18 @@ export function contactIndexableText(): string {
 }
 
 export function buildIndexableText(): string {
-  return [BUILD_H1, blocksText(buildLead()), blocksText(buildStepsIntro()), tableText(buildTable()), blocksText(buildGets())].join(
-    "\n",
-  );
+  const faqs = buildFaqs()
+    .map((item) => `${item.question}\n${item.answer}`)
+    .join("\n");
+  return [
+    BUILD_H1,
+    blocksText(buildLead()),
+    blocksText(buildStepsIntro()),
+    tableText(buildTable()),
+    blocksText(buildGets()),
+    BUILD_FAQ_TITLE,
+    faqs,
+  ].join("\n");
 }
 
 export function hrefsIn(blocks: CopyBlock[]): string[] {

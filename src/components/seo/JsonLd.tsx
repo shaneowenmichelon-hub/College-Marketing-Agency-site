@@ -76,7 +76,7 @@ export function WebPageJsonLd({
 
 /**
  * Collection page for an insight topic hub. ItemList is the article list on
- * the page, in that order. No FAQ: the articles already emit FAQPage.
+ * the page, in that order. The hub FAQ is a separate FAQPage node.
  */
 export function CollectionPageJsonLd({
   name,
