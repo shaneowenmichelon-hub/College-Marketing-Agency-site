@@ -52,7 +52,7 @@ export function pricingRows(): PricingRow[] {
       href: "/contact",
       rate: "Quoted per campaign",
       includes:
-        "Extra Greek-life organizations beyond the five included per campus, and any brief that is not the ambassador rate, the product-placement rate, or an event package on the events page.",
+        "Any brief that is not the ambassador rate, the product-placement rate, or an event package on the events page.",
     },
   ];
 }
@@ -69,7 +69,7 @@ export function pricingFaqs(): ServiceFaq[] {
     },
     {
       question: "How much does Collegiate Agency charge for product placement?",
-      answer: `Collegiate Agency prices product placement at ${placement}. That rate covers 5 of the top Greek-life organizations per campus, with dedicated media deliverables for each organization. Additional organizations are an extra cost, which Collegiate Agency quotes per campaign.`,
+      answer: `Collegiate Agency prices product placement at ${placement}. That rate is for each Greek-life chapter, with dedicated media deliverables for the chapter.`,
     },
     {
       question: "How much does a Collegiate Agency campus event cost?",
@@ -77,11 +77,11 @@ export function pricingFaqs(): ServiceFaq[] {
     },
     {
       question: "How does the Collegiate Agency campaign builder estimate a price?",
-      answer: `The Collegiate Agency campaign builder multiplies ${ambassadors} by the ambassador count and the number of months a brand sets, then adds ${placement} for each campus marked for product placement. Selected events add the lowest published fee for that inventory item. Collegiate Agency replies within one business day with a tailored plan and firm pricing.`,
+      answer: `The Collegiate Agency campaign builder multiplies ${ambassadors} by the ambassador count and the number of months a brand sets, then adds ${placement} for each chapter a brand sets. Selected events add the lowest published fee for that inventory item. Collegiate Agency replies within one business day with a tailored plan and firm pricing.`,
     },
     {
       question: "Does Collegiate Agency publish a discount?",
-      answer: `Collegiate Agency does not publish a discount off the rates in the table. A brief that is not covered by the ambassador rate, the product-placement rate, or an event package on the events page is quoted per campaign. Extra Greek-life organizations, past the five included per campus, are quoted the same way.`,
+      answer: `Collegiate Agency does not publish a discount off the rates in the table. A brief that is not covered by the ambassador rate, the product-placement rate, or an event package on the events page is quoted per campaign.`,
     },
     {
       question: "How does a brand get firm pricing from Collegiate Agency?",
