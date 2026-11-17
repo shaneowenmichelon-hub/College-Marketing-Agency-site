@@ -266,9 +266,9 @@ export const pricing: Record<string, ServicePricing> = {
   },
   "product-placement": {
     range: "$1,500",
-    unit: "/ chapter",
+    unit: "per sorority (chapter)",
     included: "Product placement",
-    note: "Greek-life chapter placement, with dedicated media deliverables for each chapter.",
+    note: "One sorority (chapter), with dedicated media deliverables for that sorority (chapter).",
   },
   "brand-ambassadors": {
     range: "$150",
@@ -384,12 +384,12 @@ export const servicesHub: ServicesHub = {
         heading: "Product Placement",
         columns: [
           [
-            "$1,500 per chapter",
-            "Product placed with Greek-life chapters",
+            "$1,500 per sorority (chapter)",
+            "Product placed with a sorority (chapter)",
             "Product placed directly with campus social leaders",
           ],
           [
-            "Dedicated media deliverables for each chapter",
+            "Dedicated media deliverables for each sorority (chapter)",
             "Built for brands that need product in student hands",
           ],
         ],

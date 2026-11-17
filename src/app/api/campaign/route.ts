@@ -69,7 +69,9 @@ export async function POST(request: Request) {
     for (const s of schools) {
       const bits: string[] = [];
       if (s.ambassadors) bits.push(`${s.ambassadors} ambassador(s)`);
-      if (s.chapters) bits.push(`${s.chapters} chapter(s)`);
+      if (s.chapters) {
+        bits.push(s.chapters === 1 ? "1 sorority (chapter)" : `${s.chapters} sororities (chapters)`);
+      }
       else if (s.productPlacement) bits.push("product placement");
       lines.push(`  • ${s.school}${bits.length ? ` — ${bits.join(", ")}` : ""}`);
     }

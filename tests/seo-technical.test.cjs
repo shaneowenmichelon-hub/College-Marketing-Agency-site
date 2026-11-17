@@ -485,7 +485,7 @@ test("organization JSON-LD is one node with a real address, logo, and website", 
   assert.equal(serviceStructuredData("product-placement").offers.price, 1500);
   assert.equal(
     serviceStructuredData("product-placement").offers.priceSpecification.unitText,
-    "chapter",
+    "per sorority (chapter)",
   );
   assert.equal(serviceStructuredData("brand-ambassadors").offers.price, 150);
   assert.equal(serviceStructuredData("events").offers.price, undefined);

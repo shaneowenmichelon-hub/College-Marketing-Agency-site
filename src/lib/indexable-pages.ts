@@ -243,7 +243,7 @@ export function buildFaqs(): ServiceFaq[] {
   return [
     {
       question: "How does Collegiate Agency price a campus marketing campaign?",
-      answer: `The builder multiplies ${ambassadors} by the ambassador count and the months a brand sets, then adds ${placement} for each chapter a brand sets. Selected events add the lowest published fee for that inventory item, inside ${eventPackagePhrase()}. The on-screen total is a starting estimate, and firm pricing is the reply.`,
+      answer: `The builder multiplies ${ambassadors} by the ambassador count and the months a brand sets, then adds ${placement} for each sorority (chapter) a brand sets. Selected events add the lowest published fee for that inventory item, inside ${eventPackagePhrase()}. The on-screen total is a starting estimate, and firm pricing is the reply.`,
     },
     {
       question: "How long does a campus marketing campaign take to start?",
@@ -298,8 +298,8 @@ export function buildTable(): ArticleTableBlock {
       ],
       [
         "Campuses",
-        `Shown for ambassadors or product placement. Choose schools, set ambassador counts, set a chapter count for placement, and set the months. The list is the published network of ${campusCount()} campuses.`,
-        `${publishedRate("brand-ambassadors")} times the count and the months, plus ${publishedRate("product-placement")} for each chapter.`,
+        `Shown for ambassadors or product placement. Choose schools, set ambassador counts, set a sorority (chapter) count for placement, and set the months. The list is the published network of ${campusCount()} campuses.`,
+        `${publishedRate("brand-ambassadors")} times the count and the months, plus ${publishedRate("product-placement")} for each sorority (chapter).`,
       ],
       [
         "Events",
@@ -331,7 +331,7 @@ export function buildGets(): CopyBlock[] {
     h2("What a brand gets"),
     p([
       {
-        text: `The estimate multiplies ${publishedRate("brand-ambassadors")} by the ambassador count and the months the brand sets, then adds ${publishedRate("product-placement")} for each chapter. Selected events add the lowest published fee for that inventory item. Read the channel pages linked above, and the `,
+        text: `The estimate multiplies ${publishedRate("brand-ambassadors")} by the ambassador count and the months the brand sets, then adds ${publishedRate("product-placement")} for each sorority (chapter). Selected events add the lowest published fee for that inventory item. Read the channel pages linked above, and the `,
       },
       { text: "pricing page", href: "/pricing" },
       { text: ", for the rates those steps use. The " },

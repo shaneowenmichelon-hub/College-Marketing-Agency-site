@@ -47,7 +47,7 @@ const SERVICES: { key: ServiceKey; label: string; icon: typeof Users; blurb: str
     key: "product-placement",
     label: "Product placement on campus",
     icon: PackageOpen,
-    blurb: `Place product with Greek-life chapters. ${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per chapter.`,
+    blurb: `Place product with a sorority (chapter). ${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per sorority (chapter).`,
     accent: "var(--magenta)",
     textOn: "text-white",
   },
@@ -282,8 +282,8 @@ export function CampaignBuilder() {
       eyebrow: `Step ${steps.indexOf("schools") + 1}`,
       title: "Pick your campuses.",
       intro: services.ambassadors
-        ? "Choose schools, then set how many ambassadors you want at each. Set a chapter count anywhere you also want product placement."
-        : `Choose the campuses, then set how many chapters you want at each (${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per chapter).`,
+        ? `Choose schools, then set how many ambassadors you want at each. Set a sorority (chapter) count anywhere you also want product placement (${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per sorority (chapter)).`
+        : `Choose the campuses, then set how many sororities (chapters) you want at each (${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per sorority (chapter)).`,
     },
     events: {
       eyebrow: `Step ${steps.indexOf("events") + 1}`,
@@ -302,8 +302,8 @@ export function CampaignBuilder() {
     services:
       "Tap the marketing channels you want to run — pick one or stack all three. For example, tap “Event sponsorships” to get in front of students at a show, or “Ambassadors” to put students to work repping your brand. Selected cards turn colored with a checkmark. Hit Continue when you're set.",
     schools: services.ambassadors
-      ? `Tap a school to add it, then use – / + to set how many ambassadors you want there (e.g. 10 at Ohio State). Set the chapter count for any campus where you also want product placed (${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per chapter). Set your total campaign length in months up top.`
-      : `Tap a school, then use – / + to set how many chapters you want there. That's ${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per chapter. For example, add Ohio State and LSU.`,
+      ? `Tap a school to add it, then use – / + to set how many ambassadors you want there (e.g. 10 at Ohio State). Set the sorority (chapter) count for any campus where you also want product placed (${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per sorority (chapter)). Set your total campaign length in months up top.`
+      : `Tap a school, then use – / + to set how many sororities (chapters) you want there. That's ${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per sorority (chapter). For example, add Ohio State and LSU.`,
     events:
       "Tap any event or trip to add it to your plan — for example, pick “Night School Tour.” The price on each card is the minimum base fee to get in the door. Tap again to remove. Add as many as you like.",
     review:
@@ -483,14 +483,14 @@ export function CampaignBuilder() {
                           {services["product-placement"] && (
                             <div className="flex items-center gap-3">
                               <span className="mono-label text-[10px] text-[color:var(--muted-on-light)]">
-                                Chapters · {formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} each
+                                Sororities (chapters) · {formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per sorority (chapter)
                               </span>
                               <Stepper
                                 value={s.chapters}
                                 onChange={(n) => updateSchool(school, { chapters: n })}
                                 min={0}
                                 max={50}
-                                ariaLabel={`chapters at ${school}`}
+                                ariaLabel={`sororities (chapters) at ${school}`}
                               />
                             </div>
                           )}
@@ -604,7 +604,7 @@ export function CampaignBuilder() {
                     {ppChapters > 0 ? (
                       <>
                         <p className="text-sm text-[color:var(--muted-on-light)]">
-                          {ppChapters} chapter{ppChapters === 1 ? "" : "s"} × {formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)}
+                          {ppChapters} × {formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per sorority (chapter)
                         </p>
                         <ul className="mt-2 space-y-1 text-sm text-ink">
                           {Object.entries(schoolStates)
@@ -613,7 +613,7 @@ export function CampaignBuilder() {
                               <li key={school} className="flex justify-between gap-3">
                                 <span>{school}</span>
                                 <span className="font-medium whitespace-nowrap">
-                                  {s.chapters} × {formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)}
+                                  {s.chapters} × {formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per sorority (chapter)
                                 </span>
                               </li>
                             ))}
@@ -621,7 +621,7 @@ export function CampaignBuilder() {
                         <LineTotal label="Product placement subtotal" value={ppCost} />
                       </>
                     ) : (
-                      <p className="text-sm text-[color:var(--muted-on-light)]">No chapters added yet.</p>
+                      <p className="text-sm text-[color:var(--muted-on-light)]">No sororities (chapters) added yet.</p>
                     )}
                   </ReviewCard>
                 )}

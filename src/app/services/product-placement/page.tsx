@@ -9,7 +9,7 @@ const rate = `${pricing["product-placement"].range} ${pricing["product-placement
 
 export const metadata = pageMetadata({
   title: "Greek life product placement",
-  description: `Greek-life product placement with dedicated media deliverables for each chapter. Collegiate Agency prices it at ${rate}.`,
+  description: `Greek-life product placement with dedicated media deliverables for each sorority (chapter). Collegiate Agency prices it at ${rate}.`,
   path: "/services/product-placement",
 });
 
@@ -20,15 +20,15 @@ export default function ProductPlacementPage() {
       icon={PackageOpen}
       eyebrow="Product Placement"
       title="Product placed with Greek life and campus social leaders."
-      intro={`Collegiate Agency places product with Greek-life chapters, with dedicated media deliverables for each chapter. The published rate is ${rate}.`}
+      intro={`Collegiate Agency places product with a sorority (chapter), with dedicated media deliverables for each sorority (chapter). The published rate is ${rate}.`}
       overview={[
-        "Product goes to campus social leaders, including Greek-life chapters, instead of only appearing on a flyer after the fact. Each chapter gets its own media deliverables.",
-        `A brand chooses campuses from the published network of ${getStat("campuses")} campuses, or names the campuses that matter, then sets how many chapters to include. The campaign builder adds ${rate} for each chapter, and Collegiate Agency confirms firm pricing within one business day.`,
+        "Product goes to campus social leaders and a sorority (chapter), instead of only appearing on a flyer after the fact. Each sorority (chapter) gets its own media deliverables.",
+        `A brand chooses campuses from the published network of ${getStat("campuses")} campuses, or names the campuses that matter, then sets how many sororities (chapters) to include. The campaign builder adds ${rate} for each sorority (chapter), and Collegiate Agency confirms firm pricing within one business day.`,
       ]}
-      tacticsHeading="What a chapter placement includes."
+      tacticsHeading="What a sorority (chapter) placement includes."
       tactics={[
         {
-          title: "Priced per chapter",
+          title: "Priced per sorority (chapter)",
           body: `The published rate is ${rate}.`,
         },
         {
@@ -37,11 +37,11 @@ export default function ProductPlacementPage() {
         },
         {
           title: "Media deliverables",
-          body: "Each chapter comes with dedicated media deliverables.",
+          body: "Each sorority (chapter) comes with dedicated media deliverables.",
         },
         {
-          title: "Chapter count",
-          body: "A brand sets how many chapters to include. Each chapter uses the same published rate.",
+          title: "Sorority count",
+          body: "A brand sets how many sororities (chapters) to include. Each one uses the same published rate.",
         },
         {
           title: "Student organisations",
@@ -59,12 +59,12 @@ export default function ProductPlacementPage() {
           body: "Pick schools from the published network, or tell Collegiate Agency which campuses matter.",
         },
         {
-          title: "Set the chapters",
-          body: `Each chapter uses the published rate of ${rate}.`,
+          title: "Set the sororities",
+          body: `Each sorority (chapter) uses the published rate of ${rate}.`,
         },
         {
           title: "Collect the media",
-          body: "Each chapter has dedicated media deliverables.",
+          body: "Each sorority (chapter) has dedicated media deliverables.",
         },
         {
           title: "Confirm the price",
@@ -73,7 +73,7 @@ export default function ProductPlacementPage() {
       ]}
       proof={[
         { value: getStat("campuses"), label: "campuses in the network" },
-        { value: pricing["product-placement"].range, label: "per chapter" },
+        { value: pricing["product-placement"].range, label: "per sorority (chapter)" },
       ]}
       secondaryCta={{ label: "See pricing", href: "/pricing" }}
       hidePedigree
