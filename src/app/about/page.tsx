@@ -139,7 +139,11 @@ export default function AboutPage() {
             <Link href="/contact" className={linkClass}>
               contact
             </Link>
-            .
+            . Brands still comparing{" "}
+            <Link href="/insights/college-marketing-agency" className={linkClass}>
+              college marketing agencies
+            </Link>{" "}
+            can use that guide before they pick a channel.
           </p>
           <p>
             The homepage publishes the figures below. This page repeats those figures and does not add new ones.

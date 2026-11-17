@@ -101,6 +101,8 @@ export function workIntro(): CopyBlock[] {
       { text: "build a campaign", href: "/build-a-campaign" },
       { text: " or " },
       { text: "contact Collegiate Agency", href: "/contact" },
+      { text: ". A brand still deciding who to hire can start with an " },
+      { text: "agency for college marketing", href: "/insights/college-marketing-agency" },
       { text: "." },
     ]),
   ];

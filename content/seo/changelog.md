@@ -1,5 +1,36 @@
 # SEO changelog
 
+## 2026-11-17 — Money page links and snippet for "college marketing agency"
+
+Search Console, URL-prefix property, Web, last 3 months (Oct 23 to Nov 14 2026), exported Nov 16 2026 ~8:40 AM ET, showed `/insights/college-marketing-agency` with impressions and no clicks, and `/insights/college-marketing-strategy` with impressions, no clicks, and no link to that page. This pass adds one contextual body link from eight existing pages and rewrites the money-page description. No article was created. The money-page slug and H1 stay `College Marketing Agency: How to Choose One`. The homepage title and the `/about` title were not changed. Gen Z articles were not edited. Articles dated after 2026-11-10 in `content/seo/publish-log.md` were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited. The byline stays Shane Michelon, Founder, with the LinkedIn profile as the only author URL.
+
+Source: Google Search Console, Web, pulled Nov 16 2026 ~8:40 AM ET. Re-check clicks and position in about 2-3 weeks, once Google and Bing have recrawled the pages. IndexNow submits a URL when its sitemap `lastmod` is inside 72 hours, so `dateModified` on the six edited articles is 2026-11-17.
+
+Baseline, last 3 months. Impressions, clicks, average position:
+
+- `/insights/college-marketing-agency`: 235 impressions, 0 clicks, position 12.24. Queries: "college marketing agency" 186 impressions, 0 clicks, position 50.85; "campus marketing agency" 155, position 29.55; "agency college marketing" 29, position 21.1; "college ad agency" 20, position 10.85; "college marketing agency chicago" 7, position 30.43; "college marketing agencies" 3, position 51.67.
+- `/insights/college-marketing-strategy`: 198 impressions, 0 clicks, position 60.42. The page did not mention `/insights/college-marketing-agency` and did not link to it. "college marketing strategies" had 24 impressions, position 78.
+
+One link was added inside an existing sentence, or as one new short sentence, on each of these pages. Anchors are not repeated more than twice, including links that were already published.
+
+- `/insights/college-marketing-strategy` — "choosing a college marketing agency". The first sentence now says "college marketing strategies". Slug, title, and H1 are unchanged.
+- `/insights/how-to-market-to-college-students` — "college marketing agency".
+- `/insights/campus-marketing-agency-rfp` — "college marketing agencies".
+- `/insights/college-experiential-marketing-agency` — "how to choose a college marketing agency".
+- `/insights/college-tour-marketing` — "agency for college marketing".
+- `/about` — "college marketing agencies". Title and meta were not changed.
+- `/pricing` — "choosing a college marketing agency". Title and meta were not changed.
+- `/work` — "agency for college marketing". Title and meta were not changed.
+
+Links already on `/services` (guides block, "college marketing agency guide"), the campus-marketing-strategy hub card, the homepage card, `/insights/campus-brand-activation-agency`, `/insights/campus-field-marketing-agency`, `/insights/student-housing-marketing-agency`, and `/insights/hbcu-marketing-agency` were left in place. The URL was not added to the nav, header, or footer.
+
+`/insights/college-marketing-agency` title stays `College Marketing Agency: How to Choose | Collegiate Agency`. That rendered title is 59 characters. A cost cue such as "What It Costs" does not fit under 60 characters, and the page's pricing is the published rates already in the FAQ, so the title was not rewritten. Description, Open Graph description, and Twitter description: `How to choose a college marketing agency for events, ambassadors, and sampling. Compare campus access, the operating plan, and the proof you get back.` -> `College marketing agency comparison checklist: red flags, what to ask, a timeline, and pricing. Brands hire Collegiate Agency to market to college students.` The new description is 156 characters. It names the comparison checklist, red flags, what to ask, the timeline, and pricing already on the page. No statistic, client, result, or new price was added.
+
+- `dateModified` is `2026-11-17` on `college-marketing-agency`, `college-marketing-strategy`, `how-to-market-to-college-students`, `campus-marketing-agency-rfp`, `college-experiential-marketing-agency`, and `college-tour-marketing`. Their `date` values stay 2026-07-29, 2026-08-20, 2026-09-01, 2026-09-08, 2026-10-20, and 2026-08-14, so each insight URL's sitemap `lastmod` is 2026-11-17 UTC midnight.
+- `/insights` uses the newer of the newest article revision and `CTR_WAVE_LAST_MODIFIED`. The newest revision is now 2026-11-17, so `/insights` `lastmod` is 2026-11-17.
+- Topic hubs that include an edited article take that revision under the existing rule: `campus-marketing-strategy`, `campus-events-and-activations`, and `campus-sponsorship` are 2026-11-17. The other hubs stay on the 2026-11-16 content floor. `/about` stays 2026-11-10. `/pricing` stays 2026-10-22. `/work` stays 2026-11-16. Each of those three pages gained one sentence and no title change.
+- The money page still has one visible FAQ and one FAQPage JSON-LD from that same list.
+
 ## 2026-11-16 — Run 46, college marketing for beauty brands
 
 New insight at `/insights/college-marketing-for-beauty-brands`. Primary keyword `college marketing for beauty brands`. Buyer is a beauty or skincare brand choosing a campus partner. The page requires a shade rule, single-use applicators, ingredient sentences the brand already approved, a separate yes for a beauty club that is not in the Greek-life rate, a retailer code, and a disclosure on a paid or gifted post. It links to `/insights/campus-product-sampling-agency`, `/insights/greek-life-marketing-agency`, and `/insights/college-creator-marketing-agency` instead of restating those guides. It also links `/services/events`, `/services/product-placement`, `/services/brand-ambassadors`, `/pricing`, `/contact`, and `/build-a-campaign`. Dated sources in the body are the National Student Clearinghouse Research Center (June 4, 2026), BeautyMatter (September 10, 2026), flytedesk (November 12, 2026), The Campus Agency's NARS case study (January 3, 2025), Guru Today on Anua (October 10, 2025), Pulse by Maeil Business on Dr. G (October 13, 2025), and the FTC endorsement guides (July 26, 2023). Undated competitor pages and competitor performance figures were left out of the article. Hero and two inline photos are the least-used legal owned frames outside the previous four articles: a Bloom can in hand, a NUTRL bar setup, and a BEATBOX carton raised toward a stage. The article is grouped with campus marketing strategy. `date` and `dateModified` are 2026-11-16, so the article sitemap `lastmod` is 2026-11-16, `/insights` moves to 2026-11-16, and the strategy hub's newest article revision is 2026-11-16. Hub sitemap `lastmod` stays 2026-11-16 because that is already the hub content date.

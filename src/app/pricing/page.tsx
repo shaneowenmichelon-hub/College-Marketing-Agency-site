@@ -73,7 +73,11 @@ export default function PricingPage() {
           <Link href="/services/brand-ambassadors" className="font-semibold text-accent">Brand ambassadors</Link>
           {" "}and{" "}
           <Link href="/services/product-placement" className="font-semibold text-accent">product placement</Link>
-          {" "}use the rates in the table. Anything else is quoted per campaign.
+          {" "}use the rates in the table. Anything else is quoted per campaign. Brands still{" "}
+          <Link href="/insights/college-marketing-agency" className="font-semibold text-accent">
+            choosing a college marketing agency
+          </Link>{" "}
+          can put these rates next to the questions in that guide.
         </p>
       </Section>
 
