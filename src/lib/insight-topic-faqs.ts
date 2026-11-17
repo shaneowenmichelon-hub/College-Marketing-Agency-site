@@ -180,7 +180,7 @@ function faqsFor(slug: string): ServiceFaq[] {
       },
       {
         question: "How much does Collegiate Agency charge for product placement?",
-        answer: `${siteConfig.companyName} prices product placement at ${placementRate}. That rate is for each Greek-life chapter, with dedicated media deliverables for the chapter.`,
+        answer: `${siteConfig.companyName} prices product placement at ${placementRate}. Dedicated media deliverables come with each sorority (chapter).`,
       },
       {
         question: "How much does a sampling event cost?",

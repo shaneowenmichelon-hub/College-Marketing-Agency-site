@@ -69,7 +69,7 @@ export function pricingFaqs(): ServiceFaq[] {
     },
     {
       question: "How much does Collegiate Agency charge for product placement?",
-      answer: `Collegiate Agency prices product placement at ${placement}. That rate is for each Greek-life chapter, with dedicated media deliverables for the chapter.`,
+      answer: `Collegiate Agency prices product placement at ${placement}. Dedicated media deliverables come with each sorority (chapter).`,
     },
     {
       question: "How much does a Collegiate Agency campus event cost?",
@@ -77,7 +77,7 @@ export function pricingFaqs(): ServiceFaq[] {
     },
     {
       question: "How does the Collegiate Agency campaign builder estimate a price?",
-      answer: `The Collegiate Agency campaign builder multiplies ${ambassadors} by the ambassador count and the number of months a brand sets, then adds ${placement} for each chapter a brand sets. Selected events add the lowest published fee for that inventory item. Collegiate Agency replies within one business day with a tailored plan and firm pricing.`,
+      answer: `The Collegiate Agency campaign builder multiplies ${ambassadors} by the ambassador count and the number of months a brand sets, then adds ${placement} for each sorority (chapter) a brand sets. Selected events add the lowest published fee for that inventory item. Collegiate Agency replies within one business day with a tailored plan and firm pricing.`,
     },
     {
       question: "Does Collegiate Agency publish a discount?",
