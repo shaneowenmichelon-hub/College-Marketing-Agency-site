@@ -5,7 +5,7 @@ import { eventSponsorships, pricing, siteConfig } from "@/site.config";
  * site.config so the builder stays in sync with the real inventory and prices.
  */
 
-/** "$2,500" | "$10,000" -> 2500 | 10000. Returns 0 when no number is present. */
+/** "$1,500" | "$10,000" -> 1500 | 10000. Returns 0 when no number is present. */
 export function parseUSD(input?: string): number {
   if (!input) return 0;
   const digits = input.replace(/[^\d]/g, "");
@@ -17,7 +17,7 @@ export function formatUSD(n: number): string {
 }
 
 export const AMBASSADOR_MONTHLY = parseUSD(pricing["brand-ambassadors"].range) || 250;
-export const PRODUCT_PLACEMENT_PER_CAMPUS = parseUSD(pricing["product-placement"].range) || 2500;
+export const PRODUCT_PLACEMENT_PER_CHAPTER = parseUSD(pricing["product-placement"].range) || 1500;
 
 export type CampaignEvent = {
   id: string;

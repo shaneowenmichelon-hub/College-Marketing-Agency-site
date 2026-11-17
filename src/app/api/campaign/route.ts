@@ -10,7 +10,7 @@ import { ATTRIBUTION_KEYS, type Attribution } from "@/lib/leads";
 // Email SDK needs the Node runtime (not edge).
 export const runtime = "nodejs";
 
-type SchoolPick = { school: string; ambassadors: number; productPlacement: boolean };
+type SchoolPick = { school: string; ambassadors: number; productPlacement: boolean; chapters?: number };
 type EventPick = { name: string; group: string; minFee: number };
 
 /**
@@ -69,7 +69,8 @@ export async function POST(request: Request) {
     for (const s of schools) {
       const bits: string[] = [];
       if (s.ambassadors) bits.push(`${s.ambassadors} ambassador(s)`);
-      if (s.productPlacement) bits.push("product placement");
+      if (s.chapters) bits.push(`${s.chapters} chapter(s)`);
+      else if (s.productPlacement) bits.push("product placement");
       lines.push(`  • ${s.school}${bits.length ? ` — ${bits.join(", ")}` : ""}`);
     }
   }

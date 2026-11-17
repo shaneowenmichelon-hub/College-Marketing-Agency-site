@@ -9,7 +9,7 @@ const rate = `${pricing["product-placement"].range} ${pricing["product-placement
 
 export const metadata = pageMetadata({
   title: "Greek life product placement",
-  description: `Product placement with 5 of the top Greek-life organizations per campus and dedicated media deliverables. Collegiate Agency prices it at ${pricing["product-placement"].range} per campus.`,
+  description: `Greek-life product placement with dedicated media deliverables for each chapter. Collegiate Agency prices it at ${rate}.`,
   path: "/services/product-placement",
 });
 
@@ -20,16 +20,16 @@ export default function ProductPlacementPage() {
       icon={PackageOpen}
       eyebrow="Product Placement"
       title="Product placed with Greek life and campus social leaders."
-      intro={`Collegiate Agency puts product with 5 of the top Greek-life organizations per campus, with dedicated media deliverables for each organization. The published rate is ${rate}. Additional organizations are quoted per campaign.`}
+      intro={`Collegiate Agency places product with Greek-life chapters, with dedicated media deliverables for each chapter. The published rate is ${rate}.`}
       overview={[
-        "Product goes to campus social leaders, including Greek life and student organisations, instead of only appearing on a flyer after the fact. Each included organization gets its own media deliverables.",
-        `A brand chooses campuses from the published network of ${getStat("campuses")} campuses, or names the campuses that matter. The campaign builder adds ${rate} for each campus marked for placement, and Collegiate Agency confirms firm pricing within one business day.`,
+        "Product goes to campus social leaders, including Greek-life chapters, instead of only appearing on a flyer after the fact. Each chapter gets its own media deliverables.",
+        `A brand chooses campuses from the published network of ${getStat("campuses")} campuses, or names the campuses that matter, then sets how many chapters to include. The campaign builder adds ${rate} for each chapter, and Collegiate Agency confirms firm pricing within one business day.`,
       ]}
-      tacticsHeading="What a campus placement includes."
+      tacticsHeading="What a chapter placement includes."
       tactics={[
         {
-          title: "Five organizations per campus",
-          body: "5 of the top Greek-life organizations are included on each campus in the published rate.",
+          title: "Priced per chapter",
+          body: `The published rate is ${rate}.`,
         },
         {
           title: "Campus social leaders",
@@ -37,11 +37,11 @@ export default function ProductPlacementPage() {
         },
         {
           title: "Media deliverables",
-          body: "Each included organization comes with dedicated media deliverables.",
+          body: "Each chapter comes with dedicated media deliverables.",
         },
         {
-          title: "More organizations",
-          body: "Additional organizations can be added. That extra cost is quoted per campaign.",
+          title: "Chapter count",
+          body: "A brand sets how many chapters to include. Each chapter uses the same published rate.",
         },
         {
           title: "Student organisations",
@@ -59,12 +59,12 @@ export default function ProductPlacementPage() {
           body: "Pick schools from the published network, or tell Collegiate Agency which campuses matter.",
         },
         {
-          title: "Place with organizations",
-          body: "The rate includes 5 of the top Greek-life organizations on each campus.",
+          title: "Set the chapters",
+          body: `Each chapter uses the published rate of ${rate}.`,
         },
         {
           title: "Collect the media",
-          body: "Each included organization has dedicated media deliverables.",
+          body: "Each chapter has dedicated media deliverables.",
         },
         {
           title: "Confirm the price",
@@ -73,8 +73,7 @@ export default function ProductPlacementPage() {
       ]}
       proof={[
         { value: getStat("campuses"), label: "campuses in the network" },
-        { value: "5", label: "Greek-life organizations included per campus" },
-        { value: pricing["product-placement"].range, label: "per campus" },
+        { value: pricing["product-placement"].range, label: "per chapter" },
       ]}
       secondaryCta={{ label: "See pricing", href: "/pricing" }}
       hidePedigree

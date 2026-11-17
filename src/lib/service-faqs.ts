@@ -224,11 +224,11 @@ function productPlacementFaqs(): ServiceFaq[] {
     {
       question: "What does Collegiate Agency Greek life product placement include?",
       answer:
-        "Collegiate Agency places product with 5 of the top Greek-life organizations per campus and with campus social leaders, and each organization gets dedicated media deliverables. Additional organizations can be added. Collegiate Agency quotes that extra cost per campaign.",
+        "Collegiate Agency places product with Greek-life chapters and with campus social leaders, and each chapter gets dedicated media deliverables.",
     },
     {
       question: "How much does Collegiate Agency product placement cost?",
-      answer: `Collegiate Agency prices product placement at ${rate}. The campaign builder adds that rate once for each campus a brand marks for placement. Collegiate Agency confirms firm pricing within one business day after a brand sends a campaign.`,
+      answer: `Collegiate Agency prices product placement at ${rate}. The campaign builder adds that rate for each chapter a brand sets. Collegiate Agency confirms firm pricing within one business day after a brand sends a campaign.`,
     },
     {
       question: "How does Collegiate Agency choose campuses for product placement?",
@@ -261,7 +261,7 @@ function productPlacementReading(): ServiceReading {
       {
         parts: [
           {
-            text: `${siteConfig.definition} Product placement puts product directly with campus social leaders: 5 of the top Greek-life organizations per campus, with dedicated media deliverables for each organization. Additional organizations can be added, and that extra cost is quoted per campaign.`,
+            text: `${siteConfig.definition} Product placement puts product directly with campus social leaders and Greek-life chapters, with dedicated media deliverables for each chapter. The published rate is ${rate}.`,
           },
         ],
       },

@@ -482,7 +482,11 @@ test("organization JSON-LD is one node with a real address, logo, and website", 
     serviceStructuredData("product-placement").url,
     "https://collegiateagency.com/services/product-placement",
   );
-  assert.equal(serviceStructuredData("product-placement").offers.price, 2500);
+  assert.equal(serviceStructuredData("product-placement").offers.price, 1500);
+  assert.equal(
+    serviceStructuredData("product-placement").offers.priceSpecification.unitText,
+    "chapter",
+  );
   assert.equal(serviceStructuredData("brand-ambassadors").offers.price, 150);
   assert.equal(serviceStructuredData("events").offers.price, undefined);
   assert.equal(serviceStructuredData("events").offers.priceSpecification.minPrice, 500);

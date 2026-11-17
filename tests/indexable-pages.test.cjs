@@ -207,7 +207,7 @@ test("work and build FAQs match one FAQPage and stay on published facts", () => 
     assert.match(visible, /7 days from a signed SOW to boots on the ground/);
     assert.match(visible, /does not publish a fixed number of weeks/);
     assert.match(visible, /\$150 \/ ambassador \/ month/);
-    assert.match(visible, /\$2,500 \/ campus/);
+    assert.match(visible, /\$1,500 \/ chapter/);
     assert.match(visible, /\$500 to \$500,000/);
     assert.doesNotMatch(visible, /intern|agency for students|@/i);
   }

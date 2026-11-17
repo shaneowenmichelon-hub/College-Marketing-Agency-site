@@ -18,11 +18,11 @@ export const metadata = pageMetadata({
 const steps = [
   {
     title: "Start from the table",
-    body: "Ambassador months, product-placement campuses, and listed event packages use the published rates.",
+    body: "Ambassador months, product-placement chapters, and listed event packages use the published rates.",
   },
   {
     title: "Build a starting estimate",
-    body: "The campaign builder multiplies those rates by the campuses, ambassadors, months, and events a brand selects.",
+    body: "The campaign builder multiplies those rates by the chapters, ambassadors, months, and events a brand selects.",
   },
   {
     title: "Get firm pricing",

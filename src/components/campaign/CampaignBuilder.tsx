@@ -22,7 +22,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import {
   AMBASSADOR_MONTHLY,
-  PRODUCT_PLACEMENT_PER_CAMPUS,
+  PRODUCT_PLACEMENT_PER_CHAPTER,
   campaignEvents,
   campaignSchools,
   formatUSD,
@@ -47,7 +47,7 @@ const SERVICES: { key: ServiceKey; label: string; icon: typeof Users; blurb: str
     key: "product-placement",
     label: "Product placement on campus",
     icon: PackageOpen,
-    blurb: "Place product directly with the top Greek-life orgs and campus leaders. $2,500 per campus.",
+    blurb: `Place product with Greek-life chapters. ${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per chapter.`,
     accent: "var(--magenta)",
     textOn: "text-white",
   },
@@ -61,7 +61,7 @@ const SERVICES: { key: ServiceKey; label: string; icon: typeof Users; blurb: str
   },
 ];
 
-type SchoolState = { selected: boolean; ambassadors: number; productPlacement: boolean };
+type SchoolState = { selected: boolean; ambassadors: number; chapters: number };
 
 function Stepper({
   value,
@@ -157,8 +157,8 @@ export function CampaignBuilder() {
     () => Object.values(schoolStates).reduce((sum, s) => (s.selected ? sum + s.ambassadors : sum), 0),
     [schoolStates],
   );
-  const ppCampuses = useMemo(
-    () => Object.values(schoolStates).filter((s) => s.selected && s.productPlacement).length,
+  const ppChapters = useMemo(
+    () => Object.values(schoolStates).reduce((sum, s) => (s.selected ? sum + s.chapters : sum), 0),
     [schoolStates],
   );
   const eventsCost = useMemo(
@@ -170,7 +170,7 @@ export function CampaignBuilder() {
   );
 
   const ambCost = services.ambassadors ? totalAmbassadors * AMBASSADOR_MONTHLY * months : 0;
-  const ppCost = services["product-placement"] ? ppCampuses * PRODUCT_PLACEMENT_PER_CAMPUS : 0;
+  const ppCost = services["product-placement"] ? ppChapters * PRODUCT_PLACEMENT_PER_CHAPTER : 0;
   const eventCost = services.events ? eventsCost : 0;
   const estimate = ambCost + ppCost + eventCost;
 
@@ -180,7 +180,7 @@ export function CampaignBuilder() {
     setServices((s) => ({ ...s, [key]: !s[key] }));
   }
   function schoolOf(name: string): SchoolState {
-    return schoolStates[name] ?? { selected: false, ambassadors: 1, productPlacement: false };
+    return schoolStates[name] ?? { selected: false, ambassadors: 1, chapters: 0 };
   }
   function updateSchool(name: string, patch: Partial<SchoolState>) {
     setSchoolStates((prev) => ({ ...prev, [name]: { ...schoolOf(name), ...patch } }));
@@ -221,7 +221,8 @@ export function CampaignBuilder() {
         .map(([school, s]) => ({
           school,
           ambassadors: services.ambassadors ? s.ambassadors : 0,
-          productPlacement: services["product-placement"] ? s.productPlacement : false,
+          chapters: services["product-placement"] ? s.chapters : 0,
+          productPlacement: services["product-placement"] ? s.chapters > 0 : false,
         })),
       events: campaignEvents
         .flatMap((g) => g.events)
@@ -281,8 +282,8 @@ export function CampaignBuilder() {
       eyebrow: `Step ${steps.indexOf("schools") + 1}`,
       title: "Pick your campuses.",
       intro: services.ambassadors
-        ? "Choose schools, then set how many ambassadors you want at each. Toggle product placement per campus where you want it."
-        : "Choose the campuses where you want product placement ($2,500 each).",
+        ? "Choose schools, then set how many ambassadors you want at each. Set a chapter count anywhere you also want product placement."
+        : `Choose the campuses, then set how many chapters you want at each (${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per chapter).`,
     },
     events: {
       eyebrow: `Step ${steps.indexOf("events") + 1}`,
@@ -301,8 +302,8 @@ export function CampaignBuilder() {
     services:
       "Tap the marketing channels you want to run — pick one or stack all three. For example, tap “Event sponsorships” to get in front of students at a show, or “Ambassadors” to put students to work repping your brand. Selected cards turn colored with a checkmark. Hit Continue when you're set.",
     schools: services.ambassadors
-      ? "Tap a school to add it, then use – / + to set how many ambassadors you want there (e.g. 10 at Ohio State). Flip on “Product placement” for any campus where you also want product placed ($2,500 each). Set your total campaign length in months up top."
-      : "Tap each campus where you want product placed — that's $2,500 per campus. For example, add Ohio State and LSU.",
+      ? `Tap a school to add it, then use – / + to set how many ambassadors you want there (e.g. 10 at Ohio State). Set the chapter count for any campus where you also want product placed (${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per chapter). Set your total campaign length in months up top.`
+      : `Tap a school, then use – / + to set how many chapters you want there. That's ${formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} per chapter. For example, add Ohio State and LSU.`,
     events:
       "Tap any event or trip to add it to your plan — for example, pick “Night School Tour.” The price on each card is the minimum base fee to get in the door. Tap again to remove. Add as many as you like.",
     review:
@@ -480,21 +481,18 @@ export function CampaignBuilder() {
                             </div>
                           )}
                           {services["product-placement"] && (
-                            <button
-                              type="button"
-                              onClick={() => updateSchool(school, { productPlacement: !s.productPlacement })}
-                              aria-pressed={s.productPlacement}
-                              className={cn(
-                                "brutal-press inline-flex items-center gap-2 self-start rounded-[3px] border-2 border-ink px-3 py-1.5 text-xs font-bold transition-all",
-                                s.productPlacement
-                                  ? "bg-[color:var(--magenta)] text-white"
-                                  : "bg-white text-ink hover:bg-[color:var(--surface-muted)]",
-                              )}
-                            >
-                              <PackageOpen className="h-4 w-4" />
-                              Product placement +{formatUSD(PRODUCT_PLACEMENT_PER_CAMPUS)}
-                              {s.productPlacement && <Check className="h-4 w-4" />}
-                            </button>
+                            <div className="flex items-center gap-3">
+                              <span className="mono-label text-[10px] text-[color:var(--muted-on-light)]">
+                                Chapters · {formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)} each
+                              </span>
+                              <Stepper
+                                value={s.chapters}
+                                onChange={(n) => updateSchool(school, { chapters: n })}
+                                min={0}
+                                max={50}
+                                ariaLabel={`chapters at ${school}`}
+                              />
+                            </div>
                           )}
                         </div>
                       )}
@@ -603,22 +601,27 @@ export function CampaignBuilder() {
 
                 {services["product-placement"] && (
                   <ReviewCard title="Product placement" accent="var(--magenta)">
-                    {ppCampuses > 0 ? (
+                    {ppChapters > 0 ? (
                       <>
-                        <ul className="space-y-1 text-sm text-ink">
+                        <p className="text-sm text-[color:var(--muted-on-light)]">
+                          {ppChapters} chapter{ppChapters === 1 ? "" : "s"} × {formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)}
+                        </p>
+                        <ul className="mt-2 space-y-1 text-sm text-ink">
                           {Object.entries(schoolStates)
-                            .filter(([, s]) => s.selected && s.productPlacement)
-                            .map(([school]) => (
-                              <li key={school} className="flex justify-between">
+                            .filter(([, s]) => s.selected && s.chapters > 0)
+                            .map(([school, s]) => (
+                              <li key={school} className="flex justify-between gap-3">
                                 <span>{school}</span>
-                                <span className="font-medium">{formatUSD(PRODUCT_PLACEMENT_PER_CAMPUS)}</span>
+                                <span className="font-medium whitespace-nowrap">
+                                  {s.chapters} × {formatUSD(PRODUCT_PLACEMENT_PER_CHAPTER)}
+                                </span>
                               </li>
                             ))}
                         </ul>
                         <LineTotal label="Product placement subtotal" value={ppCost} />
                       </>
                     ) : (
-                      <p className="text-sm text-[color:var(--muted-on-light)]">No product-placement campuses selected.</p>
+                      <p className="text-sm text-[color:var(--muted-on-light)]">No chapters added yet.</p>
                     )}
                   </ReviewCard>
                 )}
