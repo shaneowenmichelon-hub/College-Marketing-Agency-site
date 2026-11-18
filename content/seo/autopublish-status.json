@@ -1,8 +1,8 @@
 {
-  "status": "prepared",
+  "status": "ok",
   "reason": "low-photo-supply",
-  "next_run_at": "2026-11-18T03:16:11.826611-06:00",
-  "updated_at": "2026-11-18T02:42:10-06:00",
+  "next_run_at": "2026-11-19T15:40:51.419483-06:00",
+  "updated_at": "2026-11-18T03:21:27.419483-06:00",
   "run_no": 47,
   "slug": "college-marketing-for-beverage-brands",
   "keyword": "college marketing for beverage brands",
