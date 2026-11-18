@@ -9,6 +9,9 @@ export const INQUIRY_REQUIRED_LINE = "Company and work email are required.";
 export const INQUIRY_REPLY_LINE =
   "Collegiate Agency replies within one business day with a tailored plan and firm pricing.";
 
+/** Under the homepage hero and the about closer. The reply sentence is the one already published. */
+export const INQUIRY_BRIEF_LINE = `Send a short brief. ${INQUIRY_REPLY_LINE}`;
+
 export const CAMPAIGN_SERVICES = ["events", "product-placement", "ambassadors"] as const;
 
 export type CampaignService = (typeof CAMPAIGN_SERVICES)[number];

@@ -6,6 +6,22 @@ No article, title, H1, slug, meta, or schema changed. No Review or AggregateRati
 
 `/contact` shows the homepage's lead quote once: Troy Osinoff, Founder, Zagged. It sits directly under the Book a Call button, in the form column. On a phone that is after the form and before the photo. The logo row stays. The old cycling review under that row is gone, so this line is not shown twice and the page does not add star counts. `/build-a-campaign` shows the same quote under Send my campaign, in the review step's side column. The quote, name, and title are the `testimonials` entry already rendered in "Don't just take our word for it." No new quote, rating, star count, stat, or client.
 
+## 2026-11-18 — Brand inquiry CTA labels
+
+No article, title, H1, meta description, slug, byline, schema, or nav item changed. `/contact` and `/build-a-campaign` page markup and the contact form were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
+
+Brand buttons that said "Get Started" or "Get started" now name the next step. Href values stay the same, including any `?interest=` prefill, except the footer on `/insights/college-marketing-agency`, which now goes to `/contact?article=college-marketing-agency` and no longer sends `interest=Events`. The mid-page events card on that article still books a call with the events interest. "Get a custom quote", the header "Book a Call", and the `/pricing` closer are unchanged. Ambassador and student recruiting labels are unchanged.
+
+- Homepage closer: "Get Started" -> "Tell us what you're launching" (`/contact`). "Explore services" now goes to `/services`.
+- `/services` brand closer: "Get started" -> "Get a plan and pricing" (`/contact`).
+- `/services/events` hero and closer: "Get a plan for your campus event".
+- `/services/brand-ambassadors` hero and closer: "Get a plan for an ambassador program".
+- `/services/product-placement` hero and closer: "Get a plan for product placement".
+- `/work` and each case study closer: "Get a plan and pricing" (`/contact`).
+- `/insights`, insight topic hubs, article footer bands, the homepage sticky bar, and the 404 contact button: "Tell us what you're launching" (`/contact`). Article footers other than `college-marketing-agency` still pass their service interest.
+
+The homepage hero and the `/about` closer add one muted line under the brand buttons: "Send a short brief. Collegiate Agency replies within one business day with a tailored plan and firm pricing." A contact URL with no `interest` param still leaves the service choices unselected.
+
 ## 2026-11-18 — Sampling cluster primary URL
 
 Search Console, URL-prefix property, Web, last 3 months (Oct 23 to Nov 14 2026), exported Nov 16 2026 ~8:40 AM ET. `/insights/on-campus-product-sampling` is the primary URL for the generic sampling queries. `/insights/campus-product-sampling-ideas` stays the ideas page and links to that primary. No new page. No redirect. The ideas slug, title, and H1 are unchanged. The primary slug and H1 stay `On-Campus Product Sampling: A Practical Guide`. The primary title stays `On-Campus Product Sampling for Brands | Collegiate Agency`. Gen Z articles were not edited. `/insights/campus-product-sampling-agency` was not edited. Articles dated after 2026-11-10 in frontmatter, other than the four articles named below, were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited. The byline stays Shane Michelon, Founder, with the LinkedIn profile as the only author URL.

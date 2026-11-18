@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Compass, Flame, HeartHandshake, Zap } from "lucide-react";
 import { siteConfig, team, type TeamMember } from "@/site.config";
 import { ABOUT_DESCRIPTION, ABOUT_TITLE_LEAD, pageMetadata } from "@/lib/seo";
+import { INQUIRY_BRIEF_LINE } from "@/lib/inquiry-handoff";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -267,6 +268,7 @@ export default function AboutPage() {
         intro="Brands book a call to scope ambassadors, events, or product placement. Students apply separately to join the ambassador roster."
         primary={{ label: "Book a call", href: "/contact", variant: "lime" }}
         secondary={{ label: "Become an Ambassador", href: "/become-an-ambassador" }}
+        note={INQUIRY_BRIEF_LINE}
       />
     </>
   );
