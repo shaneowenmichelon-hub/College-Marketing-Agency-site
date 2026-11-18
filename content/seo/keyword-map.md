@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-16
+Last updated: 2026-11-18
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -83,10 +83,42 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-13 - `college app marketing agency` - `/insights/college-app-marketing-agency`
 - 2026-11-15 - `spring semester campus marketing` - `/insights/spring-semester-campus-marketing`
 - 2026-11-16 - `college marketing for beauty brands` - `/insights/college-marketing-for-beauty-brands`
+- 2026-11-18 - `college marketing for beverage brands` - `/insights/college-marketing-for-beverage-brands`
 
 ## Runs 35-43 backfill (2026-11-11)
 
 Publishing had stopped after run 34 because every owned photo was at the old 7-appearance cap. These nine articles use the rotation rule instead of that cap. Dates are the publish date, 2026-11-11, not the missed October and November slots. Run 35 is the HBCU keyword the October 28 attempt could not place. The next eight are unused runner-ups and the next unused active-list term, in the order they were left open: campus product sampling agency, campus pop-up activation, college event marketing agency, multi-campus brand activation, college creator marketing agency, college sports marketing agency, finals week marketing, and back-to-school campus activation. `college marketing cost` and `campus media advertising` stayed unused. The first cannibalizes `/pricing`. The second is a weaker fit than an on-campus hire.
+
+## Run 47 research note (2026-11-18)
+
+Primary chosen: `college marketing for beverage brands`.
+
+Evidence used, without search-volume tools, from public pages re-opened on 2026-11-18. The term is outside the 60-day lockout, not in `keyword-queue.json` before this run, off the reserved pillar list, and outside the clusters being consolidated in `content/seo/backlog.md`. Collegiate Agency had no beverage article. The page is a vertical hiring guide: a can count, cold storage, an exclusive-pour check, a 21-and-older rule for alcohol and a lookalike check for non-alcoholic drinks, a retailer code, and a disclosure. It links to the sampling, tailgate, and sports guides instead of restating them. Competitor performance figures are left out of the article.
+
+Dated pages cited in the article:
+
+- EvolveZ, Michael Spitalieri, "Best College Brand Ambassador Agency for CPG Brands," September 15, 2026 (https://evolvez.co/blog/best-college-brand-ambassador-agency-cpg). The page describes a managed college ambassador program for food, beverage, and beauty CPG and uses an OLIPOP week as the sampling-and-posts example. Can counts and purchase-intent rates on that page were not copied in.
+- Celsius Holdings, "Student Marketing Ambassador - Spring 2027," datePosted October 16, 2026 (https://jobs.workable.com/view/oeiFEYsTpGuFfVpN5oQXdM/remote-student-marketing-ambassador---spring-2027-in-united-states-at-celsius). The posting is a part-time W2 role at $20 an hour for an enrolled student who samples on an assigned campus, manages inventory, and posts. The page names the campuses. It is Celsius's hiring page, not a Collegiate Agency roster.
+- BevNET, Best Day Brewing press release, "Best Day Brewing is the Perfect Game Day Pairing," September 18, 2026 (https://www.bevnet.com/pr/2026/09/18/best-day-brewing-is-the-perfect-game-day-pairing). The release announces 2026-27 partnerships with University of Washington athletics and the University of Virginia. At Washington, Kölsch is the exclusive non-alcoholic craft beer in the Official Husky Craft Pack, at Husky Stadium concessions and at 51 Quality Food Centers, with a pop-up tailgate on October 9, 2026, for Washington versus Iowa. At Virginia, Kölsch and Electro-Lime are pouring, with marketing presence and concessions through UVA Sports Properties. Ranking lines were not copied in.
+- Columbia Athletics, "Columbia Athletics Announces New Partnership With Lyre's Non-Alcoholic," March 31, 2026 (https://gocolumbialions.com/news/2026/3/31/general-columbia-athletics-announces-new-partnership-with-lyres-non-alcoholic). The page describes a multi-year official partnership, the brand's first collegiate athletics collaboration, and sampling at women's tennis on April 5 against Yale, men's tennis on April 18 against Harvard, football on October 3, and homecoming against Dartmouth on October 24. JMI Sports, as Lions Sports Marketing, is named as the multimedia rights holder.
+- Federal Trade Commission, "Guides Concerning the Use of Endorsements and Testimonials in Advertising," Federal Register, July 26, 2023 (https://www.govinfo.gov/content/pkg/FR-2023-07-26/html/2023-14795.htm). Material connections include payment, free or discounted products, and the chance of a prize. A disclosure must be clear and conspicuous, meaning difficult to miss and easy to understand. On social media it should be unavoidable. A profile-only disclosure is not enough. The guides include a college student who earns points for posts and can exchange those points for prizes.
+
+Read the same day and not cited, because the page had no publication date:
+
+- College Marketing Co., "CPG & Food/Beverage College Marketing" (https://collegemarketing.co/industries/cpg-food-beverage). No publication date in the fetched page. It describes sampling, dorm drops, ambassadors, campus retail, welcome week, and tailgates. Performance lines were not used.
+- Street Teams Co., "College Campus Marketing Services" (https://streetteamsco.com/services/college-campus). No article date in the fetched page. It describes beverage sampling, tailgates, and permitting. The permit and pour rules in the article are buyer rules, not a citation of this page.
+- Celsius, "Celsius On Campus" (https://www.celsius.com/celsius-on-campus/). No publication date in the fetched page. Named student quotes were not used.
+- Alani Nu, "Ambassadors" (https://www.alaninu.com/pages/ambassadors). No publication date in the fetched page. The page describes an A-Team collegiate program and says applications are open for fall 2026. Campus counts on that page were not used.
+- Monster Energy, "CAT Portal" (https://catportal.monsterenergy.com/). No publication date in the fetched page. It describes a collegiate ambassador team that samples on campus. It was not cited.
+- Home From College, "How Saint James Quenched Gen Z Thirst on Campus" (https://homefromcollege.com/resources/case-studies/saint-james-brand-ambassadors) and "Enroot: Creating Lifestyle Content Targeted at Gen Z" (https://homefromcollege.com/resources/case-studies/hfc-x-enroot). No publication date in the fetched pages. Bottle counts, click counts, and focus-group quotes were not used.
+- EvolveZ, "OLIPOP Case Study" (https://evolvez.co/case-studies/olipop). No publication date in the fetched page. Can counts and purchase-intent rates were not used. The dated September 15, 2026 article is the citation instead.
+
+Runner-ups, not locked:
+
+- `college marketing for fintech brands`. Still open. College Marketing Co. has a financial-services page. Partly touched by the college app marketing article.
+- `student organization sponsorship for brands`. Already in `keyword-queue.json`. Overlaps the sponsorship cluster and the Greek-life article.
+- `welcome week brand activation`. Already in `keyword-queue.json`. A long-tail of the back-to-school article.
+- `campus ugc program`. Already in `keyword-queue.json`. Overlaps the creator cluster.
 
 ## Run 46 research note (2026-11-16)
 

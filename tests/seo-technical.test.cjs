@@ -276,7 +276,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
       slug,
     );
   }
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-17T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-16T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
@@ -435,7 +435,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     byLoc.get("https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors").lastModified.toISOString(),
     "2026-08-03T00:00:00.000Z",
   );
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-17T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
