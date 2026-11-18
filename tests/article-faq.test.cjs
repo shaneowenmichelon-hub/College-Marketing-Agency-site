@@ -186,10 +186,10 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       ? "2026-11-18"
       : run47.has(slug)
       ? "2026-11-18"
+      : slug === "college-marketing-agency" || run46.has(slug)
+      ? "2026-11-18"
       : moneyPageLinks.has(slug)
       ? "2026-11-17"
-      : run46.has(slug)
-      ? "2026-11-16"
       : run45.has(slug)
       ? "2026-11-15"
       : run44.has(slug) || faqBatchThree.has(slug)
@@ -412,7 +412,11 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    assert.equal(post.dateModified, moneyPageRevised.has(slug) ? "2026-11-17" : "2026-11-12", slug);
+    assert.equal(
+      post.dateModified,
+      slug === "college-marketing-agency" ? "2026-11-18" : moneyPageRevised.has(slug) ? "2026-11-17" : "2026-11-12",
+      slug,
+    );
     assert.equal(post.date, published[slug], slug);
     assert.equal(post.author, "Shane Michelon", slug);
     const schemaItems = articleFaqSchemaItems(post.faq);
@@ -444,7 +448,7 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
     assert.doesNotMatch(visible, /1,000|intern|agency for students/i, slug);
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      `${moneyPageRevised.has(slug) ? "2026-11-17" : "2026-11-12"}T00:00:00.000Z`,
+      `${slug === "college-marketing-agency" ? "2026-11-18" : moneyPageRevised.has(slug) ? "2026-11-17" : "2026-11-12"}T00:00:00.000Z`,
       slug,
     );
   }
@@ -528,7 +532,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
   assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
-    "2026-11-13T00:00:00.000Z",
+    `${loadTs("lib/route-updated.ts").STATIC_ROUTE_UPDATED["/services/events"]}T00:00:00.000Z`,
   );
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);

@@ -276,18 +276,19 @@ test("the three pages render the copy in server components and keep the forms", 
   assert.match(form, /trackEvent\("generate_lead", \{ form: "contact"/);
 
   const { default: sitemap } = loadTs("app/sitemap.ts");
+  const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
   assert.equal(
     byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(),
-    "2026-11-16T00:00:00.000Z",
+    `${STATIC_ROUTE_UPDATED["/work"]}T00:00:00.000Z`,
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(),
-    "2026-10-28T00:00:00.000Z",
+    `${STATIC_ROUTE_UPDATED["/contact"]}T00:00:00.000Z`,
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/build-a-campaign").lastModified.toISOString(),
-    "2026-11-16T00:00:00.000Z",
+    `${STATIC_ROUTE_UPDATED["/build-a-campaign"]}T00:00:00.000Z`,
   );
   assert.equal(byLoc.has("https://collegiateagency.com/work/celsius-campus-sampling"), false);
 });

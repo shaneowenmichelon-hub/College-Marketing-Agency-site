@@ -7,6 +7,7 @@ import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { useCountUp } from "@/components/StatCounter";
+import { exploreServiceLink } from "@/lib/explore-service-link";
 import { pricing, siteConfig } from "@/site.config";
 import { cn } from "@/lib/utils";
 
@@ -181,7 +182,9 @@ export function CampusAttentionJourney() {
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
-            {offers.map((offer, i) => (
+            {offers.map((offer, i) => {
+              const link = exploreServiceLink(offer.label);
+              return (
               <a
                 key={offer.label}
                 href={offer.href}
@@ -200,10 +203,13 @@ export function CampusAttentionJourney() {
                 <p className="mt-2 text-sm font-bold">{offer.price}</p>
                 <p className="mt-4 text-sm leading-relaxed">{offer.body}</p>
                 <span className="mt-6 inline-flex items-center gap-1 text-sm font-bold underline decoration-2 underline-offset-4">
-                  Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  {link.visible}
+                  {link.srOnly ? <span className="sr-only"> {link.srOnly}</span> : null}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
                 </span>
               </a>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

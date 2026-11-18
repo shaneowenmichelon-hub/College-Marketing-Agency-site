@@ -109,9 +109,15 @@ test("about JSON-LD reuses the founder Person and describes only on-page people"
   assert.equal(founderJson.includes("SOS"), false);
   assert.equal(founderJson.includes("S.O.S"), false);
   assert.equal(founderJson.includes("Night School"), false);
-  assert.equal("url" in poisoned, false);
-  assert.equal("image" in poisoned, false);
-  assert.deepEqual(poisoned.sameAs, [LINKEDIN]);
+  assert.equal(poisoned.url, LINKEDIN);
+  assert.equal(poisoned.image, "https://collegiateagency.com/team/shane-michelon.png");
+  assert.equal(poisoned.image.includes("not-the-profile"), false);
+  assert.deepEqual(poisoned.sameAs, [
+    LINKEDIN,
+    "https://about.me/shanemichelon",
+    "https://medium.com/@shanemichelon",
+    "https://www.quora.com/profile/Shane-Michelon-2",
+  ]);
   assert.equal(poisoned.jobTitle, "Founder");
   assert.deepEqual(poisoned.worksFor, { "@id": ORG_ID });
 
@@ -198,6 +204,7 @@ test("the about page links the brand routes and keeps Shane's bio free of other 
   assert.equal(JSON.stringify(shane).includes("SOS"), false);
 
   const { default: sitemap } = loadTs("app/sitemap.ts");
+  const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
   const about = sitemap().find((entry) => entry.url === "https://collegiateagency.com/about");
-  assert.equal(about.lastModified.toISOString(), "2026-11-10T00:00:00.000Z");
+  assert.equal(about.lastModified.toISOString(), `${STATIC_ROUTE_UPDATED["/about"]}T00:00:00.000Z`);
 });

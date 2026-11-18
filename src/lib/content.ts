@@ -605,6 +605,13 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((c) => c.slug === slug);
 }
 
+/** Meta description for a case study. Matches the work detail document description. */
+export function caseStudyDescription(study: CaseStudy): string {
+  if (study.metaDescription) return study.metaDescription;
+  const result = study.stat && study.statLabel ? ` ${study.stat} ${study.statLabel}` : "";
+  return `${study.type} case study: ${study.headline}.${result}${study.sample ? " (sample)." : "."}`;
+}
+
 /** Human-readable date without pulling in a date library. */
 export function formatDate(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);

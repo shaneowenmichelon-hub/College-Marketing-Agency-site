@@ -17,6 +17,7 @@ import { articleBreadcrumbItems, insightTopicPath, topicForPost } from "@/lib/in
 import { ArticleArt } from "@/components/insights/ArticleArt";
 import { ArticleByline } from "@/components/insights/ArticleByline";
 import { inquiryHref } from "@/lib/inquiry-handoff";
+import { ArticlePhotoCredit } from "@/components/insights/ArticlePhotoCredit";
 import { siteConfig } from "@/site.config";
 
 type Params = Promise<{ slug: string }>;
@@ -203,28 +204,12 @@ export default async function InsightArticle({ params }: { params: Params }) {
               </span>
             </div>
             {post.image && post.imageCredit && (
-              <p className="mt-3 text-xs text-[color:var(--muted-on-light)]">
-                Photo:{" "}
-                {post.imageSource ? (
-                  <a href={post.imageSource} className="underline" rel="noopener noreferrer">
-                    {post.imageCredit}
-                  </a>
-                ) : (
-                  post.imageCredit
-                )}
-                {post.imageLicense && (
-                  <>
-                    {" "}
-                    · <a href={post.imageLicense} className="underline" rel="noopener noreferrer">License</a>
-                  </>
-                )}
-                .{" "}
-                {/* The disclaimer is only true of licensed stock. Printing it
-                    under our own activation photography would be false. */}
-                {post.imageRights === "owned"
-                  ? "Photographed at a Collegiate Agency activation."
-                  : "Illustrative campus photograph, not a Collegiate Agency activation or endorsement."}
-              </p>
+              <ArticlePhotoCredit
+                credit={post.imageCredit}
+                source={post.imageSource}
+                license={post.imageLicense}
+                owned={post.imageRights === "owned"}
+              />
             )}
           </Container>
         </Section>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, type LucideIcon } from "lucide-react";
+import { exploreServiceLink } from "@/lib/explore-service-link";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./motion/Reveal";
 
@@ -38,6 +39,7 @@ export function ServiceCard({
   index?: number;
 }) {
   const tone = TONES[index % TONES.length];
+  const link = exploreServiceLink(title);
 
   return (
     <Reveal delay={index * 0.08} className="h-full">
@@ -63,7 +65,8 @@ export function ServiceCard({
           <p className={cn("mt-4 w-fit rounded-[3px] px-2 py-1 text-sm font-bold", tone.chip)}>{price}</p>
         )}
         <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold underline decoration-2 underline-offset-4">
-          Learn more
+          {link.visible}
+          {link.srOnly ? <span className="sr-only"> {link.srOnly}</span> : null}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
         </span>
       </Link>

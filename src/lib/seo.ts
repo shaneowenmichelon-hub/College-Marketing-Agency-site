@@ -102,13 +102,17 @@ export function resolveArticleAuthor(author?: string): ResolvedArticleAuthor {
  * `@id` does not drift. The LinkedIn profile is `sameAs` only.
  */
 export function founderPersonStructuredData(): Record<string, unknown> {
+  const photo = team.find((member) => member.name === siteConfig.articleAuthor.name)?.photo;
   return {
     "@type": "Person",
     "@id": FOUNDER_PERSON_ID,
     name: siteConfig.articleAuthor.name,
     jobTitle: siteConfig.articleAuthor.jobTitle,
+    description: FOUNDER_DESCRIPTION,
+    url: siteConfig.articleAuthor.linkedIn,
+    ...(photo ? { image: absoluteUrl(photo) } : {}),
     worksFor: { "@id": ORGANIZATION_ID },
-    sameAs: [siteConfig.articleAuthor.linkedIn],
+    sameAs: [siteConfig.articleAuthor.linkedIn, ...FOUNDER_PROFILES],
   };
 }
 
@@ -199,14 +203,36 @@ export const LOGO_WIDTH = 512;
 export const LOGO_HEIGHT = 512;
 
 /**
- * Verified Collegiate Agency profiles. These are directory pages, not footer
- * socials, so they are appended to Organization sameAs only.
- * Confirmed live on 2026-10-22.
+ * Verified Collegiate Agency profiles. These are directory and publication
+ * pages, not footer socials, so they are appended to Organization sameAs only.
+ * Checked with a browser user agent on 2026-11-18. Responses of 200 and 403
+ * (bot-blocked, page exists) are kept. A 404 is not added.
+ * https://www.crunchbase.com/organization/collegiate-agency returned 403 and
+ * was left off: that profile is added only on a public 200.
  */
 export const ORGANIZATION_PROFILES = [
   "https://clutch.co/profile/collegiate-agency",
   "https://www.sortlist.com/agency/collegiate-agency",
+  "https://issuu.com/collegiateagency",
+  "https://campusmarketingnotes.substack.com",
+  "https://campusmarketingplaybook.wordpress.com",
+  "https://campusmarketingnotesforbrands.blogspot.com",
+  "https://www.tumblr.com/campusnotesforbrands",
 ] as const;
+
+/**
+ * Profiles for Shane Michelon besides the LinkedIn URL already on the byline.
+ * Checked with a browser user agent on 2026-11-18. 200 and 403 are kept.
+ * The visible byline still links only to LinkedIn.
+ */
+export const FOUNDER_PROFILES = [
+  "https://about.me/shanemichelon",
+  "https://medium.com/@shanemichelon",
+  "https://www.quora.com/profile/Shane-Michelon-2",
+] as const;
+
+export const FOUNDER_DESCRIPTION =
+  "Founder of Collegiate Agency, a New York college marketing agency brands hire to reach university students through campus events, brand ambassadors and product placement.";
 
 const BRAND_TAIL = new RegExp(
   `(?:\\s*[|·]\\s*${siteConfig.companyName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})+$`,
@@ -411,6 +437,12 @@ export function organizationStructuredData(): Record<string, unknown>[] {
       name: siteConfig.companyName,
       legalName: siteConfig.companyLegalName,
       url: siteConfig.url,
+      foundingDate: "2026",
+      numberOfEmployees: {
+        "@type": "QuantitativeValue",
+        minValue: 6,
+        maxValue: 10,
+      },
       founder: { "@id": FOUNDER_PERSON_ID },
       description: siteConfig.description,
       email: siteConfig.contact.email,

@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Brand ambassador programs",
   description:
-    "A vetted student rep network for sampling, flyering, product distribution, tabling, pop-ups, and campus leaders posting monthly Instagram and TikTok stories to real peers.",
+    "A vetted student rep network for sampling, flyering, product distribution, tabling, pop-ups, and monthly Instagram and TikTok stories to real peers.",
   path: "/services/brand-ambassadors",
 });
 

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
+import { exploreServiceLink } from "@/lib/explore-service-link";
 import { cn } from "@/lib/utils";
 import type { CapabilityBlock as CapabilityBlockData } from "@/site.config";
 
@@ -16,6 +17,7 @@ export function CapabilityBlock({
   imageSide: "left" | "right";
 }) {
   const imageRight = imageSide === "right";
+  const link = block.cta ? exploreServiceLink(block.heading, 40) : null;
   return (
     <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
       {/* Image (first in DOM → image-first on mobile) */}
@@ -73,7 +75,9 @@ export function CapabilityBlock({
               href={block.cta.href}
               className="mono-label inline-flex items-center gap-1.5 text-[12px] font-bold text-accent hover:underline"
             >
-              {block.cta.label} <ArrowRight className="h-4 w-4" />
+              {link?.visible}
+              {link?.srOnly ? <span className="sr-only"> {link.srOnly}</span> : null}
+              <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </div>
         )}

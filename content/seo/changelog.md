@@ -1,5 +1,21 @@
 # SEO changelog
 
+## 2026-11-18 — SEO hygiene: lastmod, entity, broken links
+
+No new article. The money-page title and H1 stay `College Marketing Agency: How to Choose One`. The sample Celsius case study stays `noindex` and is not linked from the new sentence. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, review, or price was added. `foundingDate` and the employee range are the figures the owner supplied on Nov 11 2026, and they are in Organization JSON-LD only.
+
+Static sitemap `lastmod` now comes from `STATIC_ROUTE_UPDATED` in `src/lib/route-updated.ts`. Each date is the newest `git log -1 --format=%cs` of the files that render that route, including `src/site.config.ts` where the page prints config values such as pricing. `/` , `/services`, `/services/events`, `/services/brand-ambassadors`, `/services/product-placement`, `/pricing`, `/build-a-campaign`, `/work`, `/about`, `/insights`, and `/contact` are `2026-11-18`. `/pricing` is `2026-11-18` because `src/site.config.ts` last changed that day; the pricing page file itself is `2026-11-17`. `/become-an-ambassador` is `2026-10-20`. `/insights` still uses the newer of that date and the newest article revision, which is already `2026-11-18`. Article and case-study URLs still use `dateModified` or `date`.
+
+Organization `sameAs` keeps the existing Instagram, ZMM, LinkedIn, Clutch, and Sortlist URLs and adds Issuu, Substack, WordPress, Blogspot, and Tumblr. Each returned 200 with a browser user agent on 2026-11-18. Crunchbase returned 403 and was not added, because that profile is included only on a public 200. Organization JSON-LD adds `foundingDate` `2026` and `numberOfEmployees` min 6, max 10. Person `#shane-michelon` keeps the LinkedIn URL and adds about.me (200), Medium (403), and Quora (403). The node also sets `url` to that LinkedIn profile, `image` to `https://collegiateagency.com/team/shane-michelon.png`, and the founder description. The visible byline is still "Shane Michelon, Founder" linking to LinkedIn. Article and BlogPosting `author` is that same Person, so it carries the LinkedIn `url`.
+
+Photo credits and licenses render as links only when the value starts with `http://` or `https://`. `Owned Collegiate Agency activation photography` on `/insights/campus-brand-activation-agency` is plain text.
+
+Real case studies emit Article JSON-LD: headline, description, dates, Shane's Person `@id` with the LinkedIn `url`, the organization `@id` as publisher, the client name as `about`, and the hero image when the study has one. SOS Consultants Nola has no photograph, so that node omits `image`. The Celsius sample emits no Article node.
+
+`/insights/college-marketing-agency` adds one sentence in "Check whether the agency has real campus access" linking "SOS Consultants Nola case study" and "NÜTRL Night School tour case study". Those facts are already on `/work`. `/services/brand-ambassadors` already linked the SOS study, and `/services/events` and `/services/product-placement` already linked the NÜTRL study, so those pages were not given a second link. `dateModified` on the money page and on `college-marketing-for-beauty-brands` is `2026-11-18`. The beauty meta description is frontmatter only and is 150 characters. The brand-ambassadors meta description is 148 characters and still leads with "A vetted student rep network".
+
+Service cards say "Explore Events" where that fits. "Brand Ambassadors" and "Product Placement" on the three-up cards stay "Learn more" with an sr-only "about campus {name}". The services hub columns are wider, so those links read "Explore Events", "Explore Brand Ambassadors", and "Explore Product Placement". The article closing line on the accent block uses `text-white/95` (about 4.8:1 on `#2f5bff`). `text-white/85` was about 4.2:1.
+
 ## 2026-11-18 — Named quote beside brand inquiry submits
 
 No article, title, H1, slug, meta, or schema changed. No Review or AggregateRating markup. Form fields, reply copy, and the Book a Call label are unchanged. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. `/contact` and `/build-a-campaign` sitemap `lastmod` values stay as published.
