@@ -1,5 +1,11 @@
 # SEO changelog
 
+## 2026-11-18 — Named quote beside brand inquiry submits
+
+No article, title, H1, slug, meta, or schema changed. No Review or AggregateRating markup. Form fields, reply copy, and the Book a Call label are unchanged. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. `/contact` and `/build-a-campaign` sitemap `lastmod` values stay as published.
+
+`/contact` shows the homepage's lead quote once: Troy Osinoff, Founder, Zagged. It sits directly under the Book a Call button, in the form column. On a phone that is after the form and before the photo. The logo row stays. The old cycling review under that row is gone, so this line is not shown twice and the page does not add star counts. `/build-a-campaign` shows the same quote under Send my campaign, in the review step's side column. The quote, name, and title are the `testimonials` entry already rendered in "Don't just take our word for it." No new quote, rating, star count, stat, or client.
+
 ## 2026-11-18 — Sampling cluster primary URL
 
 Search Console, URL-prefix property, Web, last 3 months (Oct 23 to Nov 14 2026), exported Nov 16 2026 ~8:40 AM ET. `/insights/on-campus-product-sampling` is the primary URL for the generic sampling queries. `/insights/campus-product-sampling-ideas` stays the ideas page and links to that primary. No new page. No redirect. The ideas slug, title, and H1 are unchanged. The primary slug and H1 stay `On-Campus Product Sampling: A Practical Guide`. The primary title stays `On-Campus Product Sampling for Brands | Collegiate Agency`. Gen Z articles were not edited. `/insights/campus-product-sampling-agency` was not edited. Articles dated after 2026-11-10 in frontmatter, other than the four articles named below, were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited. The byline stays Shane Michelon, Founder, with the LinkedIn profile as the only author URL.

@@ -16,7 +16,7 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { ClientMarquee } from "@/components/ClientMarquee";
-import { RotatingReview } from "@/components/RotatingReview";
+import { InquiryTestimonial } from "@/components/InquiryTestimonial";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { CopyBlocks } from "@/components/seo/CopyBlocks";
@@ -67,10 +67,11 @@ export default function ContactPage() {
         {/* Form second on a phone. On desktop it occupies the right column beside the heading and the proof. */}
         <Reveal delay={0.1} className="lg:col-start-2 lg:row-start-1 lg:row-span-2">
           <ContactForm />
+          <InquiryTestimonial className="mt-6" />
         </Reveal>
 
         <Reveal className="lg:col-start-1 lg:row-start-2">
-          {/* Real activation photo: beside the form on desktop, after it on a phone */}
+          {/* Real activation photo: beside the form on desktop, after the quote on a phone */}
           <figure className="max-w-md">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[3px] border-2 border-ink shadow-[8px_8px_0_var(--ink)]">
               <Image
@@ -92,7 +93,6 @@ export default function ContactPage() {
             <div className="mt-3">
               <ClientMarquee clients={clients} />
             </div>
-            <RotatingReview />
           </div>
 
           <dl className="mt-10 space-y-5">
