@@ -265,7 +265,10 @@ export default async function InsightArticle({ params }: { params: Params }) {
         </Section>
       </article>
 
-      <ArticleFooterCta slug={post.slug} interest={cta.interest} />
+      <ArticleFooterCta
+        slug={post.slug}
+        interest={post.slug === "college-marketing-agency" ? undefined : cta.interest}
+      />
     </>
   );
 }

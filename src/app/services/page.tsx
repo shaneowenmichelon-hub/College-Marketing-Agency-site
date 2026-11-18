@@ -64,7 +64,12 @@ function BrandsPanel({
       </div>
       <div className="mt-16 flex flex-col items-start gap-4 rounded-[4px] border-2 border-ink bg-surface-muted p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
         <p className="font-display text-xl font-bold text-ink">Ready to reach students?</p>
-        <Button href={brands.cta.href} variant="primary" size="lg">
+        <Button
+          href={brands.cta.href}
+          variant="primary"
+          size="lg"
+          className="!h-auto w-full min-w-0 whitespace-normal text-balance text-center leading-snug sm:w-auto"
+        >
           {brands.cta.label}
         </Button>
       </div>

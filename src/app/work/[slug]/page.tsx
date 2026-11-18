@@ -231,7 +231,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
 
       <CTASection
         title="Ready to build your campaign?"
-        primary={{ label: "Get Started", href: "/contact", variant: "lime" }}
+        primary={{ label: "Get a plan and pricing", href: "/contact", variant: "lime" }}
         secondary={{ label: "See all work", href: "/work" }}
       />
     </>
