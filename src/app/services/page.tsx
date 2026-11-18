@@ -46,7 +46,11 @@ function BrandsPanel({
           const anchor = block.id ?? block.cta?.href.replace("/services/", "");
           return (
             <div key={block.heading} id={anchor} className="scroll-mt-24">
-              <CapabilityBlock block={block} imageSide={i % 2 === 0 ? "left" : "right"} />
+              <CapabilityBlock
+                block={block}
+                imageSide={i % 2 === 0 ? "left" : "right"}
+                priority={i === 0 && block.image?.includes("/images/thaw-out/")}
+              />
             </div>
           );
         })}

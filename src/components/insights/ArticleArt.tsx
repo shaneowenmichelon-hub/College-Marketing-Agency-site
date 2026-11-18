@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { resolveScene, type Scene } from "@/lib/article-art";
 
@@ -160,6 +161,8 @@ export function ArticleArt({
   imageHeight,
   className,
   rounded = "rounded-2xl",
+  priority = false,
+  sizes = "(max-width: 768px) 100vw, 400px",
 }: {
   slug: string;
   category: string;
@@ -172,19 +175,37 @@ export function ArticleArt({
   imageHeight?: number;
   className?: string;
   rounded?: string;
+  /** Article hero only. Listing cards stay lazy. */
+  priority?: boolean;
+  sizes?: string;
 }) {
   if (image) {
+    const sized = Boolean(imageWidth && imageHeight);
     return (
       <div className={cn("relative overflow-hidden border-2 border-ink", rounded, className)}>
-        {/* Local photos are served directly so the live verifier can hash the file bytes. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={image}
-          alt={imageAlt ?? ""}
-          width={imageWidth}
-          height={imageHeight}
-          className="h-full w-full object-cover"
-        />
+        {sized ? (
+          <Image
+            src={image}
+            alt={imageAlt ?? ""}
+            width={imageWidth}
+            height={imageHeight}
+            priority={priority}
+            fetchPriority={priority ? "high" : undefined}
+            sizes={sizes}
+            className="h-full w-full object-cover"
+            style={{ width: "100%", height: "100%" }}
+          />
+        ) : (
+          <Image
+            src={image}
+            alt={imageAlt ?? ""}
+            fill
+            priority={priority}
+            fetchPriority={priority ? "high" : undefined}
+            sizes={sizes}
+            className="object-cover"
+          />
+        )}
       </div>
     );
   }

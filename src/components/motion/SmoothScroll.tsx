@@ -10,22 +10,23 @@ import { gsap, ScrollTrigger } from "@/lib/gsap";
  * in lockstep - protects INP/jank. Under prefers-reduced-motion we DON'T hijack
  * scroll at all: native scrolling is used and only ScrollTrigger.update runs.
  */
-export function SmoothScroll({ children }: { children: ReactNode }) {
+export function SmoothScroll({ children }: { children?: ReactNode }) {
   const reduce = useReducedMotion();
   const lenisRef = useRef<LenisRef>(null);
 
   useEffect(() => {
     if (reduce) return;
+    const lenis = lenisRef.current?.lenis;
     function update(time: number) {
       lenisRef.current?.lenis?.raf(time * 1000);
     }
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
     const onScroll = () => ScrollTrigger.update();
-    lenisRef.current?.lenis?.on("scroll", onScroll);
+    lenis?.on("scroll", onScroll);
     return () => {
       gsap.ticker.remove(update);
-      lenisRef.current?.lenis?.off("scroll", onScroll);
+      lenis?.off("scroll", onScroll);
     };
   }, [reduce]);
 
