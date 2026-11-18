@@ -9,6 +9,11 @@ import { AppShell } from "@/components/AppShell";
 import { ScrollManager } from "@/components/ScrollManager";
 import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 
+// Inter and Space Grotesk are the LCP text (body paragraphs and the H1).
+// Space Mono is only the small eyebrow and badge, and Instrument Serif is not
+// applied on these templates. Those two families stay available with
+// display:swap and are not preloaded, so they do not compete with the LCP
+// font or the hero image.
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
@@ -26,15 +31,16 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
   variable: "--font-mono",
   display: "swap",
+  preload: false,
 });
 
-// Editorial serif - used only for selected emphasis (e.g. "campus culture").
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {

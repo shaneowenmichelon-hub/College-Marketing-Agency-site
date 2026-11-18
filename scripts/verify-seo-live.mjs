@@ -119,6 +119,39 @@ export function assertOwnedInlinePhotos(photos, libraryText, heroSrc = '') {
   }
 }
 
+/**
+ * Next/Image rewrites the hero `src` to `/_next/image?url=<source>`. The
+ * publication receipt is the source file, so the hash always uses that path.
+ */
+export function canonicalImagePath(src) {
+  if (!src) return '';
+  try {
+    const parsed = new URL(src, 'https://collegiateagency.com');
+    if (parsed.pathname === '/_next/image') return parsed.searchParams.get('url') || src;
+  } catch {
+    /* attribute was not a URL */
+  }
+  return src;
+}
+
+async function articleHeroImage(page, imagePath) {
+  const exact = page.locator(`article img[src="${imagePath}"]`);
+  if ((await exact.count()) === 1) return exact;
+  const encoded = encodeURIComponent(imagePath);
+  const images = page.locator('article img');
+  const count = await images.count();
+  const matches = [];
+  for (let index = 0; index < count; index += 1) {
+    const img = images.nth(index);
+    const src = (await img.getAttribute('src')) || '';
+    const srcset = (await img.getAttribute('srcset')) || '';
+    if (canonicalImagePath(src) === imagePath || src.includes(encoded) || srcset.includes(encoded)) {
+      matches.push(img);
+    }
+  }
+  return matches.length === 1 ? matches[0] : exact;
+}
+
 /** Independent verification: never parse the publishing agent's claims. */
 export async function verify(artifact, base = 'https://collegiateagency.com') {
   assert.match(artifact.slug, /^[a-z0-9]+(?:-[a-z0-9]+)*$/);
@@ -136,7 +169,7 @@ export async function verify(artifact, base = 'https://collegiateagency.com') {
     assert.equal(await page.locator('meta[name="description"]').getAttribute('content'), artifact.metaDescription, 'description');
     assert.ok((await page.locator('article').innerText()).includes(artifact.body_sentinel), 'body content');
     assert.ok(!/noindex/i.test(await page.locator('meta[name="robots"]').getAttribute('content').catch(() => '') ?? ''), 'noindex');
-    const image = page.locator(`article img[src="${artifact.image}"]`);
+    const image = await articleHeroImage(page, artifact.image);
     assert.equal(await image.count(), 1, 'article photograph missing');
     await image.scrollIntoViewIfNeeded();
     const dimensions = await image.evaluate(async img => {
@@ -148,7 +181,7 @@ export async function verify(artifact, base = 'https://collegiateagency.com') {
     // Verify the canonical source asset, not a Next/Image optimized derivative.
     // Optimized derivatives can differ in dimensions and bytes while the source
     // file at `src` remains the publication receipt the autopublisher hashed.
-    const photo = await page.request.get(new URL(dimensions.src, base).href);
+    const photo = await page.request.get(new URL(canonicalImagePath(dimensions.src), base).href);
     assert.equal(photo.status(), 200, 'photo status');
     assert.match(photo.headers()['content-type'], /^image\/(jpeg|png|webp)/);
     assert.equal(createHash('sha256').update(await photo.body()).digest('hex'), artifact.image_sha256, 'photo bytes');

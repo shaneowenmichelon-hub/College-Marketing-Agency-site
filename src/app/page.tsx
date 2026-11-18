@@ -1,4 +1,5 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
   ArrowRight,
   CalendarHeart,
@@ -18,21 +19,30 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { Hero } from "@/components/home/Hero";
 import { getHeroPhotos } from "@/lib/hero-photos";
-import { StickyMobileCTA } from "@/components/home/StickyMobileCTA";
-import { CampusAttentionJourney } from "@/components/home/CampusAttentionJourney";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { ProcessStep } from "@/components/ProcessStep";
 import { CampusGrid } from "@/components/CampusGrid";
-import { TestimonialMarquee } from "@/components/TestimonialMarquee";
-import { EventImage } from "@/components/EventImage";
 import { CaseStudyCover } from "@/components/work/CaseStudyCover";
-import { LeadMagnet } from "@/components/LeadMagnet";
 import { CTASection } from "@/components/CTASection";
 import { FaqPageJsonLd, ServiceFaq } from "@/components/services/ServiceFaq";
 import { caseStudies, posts, formatDate } from "@/lib/content";
 import { homeFaqs } from "@/lib/home-faq";
 import { HOME_DESCRIPTION, HOME_TITLE_LEAD, pageMetadata, SHARE_CARD_IMAGE } from "@/lib/seo";
+
+// Below-the-fold enhancements. SSR stays on so the copy and photos are in the
+// HTML; their client code loads in a separate chunk.
+const TestimonialMarquee = dynamic(() =>
+  import("@/components/TestimonialMarquee").then((mod) => mod.TestimonialMarquee),
+);
+const CampusAttentionJourney = dynamic(() =>
+  import("@/components/home/CampusAttentionJourney").then((mod) => mod.CampusAttentionJourney),
+);
+const EventImage = dynamic(() => import("@/components/EventImage").then((mod) => mod.EventImage));
+const LeadMagnet = dynamic(() => import("@/components/LeadMagnet").then((mod) => mod.LeadMagnet));
+const StickyMobileCTA = dynamic(() =>
+  import("@/components/home/StickyMobileCTA").then((mod) => mod.StickyMobileCTA),
+);
 
 /**
  * The homepage names the committed PNG rather than the generated route.

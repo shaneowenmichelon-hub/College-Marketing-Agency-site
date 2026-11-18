@@ -1,4 +1,5 @@
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { Mail, MapPin } from "lucide-react";
 import { clients, formatOfficeAddress, siteConfig, sitePhotos } from "@/site.config";
 import { pageMetadata } from "@/lib/seo";
@@ -15,12 +16,16 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Badge } from "@/components/ui/Badge";
 import { ContactForm } from "@/components/forms/ContactForm";
-import { ClientMarquee } from "@/components/ClientMarquee";
 import { InquiryTestimonial } from "@/components/InquiryTestimonial";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { CopyBlocks } from "@/components/seo/CopyBlocks";
 import { FaqPageJsonLd, ServiceFaq } from "@/components/services/ServiceFaq";
+
+// Logo row sits after the form on a phone. SSR keeps the logos in the HTML.
+const ClientMarquee = dynamic(() =>
+  import("@/components/ClientMarquee").then((mod) => mod.ClientMarquee),
+);
 
 export const metadata = pageMetadata({
   title: CONTACT_TITLE,

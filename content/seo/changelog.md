@@ -1,5 +1,24 @@
 # SEO changelog
 
+## 2026-11-18 — Mobile LCP under 2.5 s on key pages
+
+No article, title, H1, slug, meta, or schema changed by this pass. Wave 2 short answers, tables, Updated dates, question H2s, the JSON-LD abstract, and the new internal links stay. Alt texts on the sponsor logos are unchanged. The inquiry form is still server-rendered and is not deferred. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
+
+Lighthouse 12.8.2, mobile emulation, simulated throttling, median of 3 runs. CLS stayed 0 on every run. Before is production `https://collegiateagency.com`. After is a local HTTP/2 production build.
+
+| Page | Before LCP | Before score | After LCP | After score |
+| --- | ---: | ---: | ---: | ---: |
+| `/` | 3.03 s | 0.91 | 2.35 s | 0.95 |
+| `/insights/college-marketing-agency` | 3.08 s | 0.94 | 2.34 s | 0.98 |
+| `/contact` | 2.87 s | 0.95 | 2.41 s | 0.97 |
+| `/services` | 3.16 s | 0.93 | 2.34 s | 0.98 |
+
+Before runs, production. `/` 3.02 s, 3.03 s, 3.03 s. Article 3.05 s, 3.08 s, 3.32 s. `/contact` 2.87 s, 2.87 s, 2.88 s. `/services` 2.88 s, 3.16 s, 3.77 s. The homepage LCP element was the H1. The article LCP element was the raw hero JPEG (84 KB, low priority). The contact LCP element was the lead paragraph. The services LCP element was the Thaw Out photo with `loading="lazy"`.
+
+After runs. `/` 2.33 s, 2.35 s, 2.56 s. Article 2.19 s, 2.34 s, 2.56 s. `/contact` 2.27 s, 2.41 s, 2.41 s. `/services` 2.26 s, 2.34 s, 2.41 s.
+
+The first Thaw Out image on `/services` is `priority` and `fetchPriority="high"`, at quality 55 so the AVIF stays near 60 KB. The other service photos stay lazy. The article hero uses `next/image` with `priority`, `sizes="(max-width: 1024px) 100vw, 896px"`, and the file's width and height, so the page gets AVIF/WebP. Listing cards stay lazy. The live verifier still hashes the source file: a `/_next/image` URL is resolved back to that path. Sponsor logos `sponsor1.png` through `sponsor22.png` are committed at 320 px wide, each under 15 KB. The marquee still loads them lazy, and the alt text is still the client name. `fetch-assets` leaves a file alone once it is present, so a later build does not put the 140 KB remote PNGs back. Inter and Space Grotesk stay preloaded with `display: "swap"`. Space Mono and Instrument Serif also use `display: "swap"` and are not preloaded. Below-the-fold client pieces on `/` and `/contact` load with `next/dynamic` and still server-render. Lenis and GSAP load after idle and no longer wrap the page. The desktop coin reel loads only at the `lg` breakpoint, so a phone does not download that framer-motion chunk.
+
 ## 2026-11-18 — SEO Wave 2: short answers, real tables, visible dates
 
 No new article. The money-page title and H1 stay `College Marketing Agency: How to Choose One`. Bylines stay Shane Michelon, Founder. The city-hub sentence and the anchor `campus marketing by city` stay on the money page. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, or price was added. Rates in the short answers are the published `$150` per ambassador per month, `$1,500` per sorority (chapter), and event packages from `$500` to `$500,000`.

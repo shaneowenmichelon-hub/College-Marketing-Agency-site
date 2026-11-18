@@ -12,9 +12,12 @@ import type { CapabilityBlock as CapabilityBlockData } from "@/site.config";
 export function CapabilityBlock({
   block,
   imageSide,
+  priority = false,
 }: {
   block: CapabilityBlockData;
   imageSide: "left" | "right";
+  /** First viewport image. Drops lazy-loading and preloads at high priority. */
+  priority?: boolean;
 }) {
   const imageRight = imageSide === "right";
   const link = block.cta ? exploreServiceLink(block.heading, 40) : null;
@@ -30,6 +33,11 @@ export function CapabilityBlock({
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
+              priority={priority}
+              fetchPriority={priority ? "high" : undefined}
+              // The first image is the mobile LCP photo. 55 keeps the AVIF near
+              // 60 KB in this optimizer; at phone size it matches quality 75.
+              quality={priority ? 55 : undefined}
             />
           </div>
         ) : (
