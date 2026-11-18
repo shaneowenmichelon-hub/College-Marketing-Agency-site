@@ -196,17 +196,17 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
   assert.equal(posts.some((post) => post.slug === "topics"), false);
   assert.ok(insightTopicLastModified("campus-marketing-strategy") >= INSIGHT_TOPICS_UPDATED);
   assert.equal(INSIGHT_TOPIC_CONTENT_UPDATED, "2026-11-16");
-  const moneyPageHubs = new Set([
+  const samplingHubs = new Set([
     "campus-marketing-strategy",
     "campus-events-and-activations",
-    "campus-sponsorship",
+    "product-sampling-and-placement",
   ]);
   for (const topic of insightTopics) {
     assert.equal(
       insightTopicSitemapLastModified(topic.slug),
-      topic.slug === "campus-marketing-strategy"
+      samplingHubs.has(topic.slug)
         ? "2026-11-18"
-        : moneyPageHubs.has(topic.slug)
+        : topic.slug === "campus-sponsorship"
           ? "2026-11-17"
           : "2026-11-16",
       topic.slug,

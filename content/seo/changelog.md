@@ -1,5 +1,33 @@
 # SEO changelog
 
+## 2026-11-18 — Sampling cluster primary URL
+
+Search Console, URL-prefix property, Web, last 3 months (Oct 23 to Nov 14 2026), exported Nov 16 2026 ~8:40 AM ET. `/insights/on-campus-product-sampling` is the primary URL for the generic sampling queries. `/insights/campus-product-sampling-ideas` stays the ideas page and links to that primary. No new page. No redirect. The ideas slug, title, and H1 are unchanged. The primary slug and H1 stay `On-Campus Product Sampling: A Practical Guide`. The primary title stays `On-Campus Product Sampling for Brands | Collegiate Agency`. Gen Z articles were not edited. `/insights/campus-product-sampling-agency` was not edited. Articles dated after 2026-11-10 in frontmatter, other than the four articles named below, were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, and `content/seo/keyword-map.md` were not edited. The byline stays Shane Michelon, Founder, with the LinkedIn profile as the only author URL.
+
+Source: Google Search Console, Web, exported Nov 16 2026 ~8:40 AM ET. Re-check clicks and position in about 2-3 weeks, once Google and Bing have recrawled the pages. IndexNow submits a URL when its sitemap `lastmod` is inside 72 hours, so `dateModified` on the four edited articles is 2026-11-18, and `/services/product-placement` sitemap `lastmod` is 2026-11-18.
+
+Baseline, last 3 months. Impressions, clicks, average position. GSC did not export which page each query landed on.
+
+- `/insights/on-campus-product-sampling`: 85 impressions, 1 click, position 10.92.
+- `/insights/campus-product-sampling-ideas`: 72 impressions, 1 click, position 21.38.
+- `/insights/campus-product-sampling-agency`: 2 impressions, position 4.
+- `/services/product-placement`: 7 impressions, position 6.29.
+- Queries, all 0 clicks: "student product sampling" 28 impressions, position 17.21; "campus product sampling" 19, position 19.53; "student product samples" 16, position 23.69; "college campus sampling" 11, position 12.64.
+
+The primary lede now uses "campus product sampling" and "student product sampling" in the first paragraph. Description, Open Graph description, and Twitter description: `Hire on-campus product sampling by student behavior, not school logos. Staff the handoff, set the follow-up, and judge whether the first test worked.` -> `Campus product sampling for brands that hire Collegiate Agency to market to college students. Staff the handoff, set the follow-up, and judge the first test.` The new description is 157 characters. The page still has one visible FAQ and one FAQPage JSON-LD from that same list. Two questions were reworded, and the other three stayed: "What is student product sampling?" -> "What is student product sampling and how do brands run it?"; "Who should hand students a product sample?" -> "How do brands do college campus sampling?". Answers use only facts already in the article and the published rates (`$150 / ambassador / month`, `$1,500 per sorority (chapter)`, event packages from `$500` to `$500,000`). No statistic, client, result, capacity, or new price was added.
+
+One or two links were added inside existing copy on each supporting page. Anchors are not repeated more than twice, including links that were already published.
+
+- `/insights/campus-product-sampling-ideas` — "student product sampling guide" and "campus product sampling". The opening, the staffing question, and the close now say "ideas". Slug, title, and H1 are unchanged.
+- `/services/product-placement` — "on-campus product sampling". The other use of that anchor is already on `/insights/greek-life-marketing-agency`. The reading sentence keeps the ideas article link by its title.
+- `/insights/campus-product-launch` — "student product samples".
+- `/insights/university-activations` — "college campus sampling".
+
+- `dateModified` is `2026-11-18` on `on-campus-product-sampling`, `campus-product-sampling-ideas`, `campus-product-launch`, and `university-activations`. Their `date` values stay 2026-07-31, 2026-08-26, 2026-08-18, and 2026-08-16, so each insight URL's sitemap `lastmod` is 2026-11-18 UTC midnight.
+- `/services/product-placement` sitemap `lastmod` is 2026-11-18. `/pricing` stays 2026-10-22.
+- `/insights` uses the newer of the newest article revision and `CTR_WAVE_LAST_MODIFIED`. The newest revision was already 2026-11-18, so `/insights` `lastmod` stays 2026-11-18.
+- Topic hubs that include an edited article take that revision under the existing rule: `product-sampling-and-placement` and `campus-events-and-activations` are 2026-11-18. `campus-marketing-strategy` was already 2026-11-18. The other hubs stay on their previous dates.
+
 ## 2026-11-18 — Run 47, college marketing for beverage brands
 
 New insight at `/insights/college-marketing-for-beverage-brands`. Primary keyword `college marketing for beverage brands`. Buyer is a beverage brand choosing a campus partner. The page requires a can count, cold storage, a written campus permission, a check for an exclusive pour, a 21-and-older rule when the drink contains alcohol, a lookalike check when it does not, approved caffeine sentences, a retailer code, and a disclosure on a paid or gifted post. It links to `/insights/campus-product-sampling-agency`, `/insights/college-tailgate-marketing-agency`, and `/insights/college-sports-marketing-agency` instead of restating those guides. It also links `/services/events`, `/services/product-placement`, `/services/brand-ambassadors`, `/pricing`, `/contact`, and `/build-a-campaign`. Dated sources in the body are EvolveZ (September 15, 2026), the Celsius Holdings Spring 2027 student marketing role (October 16, 2026), the Best Day Brewing press release on BevNET (September 18, 2026), Columbia Athletics on Lyre's (March 31, 2026), and the FTC endorsement guides (July 26, 2023). Undated competitor pages and competitor performance figures were left out of the article. Hero and two inline photos are the least-used legal owned frames outside the previous four articles: attendees toasting NUTRL cans under a tent, a Dazed merchandise table, and a performer holding a BEATBOX carton on stage. Three owned photos were free under the 4-article window, so the run carries a low-photo-supply warning. The article is grouped with campus marketing strategy. `date` and `dateModified` are 2026-11-18, so the article sitemap `lastmod` is 2026-11-18, `/insights` moves to 2026-11-18, and the strategy hub's newest article revision is 2026-11-18.
