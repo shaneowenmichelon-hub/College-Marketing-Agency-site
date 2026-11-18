@@ -1,5 +1,11 @@
 # SEO changelog
 
+## 2026-11-18 — Named quote beside brand inquiry submits
+
+No article, title, H1, slug, meta, or schema changed. No Review or AggregateRating markup. Form fields, reply copy, and the Book a Call label are unchanged. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. `/contact` and `/build-a-campaign` sitemap `lastmod` values stay as published.
+
+`/contact` shows the homepage's lead quote once: Troy Osinoff, Founder, Zagged. It sits directly under the Book a Call button, in the form column. On a phone that is after the form and before the photo. The logo row stays. The old cycling review under that row is gone, so this line is not shown twice and the page does not add star counts. `/build-a-campaign` shows the same quote under Send my campaign, in the review step's side column. The quote, name, and title are the `testimonials` entry already rendered in "Don't just take our word for it." No new quote, rating, star count, stat, or client.
+
 ## 2026-11-18 — Brand inquiry CTA labels
 
 No article, title, H1, meta description, slug, byline, schema, or nav item changed. `/contact` and `/build-a-campaign` page markup and the contact form were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.

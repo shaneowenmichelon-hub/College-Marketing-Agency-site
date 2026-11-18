@@ -19,6 +19,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
+import { InquiryTestimonial } from "@/components/InquiryTestimonial";
 import { Button } from "@/components/ui/Button";
 import {
   AMBASSADOR_MONTHLY,
@@ -765,6 +766,7 @@ export function CampaignBuilder() {
                     )}
                   </button>
                 </div>
+                <InquiryTestimonial />
               </div>
             </div>
           )}
