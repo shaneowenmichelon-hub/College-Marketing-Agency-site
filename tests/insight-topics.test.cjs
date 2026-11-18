@@ -159,6 +159,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
       "multi-campus-brand-activation",
       "college-app-marketing-agency",
       "college-marketing-for-beauty-brands",
+      "college-marketing-for-beverage-brands",
     ],
   };
 
@@ -203,7 +204,11 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
   for (const topic of insightTopics) {
     assert.equal(
       insightTopicSitemapLastModified(topic.slug),
-      moneyPageHubs.has(topic.slug) ? "2026-11-17" : "2026-11-16",
+      topic.slug === "campus-marketing-strategy"
+        ? "2026-11-18"
+        : moneyPageHubs.has(topic.slug)
+          ? "2026-11-17"
+          : "2026-11-16",
       topic.slug,
     );
   }

@@ -167,6 +167,7 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const run44 = new Set(["college-app-marketing-agency"]);
     const run45 = new Set(["spring-semester-campus-marketing"]);
     const run46 = new Set(["college-marketing-for-beauty-brands"]);
+    const run47 = new Set(["college-marketing-for-beverage-brands"]);
     const moneyPageLinks = new Set([
       "college-marketing-agency",
       "college-marketing-strategy",
@@ -175,7 +176,9 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    const revisedOn = moneyPageLinks.has(slug)
+    const revisedOn = run47.has(slug)
+      ? "2026-11-18"
+      : moneyPageLinks.has(slug)
       ? "2026-11-17"
       : run46.has(slug)
       ? "2026-11-16"
@@ -262,11 +265,11 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
     "campus-events-and-activations": "2026-11-17",
     "campus-sponsorship": "2026-11-17",
     "product-sampling-and-placement": "2026-11-13",
-    "campus-marketing-strategy": "2026-11-17",
+    "campus-marketing-strategy": "2026-11-18",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-17T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -370,13 +373,13 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
   const hubs = {
     "campus-events-and-activations": "2026-11-17",
     "campus-sponsorship": "2026-11-17",
-    "campus-marketing-strategy": "2026-11-17",
+    "campus-marketing-strategy": "2026-11-18",
     "student-influencers": "2026-11-11",
     "product-sampling-and-placement": "2026-11-13",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-17T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -503,12 +506,12 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     "campus-events-and-activations": "2026-11-17",
     "product-sampling-and-placement": "2026-11-13",
     "campus-sponsorship": "2026-11-17",
-    "campus-marketing-strategy": "2026-11-17",
+    "campus-marketing-strategy": "2026-11-18",
     "student-influencers": "2026-11-11",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-17T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
     "2026-11-13T00:00:00.000Z",

@@ -2,16 +2,16 @@
   "status": "prepared",
   "reason": "low-photo-supply",
   "next_run_at": "2026-11-18T03:16:11.826611-06:00",
-  "updated_at": "2026-11-16T14:51:32.826611-06:00",
-  "run_no": 46,
-  "slug": "college-marketing-for-beauty-brands",
-  "keyword": "college marketing for beauty brands",
+  "updated_at": "2026-11-18T02:42:10-06:00",
+  "run_no": 47,
+  "slug": "college-marketing-for-beverage-brands",
+  "keyword": "college marketing for beverage brands",
   "photo_supply": {
     "owned": 15,
     "eligible": 3,
     "chosen": 3,
     "window": 4,
     "warning": true,
-    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/bloom-sampling-campus-nightlife.jpg."
+    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/nutrl-toast-tent-activation.jpg."
   }
 }
