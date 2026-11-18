@@ -29,13 +29,22 @@ export type StatToken = {
 
 export type Office = {
   name: string;
-  /** Public line on the contact page. Not a street address. */
+  /** Short public line on the contact page, beside the street address. */
   address: string;
   phone: string;
+  /** Owner-confirmed staffed office. */
+  streetAddress: string;
+  postalCode: string;
   addressLocality: string;
   addressRegion: string;
   addressCountry: string;
+  numberOfEmployees: number;
 };
+
+/** Street line for the footer and the contact page. */
+export function formatOfficeAddress(office: Office): string {
+  return `${office.streetAddress}, ${office.addressLocality}, ${office.addressRegion} ${office.postalCode}`;
+}
 
 export const siteConfig = {
   /**
@@ -91,17 +100,18 @@ export const siteConfig = {
     location: "New York, NY",
   },
 
-  /** Office locations - kept intentionally lean until formal office addresses are confirmed. */
+  /** Confirmed staffed office. Street and postal code were confirmed November 18, 2026. */
   offices: [
     {
       name: "New York",
       address: "Brand partnerships and campus activations",
       phone: "",
-      // City-level only. contact.location is already "New York, NY"; there is
-      // no street address on file, so schema must not invent one.
+      streetAddress: "66 W Broadway, Suite 201",
+      postalCode: "10007",
       addressLocality: "New York",
       addressRegion: "NY",
       addressCountry: "US",
+      numberOfEmployees: 6,
     },
   ] as Office[],
 

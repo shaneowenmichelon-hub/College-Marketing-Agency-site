@@ -88,7 +88,10 @@ test("homepage, about, and the money page keep one organization id and the new p
 
   const org = organizationStructuredData()[0];
   assert.equal(org.foundingDate, "2026");
-  assert.deepEqual(org.numberOfEmployees, { "@type": "QuantitativeValue", minValue: 6, maxValue: 10 });
+  assert.deepEqual(org.numberOfEmployees, { "@type": "QuantitativeValue", value: 6 });
+  assert.equal(org.telephone, undefined);
+  assert.equal(org.address.streetAddress, "66 W Broadway, Suite 201");
+  assert.equal(org.address.postalCode, "10007");
   for (const url of [...KEPT_ORG_PROFILES, ...NEW_ORG_PROFILES]) assert.ok(org.sameAs.includes(url), url);
   assert.equal(org.sameAs.includes("https://www.crunchbase.com/organization/collegiate-agency"), false);
 

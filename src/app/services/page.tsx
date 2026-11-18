@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd, ServicesJsonLd, WebPageJsonLd } from "@/components/se
 import { CapabilityBlock } from "@/components/services/CapabilityBlock";
 import { IconCardGrid } from "@/components/services/IconCardGrid";
 import { FaqPageJsonLd, ServiceFaq, ServiceReading } from "@/components/services/ServiceFaq";
+import { publishedCityLinks } from "@/lib/campus-markets";
 import { servicesHub } from "@/site.config";
 import { pageMetadata, resolveDocumentTitle } from "@/lib/seo";
 import { servicesHubFaqs, servicesHubReading } from "@/lib/services-hub-faq";
@@ -53,6 +54,21 @@ function BrandsPanel({
       <div className="mt-16">
         <SectionHeading eyebrow="For brand teams" title={reading.title} />
         <ServiceReading reading={reading} />
+      </div>
+      <div className="mt-16">
+        <SectionHeading eyebrow="Cities" title="Campus marketing by city" />
+        <p className="mt-6 max-w-3xl text-base leading-relaxed text-[color:var(--muted-on-light)] sm:text-lg">
+          Brands hiring for a named market can read{" "}
+          {publishedCityLinks().map((link, index) => (
+            <span key={link.href}>
+              {index > 0 ? ", " : null}
+              <Link href={link.href} className="font-semibold text-accent">
+                {link.anchor}
+              </Link>
+            </span>
+          ))}
+          .
+        </p>
       </div>
       <div id="faq" className="mt-16 scroll-mt-24">
         <SectionHeading

@@ -1,3 +1,5 @@
+import { CAMPUS_MARKETING_UPDATED } from "@/lib/campus-markets";
+
 /**
  * Last content-change date for each static sitemap route.
  *
@@ -66,6 +68,7 @@ export const STATIC_ROUTE_SOURCES: Record<string, readonly string[]> = {
     "src/site.config.ts",
   ],
   "/become-an-ambassador": ["src/app/become-an-ambassador/page.tsx", "src/components/forms/ApplyForm.tsx"],
+  "/campus-marketing": ["src/app/campus-marketing/page.tsx", "src/lib/campus-markets.ts"],
 };
 
 /** Newest `git log -1 --format=%cs` date of {@link STATIC_ROUTE_SOURCES}. */
@@ -82,4 +85,5 @@ export const STATIC_ROUTE_UPDATED: Record<string, string> = {
   "/insights": "2026-11-18",
   "/contact": "2026-11-18",
   "/become-an-ambassador": "2026-10-20",
+  "/campus-marketing": CAMPUS_MARKETING_UPDATED,
 };

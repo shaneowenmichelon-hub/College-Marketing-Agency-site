@@ -1,3 +1,4 @@
+import { cityPath, HUB_PATH, publishedFacts, publishedMarkets } from "@/lib/campus-markets";
 import { siteConfig, pricing } from "@/site.config";
 import { caseStudies, posts } from "@/lib/content";
 import { insightTopicPath, insightTopics, topicForPost } from "@/lib/insight-topics";
@@ -75,6 +76,16 @@ ${siteConfig.stats.map((s) => `- ${s.label}: ${s.value}`).join("\n")}
 ## Services
 
 ${services.join("\n")}
+
+## Campus marketing by city
+
+${L("Campus marketing by city", HUB_PATH, "Published city pages for brands hiring Collegiate Agency. A city is listed only when a sourced fact is approved.")}
+${publishedMarkets()
+  .map((market) => {
+    const fact = publishedFacts(market)[0];
+    return L(`College marketing in ${market.city}`, cityPath(market.slug), fact?.text ?? market.city);
+  })
+  .join("\n")}
 
 ## Start here
 

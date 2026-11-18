@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/site.config";
 import { caseStudies, posts } from "@/lib/content";
 import { insightTopicPath, insightTopicSitemapLastModified, insightTopics } from "@/lib/insight-topics";
+import { cityPath, publishedMarkets } from "@/lib/campus-markets";
 import { STATIC_ROUTE_UPDATED } from "@/lib/route-updated";
 
 function lastModified(iso: string): Date {
@@ -62,6 +63,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
+  const cityEntries: MetadataRoute.Sitemap = publishedMarkets().map((market) => ({
+    url: `${siteConfig.url}${cityPath(market.slug)}`,
+    lastModified: lastModified(market.dateModified),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   const topicEntries: MetadataRoute.Sitemap = insightTopics.map((topic) => ({
     url: `${siteConfig.url}${insightTopicPath(topic.slug)}`,
     lastModified: lastModified(insightTopicSitemapLastModified(topic.slug)),
@@ -69,5 +77,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...workEntries, ...topicEntries, ...articleEntries];
+  return [...staticEntries, ...cityEntries, ...workEntries, ...topicEntries, ...articleEntries];
 }

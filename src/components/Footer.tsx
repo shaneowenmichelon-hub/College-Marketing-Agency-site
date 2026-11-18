@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Mail, MapPin } from "lucide-react";
-import { siteConfig } from "@/site.config";
+import { formatOfficeAddress, siteConfig } from "@/site.config";
 import { Container } from "./ui/Container";
 import { Logo } from "./Logo";
 
@@ -71,6 +71,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/campus-marketing" className="text-[color:var(--muted-on-dark)] hover:text-white">
+                  Campus marketing
+                </Link>
+              </li>
+              <li>
                 <Link href="/about" className="text-[color:var(--muted-on-dark)] hover:text-white">
                   About
                 </Link>
@@ -121,7 +126,7 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 shrink-0" aria-hidden />
-                <span>{siteConfig.contact.location}</span>
+                <span>{formatOfficeAddress(siteConfig.offices[0])}</span>
               </li>
             </ul>
             <ul className="mt-5 flex flex-wrap gap-3 text-sm">

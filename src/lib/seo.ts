@@ -393,6 +393,16 @@ function serviceOffer(slug: string, url: string): Record<string, unknown> | unde
   };
 }
 
+/** Offers already published for the three priced channels. City pages reuse these. */
+export function publishedServiceOffers(): Record<string, unknown>[] {
+  return siteConfig.services.flatMap((service) => {
+    const path = serviceCanonicalPath(service.slug);
+    const url = path === "/services" ? `${siteConfig.url}/services#${service.slug}` : `${siteConfig.url}${path}`;
+    const offer = serviceOffer(service.slug, url);
+    return offer ? [offer] : [];
+  });
+}
+
 export function serviceStructuredData(slug: string): Record<string, unknown> {
   const service = siteConfig.services.find((item) => item.slug === slug);
   if (!service) throw new Error(`Unknown service: ${slug}`);
@@ -440,8 +450,7 @@ export function organizationStructuredData(): Record<string, unknown>[] {
       foundingDate: "2026",
       numberOfEmployees: {
         "@type": "QuantitativeValue",
-        minValue: 6,
-        maxValue: 10,
+        value: office.numberOfEmployees,
       },
       founder: { "@id": FOUNDER_PERSON_ID },
       description: siteConfig.description,
@@ -457,6 +466,8 @@ export function organizationStructuredData(): Record<string, unknown>[] {
       image: `${siteConfig.url}/opengraph-image`,
       address: {
         "@type": "PostalAddress",
+        streetAddress: office.streetAddress,
+        postalCode: office.postalCode,
         addressLocality: office.addressLocality,
         addressRegion: office.addressRegion,
         addressCountry: office.addressCountry,
