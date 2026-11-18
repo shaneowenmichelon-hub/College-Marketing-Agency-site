@@ -75,6 +75,7 @@ export async function GET() {
       ...(topic ? [`Topic: ${siteConfig.url}${insightTopicPath(topic.slug)}`] : []),
       "",
       post.excerpt,
+      ...(post.shortAnswer ? ["", `Short answer: ${post.shortAnswer}`] : []),
       "",
       body,
       faqs ? `\n## Questions\n\n${faqs}` : "",

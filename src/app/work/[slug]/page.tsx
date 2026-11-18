@@ -12,6 +12,7 @@ import { ArticleFigure } from "@/components/article/ArticleFigure";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { CaseStudyArticleJsonLd } from "@/components/seo/CaseStudyJsonLd";
+import { ArticleByline } from "@/components/insights/ArticleByline";
 import { caseStudies, caseStudyDescription, getCaseStudy } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
@@ -84,6 +85,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
               {c.headline}
             </h1>
             <p className="mt-3 text-[color:var(--muted-on-dark)]">{c.brand}</p>
+            <ArticleByline showAuthor={false} date={c.date} dateModified={c.dateModified} tone="dark" />
             {c.sample && (
               <p className="mono-label mt-4 max-w-xl text-[10px] leading-relaxed text-[color:var(--muted-on-dark)]/80">
                 Public industry reference - not a Collegiate Agency campaign.

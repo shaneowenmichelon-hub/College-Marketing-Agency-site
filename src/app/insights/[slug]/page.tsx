@@ -12,10 +12,11 @@ import { ArticleFaq, FaqPageJsonLd } from "@/components/services/ServiceFaq";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { articleFaqSchemaItems } from "@/lib/article-faq";
 import { articleSocialImage, pageMetadata, resolveArticleAuthor } from "@/lib/seo";
-import { getPost, posts, formatDate, type ArticleBlock, type Post } from "@/lib/content";
+import { getPost, posts, type ArticleBlock, type Post } from "@/lib/content";
 import { articleBreadcrumbItems, insightTopicPath, topicForPost } from "@/lib/insight-topics";
 import { ArticleArt } from "@/components/insights/ArticleArt";
 import { ArticleByline } from "@/components/insights/ArticleByline";
+import { ArticleShortAnswer } from "@/components/insights/ArticleShortAnswer";
 import { inquiryHref } from "@/lib/inquiry-handoff";
 import { ArticlePhotoCredit } from "@/components/insights/ArticlePhotoCredit";
 import { siteConfig } from "@/site.config";
@@ -161,6 +162,7 @@ export default async function InsightArticle({ params }: { params: Params }) {
         dateModified={post.dateModified}
         image={post.image ?? post.ogImage}
         author={post.author}
+        abstract={post.shortAnswer}
       />
       {post.faq && post.faq.length > 0 && (
         <FaqPageJsonLd items={articleFaqSchemaItems(post.faq)} path={`/insights/${post.slug}`} />
@@ -187,14 +189,14 @@ export default async function InsightArticle({ params }: { params: Params }) {
             </div>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-[color:var(--muted-on-light)]">
               <Badge>{post.category}</Badge>
-              <span>{formatDate(post.date)}</span>
-              <span>· {post.readingTime}</span>
+              <span>{post.readingTime}</span>
             </div>
             <h1 className="mt-4 text-balance font-display text-4xl font-bold leading-[1.05] text-ink sm:text-5xl">
               {post.title}
             </h1>
             <p className="mt-4 text-lg text-[color:var(--muted-on-light)]">{post.excerpt}</p>
-            <ArticleByline author={post.author} />
+            <ArticleByline author={post.author} date={post.date} dateModified={post.dateModified} />
+            {post.shortAnswer ? <ArticleShortAnswer text={post.shortAnswer} /> : null}
           </Container>
           <Container className="mt-10 max-w-4xl px-0">
             <div className="relative">

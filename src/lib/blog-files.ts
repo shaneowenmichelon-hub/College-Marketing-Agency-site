@@ -114,6 +114,18 @@ function asString(data: Record<string, string | string[]>, key: string): string 
   return value.trim();
 }
 
+/** Visible short answers stay quotable: long enough to stand alone, short enough to scan. */
+export function shortAnswerWordCount(text: string): number {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function assertShortAnswer(file: string, text: string): void {
+  const words = shortAnswerWordCount(text);
+  if (words < 40 || words > 70) {
+    throw new Error(`${file} shortAnswer is ${words} words; expected 40-70`);
+  }
+}
+
 function asStringArray(data: Record<string, string | string[]>, key: string): string[] {
   const value = data[key];
   if (Array.isArray(value)) return value;
@@ -334,6 +346,8 @@ export function loadMdxPosts(): Post[] {
       const parsedBody = parseMarkdownBody(body);
       const slug = asString(data, "slug");
       assertInsightArticleSlug(slug, file);
+      const shortAnswer = typeof data.shortAnswer === "string" ? data.shortAnswer.trim() : "";
+      if (shortAnswer) assertShortAnswer(file, shortAnswer);
       const topic = typeof data.topic === "string" ? data.topic.trim() : "";
       const post: Post = {
         slug,
@@ -346,6 +360,7 @@ export function loadMdxPosts(): Post[] {
         category,
         services: asStringArray(data, "services") as Post["services"],
         excerpt: asString(data, "excerpt"),
+        ...(shortAnswer ? { shortAnswer } : {}),
         date: asString(data, "date"),
         dateModified: typeof data.dateModified === "string" ? data.dateModified : undefined,
         // Kept as written. `posts` resolves a missing or organization byline to the default author.

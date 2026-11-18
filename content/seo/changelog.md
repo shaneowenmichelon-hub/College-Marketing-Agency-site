@@ -1,5 +1,21 @@
 # SEO changelog
 
+## 2026-11-18 — SEO Wave 2: short answers, real tables, visible dates
+
+No new article. The money-page title and H1 stay `College Marketing Agency: How to Choose One`. Bylines stay Shane Michelon, Founder. The city-hub sentence and the anchor `campus marketing by city` stay on the money page. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, or price was added. Rates in the short answers are the published `$150` per ambassador per month, `$1,500` per sorority (chapter), and event packages from `$500` to `$500,000`.
+
+Optional frontmatter `shortAnswer` (40–70 words) renders once under the excerpt and byline as a plain paragraph with a left ink border, labeled "Short answer". The same string is Article/BlogPosting `abstract`. It is not added to FAQPage. The money-page answer is the definition and the three published rates. The same kind of definitional answer is on `campus-influencers`, `campus-brand-activation-agency`, `university-activations`, `college-experiential-marketing-agency`, `college-event-sponsorship`, `student-housing-marketing-agency`, `campus-product-launch`, `on-campus-product-sampling`, `college-tailgate-marketing-agency`, and `campus-marketing-agency-rfp`. Each opens on that page's primary term and names Collegiate Agency once.
+
+The money-page buyer checklist under "Use this comparison table before you hire" is now a pipe table, caption `Questions to ask a college marketing agency, with strong answers and red flags`, columns Question, Strong answer, Red flag. The campus marketing agency RFP checklist is a pipe table, columns Section, What to ask for, Why it matters, using the existing checklist wording, including the cancellation-policy link. `how-to-market-to-college-students` turns its academic-calendar list into a Window / What to do table. `gen-z-experiential-marketing` turns its campus-moment list into a Moment / Why it fits table, and keeps the college festival sponsorship link. Other articles already had a table, or their lists were checklists rather than parallel options, timelines, or cost lines, so they were left as lists. Tables still scroll sideways on a narrow screen through the existing table scroller.
+
+ArticleByline shows the published date, and "Updated Mon D, YYYY" in a `<time dateTime>` when `dateModified` is later than `date`. That `dateTime` is the JSON-LD `dateModified`. The same date line is on `/work/[slug]`, including the SOS case study now that its `dateModified` is `2026-11-18`. Real case studies keep their Article JSON-LD. The sample study still emits none.
+
+Money-page H2s are now "How do you check whether a college marketing agency has real campus access?", "Which campus channel fits your goal: events, ambassadors or influencers?", and "How long does a campus campaign take to launch?". The section copy is unchanged, including the SOS and NÜTRL case-study links and the city-hub sentence. No in-page fragment pointed at the old headings.
+
+Two new body links point at each of `multi-campus-brand-activation`, `college-event-marketing-agency`, `spring-break-marketing-agency`, `switching-campus-marketing-agencies`, and `how-to-market-to-college-students`. Anchors vary and include that page's primary term. The exact anchor "college marketing agency" still points only at the money page.
+
+`dateModified` is `2026-11-18` on every article whose body or frontmatter changed in this pass. Articles that already carried `2026-11-18` stayed on that date. `multi-campus-brand-activation`, `college-event-marketing-agency`, `spring-break-marketing-agency`, and `switching-campus-marketing-agencies` were not edited, so their dates stayed.
+
 ## 2026-11-18 — Campus marketing city pages and the New York office
 
 No new article. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. One sentence on that page links the new hub with the anchor `campus marketing by city`. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
