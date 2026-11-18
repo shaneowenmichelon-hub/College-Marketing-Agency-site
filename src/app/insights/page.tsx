@@ -136,7 +136,7 @@ export default function InsightsPage() {
 
       <CTASection
         title="Want to reach students?"
-        primary={{ label: "Get Started", href: "/contact", variant: "lime" }}
+        primary={{ label: "Tell us what you're launching", href: "/contact", variant: "lime" }}
         secondary={{ label: "Become an Ambassador", href: "/become-an-ambassador" }}
       />
     </>

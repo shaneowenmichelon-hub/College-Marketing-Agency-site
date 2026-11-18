@@ -22,6 +22,16 @@ export type Tactic = { title: string; body: string };
 export type Step = { title: string; body: string };
 export type ProofStat = { value: string; label: string };
 
+const PLAN_LABEL = {
+  events: "Get a plan for your campus event",
+  "brand-ambassadors": "Get a plan for an ambassador program",
+  "product-placement": "Get a plan for product placement",
+} as const;
+
+/** Long labels wrap inside the button instead of overflowing a phone. */
+const planButtonClass =
+  "!h-auto w-full min-w-0 whitespace-normal text-balance text-center leading-snug sm:w-auto";
+
 export type ServicePageProps = {
   slug: "events" | "brand-ambassadors" | "product-placement";
   eyebrow: string;
@@ -61,6 +71,7 @@ export function ServicePage({
   const price = pricing[slug];
   const interest = siteConfig.services.find((service) => service.slug === slug)?.label;
   const contactHref = inquiryHref("/contact", { interest });
+  const planLabel = PLAN_LABEL[slug];
   const pageSeo = servicePageSeo(slug);
   return (
     <>
@@ -83,9 +94,9 @@ export function ServicePage({
               <p className="mt-5 max-w-2xl text-lg text-[color:var(--muted-on-dark)]">
                 {intro}
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button href={contactHref} variant="lime" size="lg">
-                  Get Started <ArrowRight className="h-4 w-4" />
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Button href={contactHref} variant="lime" size="lg" className={planButtonClass}>
+                  {planLabel} <ArrowRight className="h-4 w-4 shrink-0" />
                 </Button>
                 {secondaryCta && (
                   <Button href={secondaryCta.href} variant="ghost-dark" size="lg">
@@ -273,9 +284,9 @@ export function ServicePage({
               </>
             )}
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href={contactHref} variant="lime" size="lg">
-              Get Started <ArrowRight className="h-4 w-4" />
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+            <Button href={contactHref} variant="lime" size="lg" className={planButtonClass}>
+              {planLabel} <ArrowRight className="h-4 w-4 shrink-0" />
             </Button>
             {secondaryCta && (
               <Link

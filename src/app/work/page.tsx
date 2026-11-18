@@ -105,7 +105,7 @@ export default function WorkPage() {
       <CTASection
         title="Want your campaign here?"
         intro="Let's build something worth writing up."
-        primary={{ label: "Get Started", href: "/contact", variant: "lime" }}
+        primary={{ label: "Get a plan and pricing", href: "/contact", variant: "lime" }}
       />
     </>
   );

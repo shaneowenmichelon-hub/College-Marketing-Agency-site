@@ -84,7 +84,7 @@ export function ArticleFooterCta({ slug, interest }: { slug: string; interest?: 
     }}>
       <CTASection
         title="Ready to reach students?"
-        primary={{ label: "Get Started", href, variant: "lime" }}
+        primary={{ label: "Tell us what you're launching", href, variant: "lime" }}
       />
     </div>
   );

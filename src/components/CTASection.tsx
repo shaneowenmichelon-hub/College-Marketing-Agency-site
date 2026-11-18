@@ -11,12 +11,15 @@ export function CTASection({
   intro,
   primary,
   secondary,
+  note,
 }: {
   eyebrow?: string;
   title: ReactNode;
   intro?: string;
   primary: CTAButton;
   secondary?: CTAButton;
+  /** Small muted line under the buttons. Same sentence already used on the inquiry path. */
+  note?: string;
 }) {
   return (
     <Section tone="dark" mesh grain containerClassName="text-center">
@@ -34,8 +37,13 @@ export function CTASection({
             {intro}
           </p>
         )}
-        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button href={primary.href} variant={primary.variant ?? "primary"} size="lg">
+        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+          <Button
+            href={primary.href}
+            variant={primary.variant ?? "primary"}
+            size="lg"
+            className="!h-auto max-w-full whitespace-normal text-balance text-center leading-snug"
+          >
             {primary.label}
           </Button>
           {secondary && (
@@ -43,11 +51,17 @@ export function CTASection({
               href={secondary.href}
               variant={secondary.variant ?? "ghost-dark"}
               size="lg"
+              className="!h-auto max-w-full whitespace-normal text-balance text-center leading-snug"
             >
               {secondary.label}
             </Button>
           )}
         </div>
+        {note ? (
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-[color:var(--muted-on-dark)]">
+            {note}
+          </p>
+        ) : null}
       </Reveal>
     </Section>
   );

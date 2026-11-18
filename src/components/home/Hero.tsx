@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { siteConfig, clients } from "@/site.config";
+import { INQUIRY_BRIEF_LINE } from "@/lib/inquiry-handoff";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ClientMarquee } from "@/components/ClientMarquee";
@@ -378,6 +379,14 @@ export function Hero({ heroPhotos }: { heroPhotos?: { src: string; alt: string }
                   Build a Campaign
                 </Button>
               </div>
+              <p
+                className={`hero-rise max-w-xl text-sm leading-relaxed text-[color:var(--muted-on-dark)] ${
+                  active ? "mt-3" : "mt-4"
+                }`}
+                style={{ animationDelay: "170ms" }}
+              >
+                {INQUIRY_BRIEF_LINE}
+              </p>
 
               {/*
                 Scale, on the first screen. These are the numbers a brand

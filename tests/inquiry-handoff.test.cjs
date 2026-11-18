@@ -66,6 +66,20 @@ test("a contact link keeps a real service label and the article", () => {
   assert.deepEqual(handoff.interestsFromQuery(url.search, labels), [label]);
 });
 
+test("a missing interest param leaves the form selection empty", () => {
+  assert.deepEqual(handoff.interestsFromQuery("", labels), []);
+  assert.deepEqual(handoff.interestsFromQuery("?article=college-marketing-agency", labels), []);
+  const href = handoff.articleInquiryHref(
+    handoff.inquiryHref("/contact", {}),
+    "college-marketing-agency",
+  );
+  const url = new URL(href, "https://collegiateagency.com");
+  assert.equal(url.pathname, "/contact");
+  assert.equal(url.searchParams.get("interest"), null);
+  assert.equal(url.searchParams.get("article"), "college-marketing-agency");
+  assert.deepEqual(handoff.interestsFromQuery(url.search, labels), []);
+});
+
 test("unknown interest and service values are dropped", () => {
   assert.deepEqual(handoff.interestsFromQuery("?interest=Interns&interest=Events", labels), ["Events"]);
   assert.deepEqual(handoff.servicesFromQuery("?service=ambassadors,nope&service=events"), [
@@ -127,4 +141,74 @@ test("service, article, and sponsorship paths pass the choice into the inquiry",
   assert.match(builder, /isValidEmail\(contact\.email\)/);
   assert.match(builder, /h-11 w-11/);
   assert.equal(builder.includes("setContact({ firstName: \"\","), false);
+});
+
+test("brand Get Started labels name the next step and keep their destinations", () => {
+  const files = [
+    "src/app/page.tsx",
+    "src/app/services/page.tsx",
+    "src/components/services/ServicePage.tsx",
+    "src/app/work/page.tsx",
+    "src/app/work/[slug]/page.tsx",
+    "src/app/insights/page.tsx",
+    "src/app/insights/topics/[slug]/page.tsx",
+    "src/app/not-found.tsx",
+    "src/components/home/StickyMobileCTA.tsx",
+    "src/components/insights/ArticleCta.tsx",
+    "src/site.config.ts",
+    "src/app/about/page.tsx",
+    "src/app/pricing/page.tsx",
+    "src/components/Navbar.tsx",
+  ];
+  for (const file of files) {
+    assert.equal(/Get [Ss]tarted/.test(read(file)), false, file);
+  }
+
+  const home = read("src/app/page.tsx");
+  assert.match(home, /label: "Tell us what you're launching", href: "\/contact"/);
+  assert.match(home, /label: "Explore services", href: "\/services" \}/);
+  assert.equal(home.includes('href: "/services/events"'), false);
+
+  const services = read("src/site.config.ts");
+  assert.match(services, /cta: \{ label: "Get a plan and pricing", href: "\/contact" \}/);
+  assert.match(services, /label: "Apply now"/);
+  assert.match(services, /label: "Become an ambassador"/);
+
+  const servicePage = read("src/components/services/ServicePage.tsx");
+  assert.match(servicePage, /events: "Get a plan for your campus event"/);
+  assert.match(servicePage, /"brand-ambassadors": "Get a plan for an ambassador program"/);
+  assert.match(servicePage, /"product-placement": "Get a plan for product placement"/);
+  assert.match(servicePage, /Get a custom quote/);
+  assert.match(servicePage, /inquiryHref\("\/contact", \{ interest \}\)/);
+
+  assert.match(read("src/app/work/page.tsx"), /label: "Get a plan and pricing", href: "\/contact"/);
+  assert.match(read("src/app/work/[slug]/page.tsx"), /label: "Get a plan and pricing", href: "\/contact"/);
+  assert.match(read("src/app/insights/page.tsx"), /label: "Tell us what you're launching", href: "\/contact"/);
+  assert.match(
+    read("src/app/insights/topics/[slug]/page.tsx"),
+    /label: "Tell us what you're launching", href: "\/contact"/,
+  );
+  assert.match(read("src/components/home/StickyMobileCTA.tsx"), /Tell us what you&apos;re launching/);
+  assert.match(read("src/components/home/StickyMobileCTA.tsx"), /href="\/contact"/);
+  assert.match(read("src/app/not-found.tsx"), /Tell us what you&apos;re launching/);
+  assert.match(read("src/app/pricing/page.tsx"), /label: "Contact Collegiate Agency", href: "\/contact"/);
+  assert.match(read("src/components/Navbar.tsx"), /Book a Call/);
+
+  const article = read("src/app/insights/[slug]/page.tsx");
+  assert.match(article, /label: "Book a call"/);
+  assert.match(article, /inquiryHref\("\/contact", \{ interest: serviceInterest\("events"\) \}\)/);
+  assert.match(article, /post\.slug === "college-marketing-agency" \? undefined : cta\.interest/);
+  const footer = read("src/components/insights/ArticleCta.tsx");
+  assert.match(footer, /label: "Tell us what you're launching"/);
+  assert.match(footer, /articleCtaHref\(inquiryHref\("\/contact", \{ interest \}\), slug\)/);
+});
+
+test("the hero and about closer repeat the published one-business-day reply", () => {
+  assert.equal(
+    handoff.INQUIRY_BRIEF_LINE,
+    "Send a short brief. Collegiate Agency replies within one business day with a tailored plan and firm pricing.",
+  );
+  assert.match(read("src/components/home/Hero.tsx"), /INQUIRY_BRIEF_LINE/);
+  assert.match(read("src/app/about/page.tsx"), /note=\{INQUIRY_BRIEF_LINE\}/);
+  assert.match(read("src/components/CTASection.tsx"), /\{note \?/);
 });

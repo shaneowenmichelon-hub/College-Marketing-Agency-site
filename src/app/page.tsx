@@ -397,8 +397,8 @@ export default function HomePage() {
         eyebrow="Let's talk"
         title="Ready to reach students?"
         intro="Tell us what you're launching. We'll come back with a plan for how to put it in front of the right campuses."
-        primary={{ label: "Get Started", href: "/contact", variant: "lime" }}
-        secondary={{ label: "Explore services", href: "/services/events" }}
+        primary={{ label: "Tell us what you're launching", href: "/contact", variant: "lime" }}
+        secondary={{ label: "Explore services", href: "/services" }}
       />
 
       {/* Mobile-only sticky prompt (appears after the hero) */}

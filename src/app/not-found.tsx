@@ -26,7 +26,7 @@ export default function NotFound() {
           Back home
         </Button>
         <Button href="/contact" variant="ghost-dark" size="lg">
-          Get Started
+          Tell us what you&apos;re launching
         </Button>
       </div>
     </Section>

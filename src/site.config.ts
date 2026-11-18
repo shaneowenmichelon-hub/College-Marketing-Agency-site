@@ -399,7 +399,7 @@ export const servicesHub: ServicesHub = {
         cta: { label: "Learn more", href: "/services/product-placement" },
       },
     ],
-    cta: { label: "Get started", href: "/contact" },
+    cta: { label: "Get a plan and pricing", href: "/contact" },
   },
   students: {
     intro:
