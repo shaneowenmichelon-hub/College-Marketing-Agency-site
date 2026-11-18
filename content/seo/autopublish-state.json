@@ -1,18 +1,19 @@
 {
   "last_success": {
-    "primary_keyword": "college marketing for beauty brands",
-    "run_no": 46,
-    "slug": "college-marketing-for-beauty-brands",
-    "url": "https://collegiateagency.com/insights/college-marketing-for-beauty-brands",
-    "word_count": 1672,
-    "note": "Run 46 beauty and skincare hiring guide. verified_at is set after the live check."
+    "primary_keyword": "college marketing for beverage brands",
+    "run_no": 47,
+    "slug": "college-marketing-for-beverage-brands",
+    "url": "https://collegiateagency.com/insights/college-marketing-for-beverage-brands",
+    "word_count": 1697,
+    "verified_at": "2026-11-18T03:21:27.419483-06:00",
+    "note": "Run 47 beverage hiring guide. verified_at is the live check. The clock advanced 36 hours plus 1164 seconds from that anchor."
   },
-  "next_run_at": "2026-11-18T03:16:11.826611-06:00",
+  "next_run_at": "2026-11-19T15:40:51.419483-06:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-11-16T14:51:32.826611-06:00",
-  "schedule_jitter_seconds": 1479,
+  "schedule_anchor": "2026-11-18T03:21:27.419483-06:00",
+  "schedule_jitter_seconds": 1164,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility",
-  "schedule_repair": "Run 46 advanced the clock 36 hours plus 1479 seconds from 2026-11-16 14:51 America/Chicago so a resumed routine does not burst a second article."
+  "schedule_repair": "Run 47 advanced the clock 36 hours plus 1164 seconds from 2026-11-18 03:21 America/Chicago so a resumed routine does not burst a second article."
 }
