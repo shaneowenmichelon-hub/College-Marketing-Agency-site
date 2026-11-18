@@ -119,17 +119,18 @@ test("product placement is a real service page and the old redirect is gone", ()
 test("sitemap, llms.txt, and the insights feed include the new URLs", async () => {
   const { default: sitemap } = loadTs("app/sitemap.ts");
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
+  const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
   assert.equal(
     byLoc.get("https://collegiateagency.com/pricing").lastModified.toISOString(),
-    "2026-10-22T00:00:00.000Z",
+    `${STATIC_ROUTE_UPDATED["/pricing"]}T00:00:00.000Z`,
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/product-placement").lastModified.toISOString(),
-    "2026-11-18T00:00:00.000Z",
+    `${STATIC_ROUTE_UPDATED["/services/product-placement"]}T00:00:00.000Z`,
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
-    "2026-11-13T00:00:00.000Z",
+    `${STATIC_ROUTE_UPDATED["/services/events"]}T00:00:00.000Z`,
   );
 
   const { GET } = loadTs("app/llms.txt/route.ts");

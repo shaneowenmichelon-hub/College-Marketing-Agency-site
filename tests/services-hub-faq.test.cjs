@@ -197,15 +197,16 @@ test("services hub FAQ is visible, matches FAQPage JSON-LD, and stays on publish
   assert.equal(main.includes("<ServiceFaq"), false);
 
   const { default: sitemap } = loadTs("app/sitemap.ts");
+  const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
   const urls = sitemap();
   const services = urls.find((entry) => entry.url === "https://collegiateagency.com/services");
-  assert.equal(services.lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
+  assert.equal(services.lastModified.toISOString(), `${STATIC_ROUTE_UPDATED["/services"]}T00:00:00.000Z`);
   const home = urls.find((entry) => entry.url === "https://collegiateagency.com");
-  assert.equal(home.lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
+  assert.equal(home.lastModified.toISOString(), `${STATIC_ROUTE_UPDATED["/"]}T00:00:00.000Z`);
   const pricing = urls.find((entry) => entry.url === "https://collegiateagency.com/pricing");
-  assert.equal(pricing.lastModified.toISOString(), "2026-10-22T00:00:00.000Z");
+  assert.equal(pricing.lastModified.toISOString(), `${STATIC_ROUTE_UPDATED["/pricing"]}T00:00:00.000Z`);
   const events = urls.find((entry) => entry.url === "https://collegiateagency.com/services/events");
-  assert.equal(events.lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
+  assert.equal(events.lastModified.toISOString(), `${STATIC_ROUTE_UPDATED["/services/events"]}T00:00:00.000Z`);
   const about = urls.find((entry) => entry.url === "https://collegiateagency.com/about");
-  assert.equal(about.lastModified.toISOString(), "2026-11-10T00:00:00.000Z");
+  assert.equal(about.lastModified.toISOString(), `${STATIC_ROUTE_UPDATED["/about"]}T00:00:00.000Z`);
 });

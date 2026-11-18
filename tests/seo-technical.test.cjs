@@ -285,19 +285,21 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
       slug,
     );
   }
+  const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
+  const routeStamp = (route) => `${STATIC_ROUTE_UPDATED[route]}T00:00:00.000Z`;
   assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-16T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), routeStamp("/services/events"));
+  assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), routeStamp("/work"));
+  assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), routeStamp("/"));
+  assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), routeStamp("/services"));
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/brand-ambassadors").lastModified.toISOString(),
-    "2026-10-21T00:00:00.000Z",
+    routeStamp("/services/brand-ambassadors"),
   );
-  assert.equal(byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(), "2026-10-28T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(), routeStamp("/contact"));
   assert.equal(
     byLoc.get("https://collegiateagency.com/build-a-campaign").lastModified.toISOString(),
-    "2026-11-16T00:00:00.000Z",
+    routeStamp("/build-a-campaign"),
   );
 });
 
@@ -420,7 +422,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
 
   const workPage = fs.readFileSync(path.join(__dirname, "../src/app/work/[slug]/page.tsx"), "utf8");
   assert.match(workPage, /title: c\.metaTitle \?\? `\$\{c\.brand\} case study`/);
-  assert.match(workPage, /c\.metaDescription \?\?/);
+  assert.match(workPage, /caseStudyDescription\(c\)/);
   const sos = getCaseStudy("sos-consultants-nola-campus-leasing-ambassadors");
   assert.equal(sos.date, "2026-08-03");
   assert.equal(sos.dateModified, undefined);
@@ -435,7 +437,8 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
       slug,
     );
   }
-  assert.equal(byLoc.get("https://collegiateagency.com/about").lastModified.toISOString(), "2026-11-10T00:00:00.000Z");
+  const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
+  assert.equal(byLoc.get("https://collegiateagency.com/about").lastModified.toISOString(), `${STATIC_ROUTE_UPDATED["/about"]}T00:00:00.000Z`);
   assert.equal(
     byLoc.get("https://collegiateagency.com/work/nutrl-night-school-tour-product-placement").lastModified.toISOString(),
     "2026-11-10T00:00:00.000Z",
@@ -444,11 +447,12 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     byLoc.get("https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors").lastModified.toISOString(),
     "2026-08-03T00:00:00.000Z",
   );
+  const { STATIC_ROUTE_UPDATED: routeUpdated } = loadTs("lib/route-updated.ts");
   assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), "2026-11-13T00:00:00.000Z");
-  assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), "2026-11-16T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), `${routeUpdated["/"]}T00:00:00.000Z`);
+  assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), `${routeUpdated["/services"]}T00:00:00.000Z`);
+  assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), `${routeUpdated["/services/events"]}T00:00:00.000Z`);
+  assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), `${routeUpdated["/work"]}T00:00:00.000Z`);
 });
 
 test("organization JSON-LD is one node with a real address, logo, and website", () => {
@@ -477,7 +481,14 @@ test("organization JSON-LD is one node with a real address, logo, and website", 
     "https://www.linkedin.com/company/collegiate-agency",
     "https://clutch.co/profile/collegiate-agency",
     "https://www.sortlist.com/agency/collegiate-agency",
+    "https://issuu.com/collegiateagency",
+    "https://campusmarketingnotes.substack.com",
+    "https://campusmarketingplaybook.wordpress.com",
+    "https://campusmarketingnotesforbrands.blogspot.com",
+    "https://www.tumblr.com/campusnotesforbrands",
   ]);
+  assert.equal(org.foundingDate, "2026");
+  assert.deepEqual(org.numberOfEmployees, { "@type": "QuantitativeValue", minValue: 6, maxValue: 10 });
   const serialized = JSON.stringify(graph);
   assert.equal(serialized.includes("streetAddress"), false);
   assert.equal(serialized.includes("Brand partnerships"), false);
@@ -519,7 +530,7 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
   assert.equal(byLoc.has("https://collegiateagency.com/work/nutrl-night-school-tour-product-placement"), true);
 
   const article = byLoc.get("https://collegiateagency.com/insights/college-marketing-agency");
-  assert.equal(article.lastModified.toISOString(), "2026-11-17T00:00:00.000Z");
+  assert.equal(article.lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
   for (const slug of ["campus-influencers", "college-event-sponsorship"]) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
@@ -539,7 +550,8 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
     byLoc.get("https://collegiateagency.com/insights/campus-brand-activation-agency").lastModified.toISOString(),
     "2026-11-12T00:00:00.000Z",
   );
-  assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
+  const { STATIC_ROUTE_UPDATED: homeUpdated } = loadTs("lib/route-updated.ts");
+  assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), `${homeUpdated["/"]}T00:00:00.000Z`);
   assert.equal(
     byLoc.get("https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors").lastModified.toISOString(),
     "2026-08-03T00:00:00.000Z",
@@ -703,17 +715,18 @@ test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
 
   const { default: sitemap } = loadTs("app/sitemap.ts");
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
+  const { STATIC_ROUTE_UPDATED: serviceUpdated } = loadTs("lib/route-updated.ts");
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
-    "2026-11-13T00:00:00.000Z",
+    `${serviceUpdated["/services/events"]}T00:00:00.000Z`,
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/brand-ambassadors").lastModified.toISOString(),
-    "2026-10-21T00:00:00.000Z",
+    `${serviceUpdated["/services/brand-ambassadors"]}T00:00:00.000Z`,
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/contact").lastModified.toISOString(),
-    "2026-10-28T00:00:00.000Z",
+    `${serviceUpdated["/contact"]}T00:00:00.000Z`,
   );
 });
 
@@ -772,7 +785,8 @@ test("services metadata is brand-only and unsourced sampling stats are absent", 
 
   const { default: sitemap } = loadTs("app/sitemap.ts");
   const services = sitemap().find((entry) => entry.url === "https://collegiateagency.com/services");
-  assert.equal(services.lastModified.toISOString(), "2026-11-05T00:00:00.000Z");
+  const { STATIC_ROUTE_UPDATED: servicesUpdated } = loadTs("lib/route-updated.ts");
+  assert.equal(services.lastModified.toISOString(), `${servicesUpdated["/services"]}T00:00:00.000Z`);
 });
 
 test("case-study insight URLs permanently redirect to /work", () => {

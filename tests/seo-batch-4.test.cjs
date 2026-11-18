@@ -55,8 +55,9 @@ test("/rss.xml permanently redirects to /feed.xml and the homepage lastmod is th
   const config = fs.readFileSync(path.join(__dirname, "../next.config.mjs"), "utf8");
   assert.match(config, /source:\s*"\/rss\.xml",\s*destination:\s*"\/feed\.xml",\s*permanent:\s*true/);
   const { default: sitemap } = loadTs("app/sitemap.ts");
+  const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
   const home = sitemap().find((entry) => entry.url === "https://collegiateagency.com");
-  assert.equal(home.lastModified.toISOString(), "2026-11-04T00:00:00.000Z");
+  assert.equal(home.lastModified.toISOString(), `${STATIC_ROUTE_UPDATED["/"]}T00:00:00.000Z`);
 });
 
 test("homepage contrast and name fixes are in the components Lighthouse flagged", () => {

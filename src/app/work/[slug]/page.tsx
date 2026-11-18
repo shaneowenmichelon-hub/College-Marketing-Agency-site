@@ -11,7 +11,8 @@ import { ArticleTable } from "@/components/article/ArticleTable";
 import { ArticleFigure } from "@/components/article/ArticleFigure";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
-import { caseStudies, getCaseStudy } from "@/lib/content";
+import { CaseStudyArticleJsonLd } from "@/components/seo/CaseStudyJsonLd";
+import { caseStudies, caseStudyDescription, getCaseStudy } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 type Params = Promise<{ slug: string }>;
@@ -30,12 +31,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       index: false,
     });
   }
-  const result = c.stat && c.statLabel ? ` ${c.stat} ${c.statLabel}` : "";
   return pageMetadata({
     title: c.metaTitle ?? `${c.brand} case study`,
-    description:
-      c.metaDescription ??
-      `${c.type} case study: ${c.headline}.${result}${c.sample ? " (sample)." : "."}`,
+    description: caseStudyDescription(c),
     path: `/work/${slug}`,
     index: !c.sample,
   });
@@ -54,6 +52,7 @@ export default async function CaseStudyPage({ params }: { params: Params }) {
 
   return (
     <>
+      <CaseStudyArticleJsonLd study={c} />
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "/" },

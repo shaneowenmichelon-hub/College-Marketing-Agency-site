@@ -60,7 +60,7 @@ export function ArticleCtaCard({
         </Link>
       </div>
       {position === "closing" && (
-        <p className="mt-5 border-t-2 border-white/20 pt-4 text-xs text-white/70">
+        <p className="mt-5 border-t-2 border-white/20 pt-4 text-xs text-white/95">
           Student, not a brand?{" "}
           <Link href="/become-an-ambassador" className="font-semibold text-white underline underline-offset-4">
             Apply to the ambassador network

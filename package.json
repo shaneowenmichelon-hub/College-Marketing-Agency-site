@@ -12,7 +12,8 @@
     "build": "next build",
     "postbuild": "node scripts/indexnow-ping.cjs",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node --test tests/*.test.cjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

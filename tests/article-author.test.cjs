@@ -49,8 +49,18 @@ function assertFounderPerson(author) {
   assert.equal(author.name, "Shane Michelon");
   assert.equal(author.jobTitle, "Founder");
   assert.deepEqual(author.worksFor, { "@id": ORG_ID });
-  assert.deepEqual(author.sameAs, [LINKEDIN]);
-  assert.equal("url" in author, false);
+  assert.equal(author.url, LINKEDIN);
+  assert.equal(author.image, "https://collegiateagency.com/team/shane-michelon.png");
+  assert.equal(
+    author.description,
+    "Founder of Collegiate Agency, a New York college marketing agency brands hire to reach university students through campus events, brand ambassadors and product placement.",
+  );
+  assert.deepEqual(author.sameAs, [
+    LINKEDIN,
+    "https://about.me/shanemichelon",
+    "https://medium.com/@shanemichelon",
+    "https://www.quora.com/profile/Shane-Michelon-2",
+  ]);
   const encoded = JSON.stringify(author);
   assert.equal(encoded.includes("ZMM"), false);
   assert.equal(encoded.includes("Night School"), false);
