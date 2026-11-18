@@ -475,7 +475,7 @@ const sosConsultantsArticle: ArticleBlock[] = [
   },
   {
     type: "p",
-    html: "For local businesses trying to reach college students, this is the model we want to repeat. You do not need a massive national budget to create real movement on campus. You need the right audience, a student-trusted distribution layer, a reason for the brand to appear in the real world, and paid media targeted tightly enough that every dollar stays close to the students who can act. SOS Consultants Nola proved that a lean, coordinated campus package can produce performance-level returns when ambassadors, events, and ads are treated as one system.",
+    html: "For local businesses trying to reach college students, this is the model we want to repeat. You do not need a massive national budget to create real movement on campus. You need the right audience, a student-trusted distribution layer, a reason for the brand to appear in the real world, and paid media targeted tightly enough that every dollar stays close to the students who can act. SOS Consultants Nola proved that a lean, coordinated campus package can produce performance-level returns when ambassadors, events, and ads are treated as one system. The same market is written up as <a href=\"/campus-marketing/new-orleans\">college marketing in New Orleans</a>.",
   },
   {
     type: "p",
@@ -530,6 +530,7 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: "sos-consultants-nola-campus-leasing-ambassadors",
     date: "2026-08-03",
+    dateModified: "2026-11-18",
     cover: "apartment",
     imageAlt: "Illustration of an apartment block with units filling up and a LEASED sign",
     brand: "SOS Consultants Nola",

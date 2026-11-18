@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Mail, MapPin } from "lucide-react";
-import { siteConfig, clients, sitePhotos } from "@/site.config";
+import { clients, formatOfficeAddress, siteConfig, sitePhotos } from "@/site.config";
 import { pageMetadata } from "@/lib/seo";
 import {
   CONTACT_DESCRIPTION,
@@ -115,7 +115,7 @@ export default function ContactPage() {
                 <dt className="text-xs uppercase tracking-wide text-[color:var(--muted-on-light)]">
                   Based in
                 </dt>
-                <dd className="text-sm font-medium text-ink">{siteConfig.contact.location}</dd>
+                <dd className="text-sm font-medium text-ink">{formatOfficeAddress(siteConfig.offices[0])}</dd>
               </div>
             </div>
           </dl>
@@ -132,6 +132,7 @@ export default function ContactPage() {
                   className="rounded-2xl border border-[color:var(--border-on-light)] bg-surface p-4 shadow-soft"
                 >
                   <p className="font-display text-base font-bold text-ink">{office.name}</p>
+                  <p className="mt-1 text-sm text-ink">{formatOfficeAddress(office)}</p>
                   <p className="mt-1 text-sm text-[color:var(--muted-on-light)]">
                     {office.address}
                   </p>

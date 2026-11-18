@@ -1,3 +1,4 @@
+import { cityPath, HUB_PATH, hubBodyText, marketBodyText, publishedMarkets } from "@/lib/campus-markets";
 import { siteConfig } from "@/site.config";
 import { posts, type ArticleBlock } from "@/lib/content";
 import { faqAnswerPlainText } from "@/lib/article-faq";
@@ -91,6 +92,18 @@ This file is generated from the published insight articles. It does not add clai
 ${topicIndex()}
 
 ${sections.join("\n\n---\n\n")}
+
+# Campus marketing by city
+
+URL: ${siteConfig.url}${HUB_PATH}
+
+${hubBodyText()}
+
+${publishedMarkets()
+  .map((market) =>
+    [`# College marketing in ${market.city}`, `URL: ${siteConfig.url}${cityPath(market.slug)}`, "", marketBodyText(market)].join("\n"),
+  )
+  .join("\n\n")}
 `;
 
   return new Response(text, {

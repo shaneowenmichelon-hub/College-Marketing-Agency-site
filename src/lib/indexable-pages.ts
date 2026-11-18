@@ -7,8 +7,9 @@ import { getStat, siteConfig } from "@/site.config";
 /**
  * Indexable copy for /work, /contact, and /build-a-campaign.
  * Every figure is read from pricing, the campus stat, the contact location,
- * or an existing case study. Do not add a client, a result, a phone number,
- * or a street address here.
+ * or an existing case study. Do not add a client, a result, or a phone number
+ * here. The only street address on the site is the confirmed New York office
+ * on siteConfig.offices. Do not copy that street into this copy.
  */
 
 export type CopyPart = { text: string; href?: string };

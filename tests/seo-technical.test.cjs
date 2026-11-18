@@ -425,7 +425,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
   assert.match(workPage, /caseStudyDescription\(c\)/);
   const sos = getCaseStudy("sos-consultants-nola-campus-leasing-ambassadors");
   assert.equal(sos.date, "2026-08-03");
-  assert.equal(sos.dateModified, undefined);
+  assert.equal(sos.dateModified, "2026-11-18");
   assert.equal(sos.metaTitle, undefined);
 
   const { default: sitemap } = loadTs("app/sitemap.ts");
@@ -445,7 +445,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors").lastModified.toISOString(),
-    "2026-08-03T00:00:00.000Z",
+    "2026-11-18T00:00:00.000Z",
   );
   const { STATIC_ROUTE_UPDATED: routeUpdated } = loadTs("lib/route-updated.ts");
   assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-18T00:00:00.000Z");
@@ -466,10 +466,13 @@ test("organization JSON-LD is one node with a real address, logo, and website", 
   assert.equal(website["@type"], "WebSite");
   assert.equal(website.publisher["@id"], org["@id"]);
   assert.equal(org.address["@type"], "PostalAddress");
+  assert.equal(org.address.streetAddress, "66 W Broadway, Suite 201");
+  assert.equal(org.address.postalCode, "10007");
   assert.equal(org.address.addressLocality, "New York");
   assert.equal(org.address.addressRegion, "NY");
   assert.equal(org.address.addressCountry, "US");
-  assert.equal(org.address.streetAddress, undefined);
+  assert.deepEqual(org.numberOfEmployees, { "@type": "QuantitativeValue", value: 6 });
+  assert.equal(org.telephone, undefined);
   assert.equal(org.email, "shane@zmmevents.com");
   assert.equal(org.logo.url, "https://collegiateagency.com/logo.png");
   assert.equal(org.logo.width, 512);
@@ -488,9 +491,11 @@ test("organization JSON-LD is one node with a real address, logo, and website", 
     "https://www.tumblr.com/campusnotesforbrands",
   ]);
   assert.equal(org.foundingDate, "2026");
-  assert.deepEqual(org.numberOfEmployees, { "@type": "QuantitativeValue", minValue: 6, maxValue: 10 });
   const serialized = JSON.stringify(graph);
-  assert.equal(serialized.includes("streetAddress"), false);
+  assert.equal(serialized.includes("streetAddress"), true);
+  assert.equal(serialized.includes("telephone"), false);
+  assert.equal(serialized.includes("minValue"), false);
+  assert.equal(serialized.includes("maxValue"), false);
   assert.equal(serialized.includes("Brand partnerships"), false);
 
   const events = serviceStructuredData("events");
@@ -554,7 +559,7 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), `${homeUpdated["/"]}T00:00:00.000Z`);
   assert.equal(
     byLoc.get("https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors").lastModified.toISOString(),
-    "2026-08-03T00:00:00.000Z",
+    "2026-11-18T00:00:00.000Z",
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/work/nutrl-night-school-tour-product-placement").lastModified.toISOString(),

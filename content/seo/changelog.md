@@ -1,5 +1,15 @@
 # SEO changelog
 
+## 2026-11-18 — Campus marketing city pages and the New York office
+
+No new article. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. One sentence on that page links the new hub with the anchor `campus marketing by city`. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
+
+`/campus-marketing` is the city hub. `/campus-marketing/new-orleans` is the only published city page. Austin and Oxford stay in `src/lib/campus-markets.ts` with one public fact each, so they do not pass the fact gate and are not rendered, linked from the hub, or added to the sitemap. The New Orleans fact is the published SOS Consultants Nola case study: a $2,500 package, two shows, an on-site activation, one round of ambassador flyer and video posts, localized Meta ads using the same creative, and an 11x return on ad spend. Tulane, UT Austin, and Ole Miss are labeled only as schools in the campus network. The city page links `/contact` and does not add a calendar, a booking link, or a phone number.
+
+The confirmed New York office is `66 W Broadway, Suite 201`, New York, NY `10007`. Organization JSON-LD now includes that street and postal code, and `numberOfEmployees` is exactly `{"@type":"QuantitativeValue","value":6}`, replacing the 6–10 range. `foundingDate` stays `2026`. There is still no telephone. The footer and the contact location line show the street. The contact email stays `shane@zmmevents.com`.
+
+Sitemap `lastmod` for `/campus-marketing` is `2026-11-18` through `STATIC_ROUTE_UPDATED`. The New Orleans URL uses the same date constant. The SOS case study `dateModified` is `2026-11-18` because it gained one link to the city page.
+
 ## 2026-11-18 — SEO hygiene: lastmod, entity, broken links
 
 No new article. The money-page title and H1 stay `College Marketing Agency: How to Choose One`. The sample Celsius case study stays `noindex` and is not linked from the new sentence. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, review, or price was added. `foundingDate` and the employee range are the figures the owner supplied on Nov 11 2026, and they are in Organization JSON-LD only.
