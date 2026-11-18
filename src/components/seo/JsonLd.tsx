@@ -146,6 +146,7 @@ export function ArticleJsonLd({
   image,
   author,
   dateModified,
+  abstract,
 }: {
   title: string;
   description: string;
@@ -154,6 +155,8 @@ export function ArticleJsonLd({
   image?: string;
   author?: string;
   dateModified?: string;
+  /** Same text as the visible short answer. Omitted from FAQPage. */
+  abstract?: string;
 }) {
   // Google's Article image requirements do not accept SVG, so the fallback is
   // the generated PNG from app/opengraph-image.tsx rather than /og.svg.
@@ -166,6 +169,7 @@ export function ArticleJsonLd({
         "@type": ["Article", "BlogPosting"],
         headline: title,
         description,
+        ...(abstract ? { abstract } : {}),
         datePublished: date,
         // Freshness is a ranking and citation signal; without dateModified a
         // crawler can only assume the article is as old as its publish date.

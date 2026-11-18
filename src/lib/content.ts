@@ -81,6 +81,11 @@ export type Post = {
   /** Which service pages should surface this post under "Related insights". */
   services: ServiceSlug[];
   excerpt: string;
+  /**
+   * Optional 40–70 word answer rendered under the byline and copied into
+   * Article JSON-LD as `abstract`. It is not an FAQ.
+   */
+  shortAnswer?: string;
   date: string;
   /** Optional revision date from frontmatter. Sitemap lastmod prefers this. */
   dateModified?: string;

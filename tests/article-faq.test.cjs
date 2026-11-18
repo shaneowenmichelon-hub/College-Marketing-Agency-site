@@ -168,6 +168,21 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const run45 = new Set(["spring-semester-campus-marketing"]);
     const run46 = new Set(["college-marketing-for-beauty-brands"]);
     const run47 = new Set(["college-marketing-for-beverage-brands"]);
+    const wave2 = new Set([
+      "campus-influencers",
+      "campus-brand-activation-agency",
+      "college-experiential-marketing-agency",
+      "college-event-sponsorship",
+      "student-housing-marketing-agency",
+      "college-tailgate-marketing-agency",
+      "campus-marketing-agency-rfp",
+      "how-to-market-to-college-students",
+      "gen-z-experiential-marketing",
+      "college-tour-marketing",
+      "spring-semester-campus-marketing",
+      "college-marketing-strategy",
+      "campus-field-marketing-agency",
+    ]);
     const samplingCluster = new Set([
       "on-campus-product-sampling",
       "campus-product-sampling-ideas",
@@ -182,7 +197,9 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    const revisedOn = samplingCluster.has(slug)
+    const revisedOn = wave2.has(slug)
+      ? "2026-11-18"
+      : samplingCluster.has(slug)
       ? "2026-11-18"
       : run47.has(slug)
       ? "2026-11-18"
@@ -269,9 +286,9 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
     "on-campus-product-sampling": [/student product sampling/i, /student product samples/i],
   };
   const hubs = {
-    "student-influencers": "2026-11-11",
+    "student-influencers": "2026-11-18",
     "campus-events-and-activations": "2026-11-18",
-    "campus-sponsorship": "2026-11-17",
+    "campus-sponsorship": "2026-11-18",
     "product-sampling-and-placement": "2026-11-18",
     "campus-marketing-strategy": "2026-11-18",
   };
@@ -287,7 +304,7 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
     );
   }
   assert.equal(getPost("gen-z-marketing").dateModified, "2026-10-23");
-  assert.equal(getPost("gen-z-experiential-marketing").dateModified, "2026-10-23");
+  assert.equal(getPost("gen-z-experiential-marketing").dateModified, "2026-11-18");
 
   for (const [slug, patterns] of Object.entries(slugs)) {
     const post = getPost(slug);
@@ -298,7 +315,7 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
       "university-activations",
       "campus-product-launch",
     ]);
-    const revised = samplingRevised.has(slug) ? "2026-11-18" : "2026-11-11";
+    const revised = "2026-11-18";
     assert.equal(post.dateModified, revised, slug);
     assert.equal(post.date === "2026-11-11", false, slug);
     const schemaItems = articleFaqSchemaItems(post.faq);
@@ -386,9 +403,9 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
   };
   const hubs = {
     "campus-events-and-activations": "2026-11-18",
-    "campus-sponsorship": "2026-11-17",
+    "campus-sponsorship": "2026-11-18",
     "campus-marketing-strategy": "2026-11-18",
-    "student-influencers": "2026-11-11",
+    "student-influencers": "2026-11-18",
     "product-sampling-and-placement": "2026-11-18",
   };
 
@@ -412,11 +429,7 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    assert.equal(
-      post.dateModified,
-      slug === "college-marketing-agency" ? "2026-11-18" : moneyPageRevised.has(slug) ? "2026-11-17" : "2026-11-12",
-      slug,
-    );
+    assert.equal(post.dateModified, "2026-11-18", slug);
     assert.equal(post.date, published[slug], slug);
     assert.equal(post.author, "Shane Michelon", slug);
     const schemaItems = articleFaqSchemaItems(post.faq);
@@ -448,7 +461,7 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
     assert.doesNotMatch(visible, /1,000|intern|agency for students/i, slug);
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      `${slug === "college-marketing-agency" ? "2026-11-18" : moneyPageRevised.has(slug) ? "2026-11-17" : "2026-11-12"}T00:00:00.000Z`,
+      "2026-11-18T00:00:00.000Z",
       slug,
     );
   }
@@ -523,9 +536,9 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     "brand-ambassador-programs": "2026-11-13",
     "campus-events-and-activations": "2026-11-18",
     "product-sampling-and-placement": "2026-11-18",
-    "campus-sponsorship": "2026-11-17",
+    "campus-sponsorship": "2026-11-18",
     "campus-marketing-strategy": "2026-11-18",
-    "student-influencers": "2026-11-11",
+    "student-influencers": "2026-11-18",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
@@ -543,7 +556,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     );
   }
   assert.equal(getPost("gen-z-marketing").dateModified, "2026-10-23");
-  assert.equal(getPost("gen-z-experiential-marketing").dateModified, "2026-10-23");
+  assert.equal(getPost("gen-z-experiential-marketing").dateModified, "2026-11-18");
   assert.equal(getPost("hbcu-marketing-agency").dateModified, "2026-11-11");
   assert.equal(getPost("campus-product-sampling-agency").dateModified, "2026-11-11");
 

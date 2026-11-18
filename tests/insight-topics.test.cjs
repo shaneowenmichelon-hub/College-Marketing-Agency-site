@@ -200,15 +200,13 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
     "campus-marketing-strategy",
     "campus-events-and-activations",
     "product-sampling-and-placement",
+    "campus-sponsorship",
+    "student-influencers",
   ]);
   for (const topic of insightTopics) {
     assert.equal(
       insightTopicSitemapLastModified(topic.slug),
-      samplingHubs.has(topic.slug)
-        ? "2026-11-18"
-        : topic.slug === "campus-sponsorship"
-          ? "2026-11-17"
-          : "2026-11-16",
+      samplingHubs.has(topic.slug) ? "2026-11-18" : "2026-11-16",
       topic.slug,
     );
   }
