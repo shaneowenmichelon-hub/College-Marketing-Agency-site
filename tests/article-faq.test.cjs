@@ -168,6 +168,12 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const run45 = new Set(["spring-semester-campus-marketing"]);
     const run46 = new Set(["college-marketing-for-beauty-brands"]);
     const run47 = new Set(["college-marketing-for-beverage-brands"]);
+    const samplingCluster = new Set([
+      "on-campus-product-sampling",
+      "campus-product-sampling-ideas",
+      "campus-product-launch",
+      "university-activations",
+    ]);
     const moneyPageLinks = new Set([
       "college-marketing-agency",
       "college-marketing-strategy",
@@ -176,7 +182,9 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    const revisedOn = run47.has(slug)
+    const revisedOn = samplingCluster.has(slug)
+      ? "2026-11-18"
+      : run47.has(slug)
       ? "2026-11-18"
       : moneyPageLinks.has(slug)
       ? "2026-11-17"
@@ -262,9 +270,9 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
   };
   const hubs = {
     "student-influencers": "2026-11-11",
-    "campus-events-and-activations": "2026-11-17",
+    "campus-events-and-activations": "2026-11-18",
     "campus-sponsorship": "2026-11-17",
-    "product-sampling-and-placement": "2026-11-13",
+    "product-sampling-and-placement": "2026-11-18",
     "campus-marketing-strategy": "2026-11-18",
   };
 
@@ -285,7 +293,13 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
     const post = getPost(slug);
     assert.ok(post?.faq, slug);
     assert.ok(post.faq.length >= 4 && post.faq.length <= 6, `${slug} ${post.faq.length}`);
-    assert.equal(post.dateModified, "2026-11-11", slug);
+    const samplingRevised = new Set([
+      "on-campus-product-sampling",
+      "university-activations",
+      "campus-product-launch",
+    ]);
+    const revised = samplingRevised.has(slug) ? "2026-11-18" : "2026-11-11";
+    assert.equal(post.dateModified, revised, slug);
     assert.equal(post.date === "2026-11-11", false, slug);
     const schemaItems = articleFaqSchemaItems(post.faq);
     const html = renderToStaticMarkup(
@@ -315,7 +329,7 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
     for (const pattern of patterns) assert.match(visible, pattern, slug);
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      "2026-11-11T00:00:00.000Z",
+      `${revised}T00:00:00.000Z`,
       slug,
     );
   }
@@ -371,11 +385,11 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
     "college-tour-marketing": "2026-08-14",
   };
   const hubs = {
-    "campus-events-and-activations": "2026-11-17",
+    "campus-events-and-activations": "2026-11-18",
     "campus-sponsorship": "2026-11-17",
     "campus-marketing-strategy": "2026-11-18",
     "student-influencers": "2026-11-11",
-    "product-sampling-and-placement": "2026-11-13",
+    "product-sampling-and-placement": "2026-11-18",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
@@ -503,8 +517,8 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
   };
   const hubs = {
     "brand-ambassador-programs": "2026-11-13",
-    "campus-events-and-activations": "2026-11-17",
-    "product-sampling-and-placement": "2026-11-13",
+    "campus-events-and-activations": "2026-11-18",
+    "product-sampling-and-placement": "2026-11-18",
     "campus-sponsorship": "2026-11-17",
     "campus-marketing-strategy": "2026-11-18",
     "student-influencers": "2026-11-11",
@@ -533,7 +547,8 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     const post = getPost(slug);
     assert.ok(post?.faq, slug);
     assert.equal(post.faq.length, 5, slug);
-    assert.equal(post.dateModified, "2026-11-13", slug);
+    const revised = slug === "campus-product-sampling-ideas" ? "2026-11-18" : "2026-11-13";
+    assert.equal(post.dateModified, revised, slug);
     assert.equal(post.date, published[slug], slug);
     assert.equal(post.author, "Shane Michelon", slug);
     const source = fs.readFileSync(path.join(__dirname, `../content/blog/${slug}.mdx`), "utf8");
@@ -567,7 +582,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     assert.doesNotMatch(visible, /1,000|intern|agency for students/i, slug);
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      "2026-11-13T00:00:00.000Z",
+      `${revised}T00:00:00.000Z`,
       slug,
     );
   }

@@ -179,13 +179,20 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   const linkRevised = new Set(["campus-field-marketing-agency", "student-housing-marketing-agency"]);
   const faqRevised = new Set(["on-campus-product-sampling", "university-activations"]);
   const moneyPageLinks = new Set(["college-tour-marketing"]);
+  const samplingCluster = new Set([
+    "on-campus-product-sampling",
+    "university-activations",
+    "campus-product-sampling-ideas",
+  ]);
   for (const [slug, lead] of Object.entries(expected)) {
     const post = posts.find((item) => item.slug === slug);
     assert.ok(post, slug);
     assert.equal(post.metaTitle, lead);
     assert.equal(
       post.dateModified,
-      moneyPageLinks.has(slug)
+      samplingCluster.has(slug)
+        ? "2026-11-18"
+        : moneyPageLinks.has(slug)
         ? "2026-11-17"
         : faqBatchThree.has(slug)
           ? "2026-11-13"
@@ -262,7 +269,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   for (const slug of Object.keys(expected)) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      moneyPageLinks.has(slug)
+      samplingCluster.has(slug)
+        ? "2026-11-18T00:00:00.000Z"
+        : moneyPageLinks.has(slug)
         ? "2026-11-17T00:00:00.000Z"
         : faqBatchThree.has(slug)
         ? "2026-11-13T00:00:00.000Z"
@@ -511,13 +520,17 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
 
   const article = byLoc.get("https://collegiateagency.com/insights/college-marketing-agency");
   assert.equal(article.lastModified.toISOString(), "2026-11-17T00:00:00.000Z");
-  for (const slug of ["campus-influencers", "campus-product-launch", "college-event-sponsorship"]) {
+  for (const slug of ["campus-influencers", "college-event-sponsorship"]) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
       "2026-11-11T00:00:00.000Z",
       slug,
     );
   }
+  assert.equal(
+    byLoc.get("https://collegiateagency.com/insights/campus-product-launch").lastModified.toISOString(),
+    "2026-11-18T00:00:00.000Z",
+  );
   assert.equal(
     byLoc.get("https://collegiateagency.com/insights/college-experiential-marketing-agency").lastModified.toISOString(),
     "2026-11-17T00:00:00.000Z",

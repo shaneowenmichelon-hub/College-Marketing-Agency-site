@@ -10,8 +10,14 @@ import { insightTopicPath, insightTopicSitemapLastModified, insightTopics } from
 const STATIC_LAST_MODIFIED = "2026-10-20";
 /** Service detail pages gained their FAQ and supporting copy on this date. */
 const SERVICE_DETAIL_LAST_MODIFIED = "2026-10-21";
-/** Pricing, product placement, and the homepage schema/accessibility pass. */
+/** Pricing and the homepage schema/accessibility pass. Product placement lastmod is separate. */
 const SEO_BATCH_LAST_MODIFIED = "2026-10-22";
+/**
+ * /services/product-placement gained a contextual body link to the
+ * on-campus product sampling guide. /pricing stays on SEO_BATCH_LAST_MODIFIED.
+ * IndexNow only submits lastmod inside 72 hours.
+ */
+const PRODUCT_PLACEMENT_LINK_LAST_MODIFIED = "2026-11-18";
 /**
  * Homepage gained a visible FAQ and matching FAQPage JSON-LD on this date.
  * IndexNow only submits lastmod inside 72 hours. This replaces the 2026-11-03
@@ -114,7 +120,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
                   ? WORK_FAQ_LAST_MODIFIED
                   : route === "/services/brand-ambassadors"
                     ? SERVICE_DETAIL_LAST_MODIFIED
-                    : route === "/pricing" || route === "/services/product-placement"
+                    : route === "/services/product-placement"
+                      ? PRODUCT_PLACEMENT_LINK_LAST_MODIFIED
+                      : route === "/pricing"
                       ? SEO_BATCH_LAST_MODIFIED
                       : route === "/build-a-campaign"
                         ? BUILD_FAQ_LAST_MODIFIED
