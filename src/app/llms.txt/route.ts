@@ -1,4 +1,4 @@
-import { cityPath, HUB_PATH, publishedFacts, publishedMarkets } from "@/lib/campus-markets";
+import { activationSummary, cityPath, HUB_PATH, publishedMarkets } from "@/lib/campus-markets";
 import { siteConfig, pricing } from "@/site.config";
 import { caseStudies, posts } from "@/lib/content";
 import { insightTopicPath, insightTopics, topicForPost } from "@/lib/insight-topics";
@@ -80,12 +80,9 @@ ${services.join("\n")}
 
 ## Campus marketing by city
 
-${L("Campus marketing by city", HUB_PATH, "Published city pages for brands hiring Collegiate Agency. A city is listed only when a sourced fact is approved.")}
+${L("Campus marketing by city", HUB_PATH, "Published city pages. A city is listed only when Collegiate Agency has an activation there.")}
 ${publishedMarkets()
-  .map((market) => {
-    const fact = publishedFacts(market)[0];
-    return L(`College marketing in ${market.city}`, cityPath(market.slug), fact?.text ?? market.city);
-  })
+  .map((market) => L(`College marketing in ${market.city}`, cityPath(market.slug), activationSummary(market)))
   .join("\n")}
 
 ## Start here
