@@ -67,7 +67,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
   assert.equal(new Set(documentTitles).size, documentTitles.length);
   const articleTitles = new Set(posts.map((post) => resolveDocumentTitle(post.metaTitle ?? post.title).text));
   const pageTitles = [
-    "Brand ambassador programs",
+    "College Brand Ambassador Agency",
     "Campus Event Marketing for Brands",
     "Greek life product placement",
     "Campus Marketing Insights for Brands",

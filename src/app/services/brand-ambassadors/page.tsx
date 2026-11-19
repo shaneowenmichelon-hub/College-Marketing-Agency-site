@@ -4,9 +4,9 @@ import { getStat } from "@/site.config";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Brand ambassador programs",
+  title: "College Brand Ambassador Agency",
   description:
-    "A vetted student rep network for sampling, flyering, product distribution, tabling, pop-ups, and monthly Instagram and TikTok stories to real peers.",
+    "A college brand ambassador agency for brands: Collegiate Agency recruits, trains and manages campus ambassador programs at $150 per ambassador per month.",
   path: "/services/brand-ambassadors",
 });
 
@@ -17,7 +17,7 @@ export default function BrandAmbassadorsPage() {
       icon={Users}
       eyebrow="Brand Ambassadors"
       title="A vetted student rep network that carries your brand on campus."
-      intro="Our ambassador program combines boots-on-the-ground execution with real peer-to-peer social stories. We recruit, screen, train, and manage campus leaders so your product shows up through students their friends already trust."
+      intro="As a college brand ambassador agency, our campus ambassador program combines boots-on-the-ground execution with real peer-to-peer social stories. We recruit, screen, train, and manage campus leaders so your product shows up through students their friends already trust."
       overview={[
         "The program is built around real student operators - not random handles. Ambassadors sample, flyer, distribute product through friend groups, staff tables, support pop-ups, and create campus-native visibility.",
         "Each ambassador can post 2x a month on Instagram/TikTok stories to real peers, with links and brand tags. When it makes sense, we add localized paid media boosting to extend what is already working organically.",

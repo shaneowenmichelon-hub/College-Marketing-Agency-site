@@ -73,12 +73,12 @@ function brandAmbassadorFaqs(): ServiceFaq[] {
   const rate = ambassadorRate();
   return [
     {
-      question: "What does a Collegiate Agency campus brand ambassador program include?",
+      question: "What does a college brand ambassador agency run for brands?",
       answer:
-        "Collegiate Agency's campus brand ambassador program is a vetted student rep network for sampling, flyering, friend-group product distribution, tabling, pop-ups, and twice-monthly Instagram and TikTok stories to real peers, with links and brand tags. Collegiate Agency recruits, screens, trains, and manages the roster, including proof, content, and reporting.",
+        "Collegiate Agency runs a campus brand ambassador program: a vetted student rep network for sampling, flyering, friend-group product distribution, tabling, pop-ups, and twice-monthly Instagram and TikTok stories to real peers, with links and brand tags. Collegiate Agency recruits, screens, trains, and manages the roster, including proof, content, and reporting.",
     },
     {
-      question: "How does Collegiate Agency choose campuses and ambassadors?",
+      question: "How does a brand ambassador agency choose campuses and student reps?",
       answer: `Collegiate Agency sources campus leaders who match the target schools and audience a brand names, then screens them for reliability, campus fit, and the ability to represent the brand cleanly. In the campaign builder, a brand chooses schools from the published network of ${campuses} campuses and sets how many ambassadors it wants at each school.`,
     },
     {
@@ -92,13 +92,13 @@ function brandAmbassadorFaqs(): ServiceFaq[] {
         "Collegiate Agency manages proof, content, and reporting so the ambassador program actually runs. Reporting stays with Collegiate Agency after the roster is recruited, screened, and trained.",
     },
     {
-      question: "How much does a Collegiate Agency brand ambassador program cost?",
+      question: "How much does a college ambassador program cost?",
       answer: `Collegiate Agency prices the ambassador program at ${rate}. That rate includes 2 dedicated social posts (flyers or videos) with links and brand tags, and localized paid media and product placement are add-ons. Collegiate Agency confirms final pricing after a brand sends a campaign.`,
     },
     {
-      question: "How long does it take Collegiate Agency to launch a brand ambassador program?",
+      question: "How long does it take to launch a campus ambassador program?",
       answer:
-        "Collegiate Agency replies within one business day with a tailored plan and firm pricing after a brand sends a campaign. The program then moves through recruit, screen, train, and manage, and Collegiate Agency prices that work per ambassador per month for the length the brand sets in the campaign builder.",
+        "Collegiate Agency replies within one business day with a tailored plan and firm pricing after a brand sends a campaign. The campus ambassador program then moves through recruit, screen, train, and manage, and Collegiate Agency prices that work per ambassador per month for the length the brand sets in the campaign builder.",
     },
   ];
 }
