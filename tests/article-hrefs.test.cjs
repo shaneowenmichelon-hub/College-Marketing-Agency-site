@@ -151,7 +151,7 @@ test("service cards name the service, and the money page links the two real case
   assert.match(html, /href="\/work\/nutrl-night-school-tour-product-placement"/);
   assert.equal(html.includes("celsius-campus-sampling"), false);
   assert.equal(money.title, "College Marketing Agency: How to Choose One");
-  assert.equal(money.dateModified, "2026-11-18");
+  assert.equal(money.dateModified, "2026-11-19");
 
   const beauty = posts.find((post) => post.slug === "college-marketing-for-beauty-brands");
   assert.ok(beauty.metaDescription.length >= 140 && beauty.metaDescription.length <= 155, beauty.metaDescription.length);

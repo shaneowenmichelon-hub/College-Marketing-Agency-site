@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { SectionHeading } from "@/components/SectionHeading";
 import { EventImage } from "@/components/EventImage";
 import { CaseStudyCover } from "@/components/work/CaseStudyCover";
+import { CurrentCampaigns } from "@/components/work/CurrentCampaigns";
 import { CTASection } from "@/components/CTASection";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { FaqPageJsonLd, ServiceFaq } from "@/components/services/ServiceFaq";
@@ -95,6 +96,7 @@ export default function WorkPage() {
             </Reveal>
           ))}
         </div>
+        <CurrentCampaigns />
       </Section>
 
       <Section id="faq" tone="light" className="scroll-mt-24">

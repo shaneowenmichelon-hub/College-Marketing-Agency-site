@@ -2,6 +2,7 @@ import { cityPath, HUB_PATH, publishedFacts, publishedMarkets } from "@/lib/camp
 import { siteConfig, pricing } from "@/site.config";
 import { caseStudies, posts } from "@/lib/content";
 import { insightTopicPath, insightTopics, topicForPost } from "@/lib/insight-topics";
+import { currentCampaignsLlmsLine } from "@/lib/current-campaigns";
 import { resolveArticleAuthor } from "@/lib/seo";
 
 export const dynamic = "force-static";
@@ -97,6 +98,10 @@ ${L("Become an ambassador", "/become-an-ambassador", "Students: apply to join th
 ## Campus network
 
 ${siteConfig.campuses.map((c) => `- ${c.school} (${c.city})`).join("\n")}
+
+## Current campaigns
+
+${currentCampaignsLlmsLine(url)}
 
 ## Case studies
 

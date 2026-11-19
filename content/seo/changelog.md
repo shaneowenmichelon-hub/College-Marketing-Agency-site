@@ -1,5 +1,11 @@
 # SEO changelog
 
+## 2026-11-19 — Current pretune and HEVEBLUE campus campaigns
+
+No new article. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. The meta description, slug, and five FAQ questions are unchanged, and the page still has one FAQPage. `dateModified` is `2026-11-19` because one sentence was added in the campus-access section. Bylines stay Shane Michelon, Founder. The inquiry path stays the `/contact` form. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
+
+Shane Michelon confirmed on Nov 18, 2026 that pretune and HEVEBLUE may be named publicly as clients. `/work#running-now` lists both as campus campaigns running now on multiple U.S. campuses. pretune makes targeted hydrogel Neck-Tune patches. HEVEBLUE is a Korean skincare brand sold in the U.S. through retailers including Sephora and Olive Young. No campuses, budgets, contract terms, results, quotes, or logos were added, and no `/work/<slug>` case study was created. The homepage and `/about` do not list clients by name in text, so those pages were left unchanged. `llms.txt` adds one line for the same campaigns, including `https://www.pretune.us/`. Sitemap `lastmod` for `/work` is `2026-11-19`, the newest git date of the files that render that route. The money page, `/insights`, and `/insights/topics/campus-marketing-strategy` follow the existing newest-revision rule, so their `lastmod` is `2026-11-19`.
+
 ## 2026-11-18 — Mobile LCP under 2.5 s on key pages
 
 No article, title, H1, slug, meta, or schema changed by this pass. Wave 2 short answers, tables, Updated dates, question H2s, the JSON-LD abstract, and the new internal links stay. Alt texts on the sponsor logos are unchanged. The inquiry form is still server-rendered and is not deferred. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
