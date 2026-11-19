@@ -160,9 +160,23 @@ test("service cards name the service, and the money page links the two real case
 
   const ambassadors = fs.readFileSync(path.join(__dirname, "../src/app/services/brand-ambassadors/page.tsx"), "utf8");
   const description = ambassadors.match(/description:\s*\n\s*"([^"]+)"/);
+  const expectedDescription =
+    "A college brand ambassador agency for brands: Collegiate Agency recruits, trains and manages campus ambassador programs at $150 per ambassador per month.";
   assert.ok(description, "brand ambassador meta description");
+  assert.equal(description[1], expectedDescription);
   assert.ok(description[1].length <= 158, description[1].length);
-  assert.match(description[1], /^A vetted student rep network/);
+  assert.match(ambassadors, /title:\s*"College Brand Ambassador Agency"/);
+  assert.match(ambassadors, /college brand ambassador agency/);
+  assert.match(ambassadors, /campus ambassador program/);
+  const { pageMetadata } = loadTs("lib/seo.ts");
+  const ambassadorMeta = pageMetadata({
+    title: "College Brand Ambassador Agency",
+    description: description[1],
+    path: "/services/brand-ambassadors",
+  });
+  assert.equal(ambassadorMeta.title.absolute, "College Brand Ambassador Agency | Collegiate Agency");
+  assert.equal((ambassadorMeta.title.absolute.match(/Collegiate Agency/g) || []).length, 1);
+  assert.equal(ambassadorMeta.description, expectedDescription);
 
   const cta = fs.readFileSync(path.join(__dirname, "../src/components/insights/ArticleCta.tsx"), "utf8");
   assert.match(cta, /text-white\/95/);

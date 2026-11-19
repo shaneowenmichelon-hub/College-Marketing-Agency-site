@@ -48,7 +48,7 @@ test("document titles stay within 60 characters and do not double the brand", ()
     "Campus Marketing Case Studies for Brands",
     "Campus Marketing Agency for Brands",
     "Campus Event Marketing for Brands",
-    "Brand ambassador programs",
+    "College Brand Ambassador Agency",
     "Campus Marketing Insights for Brands",
     "Build a campus marketing campaign",
     "Become a campus ambassador",
@@ -656,6 +656,17 @@ test("service FAQs are quotable, sourced, and match FAQPage JSON-LD", () => {
   }
 
   const ambassadors = pages["brand-ambassadors"];
+  assert.deepEqual(
+    ambassadors.faqs.map((item) => item.question),
+    [
+      "What does a college brand ambassador agency run for brands?",
+      "How does a brand ambassador agency choose campuses and student reps?",
+      "How does Collegiate Agency train campus brand ambassadors?",
+      "How does Collegiate Agency report ambassador program results?",
+      "How much does a college ambassador program cost?",
+      "How long does it take to launch a campus ambassador program?",
+    ],
+  );
   const events = pages.events;
   const ambassadorText = ambassadors.faqs.map((item) => item.answer).join(" ");
   const eventText = events.faqs.map((item) => item.answer).join(" ");

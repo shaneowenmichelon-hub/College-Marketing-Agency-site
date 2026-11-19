@@ -1,5 +1,15 @@
 # SEO changelog
 
+## 2026-11-19 — Brand ambassador service page buyer queries
+
+No new article. Only `/services/brand-ambassadors` copy changed. The homepage title stays `College Marketing Agency for Brands | Collegiate Agency`. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, or price was added.
+
+The document title lead is `College Brand Ambassador Agency`. `pageMetadata` resolves it to `College Brand Ambassador Agency | Collegiate Agency` (51 characters) and sets that string as the absolute title, so the root template does not add a second suffix. The meta description is `A college brand ambassador agency for brands: Collegiate Agency recruits, trains and manages campus ambassador programs at $150 per ambassador per month.` (153 characters). That rate is already published: `pricing["brand-ambassadors"]` in `src/site.config.ts` is `$150` with unit `/ ambassador / month`, shown on this page and on `/pricing`. The same rate is already written as `$150 per ambassador per month` in published articles, and this page's social card already says "Priced per ambassador per month."
+
+Four existing FAQ questions were reworded. The other two questions stayed. Answers keep the same facts, with light wording so each still reads as a reply. The page still renders one FAQ from `servicePageSeo("brand-ambassadors")` and one FAQPage JSON-LD from that same list. The H1 is unchanged. The intro's first sentence now says "college brand ambassador agency" and "campus ambassador program". The inquiry path is still the form.
+
+Sitemap `lastmod` for `/services/brand-ambassadors` is `2026-11-19`. `/services/events` and `/services/product-placement` use the same date because their visible FAQ is rendered from `src/lib/service-faqs.ts`, which this edit changes. Their questions, answers, titles, and page copy are unchanged.
+
 ## 2026-11-19 — Current pretune and HEVEBLUE campus campaigns
 
 No new article. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. The meta description, slug, and five FAQ questions are unchanged, and the page still has one FAQPage. `dateModified` is `2026-11-19` because one sentence was added in the campus-access section. Bylines stay Shane Michelon, Founder. The inquiry path stays the `/contact` form. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
