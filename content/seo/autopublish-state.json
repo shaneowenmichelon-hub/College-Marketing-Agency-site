@@ -5,15 +5,15 @@
     "slug": "college-marketing-for-fintech-brands",
     "url": "https://collegiateagency.com/insights/college-marketing-for-fintech-brands",
     "word_count": 1695,
-    "verified_at": "2026-11-19T14:41:02-06:00",
-    "note": "Run 48 fintech hiring guide. verified_at is the prepare clock and is replaced by the live check. The clock advanced 36 hours plus 1294 seconds from that anchor."
+    "verified_at": "2026-11-19T14:54:08-06:00",
+    "note": "Run 48 fintech hiring guide. verified_at is the live check. The clock advanced 36 hours plus 1294 seconds from that anchor."
   },
-  "next_run_at": "2026-11-21T03:02:36-06:00",
+  "next_run_at": "2026-11-21T03:15:42-06:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-11-19T14:41:02-06:00",
+  "schedule_anchor": "2026-11-19T14:54:08-06:00",
   "schedule_jitter_seconds": 1294,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility",
-  "schedule_repair": "Run 48 advanced the clock 36 hours plus 1294 seconds from 2026-11-19 14:41 America/Chicago so a resumed routine does not burst a second article."
+  "schedule_repair": "Run 48 advanced the clock 36 hours plus 1294 seconds from the 2026-11-19 14:54 America/Chicago live check so a resumed routine does not burst a second article."
 }
