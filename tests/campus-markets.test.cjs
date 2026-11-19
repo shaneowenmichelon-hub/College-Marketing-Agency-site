@@ -105,21 +105,12 @@ test("campus markets publish only cities with at least one activation", async ()
   );
 
   const study = getCaseStudy("sos-consultants-nola-campus-leasing-ambassadors");
-  const studyText = `${study.headline} ${study.approach} ${study.results} ${study.article.map((block) => block.html || block.text || "").join(" ")}`;
   const sos = bySlug["new-orleans"].activations[0];
   assert.equal(sos.caseStudySlug, "sos-consultants-nola-campus-leasing-ambassadors");
   assert.match(sos.source, /\/work\/sos-consultants-nola-campus-leasing-ambassadors$/);
-  for (const phrase of [
-    "$2,500",
-    "two shows",
-    "on-site activation",
-    "a round of ambassador posts",
-    "localized paid advertising on Meta",
-    "11x return on ad spend",
-  ]) {
-    assert.ok(studyText.includes(phrase), phrase);
-    assert.ok(`${sos.whatRan} ${sos.result}`.includes(phrase), phrase);
-  }
+  assert.equal(sos.whatRan, "SOS Consultants Nola ran a campus campaign with Collegiate Agency in New Orleans.");
+  assert.equal(sos.result, undefined);
+  assert.equal(study.slug, "sos-consultants-nola-campus-leasing-ambassadors");
   assert.equal(sos.date, undefined);
 
   assert.match(bySlug.austin.activations[0].whatRan, /Fri Oct 23, 2026/);
@@ -243,9 +234,12 @@ test("campus markets publish only cities with at least one activation", async ()
     assert.equal(service.areaServed["@type"], "City");
     assert.equal(service.areaServed.name, market.city);
     assert.equal(service.offers, undefined);
-    assert.equal(/171,?902|views|impressions|attendance/i.test(serialized), false, market.slug);
+    assert.equal(/\$|return on ad spend|ROAS|171,?902|\bviews\b|\bimpressions\b|\battendance\b|\bsales\b/i.test(serialized), false, market.slug);
+    assert.equal(/\$|return on ad spend|ROAS/i.test(doc.description), false, market.slug);
 
     const visible = visibleText(html);
+    assert.equal(/\$|return on ad spend|ROAS/i.test(visible), false, `${market.slug} rendered copy`);
+    assert.equal(/\$|return on ad spend|ROAS/i.test(markets.marketBodyText(market)), false, market.slug);
     assert.equal(/Tulane|Loyola|\bUNO\b|Ole Miss|Stripz|Polymarket|STIZZY|Murda|Emo's|Riverside/i.test(visible), false, market.slug);
     assert.equal(/campus network|schools a brief can name/i.test(visible), false, market.slug);
     assert.equal(/\$150|\$1,500|\$500,000/i.test(visible), false, market.slug);
@@ -312,6 +306,10 @@ test("campus markets publish only cities with at least one activation", async ()
   }
   assert.equal(llms.includes("/campus-marketing/tampa"), false);
   assert.equal(/171,?902|Murda|Emo's/i.test(llms), false);
+  const cityLines = llms.split("## Campus marketing by city")[1].split("\n## ")[0];
+  assert.equal(/\$|return on ad spend|ROAS/i.test(cityLines), false);
+  assert.equal(/\$|return on ad spend|ROAS/i.test(hubVisible), false);
+  assert.equal(/\$|return on ad spend|ROAS/i.test(JSON.stringify(hubNodes)), false);
 
   const org = organizationStructuredData()[0];
   assert.equal(org.address.streetAddress, "66 W Broadway, Suite 201");

@@ -58,10 +58,7 @@ const OXFORD_SOURCE = "https://laylo.com/nightschooltour/V5wfUn";
 const AUSTIN_SOURCE = "https://posh.vip/e/f1-race-week-camp-x-beatbox-julian-fijma";
 const DALLAS_SOURCE = "https://posh.vip/e/beatbox-takeover-millero";
 
-const SOS_WHAT_RAN =
-  "The package was intentionally compact: a $2,500 campaign spanning two shows, an on-site activation at the show, and a round of ambassador posts. The posts used dedicated flyer and video creative, and that same creative was then run as localized paid advertising on Meta.";
-const SOS_RESULT =
-  "From a total package spend of $2,500, SOS Consultants Nola achieved an 11x return on ad spend.";
+const SOS_WHAT_RAN = "SOS Consultants Nola ran a campus campaign with Collegiate Agency in New Orleans.";
 
 export function cityPath(slug: string): string {
   return `${HUB_PATH}/${slug}`;
@@ -105,7 +102,6 @@ export const campusMarkets: CampusMarket[] = [
       activation({
         brand: "SOS Consultants Nola",
         whatRan: SOS_WHAT_RAN,
-        result: SOS_RESULT,
         source: SOS_SOURCE,
         caseStudySlug: SOS_CASE_STUDY,
       }),
@@ -385,7 +381,8 @@ const PUBLIC_COPY_BANS = [
   "LSU",
 ];
 
-const RESULT_LEAK = /171,?902|\bviews\b|\bimpressions\b|\battendance\b|\btickets?\b|\bROAS\b|\$175,000|\b5\s*million\b|\b425\b|\bcases\b/i;
+const RESULT_LEAK =
+  /\$|return on ad spend|\bROAS\b|171,?902|\bviews\b|\bimpressions\b|\battendance\b|\btickets?\b|\bdoor counts?\b|\bsales\b|\$175,000|\b5\s*million\b|\b425\b|\bcases\b/i;
 
 function publicCopy(market: CampusMarket): string {
   return [market.intro, market.description, marketBodyText(market)].join(" ");
@@ -406,6 +403,7 @@ for (const market of campusMarkets) {
   }
   oneSentence(market.intro, market.slug);
   const copy = publicCopy(market);
+  if (RESULT_LEAK.test(copy)) throw new Error(`${market.slug} public copy includes a result or price`);
   for (const ban of PUBLIC_COPY_BANS) {
     if (copy.includes(ban)) throw new Error(`${market.slug} public copy includes ${ban}`);
   }
