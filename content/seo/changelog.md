@@ -1,5 +1,17 @@
 # SEO changelog
 
+## 2026-11-19 — City pages list only approved activations
+
+No new article. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. The city-hub sentence on that page stays. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
+
+`/campus-marketing` lists five cities. A city page is published only when `activations` has at least one entry. The old 350-word gate and the fact-count gate are gone. Pages do not list the campus network, name schools a brief can name, or show service rates. FAQ blocks are omitted. City JSON-LD is a Service with `areaServed` set to the city, plus a BreadcrumbList. City pages do not add LocalBusiness or PostalAddress. The homepage Organization address stays `66 W Broadway, Suite 201`, and `numberOfEmployees` stays 6.
+
+New Orleans publishes the SOS Consultants Nola case study sentences already on `/work/sos-consultants-nola-campus-leasing-ambassadors`: a $2,500 campaign spanning two shows, an on-site activation at the show, and a round of ambassador posts, with that same creative run as localized paid advertising on Meta, and an 11x return on ad spend. The same page lists Night School show activations for BeatBox, NÜTRL, and Bumble. No show date was added for those Night School activations. Syracuse publishes BeatBox, Dazed, NÜTRL, and Red Bull at the Sep 4, 2026 Night School show, for a Syracuse University audience. Oxford publishes Bloom, NÜTRL, and BeatBox at the Sep 16, 2026 Night School show, for a University of Mississippi audience. Austin publishes a BeatBox bar takeover at CAMP on West 6th on Fri Oct 23, 2026, for a UT Austin audience. That page does not use the September 11, 2026 Night School listing. Dallas publishes a BeatBox activation at Tree Haus on Thu Nov 5, 2026, for an SMU audience. NÜTRL cards link `/work/nutrl-night-school-tour-product-placement` as "Night School tour case study" and do not copy that study's tour-wide figures. No other brands were added. No view counts, attendance, ticket numbers, fees, or other city-level results were added.
+
+BeatBox and Bumble in New Orleans have no public event URL in this pass. Their `source` is `owner-approved`, and the cards do not link out. Syracuse and Oxford cite the Night School listings Shane supplied. Austin and Dallas cite the public listings that match the corrected date and venue. Those listing URLs are not printed on the page.
+
+Sitemap `lastmod` for `/campus-marketing` and the five city URLs is `2026-11-19`. `llms.txt` lists the same five cities.
+
 ## 2026-11-19 — Brand ambassador service page buyer queries
 
 No new article. Only `/services/brand-ambassadors` copy changed. The homepage title stays `College Marketing Agency for Brands | Collegiate Agency`. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, or price was added.

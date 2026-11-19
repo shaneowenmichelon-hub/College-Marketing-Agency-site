@@ -1,53 +1,43 @@
-import { publishedRate } from "@/lib/pricing-page";
-import { faqPageStructuredData, type ServiceFaq } from "@/lib/service-faqs";
-import { ORGANIZATION_ID, absoluteUrl, publishedServiceOffers, resolveDocumentTitle, TITLE_LIMIT } from "@/lib/seo";
-import { getStat, siteConfig } from "@/site.config";
+import { ORGANIZATION_ID, absoluteUrl, resolveDocumentTitle, TITLE_LIMIT } from "@/lib/seo";
 
 /**
- * Campus marketing city pages. A market renders only when it clears the
- * publish gate. Facts are the ones approved for the site. Do not add a
- * client, a school, a date, or a result that is not in this file.
+ * Campus marketing city pages. A market is published only when it has at
+ * least one activation Collegiate Agency ran there. Copy is limited to those
+ * activations. Do not add a brand, school, date, venue, fee, or result that
+ * is not already on the activation.
  */
 
-export type MarketService = "events" | "brand-ambassadors" | "product-placement";
-
-export type MarketFact = {
-  id: string;
-  text: string;
-  tier: "site" | "public";
-  source: string;
-  publish: boolean;
-  service: MarketService;
+export type MarketActivation = {
+  brand: string;
+  /** ISO date when one was confirmed. Omit when no date was confirmed. */
   date?: string;
+  whatRan: string;
+  /** Published case-study result. Omit when the activation has no published result. */
+  result?: string;
+  /** Public https URL, a published /work path, or "owner-approved" when no public URL was supplied. */
+  source: string;
+  caseStudySlug?: string;
 };
-
-export type MarketFaq = { q: string; a: string };
 
 export type CampusMarket = {
   slug: string;
   city: string;
   region: string;
-  schools: string[];
-  caseStudySlug?: string;
-  facts: MarketFact[];
-  localFaq: MarketFaq[];
+  /** One sentence: what Collegiate Agency ran in this market. */
+  intro: string;
+  description: string;
+  activations: MarketActivation[];
   dateModified: string;
 };
-
-export type MarketCopyPart = { text: string; href?: string };
-export type MarketCopyBlock = { type: "h2"; text: string } | { type: "p"; parts: MarketCopyPart[] };
 
 export const HUB_PATH = "/campus-marketing";
 export const HUB_TITLE_LEAD = "Campus Marketing by City";
 export const HUB_H1 = "Campus marketing by city";
 export const HUB_DESCRIPTION =
-  "Campus marketing by city for brands that hire Collegiate Agency. A published page names the sourced campaign in that city and the published rates.";
+  "Campus marketing by city. Each page lists only the brand activations Collegiate Agency ran in that market.";
 
 /** Sitemap lastmod for the hub and each published city page. */
-export const CAMPUS_MARKETING_UPDATED = "2026-11-18";
-
-export const MIN_BODY_WORDS = 350;
-export const MIN_LOCAL_FAQS = 4;
+export const CAMPUS_MARKETING_UPDATED = "2026-11-19";
 
 export const MONEY_PAGE_PATH = "/insights/college-marketing-agency";
 export const MONEY_PAGE_ANCHORS = [
@@ -57,21 +47,24 @@ export const MONEY_PAGE_ANCHORS = [
   "hiring a college marketing agency",
 ] as const;
 
-const NO_FACT =
-  "SOS Consultants Nola, a New Orleans leasing agency, ran a $2,500 package: two shows, an on-site activation at the show, one round of ambassador flyer/video posts, and localized Meta ads using the same creative. Result: 11x return on ad spend.";
+export const SOS_CASE_STUDY = "sos-consultants-nola-campus-leasing-ambassadors";
+export const NUTRL_CASE_STUDY = "nutrl-night-school-tour-product-placement";
+export const OWNER_APPROVED_SOURCE = "owner-approved";
 
-const AU_FACT =
-  'Night School Presents: MURDA BEATZ (HOUSE SET) at Emo\'s Austin, 2015 E Riverside Dr, Fri Sep 11, 2026.';
+const SOS_SOURCE = `https://collegiateagency.com/work/${SOS_CASE_STUDY}`;
+const NUTRL_SOURCE = `https://collegiateagency.com/work/${NUTRL_CASE_STUDY}`;
+const SYRACUSE_SOURCE = "https://laylo.com/nightschooltour/Rx4xAb";
+const OXFORD_SOURCE = "https://laylo.com/nightschooltour/V5wfUn";
+const AUSTIN_SOURCE = "https://posh.vip/e/f1-race-week-camp-x-beatbox-julian-fijma";
+const DALLAS_SOURCE = "https://posh.vip/e/beatbox-takeover-millero";
 
-const OM_FACT =
-  'Night School Ole Miss, Wednesday September 16, 2026, billed "Kick off LSU vs Ole Miss weekend with us".';
+const SOS_WHAT_RAN =
+  "The package was intentionally compact: a $2,500 campaign spanning two shows, an on-site activation at the show, and a round of ambassador posts. The posts used dedicated flyer and video creative, and that same creative was then run as localized paid advertising on Meta.";
+const SOS_RESULT =
+  "From a total package spend of $2,500, SOS Consultants Nola achieved an 11x return on ad spend.";
 
 export function cityPath(slug: string): string {
   return `${HUB_PATH}/${slug}`;
-}
-
-export function countWords(text: string): number {
-  return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
 export function moneyPageAnchor(slug: string): (typeof MONEY_PAGE_ANCHORS)[number] {
@@ -80,90 +73,22 @@ export function moneyPageAnchor(slug: string): (typeof MONEY_PAGE_ANCHORS)[numbe
   return MONEY_PAGE_ANCHORS[sum % MONEY_PAGE_ANCHORS.length];
 }
 
-export function schoolInNetwork(name: string): boolean {
-  return siteConfig.campuses.some((campus) => campus.school === name);
+export function caseStudyLabel(slug: string): string {
+  if (slug === NUTRL_CASE_STUDY) return "Night School tour case study";
+  if (slug === SOS_CASE_STUDY) return "SOS Consultants Nola case study";
+  throw new Error(`No case study label for ${slug}`);
 }
 
-export function publishedFacts(market: CampusMarket): MarketFact[] {
-  return market.facts.filter((fact) => fact.publish);
+function nightSchool(brand: string, city: string, when: string, audience: string): string {
+  return `${brand} activated with Collegiate Agency at the Night School show in ${city} on ${when} for a ${audience} audience.`;
 }
 
-/** A market clears the fact gate with one published site-tier fact, or two published facts of any tier. */
-export function factGate(market: CampusMarket): boolean {
-  const published = publishedFacts(market);
-  return published.some((fact) => fact.tier === "site") || published.length >= 2;
+function nightSchoolUndated(brand: string, city: string): string {
+  return `${brand} activated with Collegiate Agency at the Night School show in ${city}.`;
 }
 
-function joinSchools(names: readonly string[]): string {
-  if (names.length <= 1) return names.join("");
-  if (names.length === 2) return `${names[0]} and ${names[1]}`;
-  return `${names.slice(0, -1).join(", ")}, and ${names[names.length - 1]}`;
-}
-
-function factSnippet(text: string): string {
-  const marker = "Result: ";
-  const index = text.indexOf(marker);
-  if (index >= 0) return text.slice(index).trim();
-  const sentence = text.indexOf(". ");
-  return (sentence === -1 ? text : text.slice(0, sentence + 1)).trim();
-}
-
-function speedSentence(): string {
-  const stat = siteConfig.stats.find((item) => item.key === "speedToActivation");
-  if (!stat) return "";
-  return `Collegiate Agency publishes ${getStat("speedToActivation")} from a ${stat.label}.`;
-}
-
-function newOrleansFaqs(): MarketFaq[] {
-  const speed = speedSentence();
-  return [
-    {
-      q: "Can Collegiate Agency run a campus activation in New Orleans?",
-      a: `Yes. Brands hire Collegiate Agency to plan, staff, and report a campus activation in New Orleans. ${NO_FACT}`,
-    },
-    {
-      q: "What does a New Orleans campus ambassador program cost?",
-      a: `Collegiate Agency prices a campus ambassador program at ${publishedRate("brand-ambassadors")}. Product placement is ${publishedRate("product-placement")}, and events are ${publishedRate("events")}. Firm pricing follows after a brand sends the New Orleans goal through the contact form.`,
-    },
-    {
-      q: "Has Collegiate Agency worked in New Orleans before?",
-      a: `Yes. Collegiate Agency has published one New Orleans campaign, and this page does not add a second one. ${NO_FACT}`,
-    },
-    {
-      q: "Which schools can a New Orleans campaign reach?",
-      a: "A New Orleans campaign can be aimed at students at Tulane, Loyola New Orleans, and UNO. Tulane is in the Collegiate Agency campus network. Loyola New Orleans and UNO are schools a brand can name in a brief, and they are not published as past Collegiate Agency work.",
-    },
-    {
-      q: "How fast can a campaign start?",
-      a: speed
-        ? `${speed} A brand starts by sending the New Orleans goal through the contact form. Collegiate Agency replies within one business day with a tailored plan and firm pricing.`
-        : "A brand starts by sending the New Orleans goal through the contact form. Collegiate Agency replies within one business day with a tailored plan and firm pricing.",
-    },
-  ];
-}
-
-function listingFaqs(city: string, school: string, fact: string): MarketFaq[] {
-  const network = schoolInNetwork(school)
-    ? `${school} is in the Collegiate Agency campus network. That label is not a past campaign.`
-    : `${school} is not in the Collegiate Agency campus network.`;
-  return [
-    {
-      q: `What public listing does Collegiate Agency have for ${city}?`,
-      a: `The public listing Collegiate Agency can cite for ${city} is this one. ${fact}`,
-    },
-    {
-      q: `Is ${school} past Collegiate Agency work?`,
-      a: `${network} Collegiate Agency does not describe ${school} as a completed client campaign on this page.`,
-    },
-    {
-      q: `Does this ${city} listing publish a Collegiate Agency result?`,
-      a: `No. The ${city} entry is a public event listing, not a Collegiate Agency case study. Collegiate Agency is not adding a client, a return, or a date beyond that listing.`,
-    },
-    {
-      q: `How would a brand ask about ${city}?`,
-      a: `A brand asks through the contact form. Collegiate Agency does not publish a ${city} page until another sourced fact is approved.`,
-    },
-  ];
+function activation(input: MarketActivation): MarketActivation {
+  return input;
 }
 
 export const campusMarkets: CampusMarket[] = [
@@ -171,73 +96,147 @@ export const campusMarkets: CampusMarket[] = [
     slug: "new-orleans",
     city: "New Orleans",
     region: "LA",
-    schools: ["Tulane", "Loyola New Orleans", "UNO"],
-    caseStudySlug: "sos-consultants-nola-campus-leasing-ambassadors",
     dateModified: CAMPUS_MARKETING_UPDATED,
-    facts: [
-      {
-        id: "NO-1",
-        text: NO_FACT,
-        tier: "site",
-        source: "https://collegiateagency.com/work/sos-consultants-nola-campus-leasing-ambassadors",
-        publish: true,
-        service: "brand-ambassadors",
-      },
+    intro:
+      "Collegiate Agency ran a SOS Consultants Nola campaign and Night School show activations for BeatBox, NÜTRL, and Bumble in New Orleans.",
+    description:
+      "SOS Consultants Nola, BeatBox, NÜTRL, and Bumble activations Collegiate Agency ran in New Orleans.",
+    activations: [
+      activation({
+        brand: "SOS Consultants Nola",
+        whatRan: SOS_WHAT_RAN,
+        result: SOS_RESULT,
+        source: SOS_SOURCE,
+        caseStudySlug: SOS_CASE_STUDY,
+      }),
+      activation({
+        brand: "BeatBox",
+        whatRan: nightSchoolUndated("BeatBox", "New Orleans"),
+        source: OWNER_APPROVED_SOURCE,
+      }),
+      activation({
+        brand: "NÜTRL",
+        whatRan: nightSchoolUndated("NÜTRL", "New Orleans"),
+        source: NUTRL_SOURCE,
+        caseStudySlug: NUTRL_CASE_STUDY,
+      }),
+      activation({
+        brand: "Bumble",
+        whatRan: nightSchoolUndated("Bumble", "New Orleans"),
+        source: OWNER_APPROVED_SOURCE,
+      }),
     ],
-    localFaq: newOrleansFaqs(),
   },
   {
-    slug: "austin",
-    city: "Austin",
-    region: "TX",
-    schools: ["UT Austin"],
+    slug: "syracuse",
+    city: "Syracuse",
+    region: "NY",
     dateModified: CAMPUS_MARKETING_UPDATED,
-    facts: [
-      {
-        id: "AU-1",
-        text: AU_FACT,
-        tier: "public",
-        source: "https://www.universe.com/events/murda-beatz-house-set-tickets-34Y7J2",
-        publish: true,
-        service: "events",
-        date: "2026-09-11",
-      },
-    ],
-    localFaq: listingFaqs("Austin", "UT Austin", AU_FACT),
+    intro:
+      "Collegiate Agency ran Night School show activations for BeatBox, Dazed, NÜTRL, and Red Bull in Syracuse on Sep 4, 2026.",
+    description:
+      "Night School show activations Collegiate Agency ran in Syracuse on Sep 4, 2026 for BeatBox, Dazed, NÜTRL, and Red Bull.",
+    activations: ["BeatBox", "Dazed", "NÜTRL", "Red Bull"].map((brand) =>
+      activation({
+        brand,
+        date: "2026-09-04",
+        whatRan: nightSchool(brand, "Syracuse", "Sep 4, 2026", "Syracuse University"),
+        source: SYRACUSE_SOURCE,
+        ...(brand === "NÜTRL" ? { caseStudySlug: NUTRL_CASE_STUDY } : {}),
+      }),
+    ),
   },
   {
     slug: "oxford-ole-miss",
     city: "Oxford",
     region: "MS",
-    schools: ["Ole Miss"],
     dateModified: CAMPUS_MARKETING_UPDATED,
-    facts: [
-      {
-        id: "OM-1",
-        text: OM_FACT,
-        tier: "public",
-        source: "https://laylo.com/nightschooltour/V5wfUn",
-        publish: true,
-        service: "events",
+    intro:
+      "Collegiate Agency ran Night School show activations for Bloom, NÜTRL, and BeatBox in Oxford on Sep 16, 2026.",
+    description:
+      "Night School show activations Collegiate Agency ran in Oxford on Sep 16, 2026 for Bloom, NÜTRL, and BeatBox.",
+    activations: ["Bloom", "NÜTRL", "BeatBox"].map((brand) =>
+      activation({
+        brand,
         date: "2026-09-16",
-      },
+        whatRan: nightSchool(brand, "Oxford", "Sep 16, 2026", "University of Mississippi"),
+        source: OXFORD_SOURCE,
+        ...(brand === "NÜTRL" ? { caseStudySlug: NUTRL_CASE_STUDY } : {}),
+      }),
+    ),
+  },
+  {
+    slug: "austin",
+    city: "Austin",
+    region: "TX",
+    dateModified: CAMPUS_MARKETING_UPDATED,
+    intro:
+      "Collegiate Agency ran a BeatBox bar takeover at CAMP on West 6th in Austin on Fri Oct 23, 2026.",
+    description:
+      "BeatBox bar takeover Collegiate Agency ran at CAMP on West 6th in Austin on Fri Oct 23, 2026.",
+    activations: [
+      activation({
+        brand: "BeatBox",
+        date: "2026-10-23",
+        whatRan:
+          "BeatBox activated with Collegiate Agency at a bar takeover at CAMP on West 6th in Austin on Fri Oct 23, 2026 for a UT Austin audience.",
+        source: AUSTIN_SOURCE,
+      }),
     ],
-    localFaq: listingFaqs("Oxford", "Ole Miss", OM_FACT),
+  },
+  {
+    slug: "dallas",
+    city: "Dallas",
+    region: "TX",
+    dateModified: CAMPUS_MARKETING_UPDATED,
+    intro: "Collegiate Agency ran a BeatBox activation at Tree Haus in Dallas on Thu Nov 5, 2026.",
+    description: "BeatBox activation Collegiate Agency ran at Tree Haus in Dallas on Thu Nov 5, 2026.",
+    activations: [
+      activation({
+        brand: "BeatBox",
+        date: "2026-11-05",
+        whatRan:
+          "BeatBox activated with Collegiate Agency at Tree Haus in Dallas on Thu Nov 5, 2026 for an SMU audience.",
+        source: DALLAS_SOURCE,
+      }),
+    ],
   },
 ];
 
-function h2(text: string): MarketCopyBlock {
-  return { type: "h2", text };
+const PUBLISHED_SLUGS = ["new-orleans", "syracuse", "oxford-ole-miss", "austin", "dallas"] as const;
+
+function validSource(source: string): boolean {
+  if (source === OWNER_APPROVED_SOURCE) return true;
+  if (source.startsWith("/work/")) return /^\/work\/[a-z0-9-]+$/.test(source);
+  try {
+    return new URL(source).protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
-function p(parts: MarketCopyPart[]): MarketCopyBlock {
-  return { type: "p", parts };
+function oneSentence(text: string, label: string) {
+  const sentences = text
+    .trim()
+    .split(/(?<=[.!?])\s+/)
+    .filter(Boolean);
+  if (sentences.length !== 1) {
+    throw new Error(`${label} must be one sentence`);
+  }
 }
 
-function blocksText(blocks: MarketCopyBlock[]): string {
-  return blocks
-    .map((block) => (block.type === "h2" ? block.text : block.parts.map((part) => part.text).join("")))
-    .join(" ");
+/** A market is published only when it has at least one complete activation. */
+export function activationGate(market: { activations?: MarketActivation[] }): boolean {
+  const activations = market.activations ?? [];
+  return activations.length >= 1 && activations.every((item) => item.brand.trim() && item.whatRan.trim() && validSource(item.source));
+}
+
+export function publishedMarkets(): CampusMarket[] {
+  return campusMarkets.filter((market) => activationGate(market));
+}
+
+export function publishedMarket(slug: string): CampusMarket | undefined {
+  return publishedMarkets().find((market) => market.slug === slug);
 }
 
 export type MarketDocument = {
@@ -245,254 +244,62 @@ export type MarketDocument = {
   titleLead: string;
   description: string;
   path: string;
-  lead: MarketCopyBlock[];
+  intro: string;
   ranHeading: string;
-  factCards: { id: string; text: string; href?: string; label?: string }[];
-  schoolsHeading: string;
-  schoolsIntro: MarketCopyBlock[];
-  schools: { name: string; network: boolean }[];
-  servicesHeading: string;
-  services: MarketCopyBlock[];
-  proofHeading: string;
-  proof: MarketCopyBlock[];
+  activations: {
+    brand: string;
+    whatRan: string;
+    result?: string;
+    caseStudyHref?: string;
+    caseStudyLabel?: string;
+  }[];
+  moneyHref: string;
+  moneyAnchor: (typeof MONEY_PAGE_ANCHORS)[number];
   cta: { title: string; href: string };
 };
 
-function caseStudyCard(market: CampusMarket): { href: string; label: string } | undefined {
-  if (!market.caseStudySlug) return undefined;
-  if (market.slug === "new-orleans") {
-    return {
-      href: `/work/${market.caseStudySlug}`,
-      label: "SOS Consultants Nola case study",
-    };
-  }
-  return { href: `/work/${market.caseStudySlug}`, label: "Read the case study" };
-}
-
-function marketMetaDescription(market: CampusMarket): string {
-  const fact = publishedFacts(market)[0];
-  const snippet = fact ? factSnippet(fact.text) : "";
-  const description = `Brands hire Collegiate Agency for campus events, ambassadors and product placement in ${market.city}. ${snippet} Published rates.`;
-  if (factGate(market) && description.length > 155) {
-    throw new Error(`City meta description is ${description.length} characters: ${description}`);
-  }
-  return description;
-}
-
-function leadBlocks(market: CampusMarket, fact: MarketFact | undefined): MarketCopyBlock[] {
-  const schools = joinSchools(market.schools);
-  const networkSchools = market.schools.filter(schoolInNetwork);
-  const networkLine =
-    networkSchools.length > 0
-      ? `${joinSchools(networkSchools)} is in the Collegiate Agency campus network.`
-      : "None of these schools are in the Collegiate Agency campus network.";
-  const blocks: MarketCopyBlock[] = [
-    p([
-      {
-        text: `Brands hire Collegiate Agency to market to college students in ${market.city}. A ${market.city} brief can name students at ${schools}. ${networkLine} Collegiate Agency is an agency based in ${siteConfig.contact.location}. Collegiate Agency plans the work, staffs the work, and reports the work.`,
-      },
-    ]),
-  ];
-  if (fact) {
-    blocks.push(
-      p([
-        {
-          text: `The strongest published fact for ${market.city} is this one: ${fact.text}`,
-        },
-      ]),
-    );
-  }
-  if (market.slug === "new-orleans") {
-    blocks.push(
-      p([
-        {
-          text: "The published New Orleans package is a leasing campaign for SOS Consultants Nola. The pieces in that fact are the whole result this page will describe. Two shows gave the brand a room students had already chosen to enter. An on-site activation at the show put the leasing message in that room. One round of ambassador flyer and video posts carried the same message through students. Localized Meta ads then used that same creative, so the feed repeated what students had already seen on campus and at the show. This page does not add a second New Orleans client, a second show date, or a second return figure beside that fact.",
-        },
-      ]),
-      p([
-        {
-          text: "A brand reading this page should keep the schools separate from that result. Tulane is in the Collegiate Agency campus network, which is the roster of schools the network covers. Loyola New Orleans can be named in a New Orleans brief. UNO can be named in a New Orleans brief. Those two schools are not marked as network inventory here, and they are not presented as completed campaigns. The published case study does not name a campus inside the city, so this page does not assign the leasing result to Tulane, to Loyola New Orleans, or to UNO.",
-        },
-      ]),
-      p([
-        {
-          text: `Collegiate Agency plans a New Orleans campaign from ${siteConfig.contact.location}, then staffs it and reports it. College students are the audience. The people who plan, staff, and report the work are Collegiate Agency. A brand starts that conversation on the contact form. This page does not offer a calendar, a booking link, or a phone number, and it does not ask a student to run the agency.`,
-        },
-      ]),
-      p([
-        {
-          text: "Use the page in that order. Read the fact before you read the rates. The rates are the published prices for the three channels, not a restatement of the leasing package. The package is the proof that a compact New Orleans program can stack a show, an on-site activation, ambassador posts, and localized ads that share one creative. A new brief can use one of those channels or more than one. Collegiate Agency confirms the mix after it reads the goal. Nothing on this page is a forecast for a community that has not run yet.",
-        },
-      ]),
-    );
-  }
-  return blocks;
-}
-
-function schoolsIntro(market: CampusMarket): MarketCopyBlock[] {
-  const named = joinSchools(market.schools);
-  return [
-    p([
-      {
-        text: `A ${market.city} campaign can be aimed at students at ${named}. Only a school that is already on the published campus list is marked in the Collegiate Agency campus network. The mark is a network line. It is not a logo, a sponsorship, or a university affiliation, and it is not a claim that the school hired Collegiate Agency.`,
-      },
-    ]),
-  ];
-}
-
-function servicesBlocks(market: CampusMarket): MarketCopyBlock[] {
-  const tied =
-    market.slug === "new-orleans"
-      ? "The published New Orleans fact included two shows and an on-site activation at the show, so campus events are the channel that fact already used. "
-      : "";
-  const ambassadors =
-    market.slug === "new-orleans"
-      ? "The same fact included one round of ambassador flyer and video posts, and those posts supplied the creative for the localized Meta ads. "
-      : "";
-  const placement =
-    market.slug === "new-orleans"
-      ? "The published New Orleans fact does not include a sorority chapter placement. "
-      : "";
-  return [
-    p([
-      { text: `${tied}Collegiate Agency publishes event rates as ${publishedRate("events")}. Read ` },
-      { text: "campus events", href: "/services/events" },
-      { text: " for how those packages are staffed." },
-    ]),
-    p([
-      { text: `${ambassadors}Collegiate Agency prices a campus ambassador program at ${publishedRate("brand-ambassadors")}. Read ` },
-      { text: "brand ambassadors", href: "/services/brand-ambassadors" },
-      { text: " for what that monthly rate includes." },
-    ]),
-    p([
-      { text: `${placement}A brand that wants product placement in ${market.city} can add it at ${publishedRate("product-placement")}. Read ` },
-      { text: "product placement", href: "/services/product-placement" },
-      { text: " for the chapter deliverables. That rate is a separate service from the fact above." },
-    ]),
-    p([
-      { text: "Compare the three rates on the " },
-      { text: "pricing", href: "/pricing" },
-      {
-        text: " page. A brief the rate table does not cover is quoted after the brand sends the goal through the contact form. Collegiate Agency replies within one business day with a tailored plan and firm pricing.",
-      },
-    ]),
-  ];
-}
-
-function proofBlocks(market: CampusMarket): MarketCopyBlock[] {
-  const card = caseStudyCard(market);
-  const anchor = moneyPageAnchor(market.slug);
-  const parts: MarketCopyPart[] = [
-    {
-      text: `The ${market.city} proof on this page is the published write-up, not a new number. `,
-    },
-  ];
-  if (card) {
-    parts.push({ text: card.label, href: card.href }, { text: " is the source for the fact above. " });
-  }
-  parts.push(
-    { text: "A brand still deciding how to hire can read " },
-    { text: anchor, href: MONEY_PAGE_PATH },
-    {
-      text: `. This page does not replace that guide. The comment beside this section is a published remark from the homepage. It is not a ${market.city} result.`,
-    },
-  );
-  return [p(parts)];
-}
-
 export function marketDocument(market: CampusMarket): MarketDocument {
-  const fact = publishedFacts(market)[0];
-  const card = caseStudyCard(market);
   const titleLead = `College Marketing Agency in ${market.city}`;
   const resolved = resolveDocumentTitle(titleLead).text;
   if (resolved.length > TITLE_LIMIT) {
     throw new Error(`City title is ${resolved.length} characters: ${resolved}`);
   }
+  if (market.description.length > 155) {
+    throw new Error(`City meta description is ${market.description.length} characters: ${market.description}`);
+  }
   return {
     h1: `College marketing in ${market.city}`,
     titleLead,
-    description: marketMetaDescription(market),
+    description: market.description,
     path: cityPath(market.slug),
-    lead: leadBlocks(market, fact),
-    ranHeading: `What we've run in ${market.city}`,
-    factCards: publishedFacts(market).map((item) => ({
-      id: item.id,
-      text: item.text,
-      href: card?.href,
-      label: card?.label,
+    intro: market.intro,
+    ranHeading: `What Collegiate Agency ran in ${market.city}`,
+    activations: market.activations.map((item) => ({
+      brand: item.brand,
+      whatRan: item.whatRan,
+      result: item.result,
+      caseStudyHref: item.caseStudySlug ? `/work/${item.caseStudySlug}` : undefined,
+      caseStudyLabel: item.caseStudySlug ? caseStudyLabel(item.caseStudySlug) : undefined,
     })),
-    schoolsHeading: `Schools a ${market.city} campaign can name`,
-    schoolsIntro: schoolsIntro(market),
-    schools: market.schools.map((name) => ({ name, network: schoolInNetwork(name) })),
-    servicesHeading: `Services that fit ${market.city}`,
-    services: servicesBlocks(market),
-    proofHeading: `Proof for ${market.city}`,
-    proof: proofBlocks(market),
+    moneyHref: MONEY_PAGE_PATH,
+    moneyAnchor: moneyPageAnchor(market.slug),
     cta: { title: `Tell us your ${market.city} campus goal`, href: "/contact" },
   };
 }
 
 export function marketBodyText(market: CampusMarket): string {
   const doc = marketDocument(market);
-  const schools = doc.schools
-    .map((school) => (school.network ? `${school.name} in the Collegiate Agency campus network` : school.name))
+  const cards = doc.activations
+    .map((item) => [item.brand, item.whatRan, item.result ?? "", item.caseStudyLabel ?? ""].join(" "))
     .join(" ");
-  const cards = doc.factCards.map((card) => `${card.text} ${card.label ?? ""}`).join(" ");
-  const faqs = market.localFaq.map((item) => `${item.q} ${item.a}`).join(" ");
   return [
     doc.h1,
-    blocksText(doc.lead),
+    doc.intro,
     doc.ranHeading,
     cards,
-    doc.schoolsHeading,
-    blocksText(doc.schoolsIntro),
-    schools,
-    doc.servicesHeading,
-    blocksText(doc.services),
-    faqs,
-    doc.proofHeading,
-    blocksText(doc.proof),
+    `A brand still deciding how to hire can read ${doc.moneyAnchor}.`,
     doc.cta.title,
   ].join(" ");
-}
-
-export function marketGate(market: CampusMarket): {
-  facts: boolean;
-  faqs: boolean;
-  words: boolean;
-  wordCount: number;
-} {
-  const wordCount = countWords(marketBodyText(market));
-  return {
-    facts: factGate(market),
-    faqs: market.localFaq.length >= MIN_LOCAL_FAQS,
-    words: wordCount >= MIN_BODY_WORDS,
-    wordCount,
-  };
-}
-
-export function publishedMarkets(): CampusMarket[] {
-  return campusMarkets.filter((market) => {
-    const gate = marketGate(market);
-    return gate.facts && gate.faqs && gate.words;
-  });
-}
-
-export function publishedMarket(slug: string): CampusMarket | undefined {
-  return publishedMarkets().find((market) => market.slug === slug);
-}
-
-export function uniqueWordShare(left: string, right: string): number {
-  const tokenize = (value: string) =>
-    value
-      .toLowerCase()
-      .replace(/[^a-z0-9\s]/g, " ")
-      .split(/\s+/)
-      .filter(Boolean);
-  const words = tokenize(left);
-  const other = new Set(tokenize(right));
-  if (words.length === 0) return 0;
-  return words.filter((word) => !other.has(word)).length / words.length;
 }
 
 export type CityLink = { href: string; anchor: string };
@@ -530,82 +337,20 @@ export function cityServiceStructuredData(market: CampusMarket): Record<string, 
     serviceType: "College marketing",
     description: doc.description,
     provider: { "@id": ORGANIZATION_ID },
-    areaServed: [
-      { "@type": "City", name: market.city },
-      ...market.schools.map((name) => ({ "@type": "CollegeOrUniversity", name })),
-    ],
+    areaServed: { "@type": "City", name: market.city },
     url,
-    offers: publishedServiceOffers(),
   };
 }
 
-export function cityFaqItems(market: CampusMarket): ServiceFaq[] {
-  return market.localFaq.map((item) => ({ question: item.q, answer: item.a }));
-}
-
-export function cityStructuredData(market: CampusMarket): Record<string, unknown>[] {
-  return [
-    cityServiceStructuredData(market),
-    faqPageStructuredData(cityFaqItems(market), cityPath(market.slug)),
-  ];
-}
-
-function campusCount(): string {
-  const listed = String(siteConfig.campuses.length);
-  const published = getStat("campuses");
-  if (published !== listed) {
-    throw new Error(`Campus stat ${published} does not match the campus list ${listed}`);
-  }
-  return published;
-}
-
-export function hubIntro(): MarketCopyBlock[] {
-  const cities = publishedMarkets().map((market) => market.city);
-  return [
-    p([
-      {
-        text: `Brands hire Collegiate Agency for campus marketing by city when they want to reach college students in a named market. The cards on this page are the cities with a sourced campaign already published on the site. Today that is ${joinSchools(cities)}. A city without a published fact is not listed here.`,
-      },
-    ]),
-    p([
-      {
-        text: `The grid under the cards is the Collegiate Agency campus network: ${campusCount()} schools. A school in that grid is in the network. It is not a past campaign, and it is not a university affiliation.`,
-      },
-    ]),
-  ];
-}
-
-export function hubFaqs(): MarketFaq[] {
-  const cities = joinSchools(publishedMarkets().map((market) => market.city));
-  return [
-    {
-      q: "What is a campus marketing city page?",
-      a: "A campus marketing city page is where Collegiate Agency publishes the sourced work it has already run in that city. Brands hire Collegiate Agency for campus events, brand ambassadors, and product placement aimed at college students. The page repeats a published fact and the published rates.",
-    },
-    {
-      q: "Which cities does Collegiate Agency publish a campus marketing page for?",
-      a: `Collegiate Agency publishes a campus marketing page for ${cities}. A city is listed on this hub only when a sourced fact for that city is already approved. The live pages are the cards on this page.`,
-    },
-    {
-      q: "Is the school grid a list of past Collegiate Agency campaigns?",
-      a: "No. The schools in the grid are in the Collegiate Agency campus network. A school in that grid is not a past campaign, and it is not a university affiliation. Past work is the case study linked from a published city page.",
-    },
-    {
-      q: "How does a brand start campus marketing in a published city?",
-      a: "A brand starts by sending the city and the goal through the contact form. Collegiate Agency replies within one business day with a tailored plan and firm pricing. This page does not offer a calendar or a phone number.",
-    },
-  ];
+export function hubIntro(): string {
+  return "Each city page lists only the brand activations Collegiate Agency ran in that market.";
 }
 
 export function hubBodyText(): string {
   const cards = publishedMarkets()
-    .map((market) => {
-      const fact = publishedFacts(market)[0];
-      return `${market.city} ${fact?.text ?? ""}`;
-    })
+    .map((market) => `${market.city} ${market.intro}`)
     .join(" ");
-  const faqs = hubFaqs().map((item) => `${item.q} ${item.a}`).join(" ");
-  return [HUB_H1, blocksText(hubIntro()), cards, faqs].join(" ");
+  return [HUB_H1, hubIntro(), cards].join(" ");
 }
 
 export function hubCollectionItems(): { name: string; path: string }[] {
@@ -615,20 +360,76 @@ export function hubCollectionItems(): { name: string; path: string }[] {
   }));
 }
 
+export function activationSummary(market: CampusMarket): string {
+  return market.intro;
+}
+
+const PUBLIC_COPY_BANS = [
+  "Murda",
+  "Emo's",
+  "Riverside",
+  "Sep 11",
+  "September 11",
+  "171,902",
+  "171902",
+  "Ole Miss",
+  "Tulane",
+  "Loyola",
+  "UNO",
+  "Stripz",
+  "Polymarket",
+  "STIZZY",
+  "Julian",
+  "Fijma",
+  "Millero",
+  "LSU",
+];
+
+const RESULT_LEAK = /171,?902|\bviews\b|\bimpressions\b|\battendance\b|\btickets?\b|\bROAS\b|\$175,000|\b5\s*million\b|\b425\b|\bcases\b/i;
+
+function publicCopy(market: CampusMarket): string {
+  return [market.intro, market.description, marketBodyText(market)].join(" ");
+}
+
+if (HUB_DESCRIPTION.length > 155) {
+  throw new Error(`Hub meta description is ${HUB_DESCRIPTION.length} characters`);
+}
+oneSentence(hubIntro(), "Hub intro");
+
+if (campusMarkets.map((market) => market.slug).join("|") !== PUBLISHED_SLUGS.join("|")) {
+  throw new Error("Campus markets must be the five approved cities, in that order");
+}
+
 for (const market of campusMarkets) {
-  for (const fact of market.facts) {
-    if (!fact.id || !fact.text || !fact.source.startsWith("https://")) {
-      throw new Error(`Campus fact ${fact.id || market.slug} is missing an id, text, or source`);
-    }
+  if (!activationGate(market)) {
+    throw new Error(`${market.slug} failed the activation gate`);
   }
-  if (market.localFaq.length < MIN_LOCAL_FAQS) {
-    throw new Error(`${market.slug} needs at least ${MIN_LOCAL_FAQS} local FAQ entries`);
+  oneSentence(market.intro, market.slug);
+  const copy = publicCopy(market);
+  for (const ban of PUBLIC_COPY_BANS) {
+    if (copy.includes(ban)) throw new Error(`${market.slug} public copy includes ${ban}`);
+  }
+  for (const item of market.activations) {
+    const text = `${item.whatRan} ${item.result ?? ""}`;
+    if (RESULT_LEAK.test(text)) throw new Error(`${market.slug} ${item.brand} includes a banned metric`);
+    if (item.caseStudySlug && !item.caseStudySlug.startsWith("sos-") && !item.caseStudySlug.startsWith("nutrl-")) {
+      throw new Error(`${market.slug} links an unapproved case study`);
+    }
   }
 }
 
-const newOrleans = campusMarkets.find((market) => market.slug === "new-orleans");
-if (!newOrleans) throw new Error("Missing New Orleans market");
-const newOrleansGate = marketGate(newOrleans);
-if (!newOrleansGate.facts || !newOrleansGate.words || !newOrleansGate.faqs) {
-  throw new Error(`New Orleans failed the publish gate: ${JSON.stringify(newOrleansGate)}`);
+const brandsBySlug: Record<string, string[]> = {
+  "new-orleans": ["SOS Consultants Nola", "BeatBox", "NÜTRL", "Bumble"],
+  syracuse: ["BeatBox", "Dazed", "NÜTRL", "Red Bull"],
+  "oxford-ole-miss": ["Bloom", "NÜTRL", "BeatBox"],
+  austin: ["BeatBox"],
+  dallas: ["BeatBox"],
+};
+
+for (const market of campusMarkets) {
+  const brands = market.activations.map((item) => item.brand);
+  const expected = brandsBySlug[market.slug];
+  if (brands.join("|") !== expected.join("|")) {
+    throw new Error(`${market.slug} brands are ${brands.join(", ")}`);
+  }
 }

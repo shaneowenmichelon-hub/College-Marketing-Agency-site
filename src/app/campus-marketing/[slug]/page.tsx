@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Accordion } from "@/components/Accordion";
 import { CTASection } from "@/components/CTASection";
-import { InquiryTestimonial } from "@/components/InquiryTestimonial";
 import { SectionHeading } from "@/components/SectionHeading";
-import { CopyBlocks } from "@/components/seo/CopyBlocks";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
-import { FaqPageJsonLd } from "@/components/services/ServiceFaq";
 import { Section } from "@/components/ui/Section";
 import {
   cityBreadcrumbItems,
-  cityFaqItems,
   cityServiceStructuredData,
   marketDocument,
   publishedMarket,
@@ -44,7 +39,6 @@ export default async function CampusMarketPage({ params }: { params: Params }) {
   const market = publishedMarket(slug);
   if (!market) notFound();
   const doc = marketDocument(market);
-  const faqs = cityFaqItems(market);
 
   return (
     <>
@@ -53,26 +47,30 @@ export default async function CampusMarketPage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(cityServiceStructuredData(market)) }}
       />
       <BreadcrumbJsonLd items={cityBreadcrumbItems(market)} />
-      <FaqPageJsonLd items={faqs} path={doc.path} />
       <Section tone="light">
-        <SectionHeading
-          as="h1"
-          eyebrow={`${market.city}, ${market.region}`}
-          title={doc.h1}
-        />
-        <CopyBlocks blocks={doc.lead} className="mt-8 max-w-3xl" />
+        <SectionHeading as="h1" eyebrow={`${market.city}, ${market.region}`} title={doc.h1} />
+        <p className="mt-8 max-w-3xl text-base leading-relaxed text-[color:var(--muted-on-light)] sm:text-lg">
+          {doc.intro}
+        </p>
       </Section>
       <Section tone="muted">
         <SectionHeading title={doc.ranHeading} />
         <ul className="mt-8 grid gap-4">
-          {doc.factCards.map((card) => (
-            <li key={card.id}>
+          {doc.activations.map((activation) => (
+            <li key={activation.brand}>
               <article className="rounded-[4px] border-2 border-ink bg-white p-6 shadow-[4px_4px_0_var(--ink)]">
-                <p className="text-base leading-relaxed text-[color:var(--muted-on-light)]">{card.text}</p>
-                {card.href && card.label ? (
+                <h3 className="font-display text-xl font-bold text-ink">{activation.brand}</h3>
+                <p className="mt-3 text-base leading-relaxed text-[color:var(--muted-on-light)]">{activation.whatRan}</p>
+                {activation.result ? (
+                  <p className="mt-3 text-base leading-relaxed text-[color:var(--muted-on-light)]">{activation.result}</p>
+                ) : null}
+                {activation.caseStudyHref && activation.caseStudyLabel ? (
                   <p className="mt-4 text-sm font-semibold">
-                    <Link href={card.href} className="text-accent underline decoration-accent/30 underline-offset-2">
-                      {card.label}
+                    <Link
+                      href={activation.caseStudyHref}
+                      className="text-accent underline decoration-accent/30 underline-offset-2"
+                    >
+                      {activation.caseStudyLabel}
                     </Link>
                   </p>
                 ) : null}
@@ -80,47 +78,17 @@ export default async function CampusMarketPage({ params }: { params: Params }) {
             </li>
           ))}
         </ul>
+        <p className="mt-8 max-w-3xl text-base leading-relaxed text-[color:var(--muted-on-light)]">
+          A brand still deciding how to hire can read{" "}
+          <Link
+            href={doc.moneyHref}
+            className="font-semibold text-accent underline decoration-accent/30 underline-offset-2"
+          >
+            {doc.moneyAnchor}
+          </Link>.
+        </p>
       </Section>
-      <Section tone="light">
-        <SectionHeading title={doc.schoolsHeading} />
-        <CopyBlocks blocks={doc.schoolsIntro} className="mt-6 max-w-3xl" />
-        <ul className="mt-6 max-w-3xl space-y-2">
-          {doc.schools.map((school) => (
-            <li key={school.name} className="text-base text-ink">
-              {school.name}
-              {school.network ? (
-                <span className="text-[color:var(--muted-on-light)]"> in the Collegiate Agency campus network</span>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-      </Section>
-      <Section tone="muted">
-        <SectionHeading title={doc.servicesHeading} />
-        <CopyBlocks blocks={doc.services} className="mt-6 max-w-3xl" />
-      </Section>
-      <Section tone="light" id="faq" className="scroll-mt-24">
-        <SectionHeading
-          eyebrow="FAQ"
-          title={`Questions brands ask about college marketing in ${market.city}.`}
-          intro="The same answers are in the FAQPage structured data on this page."
-        />
-        <div className="mt-8 max-w-3xl">
-          <Accordion items={market.localFaq} />
-        </div>
-      </Section>
-      <Section tone="muted">
-        <SectionHeading title={doc.proofHeading} />
-        <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:items-start">
-          <CopyBlocks blocks={doc.proof} className="max-w-3xl" />
-          <InquiryTestimonial />
-        </div>
-      </Section>
-      <CTASection
-        eyebrow={market.city}
-        title={doc.cta.title}
-        primary={{ label: doc.cta.title, href: doc.cta.href }}
-      />
+      <CTASection eyebrow={market.city} title={doc.cta.title} primary={{ label: doc.cta.title, href: doc.cta.href }} />
     </>
   );
 }
