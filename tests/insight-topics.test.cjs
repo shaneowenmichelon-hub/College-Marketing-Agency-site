@@ -160,6 +160,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
       "college-app-marketing-agency",
       "college-marketing-for-beauty-brands",
       "college-marketing-for-beverage-brands",
+      "college-marketing-for-fintech-brands",
     ],
   };
 
