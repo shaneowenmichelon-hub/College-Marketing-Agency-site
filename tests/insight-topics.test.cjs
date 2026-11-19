@@ -206,7 +206,11 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
   for (const topic of insightTopics) {
     assert.equal(
       insightTopicSitemapLastModified(topic.slug),
-      samplingHubs.has(topic.slug) ? "2026-11-18" : "2026-11-16",
+      topic.slug === "campus-marketing-strategy"
+        ? "2026-11-19"
+        : samplingHubs.has(topic.slug)
+          ? "2026-11-18"
+          : "2026-11-16",
       topic.slug,
     );
   }

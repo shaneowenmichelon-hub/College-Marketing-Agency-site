@@ -57,7 +57,13 @@ export const STATIC_ROUTE_SOURCES: Record<string, readonly string[]> = {
     "src/lib/indexable-pages.ts",
     "src/site.config.ts",
   ],
-  "/work": ["src/app/work/page.tsx", "src/lib/indexable-pages.ts", "src/lib/content.ts"],
+  "/work": [
+    "src/app/work/page.tsx",
+    "src/components/work/CurrentCampaigns.tsx",
+    "src/lib/current-campaigns.ts",
+    "src/lib/indexable-pages.ts",
+    "src/lib/content.ts",
+  ],
   "/about": ["src/app/about/page.tsx", "src/lib/seo.ts", "src/site.config.ts"],
   "/insights": ["src/app/insights/page.tsx", "src/lib/seo.ts"],
   "/contact": [
@@ -80,7 +86,7 @@ export const STATIC_ROUTE_UPDATED: Record<string, string> = {
   "/services/product-placement": "2026-11-18",
   "/pricing": "2026-11-18",
   "/build-a-campaign": "2026-11-18",
-  "/work": "2026-11-18",
+  "/work": "2026-11-19",
   "/about": "2026-11-18",
   "/insights": "2026-11-18",
   "/contact": "2026-11-18",
