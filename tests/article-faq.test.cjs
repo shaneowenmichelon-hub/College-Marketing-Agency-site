@@ -168,6 +168,7 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const run45 = new Set(["spring-semester-campus-marketing"]);
     const run46 = new Set(["college-marketing-for-beauty-brands"]);
     const run47 = new Set(["college-marketing-for-beverage-brands"]);
+    const run48 = new Set(["college-marketing-for-fintech-brands"]);
     const wave2 = new Set([
       "campus-influencers",
       "campus-brand-activation-agency",
@@ -203,6 +204,8 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       ? "2026-11-18"
       : run47.has(slug)
       ? "2026-11-18"
+      : run48.has(slug)
+      ? "2026-11-19"
       : slug === "college-marketing-agency"
       ? "2026-11-19"
       : run46.has(slug)

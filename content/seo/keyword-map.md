@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-18
+Last updated: 2026-11-19
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -84,10 +84,38 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-15 - `spring semester campus marketing` - `/insights/spring-semester-campus-marketing`
 - 2026-11-16 - `college marketing for beauty brands` - `/insights/college-marketing-for-beauty-brands`
 - 2026-11-18 - `college marketing for beverage brands` - `/insights/college-marketing-for-beverage-brands`
+- 2026-11-19 - `college marketing for fintech brands` - `/insights/college-marketing-for-fintech-brands`
 
 ## Runs 35-43 backfill (2026-11-11)
 
 Publishing had stopped after run 34 because every owned photo was at the old 7-appearance cap. These nine articles use the rotation rule instead of that cap. Dates are the publish date, 2026-11-11, not the missed October and November slots. Run 35 is the HBCU keyword the October 28 attempt could not place. The next eight are unused runner-ups and the next unused active-list term, in the order they were left open: campus product sampling agency, campus pop-up activation, college event marketing agency, multi-campus brand activation, college creator marketing agency, college sports marketing agency, finals week marketing, and back-to-school campus activation. `college marketing cost` and `campus media advertising` stayed unused. The first cannibalizes `/pricing`. The second is a weaker fit than an on-campus hire.
+
+## Run 48 research note (2026-11-19)
+
+Primary chosen: `college marketing for fintech brands`.
+
+Evidence used, without search-volume tools, from public pages re-opened on 2026-11-19. The term was the unlocked runner-up in the run 46 and run 47 notes. It is outside the 60-day lockout, not in `keyword-queue.json` before this run, off the reserved pillar list, and outside the clusters being consolidated in `content/seo/backlog.md` (ambassadors, sampling, Gen Z, influencers, activations, strategy, sponsorship). Collegiate Agency had no fintech article. The page is a vertical hiring guide: an approved claims sheet, a code the brand already tracks, a sign-up that stays in the brand's app, and a counsel check before a physical item is offered for a credit-card application. It links to the app, back-to-school, and content-rights guides instead of restating them. Competitor performance figures are left out of the article. This page is not legal advice.
+
+Dated pages cited in the article:
+
+- Public Law 111-24, Credit Card Accountability Responsibility and Disclosure Act of 2009, signed May 22, 2009, section 304 (https://www.govinfo.gov/content/pkg/PLAW-111publ24/html/PLAW-111publ24.htm). The HTML page, read 2026-11-19, contains section 304. A card issuer or creditor may not offer a student at an institution of higher education a tangible item to induce the student to apply for or participate in an open end consumer credit plan on campus, near campus, or at an event sponsored by or related to the school. A school shall publicly disclose a contract with a card issuer or creditor for marketing a credit card. The sense of Congress on debt education at orientation is not a mandate.
+- Consumer Financial Protection Bureau, Regulation Z § 1026.57, version dated April 8, 2026 (https://www.consumerfinance.gov/rules-policy/regulations/1026/2026-04-08/57/). The page includes the rule text and the official interpretation of 57(c). A card issuer or creditor may not offer a college student a tangible item to induce an application for or opening of an open-end consumer credit plan on campus, near campus, or at a related event. A tangible item includes a physical item such as a gift card, a t-shirt, or a magazine subscription, and does not include discounts, rewards points, or promotional credit terms. Near campus means within 1,000 feet of the campus border as the school defines it. Refreshments not conditioned on an application are the interpretation's example of an item that is not that inducement. The college student credit card definition excludes an overdraft line accessed by a debit card and can include certain hybrid prepaid-credit cards.
+- Federal Trade Commission, "Guides Concerning the Use of Endorsements and Testimonials in Advertising," Federal Register, July 26, 2023, effective that day (https://www.govinfo.gov/content/pkg/FR-2023-07-26/html/2023-14795.htm). A payment, a free or discounted product, or the chance of a prize is a material connection when a significant minority of the audience would not expect it. Clear and conspicuous means difficult to miss and easily understood. On social media the disclosure should be unavoidable. Example 9 is a college student who earns points for posts and can exchange them for prizes such as concert tickets or electronics.
+
+Read the same day and not cited, because the page had no publication date. Performance lines on these pages were not copied:
+
+- eCFR, 12 CFR 1026.57 (https://www.ecfr.gov/current/title-12/chapter-X/part-1026/subpart-G/section-1026.57). The fetched page is labeled authoritative but unofficial and showed no edition date. Paragraph (c) matched the CFPB text above, so the article cites the dated CFPB version.
+- College Marketing Co., "Financial Services & Fintech College Marketing" (https://collegemarketing.co/industries/financial-services-fintech) and "Banking & Fintech College Marketing" (https://collegemarketing.co/industries/banking-fintech). No publication date. The banking URL returned the same financial-services page. Orientation, literacy events, ambassadors, and tabling are described there. The article's buyer rules are not a citation of these pages.
+- Street Teams Co., "College Marketing Agency" (https://streetteamsco.com/college-marketing-agency). No article date. Financial Services is listed as an industry, including student account sign-ups, financial literacy events, credit card promotions, and fintech app adoption. Permit language on that page was not used.
+- Props, "Ambition" (https://props.co/results/ambition). No publication date. The page describes a College Ave Ambition card creator campaign. Result lines were not used.
+- TapLab, "Monzo Influencer Marketing Campaign" (https://www.taplab.agency/case-studies/monzo). No publication date. The page is a UK student-banking creator case and mentions a Freshers 2026 flight label. Result lines were not used.
+
+Runner-ups, not locked:
+
+- `college marketing for fashion brands`. RetailBoss, "Calvin Klein Takes a Mobile Retail Store to College Campuses With CNC Agency," published September 12, 2026 (https://retailboss.co/calvin-klein-takes-a-mobile-retail-store-to-college-campuses-with-cnc-agency/). CNC College ran a mobile retail store at the University of Pennsylvania and George Washington University. PR Newswire, "Urban Outfitters Announces UO Game Day 2026 Campus Tour," September 14, 2026 (https://www.prnewswire.com/news-releases/urban-outfitters-announces-uo-game-day-2026-campus-tour-with-alison-wonderland-the-linda-lindas-mack-keane-and-more-302877257.html). Stops listed are Tucson September 17-19, Madison October 1-3, and New Brunswick October 29-31.
+- `college marketing for restaurant brands`. Search results on 2026-11-19 showed The Campus Agency Sweetgreen (https://thecampusagency.com/sweetgreen-marketing-case-study/) and Grubhub (https://thecampusagency.com/grubhub-marketing-case-study/) case pages, and OnCampus Advertising's McDonald's case page (https://oncampusadvertising.com/mcdonalds-case-study/). No publication date was in those extracts, so they were not cited. Performance lines were not copied.
+- `welcome week brand activation`. Already in `keyword-queue.json`. A long-tail of the back-to-school article.
+- `college marketing cost`. Strong buyer intent, and it cannibalizes `/pricing`.
 
 ## Run 47 research note (2026-11-18)
 

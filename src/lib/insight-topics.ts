@@ -201,6 +201,7 @@ const TOPIC_ARTICLES: Record<string, readonly string[]> = {
     "college-app-marketing-agency",
     "college-marketing-for-beauty-brands",
     "college-marketing-for-beverage-brands",
+    "college-marketing-for-fintech-brands",
   ],
 };
 
