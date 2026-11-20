@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArticleTable } from "@/components/article/ArticleTable";
 import { CTASection } from "@/components/CTASection";
@@ -7,13 +8,37 @@ import { BreadcrumbJsonLd, ServiceJsonLd } from "@/components/seo/JsonLd";
 import { FaqPageJsonLd, ServiceFaq } from "@/components/services/ServiceFaq";
 import { Section } from "@/components/ui/Section";
 import { pageMetadata } from "@/lib/seo";
-import { PRICING_DESCRIPTION, PRICING_TITLE, pricingFaqs, pricingIntro, pricingRows } from "@/lib/pricing-page";
+import {
+  PRICING_COST_QUESTION,
+  PRICING_DESCRIPTION,
+  PRICING_DOCUMENT_TITLE,
+  PRICING_H1,
+  PRICING_TITLE_LEAD,
+  pricingCostAnswer,
+  pricingCostExample,
+  pricingFaqs,
+  pricingIntro,
+  pricingRows,
+} from "@/lib/pricing-page";
 
-export const metadata = pageMetadata({
-  title: PRICING_TITLE,
+const pricingMeta = pageMetadata({
+  title: PRICING_TITLE_LEAD,
   description: PRICING_DESCRIPTION,
   path: "/pricing",
 });
+
+// The shared resolver drops the brand above 60 characters. This lead with the
+// suffix is 62, which is still inside the 65-character cap for this page.
+export const metadata: Metadata = {
+  ...pricingMeta,
+  title: { absolute: PRICING_DOCUMENT_TITLE },
+  openGraph: pricingMeta.openGraph
+    ? { ...pricingMeta.openGraph, title: { absolute: PRICING_DOCUMENT_TITLE } }
+    : undefined,
+  twitter: pricingMeta.twitter
+    ? { ...pricingMeta.twitter, title: { absolute: PRICING_DOCUMENT_TITLE } }
+    : undefined,
+};
 
 const steps = [
   {
@@ -47,12 +72,19 @@ export default function PricingPage() {
       <FaqPageJsonLd items={faqs} path="/pricing" />
 
       <Section tone="light">
-        <SectionHeading
-          as="h1"
-          eyebrow="Pricing"
-          title="Published rates, then a quote for the rest."
-          intro={pricingIntro()}
-        />
+        <SectionHeading as="h1" eyebrow="Pricing" title={PRICING_H1} />
+        <div className="mt-6 max-w-3xl">
+          <h2 className="text-balance font-display text-2xl font-bold text-ink sm:text-3xl">
+            {PRICING_COST_QUESTION}
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-[color:var(--muted-on-light)] sm:text-lg">
+            {pricingCostAnswer()}
+          </p>
+          <p className="mt-3 text-base leading-relaxed text-[color:var(--muted-on-light)]">{pricingCostExample()}</p>
+        </div>
+        <p className="mt-6 max-w-3xl text-base leading-relaxed text-[color:var(--muted-on-light)] sm:text-lg">
+          {pricingIntro()}
+        </p>
         <div className="mt-10">
           <ArticleTable
             block={{

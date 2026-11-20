@@ -1,3 +1,4 @@
+import { BRAND_SUFFIX } from "@/lib/seo";
 import { getStat, pricing, siteConfig } from "@/site.config";
 import type { ServiceFaq } from "@/lib/service-faqs";
 
@@ -64,8 +65,8 @@ export function pricingFaqs(): ServiceFaq[] {
   const campuses = getStat("campuses");
   return [
     {
-      question: "How much does a Collegiate Agency brand ambassador cost?",
-      answer: `Collegiate Agency prices the ambassador program at ${ambassadors}. That rate includes 2 dedicated social posts (flyers or videos) with links and brand tags. Localized paid media and product placement are add-ons, and Collegiate Agency confirms firm pricing after a brand sends a campaign.`,
+      question: "How much does a college marketing campaign cost?",
+      answer: `Collegiate Agency prices a college marketing campaign at ${ambassadors}, including 2 dedicated social posts, and product placement at ${placement}. Event packages run from ${min} to ${max}. Anything else is quoted per campaign, and Collegiate Agency replies with firm pricing within one business day.`,
     },
     {
       question: "How much does Collegiate Agency charge for product placement?",
@@ -90,14 +91,76 @@ export function pricingFaqs(): ServiceFaq[] {
   ];
 }
 
-export const PRICING_TITLE = "Campus marketing pricing";
+/**
+ * Document title lead. The shared resolver stops at 60 characters, which would
+ * drop the brand from this lead. This page may use 65. Above that, the shorter
+ * lead is the one that still renders with the brand suffix.
+ */
+const PRICING_TITLE_LONG = "Campus Marketing Campaign Cost and Pricing";
+const PRICING_TITLE_SHORT = "Campus Marketing Cost and Pricing";
+const PRICING_TITLE_LONG_WITH_BRAND = `${PRICING_TITLE_LONG}${BRAND_SUFFIX}`;
+const PRICING_TITLE_FITS = PRICING_TITLE_LONG_WITH_BRAND.length <= 65;
+
+export const PRICING_TITLE_LEAD = PRICING_TITLE_FITS ? PRICING_TITLE_LONG : PRICING_TITLE_SHORT;
+
+/** Absolute document title, Open Graph title, and Twitter title. */
+export const PRICING_DOCUMENT_TITLE = PRICING_TITLE_FITS
+  ? PRICING_TITLE_LONG_WITH_BRAND
+  : `${PRICING_TITLE_SHORT}${BRAND_SUFFIX}`;
+
+export const PRICING_H1 = "Campus marketing pricing: published rates, then a quote for the rest.";
+
+export const PRICING_COST_QUESTION = "How much does a campus marketing campaign cost?";
 
 export const PRICING_DESCRIPTION = (() => {
   const { min, max } = eventBounds();
-  return `Collegiate Agency pricing: ${publishedRate("brand-ambassadors")}, product placement at ${publishedRate("product-placement")}, and event packages from ${min} to ${max}.`;
+  const ambassadors = pricing["brand-ambassadors"].range;
+  const placement = pricing["product-placement"].range;
+  return `What a campus marketing campaign costs: ${ambassadors} per ambassador per month, ${placement} per sorority (chapter) for product placement, event packages from ${min} to ${max}`;
 })();
+
+function wordCount(text: string): number {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+/** Quotable answer under the H1. Published rates only. 40–70 words. */
+export function pricingCostAnswer(): string {
+  const ambassadors = pricing["brand-ambassadors"].range;
+  const placement = pricing["product-placement"].range;
+  const { min, max } = eventBounds();
+  const text = `A campus marketing campaign costs ${ambassadors} per ambassador per month, including 2 dedicated social posts. Product placement is ${placement} per sorority (chapter). Event packages run from ${min} to ${max}. Anything else is quoted per campaign, and Collegiate Agency replies with firm pricing within one business day.`;
+  const words = wordCount(text);
+  if (words < 40 || words > 70) {
+    throw new Error(`pricing cost answer is ${words} words; expected 40-70`);
+  }
+  return text;
+}
+
+/**
+ * Worked example. The total is 10 ambassadors x 3 months x the published
+ * ambassador rate. No other figure is introduced.
+ */
+export function pricingCostExample(): string {
+  const raw = pricing["brand-ambassadors"].range;
+  const match = raw.match(/^\$(\d+(?:,\d{3})*)$/);
+  if (!match) throw new Error("ambassador rate must be a single published amount");
+  const each = Number(match[1].replace(/,/g, ""));
+  const total = each * 10 * 3;
+  return `Example math: 10 ambassadors for 3 months at the published rate is 10 x 3 x ${raw} = $${total.toLocaleString("en-US")} before add-ons.`;
+}
 
 export function pricingIntro(): string {
   const { min, max } = eventBounds();
   return `${siteConfig.definition} Collegiate Agency is based in ${siteConfig.contact.location}. Published rates are ${publishedRate("brand-ambassadors")} for ambassadors, ${publishedRate("product-placement")} for product placement, and event packages from ${min} to ${max}. A price that is not in the table is quoted per campaign.`;
+}
+
+const pricingQueryCopy = [PRICING_TITLE_LEAD, PRICING_H1, PRICING_DESCRIPTION].join("\n");
+if (/college marketing agency/i.test(pricingQueryCopy)) {
+  throw new Error("pricing title, H1, and meta must not target college marketing agency");
+}
+if (PRICING_DESCRIPTION.length > 160) {
+  throw new Error(`pricing description is ${PRICING_DESCRIPTION.length} characters`);
+}
+if (PRICING_DOCUMENT_TITLE.length > 65) {
+  throw new Error(`pricing document title is ${PRICING_DOCUMENT_TITLE.length} characters`);
 }
