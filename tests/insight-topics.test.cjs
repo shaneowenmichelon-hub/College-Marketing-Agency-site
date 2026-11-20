@@ -63,6 +63,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
   assert.equal(insightTopics.length, 6);
   assert.equal(insightTopics.some((topic) => /gen-?z/i.test(topic.slug)), false);
 
+  const { PRICING_DOCUMENT_TITLE } = loadTs("lib/pricing-page.ts");
   const documentTitles = insightTopics.map((topic) => resolveDocumentTitle(topic.title).text);
   assert.equal(new Set(documentTitles).size, documentTitles.length);
   const articleTitles = new Set(posts.map((post) => resolveDocumentTitle(post.metaTitle ?? post.title).text));
@@ -71,9 +72,9 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
     "Campus Event Marketing for Brands",
     "Greek life product placement",
     "Campus Marketing Insights for Brands",
-    "Campus marketing pricing",
     "Campus Marketing Agency for Brands",
   ].map((lead) => resolveDocumentTitle(lead).text);
+  pageTitles.push(PRICING_DOCUMENT_TITLE);
 
   for (const topic of insightTopics) {
     const title = resolveDocumentTitle(topic.title).text;

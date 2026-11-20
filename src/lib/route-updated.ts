@@ -84,7 +84,7 @@ export const STATIC_ROUTE_UPDATED: Record<string, string> = {
   "/services/events": "2026-11-19",
   "/services/brand-ambassadors": "2026-11-19",
   "/services/product-placement": "2026-11-19",
-  "/pricing": "2026-11-18",
+  "/pricing": "2026-11-20",
   "/build-a-campaign": "2026-11-18",
   "/work": "2026-11-19",
   "/about": "2026-11-18",

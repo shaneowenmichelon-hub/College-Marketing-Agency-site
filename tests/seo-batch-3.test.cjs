@@ -39,10 +39,32 @@ function money(text) {
   return text.match(/\$\d{1,3}(?:,\d{3})*/g) ?? [];
 }
 
+function walk(dir, acc) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name === "node_modules" || entry.name === ".next" || entry.name === ".git") continue;
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, acc);
+    else if (/\.(tsx?|mdx?|cjs|mjs)$/.test(entry.name)) acc.push(full);
+  }
+  return acc;
+}
+
 test("pricing page uses only published rates and a visible FAQ", () => {
-  const { pricingFaqs, pricingRows, pricingIntro, PRICING_DESCRIPTION, publishedRate } = loadTs("lib/pricing-page.ts");
+  const {
+    pricingFaqs,
+    pricingRows,
+    pricingIntro,
+    pricingCostAnswer,
+    pricingCostExample,
+    PRICING_DESCRIPTION,
+    PRICING_DOCUMENT_TITLE,
+    PRICING_H1,
+    PRICING_COST_QUESTION,
+    publishedRate,
+  } = loadTs("lib/pricing-page.ts");
   const { pricing } = loadTs("site.config.ts");
   const { faqPageStructuredData } = loadTs("lib/service-faqs.ts");
+  const { pageMetadata } = loadTs("lib/seo.ts");
   const allowed = new Set(
     [pricing.events.range, pricing["brand-ambassadors"].range, pricing["product-placement"].range].flatMap(
       (range) => range.match(/\$\d{1,3}(?:,\d{3})*/g) ?? [],
@@ -57,7 +79,52 @@ test("pricing page uses only published rates and a visible FAQ", () => {
   assert.equal(joined.includes("S.O.S"), false);
   assert.equal(joined.includes("SOS"), false);
   assert.match(joined, /quoted per campaign/i);
-  assert.equal(PRICING_DESCRIPTION.length <= 160, true, PRICING_DESCRIPTION);
+  assert.equal(PRICING_DESCRIPTION.length <= 160, true, `${PRICING_DESCRIPTION.length}: ${PRICING_DESCRIPTION}`);
+  assert.equal(
+    PRICING_DOCUMENT_TITLE,
+    "Campus Marketing Campaign Cost and Pricing | Collegiate Agency",
+  );
+  assert.ok(PRICING_DOCUMENT_TITLE.length <= 65, PRICING_DOCUMENT_TITLE);
+  assert.match(PRICING_H1, /campus marketing pricing/i);
+  assert.doesNotMatch(`${PRICING_DOCUMENT_TITLE}\n${PRICING_H1}\n${PRICING_DESCRIPTION}`, /college marketing agency/i);
+  assert.equal(PRICING_COST_QUESTION, "How much does a campus marketing campaign cost?");
+  const answerWords = pricingCostAnswer().trim().split(/\s+/).filter(Boolean);
+  assert.ok(answerWords.length >= 40 && answerWords.length <= 70, String(answerWords.length));
+  assert.equal(
+    pricingCostExample(),
+    "Example math: 10 ambassadors for 3 months at the published rate is 10 x 3 x $150 = $4,500 before add-ons.",
+  );
+  assert.deepEqual(
+    faqs.map((item) => item.question),
+    [
+      "How much does a college marketing campaign cost?",
+      "How much does Collegiate Agency charge for product placement?",
+      "How much does a Collegiate Agency campus event cost?",
+      "How does the Collegiate Agency campaign builder estimate a price?",
+      "Does Collegiate Agency publish a discount?",
+      "How does a brand get firm pricing from Collegiate Agency?",
+    ],
+  );
+  const reserved = new Set([
+    "How much does a college marketing campaign cost?",
+    "How much does a campus marketing campaign cost?",
+  ]);
+  const root = path.join(__dirname, "..");
+  for (const file of walk(path.join(root, "src"), []).concat(walk(path.join(root, "content/blog"), []))) {
+    if (file.endsWith(`${path.sep}pricing-page.ts`) || file.endsWith(`${path.sep}pricing${path.sep}page.tsx`)) continue;
+    const source = fs.readFileSync(file, "utf8");
+    for (const question of reserved) {
+      assert.equal(source.includes(question), false, `${question} in ${path.relative(root, file)}`);
+    }
+  }
+  const meta = pageMetadata({
+    title: "Campus Marketing Campaign Cost and Pricing",
+    description: PRICING_DESCRIPTION,
+    path: "/pricing",
+  });
+  assert.equal(meta.description, PRICING_DESCRIPTION);
+  assert.equal(meta.openGraph.description, PRICING_DESCRIPTION);
+  assert.equal(meta.twitter.description, PRICING_DESCRIPTION);
 
   for (const item of faqs) {
     assert.match(item.answer, /Collegiate Agency/);
@@ -85,6 +152,13 @@ test("pricing page uses only published rates and a visible FAQ", () => {
   assert.match(page, /<BreadcrumbJsonLd/);
   assert.match(page, /<ServiceFaq items=\{faqs\} \/>/);
   assert.match(page, /href: "\/contact"/);
+  assert.match(page, /title: \{ absolute: PRICING_DOCUMENT_TITLE \}/);
+  assert.match(page, /title=\{PRICING_H1\}/);
+  assert.match(page, /\{PRICING_COST_QUESTION\}/);
+  assert.match(page, /\{pricingCostAnswer\(\)\}/);
+  assert.match(page, /\{pricingCostExample\(\)\}/);
+  assert.equal((page.match(/<FaqPageJsonLd/g) || []).length, 1);
+  assert.equal(page.includes("calendly") || page.includes("cal.com"), false);
   assert.equal(page.includes("ZMM"), false);
   assert.equal(page.includes("SOS"), false);
 });

@@ -1,5 +1,19 @@
 # SEO changelog
 
+## 2026-11-20 — /pricing query-led title, cost answer, and FAQ wording
+
+No new article. No new page. No redirect. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. That phrase was not added to the `/pricing` title, H1, or meta description. The existing body link from `/pricing` to that guide stays. The money page, city pages, `/services/brand-ambassadors`, and the product-sampling cluster were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, result, review, or discount was added.
+
+Baseline. Google Search Console URL Inspection, pulled Fri Nov 20, 2026 ~10:35 AM ET: `https://collegiateagency.com/pricing` was "Discovered - currently not indexed". It had not been crawled. It was already in `sitemap.xml`, with `index,follow`, a self canonical, and links from the nav and footer. Google Search Console, Oct 21–Nov 18 2026: `/pricing` had 12 impressions, 0 clicks, average position 3.2. Logged-out ChatGPT on Nov 19, 2026 did not name Collegiate Agency for "how much does a campus marketing campaign cost".
+
+The document title, Open Graph title, and Twitter title are `Campus Marketing Campaign Cost and Pricing | Collegiate Agency` (62 characters). `pageMetadata` still resolves other titles at 60 characters, which would have dropped the brand from this lead. 62 is inside the 65-character cap, so this page sets the absolute title after that resolver. The meta, Open Graph, and Twitter description is `What a campus marketing campaign costs: $150 per ambassador per month, $1,500 per sorority (chapter) for product placement, event packages from $500 to $500,000` (160 characters). Those amounts are `pricing` in `src/site.config.ts`.
+
+The H1 is `Campus marketing pricing: published rates, then a quote for the rest.` Directly under it, the page answers `How much does a campus marketing campaign cost?` in 40–70 words from the published rates: $150 per ambassador per month, including 2 dedicated social posts; $1,500 per sorority (chapter) for product placement; event packages from $500 to $500,000; anything else quoted per campaign; a reply with firm pricing within one business day. One labeled line is arithmetic on the published ambassador rate: 10 ambassadors for 3 months is 10 x 3 x $150 = $4,500 before add-ons. The table, the other sections, and the form-only inquiry path are unchanged. There is no calendar or booking link.
+
+The first FAQ question is now `How much does a college marketing campaign cost?` That wording was not already a question on another page. Its answer uses the same published rates. The other five FAQ answers are unchanged. The visible FAQ and the single FAQPage JSON-LD still come from `pricingFaqs()`. `/pricing` has no WebPage JSON-LD, so no `dateModified` was added to one.
+
+Sitemap `lastmod` for `/pricing` is `2026-11-20` via `STATIC_ROUTE_UPDATED`. IndexNow submits sitemap URLs whose `lastmod` is inside 72 hours. `scripts/indexnow-ping.cjs` runs after `npm run build` when `VERCEL_ENV=production` or `INDEXNOW_PING=1`. The production startup ping in `src/instrumentation.ts` and the cron at `/api/cron/indexnow` send the same set. `/pricing` is inside that window, so those pings include it.
+
 ## 2026-11-19 — City pages list only approved activations
 
 No new article. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. The city-hub sentence on that page stays. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
