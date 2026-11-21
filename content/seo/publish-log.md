@@ -52,3 +52,4 @@
 | 46 | 2026-11-16 | 14:51 CST | college-marketing-for-beauty-brands | college marketing for beauty brands | 1672 | prepared; live receipt in publisher state |
 | 47 | 2026-11-18 | 03:21 CST | college-marketing-for-beverage-brands | college marketing for beverage brands | 1697 | prepared; live receipt in publisher state |
 | 48 | 2026-11-19 | 14:54 CST | college-marketing-for-fintech-brands | college marketing for fintech brands | 1695 | prepared; live receipt in publisher state |
+| 49 | 2026-11-21 | 03:16 CST | college-marketing-for-restaurant-brands | college marketing for restaurant brands | 1700 | prepared; live receipt in publisher state |

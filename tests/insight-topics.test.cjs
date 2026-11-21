@@ -162,6 +162,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
       "college-marketing-for-beauty-brands",
       "college-marketing-for-beverage-brands",
       "college-marketing-for-fintech-brands",
+      "college-marketing-for-restaurant-brands",
     ],
   };
 
@@ -209,7 +210,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
     assert.equal(
       insightTopicSitemapLastModified(topic.slug),
       topic.slug === "campus-marketing-strategy"
-        ? "2026-11-19"
+        ? "2026-11-21"
         : samplingHubs.has(topic.slug)
           ? "2026-11-18"
           : "2026-11-16",

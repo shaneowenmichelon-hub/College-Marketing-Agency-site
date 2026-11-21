@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-19
+Last updated: 2026-11-21
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -85,10 +85,40 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-16 - `college marketing for beauty brands` - `/insights/college-marketing-for-beauty-brands`
 - 2026-11-18 - `college marketing for beverage brands` - `/insights/college-marketing-for-beverage-brands`
 - 2026-11-19 - `college marketing for fintech brands` - `/insights/college-marketing-for-fintech-brands`
+- 2026-11-21 - `college marketing for restaurant brands` - `/insights/college-marketing-for-restaurant-brands`
 
 ## Runs 35-43 backfill (2026-11-11)
 
 Publishing had stopped after run 34 because every owned photo was at the old 7-appearance cap. These nine articles use the rotation rule instead of that cap. Dates are the publish date, 2026-11-11, not the missed October and November slots. Run 35 is the HBCU keyword the October 28 attempt could not place. The next eight are unused runner-ups and the next unused active-list term, in the order they were left open: campus product sampling agency, campus pop-up activation, college event marketing agency, multi-campus brand activation, college creator marketing agency, college sports marketing agency, finals week marketing, and back-to-school campus activation. `college marketing cost` and `campus media advertising` stayed unused. The first cannibalizes `/pricing`. The second is a weaker fit than an on-campus hire.
+
+## Run 49 research note (2026-11-21)
+
+Primary chosen: `college marketing for restaurant brands`.
+
+Evidence used, without search-volume tools, from public pages re-opened on 2026-11-21. The term was a logged runner-up in the run 47 and run 48 notes. It is outside the 60-day lockout, not on the reserved pillar list, and outside the clusters being consolidated in `content/seo/backlog.md` (sampling, pop-up, event, tailgate, beverage, and ambassadors). Collegiate Agency had no restaurant article. The page is a vertical hiring guide for QSR, fast-casual, food-delivery, and restaurant marketers: a dining-operator yes, a coupon the brand already tracks, a delivery zone, a grand opening near campus, and the local food permit. It links to the sampling, pop-up, beverage, tailgate, and pricing pages instead of restating them. Competitor performance figures are left out of the article. This page is not legal advice and not a health-department permit.
+
+Dated pages cited in the article:
+
+- U.S. Food and Drug Administration, "Food Code 2022," originally posted December 28, 2022, most recent version January 18, 2023 (https://www.fda.gov/food/fda-food-code/food-code-2022). The page says the Food Code is a model offered for adoption by local, state, and federal jurisdictions. It is not itself a campus permit.
+- U.S. Food and Drug Administration, Food Code 2022 full document, January 18, 2023 version (https://www.fda.gov/files/food/published/FDA-FoodCode2022-FullDocument-01182023_0.pdf). The definition's examples include a restaurant and giving food to a consumer directly or through a delivery service such as restaurant takeout. A temporary food establishment operates for no more than 14 consecutive days in conjunction with a single event or celebration.
+- King County, "Temporary Food Establishment Guidelines & Fee Schedules," dated January 2026 (https://cdn.kingcounty.gov/-/media/king-county/depts/dph/documents/certificates-permits-licenses/food-worker-business-permits/temporary-food-establishment-guidelines.pdf). Packaged time and temperature control foods with no sampling are a different permit category from sampling those foods. The sheet bars home storage and home preparation, names a restaurant, church, school, or community center as commissary examples, bars bare-hand contact with ready-to-eat food, sets hot holding at 135°F or above and cold holding at 41°F or below, and says to apply at least 14 days before the event. Fee amounts on the sheet were not copied into the article.
+- Federal Trade Commission, "Guides Concerning the Use of Endorsements and Testimonials in Advertising," Federal Register, July 26, 2023, effective that day (https://www.govinfo.gov/content/pkg/FR-2023-07-26/html/2023-14795.htm). A payment, a free product, or a prize has to be disclosed when a significant minority of viewers are likely unaware of it. Clear and conspicuous means difficult to miss and easily understood. A disclosure only on a profile page is easy to miss. A disclosure hidden behind a "more" control is not unavoidable when the post itself is visible. Example 9 describes a college student who earns points for posts and can exchange them for prizes such as concert tickets or electronics.
+
+Read the same day and not cited. Performance lines on these pages were not copied:
+
+- EvolveZ, Michael Spitalieri, "Best College Brand Ambassador Agency for CPG Brands," September 15, 2026 (https://evolvez.co/blog/best-college-brand-ambassador-agency-cpg). The page describes a managed ambassador program for food, beverage, and beauty CPG. Trial and purchase-intent lines were not copied. The page does not set a dining-hall rule or a city food permit.
+- Food Truck Campaigns, "College Campus Tours" (https://foodtruckcampaigns.com/college-campus-tours.html). No publication date. The rate card was not copied.
+- Rockstarr Media, "College campus marketing" (https://rockstarrmedia.com/marketing/college-campus-marketing) and "Food & restaurants" (https://rockstarrmedia.com/marketing/industries/food-restaurants). Footer copyright 2026. No article date. Grand-opening language and event totals were not copied.
+- Street Teams Co., "College Campus Marketing Services" (https://streetteamsco.com/services/college-campus). Footer copyright 2026. No article date.
+- The Campus Agency, Sweetgreen (https://thecampusagency.com/sweetgreen-marketing-case-study/, meta modified time 2023-03-10), Grubhub (https://thecampusagency.com/grubhub-marketing-case-study/, meta modified time 2023-01-05), and DoorDash (https://thecampusagency.com/doordash-marketing-case-study/, meta modified time 2024-01-18). No visible publication date. Result lines were not copied.
+- OnCampus Advertising, McDonald's case page (https://oncampusadvertising.com/mcdonalds-case-study/). Meta modified time 2025-04-29. No visible publication date. Result lines were not copied.
+
+Runner-ups, not locked:
+
+- `college marketing for fashion brands`. Still the open runner-up from the run 48 note. Not re-opened as the primary this run.
+- `college marketing for tech brands`. College Marketing Co., "How to Launch an App on College Campuses: A 2026 Playbook" (https://collegemarketing.co/blog/how-to-launch-app-college-campuses-2026), read 2026-11-21. No publication date on the page. It overlaps the published college app marketing article. Not cited.
+- `student organization sponsorship for brands`. Already in `keyword-queue.json`. Overlaps the sponsorship cluster and the Greek-life article.
+- `welcome week brand activation`. Already in `keyword-queue.json`. A long-tail of the back-to-school article.
 
 ## Run 48 research note (2026-11-19)
 

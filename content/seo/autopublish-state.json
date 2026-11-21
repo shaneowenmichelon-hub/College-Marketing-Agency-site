@@ -1,19 +1,19 @@
 {
   "last_success": {
-    "primary_keyword": "college marketing for fintech brands",
-    "run_no": 48,
-    "slug": "college-marketing-for-fintech-brands",
-    "url": "https://collegiateagency.com/insights/college-marketing-for-fintech-brands",
-    "word_count": 1695,
-    "verified_at": "2026-11-19T14:54:08-06:00",
-    "note": "Run 48 fintech hiring guide. verified_at is the live check. The clock advanced 36 hours plus 1294 seconds from that anchor."
+    "primary_keyword": "college marketing for restaurant brands",
+    "run_no": 49,
+    "slug": "college-marketing-for-restaurant-brands",
+    "url": "https://collegiateagency.com/insights/college-marketing-for-restaurant-brands",
+    "word_count": 1700,
+    "verified_at": "2026-11-21T03:16:18-06:00",
+    "note": "Run 49 restaurant hiring guide. verified_at is the prepare clock and is replaced by the live check. The clock advanced 36 hours plus 772 seconds from that anchor."
   },
-  "next_run_at": "2026-11-21T03:15:42-06:00",
+  "next_run_at": "2026-11-22T15:29:10-06:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-11-19T14:54:08-06:00",
-  "schedule_jitter_seconds": 1294,
+  "schedule_anchor": "2026-11-21T03:16:18-06:00",
+  "schedule_jitter_seconds": 772,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility",
-  "schedule_repair": "Run 48 advanced the clock 36 hours plus 1294 seconds from the 2026-11-19 14:54 America/Chicago live check so a resumed routine does not burst a second article."
+  "schedule_repair": "Run 49 advanced the clock 36 hours plus 772 seconds from the 2026-11-21 03:16 America/Chicago prepare stamp so a resumed routine does not burst a second article."
 }
