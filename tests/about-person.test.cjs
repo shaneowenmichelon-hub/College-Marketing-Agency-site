@@ -47,16 +47,19 @@ function jsonLdBlocks(html) {
 
 test("about metadata is brand-framed and the title stays within 60 characters", () => {
   const { ABOUT_TITLE_LEAD, ABOUT_DESCRIPTION, pageMetadata, resolveDocumentTitle, TITLE_LIMIT } = loadTs("lib/seo.ts");
+  const documentLead = "About Founder Shane Michelon";
   const meta = pageMetadata({
-    title: ABOUT_TITLE_LEAD,
+    title: documentLead,
     description: ABOUT_DESCRIPTION,
     path: "/about",
   });
   const title = meta.title.absolute;
-  assert.equal(title, resolveDocumentTitle(ABOUT_TITLE_LEAD).text);
-  assert.equal(title, "The College Marketing Agency for Brands | Collegiate Agency");
+  assert.equal(title, resolveDocumentTitle(documentLead).text);
+  assert.equal(title, "About Founder Shane Michelon | Collegiate Agency");
+  assert.equal(/college marketing agency/i.test(title), false);
   assert.ok(title.length <= TITLE_LIMIT, `${title} (${title.length})`);
   assert.equal(title.split("Collegiate Agency").length - 1, 1);
+  assert.equal(resolveDocumentTitle(ABOUT_TITLE_LEAD).text, "The College Marketing Agency for Brands | Collegiate Agency");
   assert.ok(
     ABOUT_DESCRIPTION.length >= 140 && ABOUT_DESCRIPTION.length <= 155,
     `${ABOUT_DESCRIPTION.length}: ${ABOUT_DESCRIPTION}`,
@@ -74,8 +77,10 @@ test("about metadata is brand-framed and the title stays within 60 characters", 
   assert.equal(meta.alternates.canonical, "/about");
 
   const page = fs.readFileSync(path.join(__dirname, "../src/app/about/page.tsx"), "utf8");
-  assert.match(page, /title: ABOUT_TITLE_LEAD/);
+  assert.match(page, /const ABOUT_DOCUMENT_TITLE = "About Founder Shane Michelon"/);
+  assert.match(page, /title: ABOUT_DOCUMENT_TITLE/);
   assert.match(page, /description: ABOUT_DESCRIPTION/);
+  assert.equal(page.includes("title: ABOUT_TITLE_LEAD"), false);
 });
 
 test("about JSON-LD reuses the founder Person and describes only on-page people", () => {

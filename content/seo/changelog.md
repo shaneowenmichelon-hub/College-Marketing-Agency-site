@@ -1,5 +1,13 @@
 # SEO changelog
 
+## 2026-11-22 — /about document title names the founder
+
+No new article. No new page. No redirect. `/insights/college-marketing-agency` stays the page for "college marketing agency". `/contact` and every other URL were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.
+
+The `/about` document title, Open Graph title, and Twitter title are `About Founder Shane Michelon | Collegiate Agency` (48 characters). The phrase "college marketing agency" is not in that title. The H1 stays `A college marketing agency for brands.` The meta description stays `Collegiate Agency is a college marketing agency brands hire to reach college students: events, ambassadors, and product placement. Founder Shane Michelon.` That description is not copied from another page. The AboutPage JSON-LD `name` stays `The College Marketing Agency for Brands | Collegiate Agency`. Its `description`, `@id`s, and Person nodes are unchanged.
+
+Sitemap `lastmod` for `/about` is `2026-11-22` via `STATIC_ROUTE_UPDATED`. Other route dates were not moved.
+
 ## 2026-11-20 — /pricing query-led title, cost answer, and FAQ wording
 
 No new article. No new page. No redirect. `/insights/college-marketing-agency` keeps the title and H1 `College Marketing Agency: How to Choose One`. That phrase was not added to the `/pricing` title, H1, or meta description. The existing body link from `/pricing` to that guide stays. The money page, city pages, `/services/brand-ambassadors`, and the product-sampling cluster were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, result, review, or discount was added.
