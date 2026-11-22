@@ -206,14 +206,22 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
     "campus-sponsorship",
     "student-influencers",
   ]);
+  const anchorHubs = new Set([
+    "brand-ambassador-programs",
+    "campus-events-and-activations",
+    "campus-sponsorship",
+    "student-influencers",
+  ]);
   for (const topic of insightTopics) {
     assert.equal(
       insightTopicSitemapLastModified(topic.slug),
       topic.slug === "campus-marketing-strategy"
         ? "2026-11-21"
-        : samplingHubs.has(topic.slug)
-          ? "2026-11-18"
-          : "2026-11-16",
+        : anchorHubs.has(topic.slug)
+          ? "2026-11-22"
+          : samplingHubs.has(topic.slug)
+            ? "2026-11-18"
+            : "2026-11-16",
       topic.slug,
     );
   }

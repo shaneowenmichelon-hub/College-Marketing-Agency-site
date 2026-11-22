@@ -33,8 +33,8 @@
       ],
       "baseline_body_links": [
         {
-          "href": "/services",
-          "anchor": "campus influencers"
+          "href": "/insights/campus-influencers",
+          "anchor": "campus brand influencers"
         },
         {
           "href": "/services/brand-ambassadors",
@@ -413,7 +413,7 @@
           "anchor": "events"
         },
         {
-          "href": "/services",
+          "href": "/insights/campus-influencers",
           "anchor": "campus influencers"
         },
         {
@@ -427,10 +427,6 @@
         {
           "href": "/services/events",
           "anchor": "events"
-        },
-        {
-          "href": "/services",
-          "anchor": "campus influencers"
         },
         {
           "href": "/contact",
@@ -473,7 +469,7 @@
           "anchor": "campus events"
         },
         {
-          "href": "/services",
+          "href": "/insights/campus-influencers",
           "anchor": "campus influencers"
         },
         {
@@ -569,8 +565,8 @@
       ],
       "baseline_body_links": [
         {
-          "href": "/services",
-          "anchor": "campus influencers"
+          "href": "/insights/campus-influencers",
+          "anchor": "campus creators"
         },
         {
           "href": "/services/brand-ambassadors",
@@ -1129,7 +1125,7 @@
       ],
       "baseline_body_links": [
         {
-          "href": "/services",
+          "href": "/insights/campus-influencers",
           "anchor": "campus influencers"
         },
         {
@@ -1185,8 +1181,8 @@
           "anchor": "college brand ambassadors"
         },
         {
-          "href": "/services",
-          "anchor": "campus influencers"
+          "href": "/insights/campus-influencers",
+          "anchor": "college influencers"
         },
         {
           "href": "/contact",
@@ -1225,8 +1221,8 @@
       ],
       "baseline_body_links": [
         {
-          "href": "/services",
-          "anchor": "campus influencers"
+          "href": "/insights/campus-influencers",
+          "anchor": "campus influencer"
         },
         {
           "href": "/services/events",

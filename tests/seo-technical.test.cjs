@@ -171,6 +171,10 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     "college-festival-sponsorship",
     "college-brand-ambassador-program",
   ]);
+  const campusInfluencerAnchors = new Set([
+    "college-festival-sponsorship",
+    "college-brand-ambassador-program",
+  ]);
   const buyerFaq = new Set([
     "college-tour-marketing",
     "campus-field-marketing-agency",
@@ -195,7 +199,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     assert.equal(post.metaTitle, lead);
     assert.equal(
       post.dateModified,
-      wave2.has(slug) || samplingCluster.has(slug)
+      campusInfluencerAnchors.has(slug)
+        ? "2026-11-22"
+        : wave2.has(slug) || samplingCluster.has(slug)
         ? "2026-11-18"
         : moneyPageLinks.has(slug)
         ? "2026-11-17"
@@ -274,7 +280,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   for (const slug of Object.keys(expected)) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      wave2.has(slug) || samplingCluster.has(slug)
+      campusInfluencerAnchors.has(slug)
+        ? "2026-11-22T00:00:00.000Z"
+        : wave2.has(slug) || samplingCluster.has(slug)
         ? "2026-11-18T00:00:00.000Z"
         : moneyPageLinks.has(slug)
         ? "2026-11-17T00:00:00.000Z"
@@ -292,7 +300,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   }
   const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
   const routeStamp = (route) => `${STATIC_ROUTE_UPDATED[route]}T00:00:00.000Z`;
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-21T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-22T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), routeStamp("/services/events"));
   assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), routeStamp("/work"));
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), routeStamp("/"));
@@ -453,7 +461,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     "2026-11-18T00:00:00.000Z",
   );
   const { STATIC_ROUTE_UPDATED: routeUpdated } = loadTs("lib/route-updated.ts");
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-21T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-22T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), `${routeUpdated["/"]}T00:00:00.000Z`);
   assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), `${routeUpdated["/services"]}T00:00:00.000Z`);
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), `${routeUpdated["/services/events"]}T00:00:00.000Z`);

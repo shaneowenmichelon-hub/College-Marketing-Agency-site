@@ -16,7 +16,13 @@ class BackfillTests(unittest.TestCase):
                 self.assertEqual(len(links),2)
                 self.assertEqual({x['kind'] for x in links},{'internal','external'})
                 self.assertEqual(len({x['href'] for x in links}),2)
-                self.assertFalse({x['href'] for x in links}&{x['href'] for x in entry['baseline_body_links']})
+                overlap={x['href'] for x in links}&{x['href'] for x in entry['baseline_body_links']}
+                # The campus-influencers guide was already the September scorecard
+                # target. Batch 1 also points the body anchor there.
+                if entry['slug']=='student-influencer-marketing':
+                    self.assertEqual(overlap,{'/insights/campus-influencers'})
+                else:
+                    self.assertFalse(overlap)
                 text=(ROOT/entry['source_file']).read_text()
                 if entry['source_constant']:
                     text=text.split('const '+entry['source_constant']+':',1)[1].split('\n];',1)[0]
