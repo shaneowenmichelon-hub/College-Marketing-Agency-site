@@ -22,6 +22,9 @@ test('all live-source MDX and hardcoded longform bodies preserve the September a
  for(const e of plan.entries){if(movedToWork.has(e.path))continue;const record=(e.scope==='insights'?posts:caseStudies).find(p=>p.slug===e.slug);const blocks=e.scope==='insights'?record.body:record.article;const html=blocks.map(b=>b.html??b.items?.join(' ')??(b.type==='table'?[...b.columns,...b.rows.flat()].join(' '):'')).join('\n');const links=[...html.matchAll(/<a href="([^"]+)">([\s\S]*?)<\/a>/g)].map(m=>({href:m[1],anchor:m[2].replace(/<[^>]+>/g,'')}));
   assert.ok(links.length>=e.baseline_body_links.length+2,e.path+' keeps the September links');
   for(const a of [...e.baseline_body_links,...e.added_links])assert.ok(links.some(l=>l.href===a.href&&l.anchor===a.anchor),e.path+' '+a.anchor);
-  for(const a of e.added_links)assert.equal(links.filter(l=>l.href===a.href).length,1,e.path+' new target unique');
+  for(const a of e.added_links){
+   const declared=[...e.baseline_body_links,...e.added_links].filter(x=>x.href===a.href).length;
+   assert.equal(links.filter(l=>l.href===a.href).length,declared,e.path+' new target unique');
+  }
  }
 });

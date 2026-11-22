@@ -169,6 +169,15 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     const run46 = new Set(["college-marketing-for-beauty-brands"]);
     const run47 = new Set(["college-marketing-for-beverage-brands"]);
     const run48 = new Set(["college-marketing-for-fintech-brands"]);
+    const campusInfluencerAnchors = new Set([
+      "student-ambassador-marketing",
+      "student-influencer-marketing",
+      "college-brand-ambassadors",
+      "college-festival-sponsorship",
+      "campus-activation-ideas",
+      "student-brand-reps",
+      "college-brand-ambassador-program",
+    ]);
     const run49 = new Set(["college-marketing-for-restaurant-brands"]);
     const wave2 = new Set([
       "campus-influencers",
@@ -199,7 +208,9 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    const revisedOn = run49.has(slug)
+    const revisedOn = campusInfluencerAnchors.has(slug)
+      ? "2026-11-22"
+      : run49.has(slug)
       ? "2026-11-21"
       : wave2.has(slug)
       ? "2026-11-18"
@@ -294,15 +305,15 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
     "on-campus-product-sampling": [/student product sampling/i, /student product samples/i],
   };
   const hubs = {
-    "student-influencers": "2026-11-18",
-    "campus-events-and-activations": "2026-11-18",
-    "campus-sponsorship": "2026-11-18",
+    "student-influencers": "2026-11-22",
+    "campus-events-and-activations": "2026-11-22",
+    "campus-sponsorship": "2026-11-22",
     "product-sampling-and-placement": "2026-11-18",
     "campus-marketing-strategy": "2026-11-21",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-21T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-22T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -410,15 +421,15 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
     "college-tour-marketing": "2026-08-14",
   };
   const hubs = {
-    "campus-events-and-activations": "2026-11-18",
-    "campus-sponsorship": "2026-11-18",
+    "campus-events-and-activations": "2026-11-22",
+    "campus-sponsorship": "2026-11-22",
     "campus-marketing-strategy": "2026-11-21",
-    "student-influencers": "2026-11-18",
+    "student-influencers": "2026-11-22",
     "product-sampling-and-placement": "2026-11-18",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-21T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-22T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -542,16 +553,16 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     "college-brand-ambassador-program": "2026-08-24",
   };
   const hubs = {
-    "brand-ambassador-programs": "2026-11-13",
-    "campus-events-and-activations": "2026-11-18",
+    "brand-ambassador-programs": "2026-11-22",
+    "campus-events-and-activations": "2026-11-22",
     "product-sampling-and-placement": "2026-11-18",
-    "campus-sponsorship": "2026-11-18",
+    "campus-sponsorship": "2026-11-22",
     "campus-marketing-strategy": "2026-11-21",
-    "student-influencers": "2026-11-18",
+    "student-influencers": "2026-11-22",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-21T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-22T00:00:00.000Z");
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
     `${loadTs("lib/route-updated.ts").STATIC_ROUTE_UPDATED["/services/events"]}T00:00:00.000Z`,
@@ -573,7 +584,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     const post = getPost(slug);
     assert.ok(post?.faq, slug);
     assert.equal(post.faq.length, 5, slug);
-    const revised = slug === "campus-product-sampling-ideas" ? "2026-11-18" : "2026-11-13";
+    const revised = slug === "campus-product-sampling-ideas" ? "2026-11-18" : "2026-11-22";
     assert.equal(post.dateModified, revised, slug);
     assert.equal(post.date, published[slug], slug);
     assert.equal(post.author, "Shane Michelon", slug);
