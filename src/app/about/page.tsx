@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Compass, Flame, HeartHandshake, Zap } from "lucide-react";
 import { siteConfig, team, type TeamMember } from "@/site.config";
-import { ABOUT_DESCRIPTION, ABOUT_TITLE_LEAD, pageMetadata } from "@/lib/seo";
+import { ABOUT_DESCRIPTION, pageMetadata } from "@/lib/seo";
 import { INQUIRY_BRIEF_LINE } from "@/lib/inquiry-handoff";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
@@ -12,8 +12,14 @@ import { CTASection } from "@/components/CTASection";
 import { ArticleTable } from "@/components/article/ArticleTable";
 import { AboutPageJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
+/**
+ * Document title lead for this URL. `pageMetadata` adds the brand suffix.
+ * The AboutPage schema name stays on `ABOUT_TITLE_LEAD` in `src/lib/seo.ts`.
+ */
+const ABOUT_DOCUMENT_TITLE = "About Founder Shane Michelon";
+
 export const metadata = pageMetadata({
-  title: ABOUT_TITLE_LEAD,
+  title: ABOUT_DOCUMENT_TITLE,
   description: ABOUT_DESCRIPTION,
   path: "/about",
 });

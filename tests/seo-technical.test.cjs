@@ -376,8 +376,12 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     assert.equal(meta.twitter.description, post.metaDescription);
   }
 
-  const aboutTitle = resolveDocumentTitle(ABOUT_TITLE_LEAD).text;
-  assert.equal(aboutTitle, "The College Marketing Agency for Brands | Collegiate Agency");
+  const aboutSchemaName = resolveDocumentTitle(ABOUT_TITLE_LEAD).text;
+  assert.equal(aboutSchemaName, "The College Marketing Agency for Brands | Collegiate Agency");
+  const aboutLead = "About Founder Shane Michelon";
+  const aboutTitle = resolveDocumentTitle(aboutLead).text;
+  assert.equal(aboutTitle, "About Founder Shane Michelon | Collegiate Agency");
+  assert.equal(/college marketing agency/i.test(aboutTitle), false);
   assert.ok(aboutTitle.length <= TITLE_LIMIT, aboutTitle);
   assert.equal(aboutTitle.split("Collegiate Agency").length - 1, 1);
   assert.ok(ABOUT_DESCRIPTION.length >= 140 && ABOUT_DESCRIPTION.length <= 155, ABOUT_DESCRIPTION);
@@ -387,7 +391,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
   assert.match(ABOUT_DESCRIPTION, /college students/);
   assert.doesNotMatch(ABOUT_DESCRIPTION, /intern|agency for students/i);
   const aboutMeta = pageMetadata({
-    title: ABOUT_TITLE_LEAD,
+    title: aboutLead,
     description: ABOUT_DESCRIPTION,
     path: "/about",
   });
@@ -396,10 +400,13 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
   assert.equal(aboutMeta.twitter.title.absolute, aboutTitle);
   assert.equal(aboutMeta.openGraph.description, ABOUT_DESCRIPTION);
   assert.equal(aboutMeta.twitter.description, ABOUT_DESCRIPTION);
+  const aboutSource = fs.readFileSync(path.join(__dirname, "../src/app/about/page.tsx"), "utf8");
+  assert.match(aboutSource, /const ABOUT_DOCUMENT_TITLE = "About Founder Shane Michelon"/);
+  assert.match(aboutSource, /title: ABOUT_DOCUMENT_TITLE/);
   const aboutPage = aboutStructuredData()["@graph"].find(
     (node) => Array.isArray(node["@type"]) && node["@type"].includes("AboutPage"),
   );
-  assert.equal(aboutPage.name, aboutTitle);
+  assert.equal(aboutPage.name, aboutSchemaName);
   assert.equal(aboutPage.description, ABOUT_DESCRIPTION);
   assert.equal(aboutPage.about["@id"], "https://collegiateagency.com/#organization");
 
