@@ -1,17 +1,17 @@
 {
   "status": "ok",
   "reason": "low-photo-supply",
-  "next_run_at": "2026-11-22T15:33:00-06:00",
-  "updated_at": "2026-11-21T03:20:08-06:00",
-  "run_no": 49,
-  "slug": "college-marketing-for-restaurant-brands",
-  "keyword": "college marketing for restaurant brands",
+  "next_run_at": "2026-11-24T04:04:22-06:00",
+  "updated_at": "2026-11-22T15:41:21-06:00",
+  "run_no": 50,
+  "slug": "college-marketing-campaigns",
+  "keyword": "college marketing campaigns",
   "photo_supply": {
     "owned": 15,
     "eligible": 3,
     "chosen": 3,
     "window": 4,
     "warning": true,
-    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/dazed-branded-hats-activation.jpg."
+    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/beatbox-trio-venue-activation.jpg."
   }
 }
