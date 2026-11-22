@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-21
+Last updated: 2026-11-22
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -86,10 +86,38 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-18 - `college marketing for beverage brands` - `/insights/college-marketing-for-beverage-brands`
 - 2026-11-19 - `college marketing for fintech brands` - `/insights/college-marketing-for-fintech-brands`
 - 2026-11-21 - `college marketing for restaurant brands` - `/insights/college-marketing-for-restaurant-brands`
+- 2026-11-22 - `college marketing campaigns` - `/insights/college-marketing-campaigns`
 
 ## Runs 35-43 backfill (2026-11-11)
 
 Publishing had stopped after run 34 because every owned photo was at the old 7-appearance cap. These nine articles use the rotation rule instead of that cap. Dates are the publish date, 2026-11-11, not the missed October and November slots. Run 35 is the HBCU keyword the October 28 attempt could not place. The next eight are unused runner-ups and the next unused active-list term, in the order they were left open: campus product sampling agency, campus pop-up activation, college event marketing agency, multi-campus brand activation, college creator marketing agency, college sports marketing agency, finals week marketing, and back-to-school campus activation. `college marketing cost` and `campus media advertising` stayed unused. The first cannibalizes `/pricing`. The second is a weaker fit than an on-campus hire.
+
+## Run 50 research note (2026-11-22)
+
+Primary chosen: `college marketing campaigns`.
+
+The term is not in the 60-day lockout, not on the reserved pillar list, and not already an article. The slug does not contain `agency`. It is outside the ambassador cluster being consolidated in `content/seo/backlog.md`. The page tells a brand how to choose and scope a format: a staffed sample, a pop-up or tour stop, a sponsored event, student-organization placement, or a month of posts. It links to the activation, sampling, and multi-campus guides instead of restating them. Competitor budget tiers and performance figures are left out of the article. This page is not a price quote beyond the published rates.
+
+Dated pages cited in the article:
+
+- BizBash, Michele Laufik, "See How These Brands Headed Back to Campus with College Students," August 26, 2026 (https://www.bizbash.com/experiential-marketing/brands-activations-on-college-campuses-2026). The page describes a Sephora at Kohl's pop-up at Auburn, Georgia, and Florida, a CeraVe backyard renovation at Florida State, and a Sally Beauty COLORfest tour with Her Campus Media. No performance totals were copied.
+- Amazon Ads, "Amazon Ads Launches First Day Ready," press release dated August 31, 2026 (https://press.aboutamazon.com/2026/8/amazon-ads-launches-first-day-ready-a-multi-brand-campaign-connecting-brands-to-gen-z-at-colleges-biggest-moment). The release says Gatorade, Michael Kors, and SharkNinja would each run a storefront at a University of Wisconsin-Madison block party on September 5, 2026, after a digital phase that started July 1. No result line was copied.
+- Federal Trade Commission, "Guides Concerning the Use of Endorsements and Testimonials in Advertising," Federal Register, July 26, 2023, effective that day (https://www.govinfo.gov/content/pkg/FR-2023-07-26/html/2023-14795.htm). A material connection needs to be disclosed when a significant minority of the audience does not understand or expect it. Clear and conspicuous means difficult to miss and easily understood. On social media the disclosure should be unavoidable. A profile-only disclosure is easy to miss. A disclosure behind a "more" control is not unavoidable when the post itself is visible. The material-connection examples include a college student who earns points for posts and can exchange them for prizes such as concert tickets or electronics.
+
+Read the same day and not cited. Budget tiers and performance lines on these pages were not copied:
+
+- AnyRoad, Bryan Grobstein, "College Brand Activation Budget Planning: 2026 Guide," March 31, 2026, last updated August 10, 2026 (https://www.anyroad.com/blog/college-brand-activation-budget-planning). The page is a vendor budget template. Its tiers and benchmark rates are not Collegiate Agency prices. The query overlaps `/pricing`, so it was not the primary keyword.
+- College Marketing Co., "College Street Teams & Brand Ambassadors" (https://collegemarketing.co/services/street-teams). No article date on the fetched page. A 2017-2018 program total on that page was not copied.
+- Street Teams Co., "College Campus Marketing Services" (https://streetteamsco.com/services/college-campus). No article date on the fetched page.
+
+Runner-ups, not locked:
+
+- `college street team marketing`. SEO Growth's next topic after this one. The two vendor pages above are the public ground. Not chosen this run because the assigned primary was open and the street-team query is a narrower hire.
+- `welcome week brand activation`. Already in `keyword-queue.json`. A long-tail of the back-to-school article.
+- `student organization sponsorship for brands`. Already in `keyword-queue.json`. Distinct from this format guide, and closer to the sponsorship and Greek-life articles.
+- `campus marketing campaign cost`. Strong budget intent. Left unused because it overlaps `/pricing`. AnyRoad's tiers were not copied in.
+
+Photo supply: 3 owned photos were free under the 4-article window (`beatbox-trio-venue-activation.jpg`, `beatbox-poured-behind-bar.jpg`, `nutrl-outdoor-campus-event.jpg`). That is a low-photo-supply warning. The run still publishes. The premiere step-and-repeat stayed in the recent window and was not used.
 
 ## Run 49 research note (2026-11-21)
 

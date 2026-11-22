@@ -178,6 +178,7 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "student-brand-reps",
       "college-brand-ambassador-program",
     ]);
+    const run50 = new Set(["college-marketing-campaigns"]);
     const run49 = new Set(["college-marketing-for-restaurant-brands"]);
     const wave2 = new Set([
       "campus-influencers",
@@ -208,7 +209,9 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    const revisedOn = campusInfluencerAnchors.has(slug)
+    const revisedOn = run50.has(slug)
+      ? "2026-11-22"
+      : campusInfluencerAnchors.has(slug)
       ? "2026-11-22"
       : run49.has(slug)
       ? "2026-11-21"
