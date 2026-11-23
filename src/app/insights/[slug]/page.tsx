@@ -11,7 +11,7 @@ import { ArticleFigure } from "@/components/article/ArticleFigure";
 import { ArticleFaq, FaqPageJsonLd } from "@/components/services/ServiceFaq";
 import { ArticleJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { articleFaqSchemaItems } from "@/lib/article-faq";
-import { articleSocialImage, pageMetadata, resolveArticleAuthor } from "@/lib/seo";
+import { articleSocialImage, insightTitleLead, pageMetadata, resolveArticleAuthor } from "@/lib/seo";
 import { getPost, posts, type ArticleBlock, type Post } from "@/lib/content";
 import { articleBreadcrumbItems, insightTopicPath, topicForPost } from "@/lib/insight-topics";
 import { ArticleArt } from "@/components/insights/ArticleArt";
@@ -102,8 +102,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   }
   const description = post.metaDescription ?? post.excerpt;
   const image = articleSocialImage(post);
+  const { lead, limit } = insightTitleLead(slug, post.metaTitle ?? post.title);
   return pageMetadata({
-    title: post.metaTitle ?? post.title,
+    title: lead,
+    titleLimit: limit,
     description,
     path: `/insights/${slug}`,
     type: "article",
