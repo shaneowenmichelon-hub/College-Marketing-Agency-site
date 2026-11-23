@@ -164,7 +164,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     "campus-product-sampling-ideas": "Campus Product Sampling Ideas for Brands",
     "college-festival-sponsorship": "College Festival Sponsorship for Brands",
     "college-brand-ambassador-program": "College Brand Ambassador Program",
-    "student-housing-marketing-agency": "Student Housing Marketing Agency",
+    "student-housing-marketing-agency": "Student Housing Marketing Company & Services",
   };
   const faqBatchThree = new Set([
     "campus-product-sampling-ideas",
@@ -199,7 +199,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     assert.equal(post.metaTitle, lead);
     assert.equal(
       post.dateModified,
-      campusInfluencerAnchors.has(slug)
+      slug === "student-housing-marketing-agency"
+        ? "2026-11-23"
+        : campusInfluencerAnchors.has(slug)
         ? "2026-11-22"
         : wave2.has(slug) || samplingCluster.has(slug)
         ? "2026-11-18"
@@ -216,8 +218,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
                 : "2026-11-06",
     );
     assert.equal(post.date === "2026-11-06", false, slug);
-    const title = resolveDocumentTitle(post.metaTitle).text;
-    assert.ok(title.length <= TITLE_LIMIT, `${title} (${title.length})`);
+    const titleLimit = slug === "student-housing-marketing-agency" ? 65 : TITLE_LIMIT;
+    const title = resolveDocumentTitle(post.metaTitle, titleLimit).text;
+    assert.ok(title.length <= titleLimit, `${title} (${title.length})`);
     assert.equal(title.split("Collegiate Agency").length - 1, 1, title);
     assert.equal(post.metaTitle.includes("|"), false, post.metaTitle);
     assert.ok(title.endsWith("| Collegiate Agency"), title);
@@ -233,10 +236,19 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
         post.metaDescription.toLowerCase().includes(post.primaryKeyword),
       `${slug} missing ${post.primaryKeyword}`,
     );
+    if (slug === "student-housing-marketing-agency") {
+      assert.equal(title, "Student Housing Marketing Company & Services | Collegiate Agency");
+      assert.equal(
+        post.metaDescription,
+        "Student housing marketing services for lease-up: on-campus tabling, ambassador posts, and move-in events. Brands hire a student housing marketing agency.",
+      );
+      assert.equal(post.faq[0].question, "What services does a student housing marketing company offer?");
+    }
     const meta = pageMetadata({
       title: post.metaTitle,
       description: post.metaDescription,
       path: `/insights/${slug}`,
+      titleLimit,
     });
     assert.equal(meta.title.absolute, title);
     assert.equal(meta.description, post.metaDescription);
@@ -245,6 +257,10 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     assert.equal(meta.twitter.title.absolute, title);
     assert.equal(meta.twitter.description, post.metaDescription);
   }
+
+  const insightArticle = fs.readFileSync(path.join(__dirname, "../src/app/insights/[slug]/page.tsx"), "utf8");
+  assert.match(insightArticle, /insightTitleLead\(slug, post\.metaTitle \?\? post\.title\)/);
+  assert.match(insightArticle, /titleLimit: limit/);
 
   const hubs = [
     [INSIGHTS_TITLE_LEAD, INSIGHTS_DESCRIPTION, "/insights", "Campus Marketing Insights for Brands | Collegiate Agency"],
@@ -280,7 +296,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   for (const slug of Object.keys(expected)) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      campusInfluencerAnchors.has(slug)
+      slug === "student-housing-marketing-agency"
+        ? "2026-11-23T00:00:00.000Z"
+        : campusInfluencerAnchors.has(slug)
         ? "2026-11-22T00:00:00.000Z"
         : wave2.has(slug) || samplingCluster.has(slug)
         ? "2026-11-18T00:00:00.000Z"
@@ -300,7 +318,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   }
   const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
   const routeStamp = (route) => `${STATIC_ROUTE_UPDATED[route]}T00:00:00.000Z`;
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-22T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-23T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), routeStamp("/services/events"));
   assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), routeStamp("/work"));
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), routeStamp("/"));
@@ -468,7 +486,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     "2026-11-18T00:00:00.000Z",
   );
   const { STATIC_ROUTE_UPDATED: routeUpdated } = loadTs("lib/route-updated.ts");
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-22T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-23T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), `${routeUpdated["/"]}T00:00:00.000Z`);
   assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), `${routeUpdated["/services"]}T00:00:00.000Z`);
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), `${routeUpdated["/services/events"]}T00:00:00.000Z`);

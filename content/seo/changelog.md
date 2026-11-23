@@ -1,5 +1,17 @@
 # SEO changelog
 
+## 2026-11-23 — Student housing title, meta, and FAQ for click-through
+
+No new article. No new page. No redirect. No layout change. The slug stays `/insights/student-housing-marketing-agency`. The H1 stays `Student Housing Marketing Agency: What to Hire for Lease-Up`. The first sentence still opens on "student housing marketing agency". `/insights/college-marketing-agency`, `/services`, `/services/brand-ambassadors`, `/about`, `/insights/campus-influencers`, and the topic hub copy were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, result, or review was added. The byline stays Shane Michelon, Founder. The inquiry path stays the form.
+
+Google Search Console, sc-domain:collegiateagency.com, Web, Oct 25–Nov 21 2026, pulled Nov 23, 2026 8:40 AM ET. `/insights/student-housing-marketing-agency` had 164 impressions, 0 clicks, average position 12.9. Queries on that page: "student housing marketing company" 54 impressions, position 5.3, 0 clicks; "student housing marketing services" 36, position 7.7; "student housing online marketing" 15, position 12.5; "best marketing agency for student housing" 13, position 11.2; "student housing marketing agency" 6, position 4.2. The page was missing from Bing's top keywords.
+
+The document title, Open Graph title, and Twitter title are `Student Housing Marketing Company & Services | Collegiate Agency` (64 characters). `resolveDocumentTitle` still caps other titles at 60, which would drop the brand from this lead. 64 is inside the 65-character cap already used on `/pricing`, so this insight passes that cap through `insightTitleLead`. If a longer lead ever failed that cap, the fallback lead is `Student Housing Marketing Company`, which still renders with the brand. The meta, Open Graph, and Twitter description is `Student housing marketing services for lease-up: on-campus tabling, ambassador posts, and move-in events. Brands hire a student housing marketing agency.` (153 characters). Tabling, ambassador posts, and move-in events are services already described on this site. The description names no client, statistic, or result.
+
+The first FAQ question is now `What services does a student housing marketing company offer?` That wording was not already a question on another URL. Its answer is unchanged. The other four questions are unchanged. The page still has one visible FAQ and one FAQPage JSON-LD from that same list.
+
+`dateModified` is `2026-11-23`. The publish `date` stays `2026-10-26`, so this URL's sitemap `lastmod` is `2026-11-23`. IndexNow submits sitemap URLs whose `lastmod` is inside 72 hours. `/insights` and `/insights/topics/campus-marketing-strategy` follow the existing newest-revision rule, so their sitemap `lastmod` is `2026-11-23`. Their titles, copy, and FAQs were not edited.
+
 ## 2026-11-22 — /about document title names the founder
 
 No new article. No new page. No redirect. `/insights/college-marketing-agency` stays the page for "college marketing agency". `/contact` and every other URL were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited.

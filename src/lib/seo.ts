@@ -239,10 +239,32 @@ const BRAND_TAIL = new RegExp(
   "i",
 );
 
-export function resolveDocumentTitle(raw: string): { text: string } {
+/**
+ * One insight may use 65 so a query-led lead still renders with the brand.
+ * The shared resolver stays at 60. Above 65, shorten the lead instead of
+ * publishing a title that dropped the suffix.
+ */
+export const INSIGHT_TITLE_CAP = 65;
+const STUDENT_HOUSING_SLUG = "student-housing-marketing-agency";
+const STUDENT_HOUSING_TITLE_SHORT = "Student Housing Marketing Company";
+
+export function resolveDocumentTitle(raw: string, limit: number = TITLE_LIMIT): { text: string } {
   const stripped = raw.replace(BRAND_TAIL, "").replace(/\s+/g, " ").trim();
   const withBrand = `${stripped}${BRAND_SUFFIX}`;
-  return { text: withBrand.length <= TITLE_LIMIT ? withBrand : stripped };
+  return { text: withBrand.length <= limit ? withBrand : stripped };
+}
+
+/**
+ * Title lead and cap for an insight. The student-housing guide may use 65.
+ * If that still drops the brand, the shorter lead is the one that keeps it.
+ */
+export function insightTitleLead(slug: string, raw: string): { lead: string; limit: number } {
+  if (slug !== STUDENT_HOUSING_SLUG) return { lead: raw, limit: TITLE_LIMIT };
+  const fitted = resolveDocumentTitle(raw, INSIGHT_TITLE_CAP);
+  if (fitted.text.endsWith(BRAND_SUFFIX) && fitted.text.length <= INSIGHT_TITLE_CAP) {
+    return { lead: raw, limit: INSIGHT_TITLE_CAP };
+  }
+  return { lead: STUDENT_HOUSING_TITLE_SHORT, limit: TITLE_LIMIT };
 }
 
 export function absoluteUrl(path: string): string {
@@ -298,8 +320,10 @@ export function pageMetadata(opts: {
   modifiedTime?: string;
   authors?: string[];
   images?: OgImage[];
+  /** Overrides the 60-character cap. The student-housing insight uses 65. */
+  titleLimit?: number;
 }): Metadata {
-  const { text } = resolveDocumentTitle(opts.title);
+  const { text } = resolveDocumentTitle(opts.title, opts.titleLimit ?? TITLE_LIMIT);
   const index = opts.index !== false;
   const follow = opts.follow !== false;
   const path = opts.path ?? undefined;
