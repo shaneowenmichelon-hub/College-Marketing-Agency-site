@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-22
+Last updated: 2026-11-24
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -87,6 +87,35 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-19 - `college marketing for fintech brands` - `/insights/college-marketing-for-fintech-brands`
 - 2026-11-21 - `college marketing for restaurant brands` - `/insights/college-marketing-for-restaurant-brands`
 - 2026-11-22 - `college marketing campaigns` - `/insights/college-marketing-campaigns`
+- 2026-11-24 - `college street team marketing` - `/insights/college-street-team-marketing`
+
+## Run 51 research note (2026-11-24)
+
+Primary chosen: `college street team marketing`.
+
+The term is not in the 60-day lockout, not on the reserved pillar list, and not already an article. The slug does not contain `agency`. It is outside the ambassador cluster being consolidated in `content/seo/backlog.md`. Run 50 logged it as SEO Growth's next topic. Run 29, `/insights/campus-field-marketing-agency`, lists `campus street team agency` as a secondary keyword, so this page is the hiring brief for the team (size, shift, training, permission, script, reporting, and what to ask) and links that pilot guide instead of restating it. The money-page link uses the anchor `student marketing agency`. `college advertising agency` was used on run 50. `college marketing agency` was used on older hiring pages. No earlier article used `student marketing agency`.
+
+Dated pages cited in the article:
+
+- American University, Division of Student Affairs, "University Policy: Tabling Policy," effective October 15, 2025 (https://www.american.edu/policies/students/upload/tabling-policy-final-2025.pdf). The policy covers recognized student organizations, university departments and programs, and outside groups an American University host sponsors. A host reserves the table at least 72 hours ahead. An outside group gets a table only through that host. The host handles scheduling, the contract, permission, and payment, and is responsible for the content and for guests who are not part of the university. Displays stay within 2 to 3 feet of the table. The group stays for the reservation, keeps the assigned spot, and does not block walkways. Amplified sound is not allowed. The article says this is one school's rule, read 2026-11-24, and not a rule for every campus.
+- Federal Trade Commission, "Guides Concerning the Use of Endorsements and Testimonials in Advertising," Federal Register, July 26, 2023, effective that day (https://www.govinfo.gov/content/pkg/FR-2023-07-26/html/2023-14795.htm). A material connection needs to be disclosed when a significant minority of the audience does not expect it. Clear and conspicuous means difficult to miss and easily understood. On social media the disclosure should be unavoidable. A profile-only disclosure is easy to miss. A disclosure behind a "more" control is not unavoidable when the post itself is visible. The material-connection examples include a college student who earns points for posts and can exchange them for prizes such as concert tickets or electronics.
+
+Read the same day and not cited. Prices, team-size ranges, and performance lines on these pages were not copied:
+
+- Newbridge, Lily McDowell, "Street Team Marketing: A Brand Marketer's Guide," July 13, 2026 (https://newbridgemarketing.com/news/street-team-marketing). Budget tiers and program totals on that page are not Collegiate Agency prices or results.
+- College Marketing Co., "College Street Teams & Brand Ambassadors" (https://collegemarketing.co/services/street-teams). No article date on the fetched page. A 2017-2018 program total on that page was not copied. Its questions are not reused on this URL.
+- Street Teams Co., "College Marketing Agency" (https://streetteamsco.com/college-marketing-agency), recorded in the run 50 note with no article date. Not reopened for a new claim this run.
+
+The assignment also named The Black Sheep field marketing, College Student Marketing, and Street Teams Co.'s college page as vendor results for a hire query. Those pages were not cited. No Collegiate Agency price was taken from them.
+
+Runner-ups, not locked:
+
+- `student organization sponsorship for brands`. Already in `keyword-queue.json`. Hype and Campus Event Connect have brand-facing pages. Left unused because this run's assigned primary was open.
+- `campus ugc program`. Already in `keyword-queue.json`. It overlaps `/insights/campus-influencers`, `/insights/student-influencer-marketing`, and `/insights/college-creator-marketing-agency`.
+- `welcome week brand activation`. Already in `keyword-queue.json`. A long-tail of the back-to-school article and the welcome-week insight.
+- `campus ambassador program management`. Already in `keyword-queue.json`. Inside the ambassador cluster being consolidated.
+
+Photo supply: 3 owned photos were free under the 4-article window (`nutrl-bar-takeover.jpg`, `beatbox-stage-crowd-festival.jpg`, `bloom-sampling-campus-nightlife.jpg`). That is a low-photo-supply warning. The run still publishes. Hero is the bar setup. Inline frames are the stage carton and the Bloom can in hand. The premiere step-and-repeat stayed in the recent window and was not used.
 
 ## Runs 35-43 backfill (2026-11-11)
 
