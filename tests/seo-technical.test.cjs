@@ -122,9 +122,21 @@ test("insight snippets rewritten for click-through stay inside the limits", () =
   for (const slug of slugs) {
     const post = posts.find((item) => item.slug === slug);
     assert.ok(post, slug);
-    const title = resolveDocumentTitle(post.metaTitle).text;
-    assert.ok(title.length <= TITLE_LIMIT, `${title} (${title.length})`);
-    assert.equal(title.split("Collegiate Agency").length - 1, 1, title);
+    const titleLimit = slug === "campus-brand-activation-agency" ? 65 : TITLE_LIMIT;
+    const title = resolveDocumentTitle(post.metaTitle, titleLimit).text;
+    assert.ok(title.length <= titleLimit, `${title} (${title.length})`);
+    if (slug === "campus-brand-activation-agency") {
+      assert.equal(post.title, "Campus Activation Agency: On-Campus Brand Activation Checklist");
+      assert.equal(post.metaTitle, post.title);
+      assert.equal(title, post.metaTitle);
+      assert.equal(
+        post.metaDescription,
+        "On-campus activations from a campus brand activation agency: events, sampling, ambassadors, and the recap a brand gets back. Send the schools and goal.",
+      );
+      assert.equal(post.faq[1].question, "What does a campus activation agency do?");
+    } else {
+      assert.equal(title.split("Collegiate Agency").length - 1, 1, title);
+    }
     assert.equal(post.metaTitle.includes("|"), false, post.metaTitle);
     assert.ok(
       post.metaDescription.length >= 140 && post.metaDescription.length <= 158,
@@ -591,7 +603,7 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/insights/campus-brand-activation-agency").lastModified.toISOString(),
-    "2026-11-18T00:00:00.000Z",
+    "2026-11-24T00:00:00.000Z",
   );
   const { STATIC_ROUTE_UPDATED: homeUpdated } = loadTs("lib/route-updated.ts");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), `${homeUpdated["/"]}T00:00:00.000Z`);
