@@ -1,19 +1,19 @@
 {
   "last_success": {
-    "primary_keyword": "college marketing campaigns",
-    "run_no": 50,
-    "slug": "college-marketing-campaigns",
-    "url": "https://collegiateagency.com/insights/college-marketing-campaigns",
-    "word_count": 1688,
-    "verified_at": "2026-11-22T15:41:21-06:00",
-    "note": "Run 50 campaign format guide. verified_at is the live check. The clock advanced 36 hours plus 1381 seconds from that anchor."
+    "primary_keyword": "college street team marketing",
+    "run_no": 51,
+    "slug": "college-street-team-marketing",
+    "url": "https://collegiateagency.com/insights/college-street-team-marketing",
+    "word_count": 1694,
+    "verified_at": "2026-11-24T04:08:07-06:00",
+    "note": "Run 51 street team hiring guide. verified_at is the live check. The clock advanced 36 hours plus 297 seconds from that anchor."
   },
-  "next_run_at": "2026-11-24T04:04:22-06:00",
+  "next_run_at": "2026-11-25T16:13:04-06:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-11-22T15:41:21-06:00",
-  "schedule_jitter_seconds": 1381,
+  "schedule_anchor": "2026-11-24T04:08:07-06:00",
+  "schedule_jitter_seconds": 297,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility",
-  "schedule_repair": "Run 50 advanced the clock 36 hours plus 1381 seconds from the 2026-11-22 15:41 America/Chicago live check so a resumed routine does not burst a second article."
+  "schedule_repair": "Run 51 advanced the clock 36 hours plus 297 seconds from the 2026-11-24 04:08 America/Chicago live check so a resumed routine does not burst a second article."
 }

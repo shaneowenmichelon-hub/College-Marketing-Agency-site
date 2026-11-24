@@ -54,4 +54,4 @@
 | 48 | 2026-11-19 | 14:54 CST | college-marketing-for-fintech-brands | college marketing for fintech brands | 1695 | prepared; live receipt in publisher state |
 | 49 | 2026-11-21 | 03:20 CST | college-marketing-for-restaurant-brands | college marketing for restaurant brands | 1700 | prepared; live receipt in publisher state |
 | 50 | 2026-11-22 | 15:41 CST | college-marketing-campaigns | college marketing campaigns | 1688 | prepared; live receipt in publisher state |
-| 51 | 2026-11-24 | 02:46 CST | college-street-team-marketing | college street team marketing | 1694 | prepared; live receipt in publisher state |
+| 51 | 2026-11-24 | 04:08 CST | college-street-team-marketing | college street team marketing | 1694 | prepared; live receipt in publisher state |
