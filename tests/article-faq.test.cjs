@@ -212,6 +212,8 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
     ]);
     const revisedOn = run51.has(slug)
       ? "2026-11-24"
+      : slug === "campus-brand-activation-agency"
+      ? "2026-11-24"
       : slug === "student-housing-marketing-agency"
       ? "2026-11-23"
       : run50.has(slug)
@@ -314,7 +316,7 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
   };
   const hubs = {
     "student-influencers": "2026-11-22",
-    "campus-events-and-activations": "2026-11-22",
+    "campus-events-and-activations": "2026-11-24",
     "campus-sponsorship": "2026-11-22",
     "product-sampling-and-placement": "2026-11-18",
     "campus-marketing-strategy": "2026-11-23",
@@ -429,7 +431,7 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
     "college-tour-marketing": "2026-08-14",
   };
   const hubs = {
-    "campus-events-and-activations": "2026-11-22",
+    "campus-events-and-activations": "2026-11-24",
     "campus-sponsorship": "2026-11-22",
     "campus-marketing-strategy": "2026-11-23",
     "student-influencers": "2026-11-22",
@@ -456,7 +458,9 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    const revised = slug === "student-housing-marketing-agency"
+    const revised = slug === "campus-brand-activation-agency"
+      ? "2026-11-24"
+      : slug === "student-housing-marketing-agency"
       ? "2026-11-23"
       : slug === "college-marketing-agency"
       ? "2026-11-19"
@@ -566,7 +570,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
   };
   const hubs = {
     "brand-ambassador-programs": "2026-11-22",
-    "campus-events-and-activations": "2026-11-22",
+    "campus-events-and-activations": "2026-11-24",
     "product-sampling-and-placement": "2026-11-18",
     "campus-sponsorship": "2026-11-22",
     "campus-marketing-strategy": "2026-11-23",
