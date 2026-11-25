@@ -79,16 +79,16 @@ export const STATIC_ROUTE_SOURCES: Record<string, readonly string[]> = {
 
 /** Newest `git log -1 --format=%cs` date of {@link STATIC_ROUTE_SOURCES}. */
 export const STATIC_ROUTE_UPDATED: Record<string, string> = {
-  "/": "2026-11-18",
+  "/": "2026-11-23",
   "/services": "2026-11-18",
-  "/services/events": "2026-11-19",
+  "/services/events": "2026-11-23",
   "/services/brand-ambassadors": "2026-11-19",
   "/services/product-placement": "2026-11-19",
   "/pricing": "2026-11-20",
   "/build-a-campaign": "2026-11-18",
   "/work": "2026-11-19",
-  "/about": "2026-11-22",
-  "/insights": "2026-11-18",
+  "/about": "2026-11-23",
+  "/insights": "2026-11-23",
   "/contact": "2026-11-18",
   "/become-an-ambassador": "2026-10-20",
   "/campus-marketing": CAMPUS_MARKETING_UPDATED,

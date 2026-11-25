@@ -210,7 +210,15 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    const revisedOn = run51.has(slug)
+    const campusAgencyAnchors = new Set([
+      "campus-marketing-agency-rfp",
+      "switching-campus-marketing-agencies",
+      "campus-field-marketing-agency",
+      "college-experiential-marketing-agency",
+    ]);
+    const revisedOn = campusAgencyAnchors.has(slug)
+      ? "2026-11-25"
+      : run51.has(slug)
       ? "2026-11-24"
       : slug === "campus-brand-activation-agency"
       ? "2026-11-24"
@@ -316,14 +324,14 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
   };
   const hubs = {
     "student-influencers": "2026-11-22",
-    "campus-events-and-activations": "2026-11-24",
+    "campus-events-and-activations": "2026-11-25",
     "campus-sponsorship": "2026-11-22",
     "product-sampling-and-placement": "2026-11-18",
-    "campus-marketing-strategy": "2026-11-23",
+    "campus-marketing-strategy": "2026-11-25",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-24T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-25T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -431,15 +439,15 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
     "college-tour-marketing": "2026-08-14",
   };
   const hubs = {
-    "campus-events-and-activations": "2026-11-24",
+    "campus-events-and-activations": "2026-11-25",
     "campus-sponsorship": "2026-11-22",
-    "campus-marketing-strategy": "2026-11-23",
+    "campus-marketing-strategy": "2026-11-25",
     "student-influencers": "2026-11-22",
     "product-sampling-and-placement": "2026-11-18",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-24T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-25T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -458,7 +466,9 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
       "college-experiential-marketing-agency",
       "college-tour-marketing",
     ]);
-    const revised = slug === "campus-brand-activation-agency"
+    const revised = slug === "college-experiential-marketing-agency" || slug === "campus-field-marketing-agency"
+      ? "2026-11-25"
+      : slug === "campus-brand-activation-agency"
       ? "2026-11-24"
       : slug === "student-housing-marketing-agency"
       ? "2026-11-23"
@@ -570,15 +580,15 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
   };
   const hubs = {
     "brand-ambassador-programs": "2026-11-22",
-    "campus-events-and-activations": "2026-11-24",
+    "campus-events-and-activations": "2026-11-25",
     "product-sampling-and-placement": "2026-11-18",
     "campus-sponsorship": "2026-11-22",
-    "campus-marketing-strategy": "2026-11-23",
+    "campus-marketing-strategy": "2026-11-25",
     "student-influencers": "2026-11-22",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-24T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-25T00:00:00.000Z");
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
     `${loadTs("lib/route-updated.ts").STATIC_ROUTE_UPDATED["/services/events"]}T00:00:00.000Z`,

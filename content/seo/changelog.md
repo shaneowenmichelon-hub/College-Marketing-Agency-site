@@ -1,5 +1,22 @@
 # SEO changelog
 
+## 2026-11-25 — Exact "campus marketing agency" anchors to /services
+
+No new article. No new page. No redirect. No layout change. Titles, meta titles, meta descriptions, H1s, FAQs, and short answers are unchanged. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, result, or review was added.
+
+Google Search Console, sc-domain:collegiateagency.com, pulled Nov 25, 2026 ~9:30–9:35 AM CT. Query "campus marketing agency": 28 days, Oct 27–Nov 23, 208 impressions, 0 clicks, position 32.8; 7 days, Nov 17–23, 58 impressions, 0 clicks, position 40.3 (an earlier 7-day window, Nov 14–20, was 48 impressions, 0 clicks, position 34.1). Page × query, 7 days Nov 17–23: the money page 23 impressions, position 13.0; `/services` 16 impressions, position 39.4; `/work` 14 impressions, position 92.2; `/campus-marketing` 10 impressions, position 81.2. Nov 19–23, `/services` had 14 impressions at position 43.5. `/services` as a page, 7 days Nov 17–23: 172 impressions, 6 clicks, position 21.6.
+
+A live crawl of all 78 sitemap URLs on Nov 25 found zero contextual links with the anchor "campus marketing agency" pointing at `/services`. Each of these four articles now has exactly one body link with that anchor and that href:
+
+- `/insights/campus-marketing-agency-rfp` appends one sentence to the first body paragraph.
+- `/insights/switching-campus-marketing-agencies` appends one sentence to the first body paragraph. The existing `/services` link with the anchor "product placement" stays.
+- `/insights/campus-field-marketing-agency` inserts one sentence after "before the new pilot starts."
+- `/insights/college-experiential-marketing-agency` keeps the money-page link and the anchor "how to choose a college marketing agency" to `/insights/college-marketing-agency`, and adds the `/services` anchor in that same paragraph.
+
+`dateModified` is `2026-11-25` on those four files. Publish dates stay the same, so those four sitemap `lastmod` values are `2026-11-25`. `/insights` follows the newest-article rule, so its sitemap `lastmod` is `2026-11-25`. `/insights/topics/campus-marketing-strategy` and `/insights/topics/campus-events-and-activations` follow the newest-revision rule, so their sitemap `lastmod` is `2026-11-25`. Their titles, copy, and FAQs were not edited.
+
+`src/lib/seo.ts` was last committed on 2026-11-23 and is a listed source for `/`, `/services/events`, `/about`, and `/insights`. Those stored dates were already behind that commit, so `tests/sitemap-lastmod.test.cjs` failed before this edit. `STATIC_ROUTE_UPDATED` for those four routes is now `2026-11-23`. Copy on `/`, `/services/events`, and `/about` was not edited. The published `/insights` `lastmod` stays `2026-11-25` because the articles are newer than that stored date.
+
 ## 2026-11-24 — Campus activation title, meta, H1, and FAQ for click-through
 
 No new article. No new page. No redirect. No layout change. The slug stays `/insights/campus-brand-activation-agency`. The existing body link to `/insights/college-marketing-agency` stays. `/insights/college-event-sponsorship`, `/insights/campus-product-launch`, hub pages under `/insights/topics/`, `/services/brand-ambassadors`, `/become-an-ambassador`, and the homepage were not edited. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, result, or review was added. The byline stays Shane Michelon, Founder. The inquiry path stays the form.
