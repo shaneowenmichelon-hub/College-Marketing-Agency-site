@@ -181,8 +181,9 @@ test("the money page keeps one FAQPage, the same title and H1, and links the liv
     byLoc.get("https://collegiateagency.com/insights/college-marketing-agency").lastModified.toISOString(),
     "2026-11-19T00:00:00.000Z",
   );
+  assert.equal(byLoc.has("https://collegiateagency.com/insights/topics/campus-marketing-strategy"), false);
   assert.equal(
-    byLoc.get("https://collegiateagency.com/insights/topics/campus-marketing-strategy").lastModified.toISOString(),
+    byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(),
     "2026-11-25T00:00:00.000Z",
   );
 

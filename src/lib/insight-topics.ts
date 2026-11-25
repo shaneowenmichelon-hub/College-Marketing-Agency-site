@@ -8,8 +8,12 @@ import { posts, type Post } from "@/lib/content";
  * An unknown frontmatter value is ignored. A later article the publisher
  * ships without a mapping entry still builds.
  *
- * There is no Gen Z hub. Those articles sit in the strategy hub. Do not use
- * the reserved pillar phrase in hub copy.
+ * There is no Gen Z hub. Do not use the reserved pillar phrase in hub copy.
+ *
+ * Four hubs were retired on 2026-11-25. Each one 301s to a single published
+ * article. Those articles stay on /insights and are not assigned to a
+ * remaining hub. `RETIRED_INSIGHT_TOPIC_OWNERS` must match the redirects in
+ * next.config.mjs, including each trailing-slash source.
  */
 
 /** Date the hub pages were added. Article revisions are compared with this floor. */
@@ -20,6 +24,24 @@ export const INSIGHT_TOPICS_UPDATED = "2026-10-30";
  * article revision still wins.
  */
 export const INSIGHT_TOPIC_CONTENT_UPDATED = "2026-11-16";
+
+/**
+ * Hubs retired on 2026-11-25. Values are the owner articles.
+ * brand-ambassador-programs → the college brand ambassador program guide
+ * (the hub title, and the keyword-map URL for that program).
+ * product-sampling-and-placement → on-campus product sampling, the primary
+ * URL for campus and student product sampling.
+ * campus-sponsorship → the college event sponsorship guide. That article's
+ * title and meta stay as they are.
+ * campus-marketing-strategy → the college marketing strategy guide, the
+ * closest strategy article. Not the college marketing agency money page.
+ */
+export const RETIRED_INSIGHT_TOPIC_OWNERS = {
+  "brand-ambassador-programs": "/insights/college-brand-ambassador-program",
+  "product-sampling-and-placement": "/insights/on-campus-product-sampling",
+  "campus-sponsorship": "/insights/college-event-sponsorship",
+  "campus-marketing-strategy": "/insights/college-marketing-strategy",
+} as const;
 
 export const INSIGHT_TOPIC_SERVICE_PATHS = [
   "/services/brand-ambassadors",
@@ -50,21 +72,6 @@ export type InsightTopic = {
 
 export const insightTopics: InsightTopic[] = [
   {
-    slug: "brand-ambassador-programs",
-    title: "College Brand Ambassador Programs",
-    description:
-      "College brand ambassador programs and campus ambassador programs for brands hiring Collegiate Agency to reach college students, from roster to content rights.",
-    heading: "Brand ambassador programs for brands.",
-    breadcrumb: "Brand ambassador programs",
-    navLabel: "Brand ambassador programs",
-    intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover college brand ambassador programs and campus ambassador programs: building a roster, running student reps, and the rights a brand has in the content those reps create.",
-    serviceHref: "/services/brand-ambassadors",
-    serviceLabel: "See the brand ambassador program",
-    ogTitle: "Ambassador programs",
-    ogAccent: "Programs brands hire",
-  },
-  {
     slug: "campus-events-and-activations",
     title: "Campus Activations for Brands",
     description:
@@ -78,21 +85,6 @@ export const insightTopics: InsightTopic[] = [
     serviceLabel: "See campus events",
     ogTitle: "Campus activations",
     ogAccent: "Activations brands hire",
-  },
-  {
-    slug: "product-sampling-and-placement",
-    title: "Campus Product Sampling for Brands",
-    description:
-      "Campus product sampling and student product sampling for brands hiring Collegiate Agency, plus product placement, welcome bags, bookstores, and Greek life.",
-    heading: "Product sampling and placement on campus.",
-    breadcrumb: "Product sampling and placement",
-    navLabel: "Product sampling and placement",
-    intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover campus product sampling and student product sampling, plus product placement: trial on campus, welcome-bag inserts, bookstore shelves, and Greek-life placement.",
-    serviceHref: "/services/product-placement",
-    serviceLabel: "See product placement",
-    ogTitle: "Product sampling",
-    ogAccent: "Sampling brands hire",
   },
   {
     slug: "student-influencers",
@@ -109,36 +101,6 @@ export const insightTopics: InsightTopic[] = [
     ogTitle: "Campus influencers",
     ogAccent: "Creators brands hire",
   },
-  {
-    slug: "campus-sponsorship",
-    title: "Sponsorship for College Events",
-    description:
-      "College event sponsorship for brands hiring Collegiate Agency. Guides cover sponsorship for college events, festivals, tailgates, tours, and spring break.",
-    heading: "Sponsorship for campus events, festivals, tailgates, and tours.",
-    breadcrumb: "Campus sponsorship",
-    navLabel: "Campus sponsorship",
-    intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover college event sponsorship and sponsorship for college events, festivals, tailgates, tours, and spring break, and what a brand should settle before it shows up.",
-    serviceHref: "/services/events",
-    serviceLabel: "See campus events",
-    ogTitle: "Event sponsorship",
-    ogAccent: "Events, festivals, and tours",
-  },
-  {
-    slug: "campus-marketing-strategy",
-    title: "Campus Marketing Strategy for Brands",
-    description:
-      "Campus marketing strategy and agency selection for brands hiring Collegiate Agency. College marketing strategies, RFPs, and a campus marketing agency.",
-    heading: "Campus marketing strategy and agency selection.",
-    breadcrumb: "Campus marketing strategy",
-    navLabel: "Campus marketing strategy",
-    intro:
-      "Collegiate Agency is a college marketing agency brands hire to reach college students. These articles cover campus marketing strategy and agency selection: college marketing strategies, a campus plan, an RFP, a handover when a brand switches partners, and how a brand chooses a campus marketing agency.",
-    serviceHref: "/pricing",
-    serviceLabel: "See published pricing",
-    ogTitle: "Campus strategy",
-    ogAccent: "Plans, RFPs, and hiring",
-  },
 ];
 
 /**
@@ -146,13 +108,6 @@ export const insightTopics: InsightTopic[] = [
  * Do not require a new publish to edit this list.
  */
 const TOPIC_ARTICLES: Record<string, readonly string[]> = {
-  "brand-ambassador-programs": [
-    "college-brand-ambassador-program",
-    "college-brand-ambassadors",
-    "student-ambassador-marketing",
-    "student-brand-reps",
-    "campus-ambassador-content-rights",
-  ],
   "campus-events-and-activations": [
     "campus-activation-ideas",
     "university-activations",
@@ -168,42 +123,7 @@ const TOPIC_ARTICLES: Record<string, readonly string[]> = {
     "spring-semester-campus-marketing",
     "finals-week-marketing",
   ],
-  "product-sampling-and-placement": [
-    "campus-product-sampling-ideas",
-    "on-campus-product-sampling",
-    "college-welcome-bag-inserts",
-    "campus-bookstore-product-placement",
-    "greek-life-marketing-agency",
-    "campus-product-launch",
-    "campus-product-sampling-agency",
-  ],
   "student-influencers": ["campus-influencers", "student-influencer-marketing", "college-creator-marketing-agency"],
-  "campus-sponsorship": [
-    "college-event-sponsorship",
-    "college-festival-sponsorship",
-    "college-tailgate-marketing-agency",
-    "college-tour-marketing",
-    "spring-break-marketing-agency",
-    "college-sports-marketing-agency",
-  ],
-  "campus-marketing-strategy": [
-    "college-marketing-strategy",
-    "how-to-market-to-college-students",
-    "gen-z-marketing",
-    "gen-z-experiential-marketing",
-    "college-marketing-agency",
-    "campus-marketing-agency-rfp",
-    "switching-campus-marketing-agencies",
-    "campus-field-marketing-agency",
-    "student-housing-marketing-agency",
-    "hbcu-marketing-agency",
-    "multi-campus-brand-activation",
-    "college-app-marketing-agency",
-    "college-marketing-for-beauty-brands",
-    "college-marketing-for-beverage-brands",
-    "college-marketing-for-fintech-brands",
-    "college-marketing-for-restaurant-brands",
-  ],
 };
 
 function assignmentsFrom(groups: Record<string, readonly string[]>): Record<string, string> {
@@ -303,6 +223,18 @@ function assertInsightTopics(): void {
     }
     if (topic.slug === "topics" || topic.slug.includes("/")) {
       throw new Error(`Insight topic slug is not a single path segment: ${topic.slug}`);
+    }
+    if (topic.slug in RETIRED_INSIGHT_TOPIC_OWNERS) {
+      throw new Error(`Insight topic ${topic.slug} was retired`);
+    }
+  }
+  for (const [slug, destination] of Object.entries(RETIRED_INSIGHT_TOPIC_OWNERS)) {
+    if (topicsBySlug.has(slug)) {
+      throw new Error(`Retired insight topic is still published: ${slug}`);
+    }
+    const articleSlug = destination.startsWith("/insights/") ? destination.slice("/insights/".length) : "";
+    if (!articleSlug || articleSlug.includes("/") || !knownArticles.has(articleSlug)) {
+      throw new Error(`Retired insight topic ${slug} does not point at a published article: ${destination}`);
     }
   }
 }

@@ -1,5 +1,20 @@
 # SEO changelog
 
+## 2026-11-25 — Four unindexed topic hubs 301 to their article owners
+
+Shane Michelon approved this on Nov 25, 2026. No new article. No new page. `/insights/topics/student-influencers` and `/insights/topics/campus-events-and-activations` stay. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, result, or review was added. No owner title, meta, H1, FAQ, or body was edited, so no owner `dateModified` moved.
+
+Google's state for the retired hubs, as approved with this change: `/insights/topics/brand-ambassador-programs` was Discovered, not indexed. `/insights/topics/product-sampling-and-placement` was not indexed. `/insights/topics/campus-sponsorship` was not indexed. `/insights/topics/campus-marketing-strategy` was indexed and had 0 impressions since Nov 13.
+
+Each hub now has `permanent: true` in `next.config.mjs` for the path and the trailing-slash path. Next.js serves `permanent: true` as 308. The built-in trailing-slash strip normally runs before those rules, which would make `/hub/` hop to `/hub` and then to the owner. `skipTrailingSlashRedirect` is set, and the same slash strip is the last redirect, so a trailing-slash hub URL reaches its owner in one hop. Other trailing-slash URLs still strip the slash. The four hubs are gone from `insightTopics`, so they are not rendered, not in the sitemap, not in the `/insights` topic links, not in article breadcrumbs, not in CollectionPage or ItemList JSON-LD, and not in `llms.txt` or `llms-full.txt`. Articles that used to sit in those hubs stay published and are no longer assigned to a hub. Internal links point at the owner, not at the hub.
+
+- `/insights/topics/brand-ambassador-programs` → `/insights/college-brand-ambassador-program`. The hub title was college brand ambassador programs. This is the keyword-map URL for `college brand ambassador program`, and the guide already covers campus ambassador programs. `/services/brand-ambassadors` stays the hire page and is already linked from the guide.
+- `/insights/topics/product-sampling-and-placement` → `/insights/on-campus-product-sampling`. That URL is already the primary for campus product sampling and student product sampling. `/insights/campus-product-sampling-agency` stays the narrower agency page.
+- `/insights/topics/campus-sponsorship` → `/insights/college-event-sponsorship`. Redirect only. That article's title and meta were not edited.
+- `/insights/topics/campus-marketing-strategy` → `/insights/college-marketing-strategy`. That is the closest strategy article. It is not `/insights/college-marketing-agency` and not the homepage.
+
+Hub intros were collection lines ("these articles cover…"). The owners already cover those topics, and the sibling guides stay published, so no sentence was added to an owner.
+
 ## 2026-11-25 — Exact "campus marketing agency" anchors to /services
 
 No new article. No new page. No redirect. No layout change. Titles, meta titles, meta descriptions, H1s, FAQs, and short answers are unchanged. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, result, or review was added.

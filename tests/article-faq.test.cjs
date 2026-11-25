@@ -327,9 +327,6 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
   const hubs = {
     "student-influencers": "2026-11-22",
     "campus-events-and-activations": "2026-11-25",
-    "campus-sponsorship": "2026-11-22",
-    "product-sampling-and-placement": "2026-11-18",
-    "campus-marketing-strategy": "2026-11-25",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
@@ -442,10 +439,7 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
   };
   const hubs = {
     "campus-events-and-activations": "2026-11-25",
-    "campus-sponsorship": "2026-11-22",
-    "campus-marketing-strategy": "2026-11-25",
     "student-influencers": "2026-11-22",
-    "product-sampling-and-placement": "2026-11-18",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
@@ -581,11 +575,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
     "college-brand-ambassador-program": "2026-08-24",
   };
   const hubs = {
-    "brand-ambassador-programs": "2026-11-22",
     "campus-events-and-activations": "2026-11-25",
-    "product-sampling-and-placement": "2026-11-18",
-    "campus-sponsorship": "2026-11-22",
-    "campus-marketing-strategy": "2026-11-25",
     "student-influencers": "2026-11-22",
   };
 
