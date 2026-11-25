@@ -86,12 +86,6 @@ function assertTopicFaqs(slug: string, items: ServiceFaq[]) {
   });
 }
 
-function rateAnswer(): string {
-  const ambassadors = publishedRate("brand-ambassadors");
-  const placement = publishedRate("product-placement");
-  return `${siteConfig.companyName} publishes ${ambassadors} for ambassadors, product placement at ${placement}, and ${eventPackagePhrase()}. A brief the rate table does not cover is quoted per campaign.`;
-}
-
 function placeAnswer(): string {
   const campuses = campusCount();
   return `${siteConfig.companyName} is based in ${siteConfig.contact.location}. The published network covers ${campuses} campuses, and a brand chooses schools from that list or names the campuses that matter.`;
@@ -102,46 +96,15 @@ function replyAnswer(): string {
 }
 
 const FAQ_TITLES: Record<string, string> = {
-  "brand-ambassador-programs": "Questions brands ask about ambassador programs.",
   "campus-events-and-activations": "Questions brands ask about campus activations.",
-  "product-sampling-and-placement": "Questions brands ask about product sampling.",
   "student-influencers": "Questions brands ask about campus influencers.",
-  "campus-sponsorship": "Questions brands ask about college event sponsorship.",
-  "campus-marketing-strategy": "Questions brands ask about campus marketing strategy.",
 };
 
 function faqsFor(slug: string): ServiceFaq[] {
   const campuses = campusCount();
-  const ambassadors = getStat("ambassadors");
   const ambassadorRate = publishedRate("brand-ambassadors");
-  const placementRate = publishedRate("product-placement");
   const noFixedWeeks =
     "Collegiate Agency does not publish a fixed number of weeks from that reply to event day.";
-
-  if (slug === "brand-ambassador-programs") {
-    return [
-      {
-        question: "What is a college brand ambassador program?",
-        answer: `A college brand ambassador program is a vetted student rep network brands hire ${siteConfig.companyName} to field for sampling, flyering, tabling, and social posts with links and brand tags. ${siteConfig.companyName} recruits, screens, trains, and manages the roster, including proof, content, and reporting.`,
-      },
-      {
-        question: "What are campus ambassador programs brands hire?",
-        answer: `Campus ambassador programs are that same roster: brands hire ${siteConfig.companyName}, and college students are the audience. The published network is ${ambassadors} student ambassadors on ${campuses} campuses, and a brand chooses schools in the [campaign builder](/build-a-campaign).`,
-      },
-      {
-        question: "How much does a Collegiate Agency brand ambassador cost?",
-        answer: `${siteConfig.companyName} prices the ambassador program at ${ambassadorRate}. That rate includes 2 dedicated social posts (flyers or videos) with links and brand tags, and a brief the rate does not cover is quoted per campaign.`,
-      },
-      {
-        question: "How does a brand start a campus ambassador program?",
-        answer: `A brand names the campuses and the ambassador count, then ${siteConfig.companyName} replies within one business day with a tailored plan and firm pricing. The program then moves through recruit, screen, train, and manage for the months the brand sets.`,
-      },
-      {
-        question: "Who hires Collegiate Agency for student brand reps?",
-        answer: `Brands, in-house marketing teams, and agencies hire ${siteConfig.companyName} when they want student brand reps in front of college students. Students who want to join the roster use a separate ambassador application.`,
-      },
-    ];
-  }
 
   if (slug === "campus-events-and-activations") {
     return [
@@ -168,31 +131,6 @@ function faqsFor(slug: string): ServiceFaq[] {
     ];
   }
 
-  if (slug === "product-sampling-and-placement") {
-    return [
-      {
-        question: "What is campus product sampling?",
-        answer: `Campus product sampling is trial on campus that brands hire ${siteConfig.companyName} to run, including welcome-bag inserts and other hand-to-student placements. These guides also cover bookstore shelves and Greek-life [product placement](/services/product-placement).`,
-      },
-      {
-        question: "What is student product sampling?",
-        answer: `Student product sampling is that same on-campus trial, with college students as the audience brands hire ${siteConfig.companyName} to reach. A brief the published rates do not cover is quoted per campaign.`,
-      },
-      {
-        question: "How much does Collegiate Agency charge for product placement?",
-        answer: `${siteConfig.companyName} prices product placement at ${placementRate}. Dedicated media deliverables come with each sorority (chapter).`,
-      },
-      {
-        question: "How much does a sampling event cost?",
-        answer: `When sampling is a campus event, ${siteConfig.companyName} prices it as ${eventPackagePhrase()}. ${siteConfig.companyName} replies within one business day with a tailored plan and firm pricing, and it does not publish a fixed number of weeks from that reply to event day.`,
-      },
-      {
-        question: "How does a brand start campus product sampling?",
-        answer: `A brand can [build a campaign](/build-a-campaign) or [contact ${siteConfig.companyName}](/contact) and name the campuses. ${replyAnswer()}`,
-      },
-    ];
-  }
-
   if (slug === "student-influencers") {
     return [
       {
@@ -214,56 +152,6 @@ function faqsFor(slug: string): ServiceFaq[] {
       {
         question: "Where does Collegiate Agency run campus influencer programs?",
         answer: placeAnswer(),
-      },
-    ];
-  }
-
-  if (slug === "campus-sponsorship") {
-    return [
-      {
-        question: "What is college event sponsorship?",
-        answer: `College event sponsorship is a campus event package brands hire ${siteConfig.companyName} to plan, staff, and run, from a single activation to a presenting sponsorship. These guides cover festivals, tailgates, tours, and spring break, and what a brand should settle before it shows up.`,
-      },
-      {
-        question: "What is sponsorship for college events?",
-        answer: `Sponsorship for college events is that same hire: brands hire ${siteConfig.companyName}, and college students are the audience. ${siteConfig.companyName} prices campus events as ${eventPackagePhrase()}.`,
-      },
-      {
-        question: "How much does a college festival sponsorship cost?",
-        answer: `${siteConfig.companyName} prices campus events, including a festival sponsorship, as ${eventPackagePhrase()}. A package the [events](/services/events) page does not list is quoted per campaign.`,
-      },
-      {
-        question: "How long does college event sponsorship take?",
-        answer: `${siteConfig.companyName} replies within one business day with a tailored plan and firm pricing after a brand sends a campaign. ${noFixedWeeks}`,
-      },
-      {
-        question: "Where does Collegiate Agency run college event sponsorship?",
-        answer: placeAnswer(),
-      },
-    ];
-  }
-
-  if (slug === "campus-marketing-strategy") {
-    return [
-      {
-        question: "What is a campus marketing strategy for brands?",
-        answer: `Campus marketing strategy, in these guides, is the plan a brand uses to reach college students through campus events, a brand ambassador program, or product placement. ${siteConfig.companyName} is a college marketing agency brands hire to run that work.`,
-      },
-      {
-        question: "How does a brand choose a campus marketing agency?",
-        answer: `A brand chooses a campus marketing agency by naming the campuses, the channel, and the brief, then reading the published rates on the [pricing](/pricing) page. ${siteConfig.companyName} is based in ${siteConfig.contact.location}, and the published network covers ${campuses} campuses.`,
-      },
-      {
-        question: "What college marketing strategies does Collegiate Agency cover?",
-        answer: `${siteConfig.companyName} covers college marketing strategies for [campus events](/services/events), [brand ambassador programs](/services/brand-ambassadors), and [product placement](/services/product-placement). A brand can read these guides, then build a campaign or contact ${siteConfig.companyName}.`,
-      },
-      {
-        question: "Where can brands hire reliable campus marketing specialists?",
-        answer: `Brands hire ${siteConfig.companyName}, a college and campus marketing agency based in ${siteConfig.contact.location}. ${replyAnswer()}`,
-      },
-      {
-        question: "What does a college ad agency run on campus?",
-        answer: `Brands that look for a college ad agency or a college branding agency hire ${siteConfig.companyName} for campus events, brand ambassador programs, and product placement. ${rateAnswer()}`,
       },
     ];
   }

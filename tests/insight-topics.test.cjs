@@ -57,10 +57,11 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
     insightTopicSitemapLastModified,
     INSIGHT_TOPICS_UPDATED,
     INSIGHT_TOPIC_CONTENT_UPDATED,
+    RETIRED_INSIGHT_TOPIC_OWNERS,
   } = loadTs("lib/insight-topics.ts");
   const { assertInsightArticleSlug } = loadTs("lib/blog-files.ts");
 
-  assert.equal(insightTopics.length, 6);
+  assert.equal(insightTopics.length, 2);
   assert.equal(insightTopics.some((topic) => /gen-?z/i.test(topic.slug)), false);
 
   const { PRICING_DOCUMENT_TITLE } = loadTs("lib/pricing-page.ts");
@@ -105,14 +106,44 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
     assert.equal(meta.images, undefined);
   }
 
+  const retiredArticles = [
+    "college-brand-ambassador-program",
+    "college-brand-ambassadors",
+    "student-ambassador-marketing",
+    "student-brand-reps",
+    "campus-ambassador-content-rights",
+    "campus-product-sampling-ideas",
+    "on-campus-product-sampling",
+    "college-welcome-bag-inserts",
+    "campus-bookstore-product-placement",
+    "greek-life-marketing-agency",
+    "campus-product-launch",
+    "campus-product-sampling-agency",
+    "college-event-sponsorship",
+    "college-festival-sponsorship",
+    "college-tailgate-marketing-agency",
+    "college-tour-marketing",
+    "spring-break-marketing-agency",
+    "college-sports-marketing-agency",
+    "college-marketing-strategy",
+    "how-to-market-to-college-students",
+    "gen-z-marketing",
+    "gen-z-experiential-marketing",
+    "college-marketing-agency",
+    "campus-marketing-agency-rfp",
+    "switching-campus-marketing-agencies",
+    "campus-field-marketing-agency",
+    "student-housing-marketing-agency",
+    "hbcu-marketing-agency",
+    "multi-campus-brand-activation",
+    "college-app-marketing-agency",
+    "college-marketing-for-beauty-brands",
+    "college-marketing-for-beverage-brands",
+    "college-marketing-for-fintech-brands",
+    "college-marketing-for-restaurant-brands",
+  ];
+
   const expected = {
-    "brand-ambassador-programs": [
-      "college-brand-ambassador-program",
-      "college-brand-ambassadors",
-      "student-ambassador-marketing",
-      "student-brand-reps",
-      "campus-ambassador-content-rights",
-    ],
     "campus-events-and-activations": [
       "campus-activation-ideas",
       "university-activations",
@@ -128,42 +159,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
       "spring-semester-campus-marketing",
       "finals-week-marketing",
     ],
-    "product-sampling-and-placement": [
-      "campus-product-sampling-ideas",
-      "on-campus-product-sampling",
-      "college-welcome-bag-inserts",
-      "campus-bookstore-product-placement",
-      "greek-life-marketing-agency",
-      "campus-product-launch",
-      "campus-product-sampling-agency",
-    ],
     "student-influencers": ["campus-influencers", "student-influencer-marketing", "college-creator-marketing-agency"],
-    "campus-sponsorship": [
-      "college-event-sponsorship",
-      "college-festival-sponsorship",
-      "college-tailgate-marketing-agency",
-      "college-tour-marketing",
-      "spring-break-marketing-agency",
-      "college-sports-marketing-agency",
-    ],
-    "campus-marketing-strategy": [
-      "college-marketing-strategy",
-      "how-to-market-to-college-students",
-      "gen-z-marketing",
-      "gen-z-experiential-marketing",
-      "college-marketing-agency",
-      "campus-marketing-agency-rfp",
-      "switching-campus-marketing-agencies",
-      "campus-field-marketing-agency",
-      "student-housing-marketing-agency",
-      "hbcu-marketing-agency",
-      "multi-campus-brand-activation",
-      "college-app-marketing-agency",
-      "college-marketing-for-beauty-brands",
-      "college-marketing-for-beverage-brands",
-      "college-marketing-for-fintech-brands",
-      "college-marketing-for-restaurant-brands",
-    ],
   };
 
   for (const [topicSlug, articles] of Object.entries(expected)) {
@@ -177,18 +173,34 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
     );
   }
 
+  for (const articleSlug of retiredArticles) {
+    assert.equal(insightTopicAssignments[articleSlug], undefined, articleSlug);
+    assert.equal(topicForPost(getPost(articleSlug)), undefined, articleSlug);
+    const crumbs = articleBreadcrumbItems(getPost(articleSlug)).map((item) => item.path);
+    assert.equal(crumbs.some((path) => path.startsWith("/insights/topics/")), false, articleSlug);
+  }
+  for (const slug of Object.keys(RETIRED_INSIGHT_TOPIC_OWNERS)) {
+    assert.equal(insightTopics.some((topic) => topic.slug === slug), false, slug);
+  }
+
   assert.equal(topicForPost({ slug: "future-article-without-a-topic" }), undefined);
   assert.equal(topicForPost({ slug: "future-article-without-a-topic", topic: "not-a-hub" }), undefined);
-  assert.equal(topicForPost({ slug: "future-article-without-a-topic", topic: "campus-sponsorship" }).slug, "campus-sponsorship");
+  assert.equal(topicForPost({ slug: "future-article-without-a-topic", topic: "campus-sponsorship" }), undefined);
+  assert.equal(topicForPost({ slug: "future-article-without-a-topic", topic: "student-influencers" }).slug, "student-influencers");
   assert.equal(
-    topicForPost({ slug: "college-brand-ambassadors", topic: "campus-sponsorship" }).slug,
-    "campus-sponsorship",
+    topicForPost({ slug: "college-brand-ambassadors", topic: "student-influencers" }).slug,
+    "student-influencers",
   );
 
   const ambassador = getPost("college-brand-ambassadors");
   assert.deepEqual(
     articleBreadcrumbItems(ambassador).map((item) => item.path),
-    ["/", "/insights", "/insights/topics/brand-ambassador-programs", "/insights/college-brand-ambassadors"],
+    ["/", "/insights", "/insights/college-brand-ambassadors"],
+  );
+  const influencer = getPost("campus-influencers");
+  assert.deepEqual(
+    articleBreadcrumbItems(influencer).map((item) => item.path),
+    ["/", "/insights", "/insights/topics/student-influencers", "/insights/campus-influencers"],
   );
   assert.deepEqual(
     articleBreadcrumbItems({ slug: "future-article-without-a-topic", title: "Future" }).map((item) => item.name),
@@ -197,35 +209,14 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
 
   assert.throws(() => assertInsightArticleSlug("topics", "topics.mdx"), /reserved slug/);
   assert.equal(posts.some((post) => post.slug === "topics"), false);
-  assert.ok(insightTopicLastModified("campus-marketing-strategy") >= INSIGHT_TOPICS_UPDATED);
+  assert.ok(insightTopicLastModified("student-influencers") >= INSIGHT_TOPICS_UPDATED);
   assert.equal(INSIGHT_TOPIC_CONTENT_UPDATED, "2026-11-16");
-  const samplingHubs = new Set([
-    "campus-marketing-strategy",
-    "campus-events-and-activations",
-    "product-sampling-and-placement",
-    "campus-sponsorship",
-    "student-influencers",
-  ]);
-  const anchorHubs = new Set([
-    "brand-ambassador-programs",
-    "campus-events-and-activations",
-    "campus-sponsorship",
-    "student-influencers",
-  ]);
+  const expectedLastMod = {
+    "campus-events-and-activations": "2026-11-25",
+    "student-influencers": "2026-11-22",
+  };
   for (const topic of insightTopics) {
-    assert.equal(
-      insightTopicSitemapLastModified(topic.slug),
-      topic.slug === "campus-events-and-activations"
-        ? "2026-11-25"
-        : topic.slug === "campus-marketing-strategy"
-        ? "2026-11-25"
-        : anchorHubs.has(topic.slug)
-          ? "2026-11-22"
-          : samplingHubs.has(topic.slug)
-            ? "2026-11-18"
-            : "2026-11-16",
-      topic.slug,
-    );
+    assert.equal(insightTopicSitemapLastModified(topic.slug), expectedLastMod[topic.slug], topic.slug);
   }
 
   const source = fs.readFileSync(path.join(__dirname, "../src/lib/insight-topics.ts"), "utf8");
@@ -268,7 +259,7 @@ test("sitemap, llms.txt, and llms-full.txt list every topic hub", async () => {
   for (const topic of insightTopics) {
     assert.match(llms, new RegExp(insightTopicPath(topic.slug).replace(/\//g, "\\/")));
   }
-  assert.match(llms, /Topic: https:\/\/collegiateagency\.com\/insights\/topics\/brand-ambassador-programs/);
+  assert.match(llms, /Topic: https:\/\/collegiateagency\.com\/insights\/topics\/student-influencers/);
 
   const { GET: fullGet } = loadTs("app/llms-full.txt/route.ts");
   const full = await (await fullGet()).text();
@@ -276,7 +267,14 @@ test("sitemap, llms.txt, and llms-full.txt list every topic hub", async () => {
   for (const topic of insightTopics) {
     assert.match(full, new RegExp(`URL: https://collegiateagency\\.com${insightTopicPath(topic.slug).replace(/\//g, "\\/")}`));
   }
-  assert.match(full, /Topic: https:\/\/collegiateagency\.com\/insights\/topics\/campus-marketing-strategy/);
+  assert.match(full, /Topic: https:\/\/collegiateagency\.com\/insights\/topics\/campus-events-and-activations/);
+  const { RETIRED_INSIGHT_TOPIC_OWNERS } = loadTs("lib/insight-topics.ts");
+  for (const slug of Object.keys(RETIRED_INSIGHT_TOPIC_OWNERS)) {
+    const url = `https://collegiateagency.com/insights/topics/${slug}`;
+    assert.equal(byLoc.has(url), false, url);
+    assert.equal(llms.includes(`/insights/topics/${slug}`), false, slug);
+    assert.equal(full.includes(`/insights/topics/${slug}`), false, slug);
+  }
   assert.doesNotMatch(full, RESERVED_PHRASE);
   assert.doesNotMatch(llms, RESERVED_PHRASE);
 });
@@ -409,12 +407,8 @@ test("each topic hub renders one FAQPage that matches the visible FAQ", () => {
   const { postsForInsightTopic } = loadTs("lib/insight-topics.ts");
 
   const expectedTitles = {
-    "brand-ambassador-programs": "College Brand Ambassador Programs | Collegiate Agency",
     "campus-events-and-activations": "Campus Activations for Brands | Collegiate Agency",
-    "product-sampling-and-placement": "Campus Product Sampling for Brands | Collegiate Agency",
     "student-influencers": "Campus Influencers for Brands | Collegiate Agency",
-    "campus-sponsorship": "Sponsorship for College Events | Collegiate Agency",
-    "campus-marketing-strategy": "Campus Marketing Strategy for Brands | Collegiate Agency",
   };
 
   for (const topic of insightTopics) {
@@ -477,15 +471,6 @@ test("each topic hub renders one FAQPage that matches the visible FAQ", () => {
     assert.ok(insightTopicFaqTitle(topic.slug).length > 10, topic.slug);
   }
 
-  const strategy = insightTopicFaqs("campus-marketing-strategy")
-    .map((item) => `${item.question} ${item.answer}`)
-    .join(" ");
-  assert.match(strategy, /campus marketing strategy/i);
-  assert.match(strategy, /campus marketing agency/i);
-  assert.match(strategy, /college marketing strategies/i);
-  assert.match(strategy, /where can brands hire reliable campus marketing specialists/i);
-  assert.match(strategy, /college ad agency/i);
-  assert.match(strategy, /college branding agency/i);
   const influencers = `${insightTopics.find((topic) => topic.slug === "student-influencers").description} ${insightTopicFaqs("student-influencers").map((item) => item.question).join(" ")}`;
   assert.match(influencers, /campus influencers/i);
   assert.match(influencers, /student influencer marketing/i);
@@ -494,4 +479,58 @@ test("each topic hub renders one FAQPage that matches the visible FAQ", () => {
   assert.match(events, /campus activations/i);
   assert.match(events, /does not publish a fixed number of weeks/i);
   assert.doesNotMatch(events, /7 days/i);
+});
+
+test("retired topic hubs 301 to their owner articles and stay out of internal links", () => {
+  const { RETIRED_INSIGHT_TOPIC_OWNERS } = loadTs("lib/insight-topics.ts");
+  const { getPost } = loadTs("lib/content.ts");
+  const config = fs.readFileSync(path.join(__dirname, "../next.config.mjs"), "utf8");
+
+  function escapeRegExp(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  const owners = {
+    "brand-ambassador-programs": "/insights/college-brand-ambassador-program",
+    "product-sampling-and-placement": "/insights/on-campus-product-sampling",
+    "campus-sponsorship": "/insights/college-event-sponsorship",
+    "campus-marketing-strategy": "/insights/college-marketing-strategy",
+  };
+  assert.deepEqual(RETIRED_INSIGHT_TOPIC_OWNERS, owners);
+  assert.equal(Object.keys(owners).includes("student-influencers"), false);
+
+  for (const [slug, destination] of Object.entries(owners)) {
+    assert.ok(getPost(destination.slice("/insights/".length)), destination);
+    for (const source of [`/insights/topics/${slug}`, `/insights/topics/${slug}/`]) {
+      assert.match(
+        config,
+        new RegExp(
+          `source:\\s*"${escapeRegExp(source)}",\\s*destination:\\s*"${escapeRegExp(destination)}",\\s*permanent:\\s*true`,
+        ),
+        source,
+      );
+    }
+  }
+
+  function filesUnder(dir, suffix) {
+    const found = [];
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) found.push(...filesUnder(full, suffix));
+      else if (entry.name.endsWith(suffix)) found.push(full);
+    }
+    return found;
+  }
+
+  const bodies = [
+    ...filesUnder(path.join(__dirname, "../content/blog"), ".mdx"),
+    ...filesUnder(path.join(__dirname, "../src"), ".tsx"),
+    ...filesUnder(path.join(__dirname, "../src"), ".ts"),
+  ];
+  for (const file of bodies) {
+    const text = fs.readFileSync(file, "utf8");
+    for (const slug of Object.keys(owners)) {
+      assert.equal(text.includes(`/insights/topics/${slug}`), false, `${file} ${slug}`);
+    }
+  }
 });

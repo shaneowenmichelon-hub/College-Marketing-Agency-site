@@ -30,8 +30,17 @@ test("public production aliases 308 to the apex and leave /api on the alias", as
   assert.deepEqual(kept, [
     "/services/influencers",
     "/rss.xml",
+    "/insights/topics/brand-ambassador-programs",
+    "/insights/topics/brand-ambassador-programs/",
+    "/insights/topics/product-sampling-and-placement",
+    "/insights/topics/product-sampling-and-placement/",
+    "/insights/topics/campus-sponsorship",
+    "/insights/topics/campus-sponsorship/",
+    "/insights/topics/campus-marketing-strategy",
+    "/insights/topics/campus-marketing-strategy/",
     "/insights/sos-consultants-nola-campus-leasing-ambassadors",
     "/insights/nutrl-night-school-tour-product-placement",
+    "/:path+/",
   ]);
 
   for (const rule of rules) {
