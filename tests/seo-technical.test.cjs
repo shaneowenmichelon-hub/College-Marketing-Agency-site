@@ -211,7 +211,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     assert.equal(post.metaTitle, lead);
     assert.equal(
       post.dateModified,
-      slug === "student-housing-marketing-agency"
+      slug === "campus-field-marketing-agency"
+        ? "2026-11-25"
+        : slug === "student-housing-marketing-agency"
         ? "2026-11-23"
         : campusInfluencerAnchors.has(slug)
         ? "2026-11-22"
@@ -308,7 +310,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   for (const slug of Object.keys(expected)) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      slug === "student-housing-marketing-agency"
+      slug === "campus-field-marketing-agency"
+        ? "2026-11-25T00:00:00.000Z"
+        : slug === "student-housing-marketing-agency"
         ? "2026-11-23T00:00:00.000Z"
         : campusInfluencerAnchors.has(slug)
         ? "2026-11-22T00:00:00.000Z"
@@ -373,7 +377,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     assert.ok(post, slug);
     assert.equal(post.metaTitle, spec.lead);
     assert.equal(post.metaDescription, spec.description);
-    assert.equal(post.dateModified, "2026-11-18");
+    assert.equal(post.dateModified, slug === "campus-marketing-agency-rfp" ? "2026-11-25" : "2026-11-18");
     assert.equal(post.date === "2026-11-10", false, slug);
     assert.equal(post.author, "Shane Michelon", slug);
     const title = resolveDocumentTitle(post.metaTitle).text;
@@ -483,7 +487,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
   for (const slug of Object.keys(expected)) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      "2026-11-18T00:00:00.000Z",
+      slug === "campus-marketing-agency-rfp" ? "2026-11-25T00:00:00.000Z" : "2026-11-18T00:00:00.000Z",
       slug,
     );
   }
@@ -599,7 +603,7 @@ test("sitemap uses real dates and omits samples and duplicate insight URLs", () 
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/insights/college-experiential-marketing-agency").lastModified.toISOString(),
-    "2026-11-18T00:00:00.000Z",
+    "2026-11-25T00:00:00.000Z",
   );
   assert.equal(
     byLoc.get("https://collegiateagency.com/insights/campus-brand-activation-agency").lastModified.toISOString(),
