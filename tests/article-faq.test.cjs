@@ -250,6 +250,8 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       ? "2026-11-13"
       : buyerFaq.has(slug)
       ? "2026-11-12"
+      : slug === "hbcu-marketing-agency"
+      ? "2026-11-25"
       : backfill.has(slug)
       ? "2026-11-11"
       : strikingDistanceFaq.has(slug)
@@ -603,7 +605,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
   }
   assert.equal(getPost("gen-z-marketing").dateModified, "2026-10-23");
   assert.equal(getPost("gen-z-experiential-marketing").dateModified, "2026-11-18");
-  assert.equal(getPost("hbcu-marketing-agency").dateModified, "2026-11-11");
+  assert.equal(getPost("hbcu-marketing-agency").dateModified, "2026-11-25");
   assert.equal(getPost("campus-product-sampling-agency").dateModified, "2026-11-11");
 
   for (const [slug, patterns] of Object.entries(slugs)) {
