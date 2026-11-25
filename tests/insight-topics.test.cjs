@@ -218,7 +218,7 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
       topic.slug === "campus-events-and-activations"
         ? "2026-11-24"
         : topic.slug === "campus-marketing-strategy"
-        ? "2026-11-23"
+        ? "2026-11-25"
         : anchorHubs.has(topic.slug)
           ? "2026-11-22"
           : samplingHubs.has(topic.slug)
