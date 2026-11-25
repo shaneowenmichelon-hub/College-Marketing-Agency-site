@@ -98,6 +98,8 @@ The term is the open runner-up from the run 47, 48, 49, and 50 notes. It is outs
 
 The money-page link uses the anchor `college marketing agency`. `student marketing agency` was used on run 51. `college advertising agency` was used on run 50. The phrase `campus marketing agency` links to `/services`. The ambassador-hiring link uses `college brand ambassador agency` and points at `/services/brand-ambassadors`.
 
+The EMARKETER, Marketing Dive, and PR Newswire URLs stay in the sentences as text. On 2026-11-25 the live verifier's HTTP client received Cloudflare 403 responses for those three hosts, so they are not markdown links. RetailBoss and the FTC Federal Register page returned 200 and stay linked.
+
 Dated pages cited in the article, re-opened 2026-11-25:
 
 - RetailBoss, "Calvin Klein Takes a Mobile Retail Store to College Campuses With CNC Agency," September 12, 2026 (https://retailboss.co/calvin-klein-takes-a-mobile-retail-store-to-college-campuses-with-cnc-agency/). Calvin Klein took a mobile retail store to the University of Pennsylvania and George Washington University with CNC Agency's CNC College team. The store was the center of the stop, with a lounge, cold brews, photos, games, and giveaways described on the page. Photographs show apparel inside the vehicle. No sales figure was copied. It is not a Collegiate Agency result.
