@@ -178,6 +178,7 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "student-brand-reps",
       "college-brand-ambassador-program",
     ]);
+    const run52 = new Set(["college-marketing-for-fashion-brands"]);
     const run51 = new Set(["college-street-team-marketing"]);
     const run50 = new Set(["college-marketing-campaigns"]);
     const run49 = new Set(["college-marketing-for-restaurant-brands"]);
@@ -217,6 +218,8 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-experiential-marketing-agency",
     ]);
     const revisedOn = campusAgencyAnchors.has(slug)
+      ? "2026-11-25"
+      : run52.has(slug)
       ? "2026-11-25"
       : run51.has(slug)
       ? "2026-11-24"

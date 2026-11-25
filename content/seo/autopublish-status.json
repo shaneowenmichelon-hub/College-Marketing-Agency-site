@@ -1,17 +1,17 @@
 {
   "status": "ok",
   "reason": "low-photo-supply",
-  "next_run_at": "2026-11-25T16:13:04-06:00",
-  "updated_at": "2026-11-24T04:08:07-06:00",
-  "run_no": 51,
-  "slug": "college-street-team-marketing",
-  "keyword": "college street team marketing",
+  "next_run_at": "2026-11-27T02:54:32-06:00",
+  "updated_at": "2026-11-25T14:44:20-06:00",
+  "run_no": 52,
+  "slug": "college-marketing-for-fashion-brands",
+  "keyword": "college marketing for fashion brands",
   "photo_supply": {
     "owned": 15,
     "eligible": 3,
     "chosen": 3,
     "window": 4,
     "warning": true,
-    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/nutrl-bar-takeover.jpg."
+    "detail": "3 owned photos are free under a 4-article rotation (low-photo-supply warning). Publishing continues. Preferred hero /images/blog/beatbox-performer-on-stage.jpg."
   }
 }
