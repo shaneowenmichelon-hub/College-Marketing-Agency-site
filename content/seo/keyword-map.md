@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-24
+Last updated: 2026-11-25
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -88,6 +88,36 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-21 - `college marketing for restaurant brands` - `/insights/college-marketing-for-restaurant-brands`
 - 2026-11-22 - `college marketing campaigns` - `/insights/college-marketing-campaigns`
 - 2026-11-24 - `college street team marketing` - `/insights/college-street-team-marketing`
+- 2026-11-25 - `college marketing for fashion brands` - `/insights/college-marketing-for-fashion-brands`
+
+## Run 52 research note (2026-11-25)
+
+Primary chosen: `college marketing for fashion brands`.
+
+The term is the open runner-up from the run 47, 48, 49, and 50 notes. It is outside the 60-day lockout, not on the reserved pillar list, and not already an article. The slug matches the keyword. The title is `College Marketing for Fashion Brands: Drops, Pop-Ups, and Codes`, which stays under the duplicate-title threshold against `College Marketing for Beauty Brands: A Hiring Guide`. It is outside the clusters being consolidated in `content/seo/backlog.md`. Collegiate Agency had no fashion article. Beauty, beverage, fintech, and restaurant guides are already published. The page is a vertical hiring guide: a sized drop, a pop-up or mobile store, a chapter yes, a game-day permission, a paid post, and a code or QR the brand already tracks. It links the beauty, pop-up, and Greek-life guides instead of restating them. Competitor performance figures are left out. This page is not a price quote beyond the published rates.
+
+The money-page link uses the anchor `college marketing agency`. `student marketing agency` was used on run 51. `college advertising agency` was used on run 50. The phrase `campus marketing agency` links to `/services`. The ambassador-hiring link uses `college brand ambassador agency` and points at `/services/brand-ambassadors`.
+
+Dated pages cited in the article, re-opened 2026-11-25:
+
+- RetailBoss, "Calvin Klein Takes a Mobile Retail Store to College Campuses With CNC Agency," September 12, 2026 (https://retailboss.co/calvin-klein-takes-a-mobile-retail-store-to-college-campuses-with-cnc-agency/). Calvin Klein took a mobile retail store to the University of Pennsylvania and George Washington University with CNC Agency's CNC College team. The store was the center of the stop, with a lounge, cold brews, photos, games, and giveaways described on the page. Photographs show apparel inside the vehicle. No sales figure was copied. It is not a Collegiate Agency result.
+- EMARKETER, Zak Stambor, "Urban Outfitters' digital head tells EMARKETER how the brand aims to turn college students into long-term customers," September 25, 2026 (https://www.emarketer.com/content/urban-outfitters-game-day-college-marketing-gen-z). Third year of UO Game Day, with live music, pop-ups, giveaways, and customization at the University of Arizona, the University of Wisconsin-Madison, and Rutgers. Nike, Levi's, and Converse are named as sponsors. The brand worked with 10 chapters on outfit posts during recruitment, then returned for house experiences at Game Day. The page lists user-generated content, social engagement, earned media, event traffic, customer acquisition, sales, UO Rewards enrollment, and repeat engagement. The article names content, traffic, sales, rewards enrollment, and repeat engagement from that list. Julia Draper's line that the majority of Gen Z see shopping as a social activity was on the page and was not used. No result line was copied.
+- Marketing Dive, Chris Kelly, "How Urban Outfitters finds the right campus fit with college marketing," October 28, 2026 (https://www.marketingdive.com/news/how-urban-outfitters-finds-the-right-campus-fit-with-college-marketing/873007/). Julia Draper, head of digital and e-commerce, said the talent, the customization, the pop-up, and the presence at the game were set to differ by campus. The page names Alison Wonderland at Arizona, the Linda Lindas at Wisconsin, and Flo Milli with DJ Miss Milan at Rutgers. A double-digit digital-growth line on the page was not copied.
+- PR Newswire, Pacsun, "PACSUN OPENS THE NEXT CHAPTER OF CO-CREATED WITH OFFICIAL COLLEGE TOUR," October 7, 2026 (https://www.prnewswire.com/news-releases/pacsun-opens-the-next-chapter-of-co-created-with-official-college-tour-302900778.html). The tour started at the University of Southern California on October 6. The CEO was set to visit at least 12 campuses over the next year, including Harvard Business School on November 1, with Stanford, Duke, UC Irvine, Chapman, and San Diego State listed as planned. The kickoff photo identifies a Pacsun Ambassador Program member at USC. The student's name in the release was not repeated. The release describes a book conversation, not a product drop and not a sales total. It is not a Collegiate Agency route.
+- Federal Trade Commission, "Guides Concerning the Use of Endorsements and Testimonials in Advertising," Federal Register, July 26, 2023, effective that day (https://www.govinfo.gov/content/pkg/FR-2023-07-26/html/2023-14795.htm). A payment, a free product, or a prize has to be disclosed when a significant minority of the audience would not expect it. Clear and conspicuous means difficult to miss and easily understood. On social media the disclosure should be unavoidable. A profile-only disclosure is easy to miss. A disclosure behind a "more" control is not unavoidable when the post itself is visible. Example 9 in the material-connection section describes a college student who earns points for posts and can exchange them for prizes such as concert tickets or electronics.
+
+Read the same day and not cited, because the fetched page showed no publication date:
+
+- College Marketing Co., "Fashion & Apparel Campus Marketing: How Brands Win Gen Z" (https://collegemarketing.co/blog/fashion-apparel-campus-marketing-2026). The page is a dedicated vendor article for the query. Its playbook steps were not copied, and its questions were not reused.
+
+Runner-ups, not locked:
+
+- `college marketing for fitness brands`. The assignment recorded YMC pages for Under Armour and Beyond Yoga, a Raptor page for Gymshark U, and an H/FC Barebells page. Those pages were not re-opened this run and are not cited. No Collegiate page on the query.
+- `college marketing for tech brands`. It overlaps the published college app marketing article. Not chosen.
+- `college marketing for CPG / snack brands`. Partly touched by the sampling and beverage pages. Not chosen.
+- `college marketing for wellness brands`. No Collegiate page. Not chosen this run.
+
+Photo supply: 3 owned photos were free under the 4-article window (`beatbox-performer-on-stage.jpg`, `dazed-merch-table-activation.jpg`, `nutrl-toast-tent-activation.jpg`). That is a low-photo-supply warning. The run still publishes. Hero is the performer on stage. Inline frames are the Dazed merchandise table and the NUTRL toast. The previous article's hero, `nutrl-bar-takeover.jpg`, was not reused. The premiere step-and-repeat stayed in the recent window and was not used.
 
 ## Run 51 research note (2026-11-24)
 
