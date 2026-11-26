@@ -1,5 +1,20 @@
 # SEO changelog
 
+## 2026-11-26 — Money-page inlinks on six articles
+
+No new article. No new page. No redirect. No layout change. Titles, meta titles, meta descriptions, H1s, slugs, FAQs, short answers, and canonicals are unchanged. `content/seo/publish-log.md`, `content/seo/autopublish-state.json`, `content/seo/keyword-map.md`, and `scripts/collegiate_seo_autopublish.py` were not edited. No new statistic, client, result, or review was added.
+
+A live crawl on Nov 26, 2026 found no contextual link to `/insights/college-marketing-agency` on these six articles. Each now has exactly one body link to that URL. The link sits in a sentence about choosing a partner. No other anchor on these pages was edited.
+
+- `/insights/university-activations` — `college marketing agency`
+- `/insights/campus-pop-up-activation` — `college marketing agency`
+- `/insights/college-tailgate-marketing-agency` — `college advertising agency`
+- `/insights/college-sports-marketing-agency` — `college ad agency`
+- `/insights/college-creator-marketing-agency` — `student marketing agency`
+- `/insights/college-app-marketing-agency` — `how to choose a college marketing agency`
+
+`dateModified` is `2026-11-26` on those six files. Publish dates stay the same, so those six sitemap `lastmod` values are `2026-11-26`. `/insights` follows the newest-revision rule, so its sitemap `lastmod` moves to `2026-11-26`. Its title, copy, and FAQ were not edited. `/insights/topics/campus-events-and-activations` includes the university-activations and campus-pop-up articles, and `/insights/topics/student-influencers` includes the creator article, so those two hubs follow the same rule to `2026-11-26`. Their titles, copy, and FAQs were not edited.
+
 ## 2026-11-25 — College marketing for fashion brands
 
 New insight at `/insights/college-marketing-for-fashion-brands`. Primary keyword `college marketing for fashion brands`. Buyer is an apparel, sneaker, or accessories brand hiring a campus partner. The page requires a sized drop, a code or QR the brand already tracks, a written yes before a sale on campus, a chapter yes at the published Greek-life rate, and a disclosure on a paid or gifted post. It links to `/insights/college-marketing-for-beauty-brands`, `/insights/campus-pop-up-activation`, and `/insights/greek-life-marketing-agency` instead of restating those guides. The one link to `/insights/college-marketing-agency` uses the anchor `college marketing agency`. `campus marketing agency` links to `/services`. The ambassador link uses `college brand ambassador agency` and points at `/services/brand-ambassadors`. Dated sources re-opened the same day are RetailBoss (September 12, 2026), EMARKETER (September 25, 2026), Marketing Dive (October 28, 2026), the Pacsun PR Newswire release (October 7, 2026), and the FTC endorsement guides (July 26, 2023). EMARKETER, Marketing Dive, and PR Newswire are named with their URLs in the sentences. Those three hosts returned Cloudflare 403 to the live verifier's HTTP client, so they are not markdown links. RetailBoss and the FTC page stay linked. No competitor performance figure, client result, or redemption forecast was added. Hero and two inline photos are owned activation frames outside the previous four articles. `date` and `dateModified` are 2026-11-25, so the article sitemap `lastmod` is 2026-11-25. The article is not assigned to a topic hub.

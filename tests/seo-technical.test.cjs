@@ -211,7 +211,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
     assert.equal(post.metaTitle, lead);
     assert.equal(
       post.dateModified,
-      slug === "campus-field-marketing-agency"
+      slug === "university-activations"
+        ? "2026-11-26"
+        : slug === "campus-field-marketing-agency"
         ? "2026-11-25"
         : slug === "student-housing-marketing-agency"
         ? "2026-11-23"
@@ -310,7 +312,9 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   for (const slug of Object.keys(expected)) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      slug === "campus-field-marketing-agency"
+      slug === "university-activations"
+        ? "2026-11-26T00:00:00.000Z"
+        : slug === "campus-field-marketing-agency"
         ? "2026-11-25T00:00:00.000Z"
         : slug === "student-housing-marketing-agency"
         ? "2026-11-23T00:00:00.000Z"
@@ -334,7 +338,7 @@ test("second CTR pass snippets name the brand buyer and move lastmod", () => {
   }
   const { STATIC_ROUTE_UPDATED } = loadTs("lib/route-updated.ts");
   const routeStamp = (route) => `${STATIC_ROUTE_UPDATED[route]}T00:00:00.000Z`;
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-25T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-26T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), routeStamp("/services/events"));
   assert.equal(byLoc.get("https://collegiateagency.com/work").lastModified.toISOString(), routeStamp("/work"));
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), routeStamp("/"));
@@ -377,7 +381,14 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     assert.ok(post, slug);
     assert.equal(post.metaTitle, spec.lead);
     assert.equal(post.metaDescription, spec.description);
-    assert.equal(post.dateModified, slug === "campus-marketing-agency-rfp" ? "2026-11-25" : "2026-11-18");
+    assert.equal(
+      post.dateModified,
+      slug === "college-tailgate-marketing-agency"
+        ? "2026-11-26"
+        : slug === "campus-marketing-agency-rfp"
+          ? "2026-11-25"
+          : "2026-11-18",
+    );
     assert.equal(post.date === "2026-11-10", false, slug);
     assert.equal(post.author, "Shane Michelon", slug);
     const title = resolveDocumentTitle(post.metaTitle).text;
@@ -487,7 +498,11 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
   for (const slug of Object.keys(expected)) {
     assert.equal(
       byLoc.get(`https://collegiateagency.com/insights/${slug}`).lastModified.toISOString(),
-      slug === "campus-marketing-agency-rfp" ? "2026-11-25T00:00:00.000Z" : "2026-11-18T00:00:00.000Z",
+      slug === "college-tailgate-marketing-agency"
+        ? "2026-11-26T00:00:00.000Z"
+        : slug === "campus-marketing-agency-rfp"
+          ? "2026-11-25T00:00:00.000Z"
+          : "2026-11-18T00:00:00.000Z",
       slug,
     );
   }
@@ -502,7 +517,7 @@ test("page-one CTR snippets name the brand buyer and move lastmod", () => {
     "2026-11-18T00:00:00.000Z",
   );
   const { STATIC_ROUTE_UPDATED: routeUpdated } = loadTs("lib/route-updated.ts");
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-25T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-26T00:00:00.000Z");
   assert.equal(byLoc.get("https://collegiateagency.com").lastModified.toISOString(), `${routeUpdated["/"]}T00:00:00.000Z`);
   assert.equal(byLoc.get("https://collegiateagency.com/services").lastModified.toISOString(), `${routeUpdated["/services"]}T00:00:00.000Z`);
   assert.equal(byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(), `${routeUpdated["/services/events"]}T00:00:00.000Z`);
