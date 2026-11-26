@@ -212,8 +212,8 @@ test("topic hubs have unique titles, brand copy, and a safe unmapped fallback", 
   assert.ok(insightTopicLastModified("student-influencers") >= INSIGHT_TOPICS_UPDATED);
   assert.equal(INSIGHT_TOPIC_CONTENT_UPDATED, "2026-11-16");
   const expectedLastMod = {
-    "campus-events-and-activations": "2026-11-25",
-    "student-influencers": "2026-11-22",
+    "campus-events-and-activations": "2026-11-26",
+    "student-influencers": "2026-11-26",
   };
   for (const topic of insightTopics) {
     assert.equal(insightTopicSitemapLastModified(topic.slug), expectedLastMod[topic.slug], topic.slug);
