@@ -5,15 +5,15 @@
     "slug": "college-marketing-for-fitness-brands",
     "url": "https://collegiateagency.com/insights/college-marketing-for-fitness-brands",
     "word_count": 1699,
-    "verified_at": "2026-11-27T02:55:22-06:00",
-    "note": "Run 53 fitness hiring guide. verified_at is rewritten to the live check when that check succeeds. The clock advanced 36 hours plus 1219 seconds from the 2026-11-27 02:55 America/Chicago preparation so a resumed routine does not burst a second article."
+    "verified_at": "2026-11-27T02:59:53-06:00",
+    "note": "Run 53 fitness hiring guide. verified_at is the live check. The clock advanced 36 hours plus 1219 seconds from that check so a resumed routine does not burst a second article."
   },
-  "next_run_at": "2026-11-28T15:15:41-06:00",
+  "next_run_at": "2026-11-28T15:20:12-06:00",
   "retry_at": null,
   "retry_count": 0,
   "retry_run_no": null,
-  "schedule_anchor": "2026-11-27T02:55:22-06:00",
+  "schedule_anchor": "2026-11-27T02:59:53-06:00",
   "schedule_jitter_seconds": 1219,
   "schedule_policy": "36 elapsed hours + uniform integer 0..1800 seconds; first watchdog tick at/after eligibility",
-  "schedule_repair": "Run 53 advanced the clock 36 hours plus 1219 seconds from the 2026-11-27 02:55 America/Chicago preparation so a resumed routine does not burst a second article. verified_at is replaced with the live-check time after verification."
+  "schedule_repair": "Run 53 advanced the clock 36 hours plus 1219 seconds from the live check so a resumed routine does not burst a second article."
 }
