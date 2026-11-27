@@ -184,7 +184,7 @@ test("the money page keeps one FAQPage, the same title and H1, and links the liv
   assert.equal(byLoc.has("https://collegiateagency.com/insights/topics/campus-marketing-strategy"), false);
   assert.equal(
     byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(),
-    "2026-11-26T00:00:00.000Z",
+    "2026-11-27T00:00:00.000Z",
   );
 
   const home = fs.readFileSync(path.join(root, "src/app/page.tsx"), "utf8");

@@ -178,6 +178,7 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "student-brand-reps",
       "college-brand-ambassador-program",
     ]);
+    const run53 = new Set(["college-marketing-for-fitness-brands"]);
     const run52 = new Set(["college-marketing-for-fashion-brands"]);
     const run51 = new Set(["college-street-team-marketing"]);
     const run50 = new Set(["college-marketing-campaigns"]);
@@ -225,7 +226,9 @@ test("commercial articles render one FAQPage whose text matches the visible FAQ"
       "college-creator-marketing-agency",
       "college-app-marketing-agency",
     ]);
-    const revisedOn = moneyPageInlinks.has(slug)
+    const revisedOn = run53.has(slug)
+      ? "2026-11-27"
+      : moneyPageInlinks.has(slug)
       ? "2026-11-26"
       : campusAgencyAnchors.has(slug)
       ? "2026-11-25"
@@ -343,7 +346,7 @@ test("striking-distance articles render one FAQPage whose Q&A matches the visibl
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-26T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-27T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -456,7 +459,7 @@ test("next striking-distance articles render one FAQPage from the rewritten FAQ"
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-26T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-27T00:00:00.000Z");
   for (const [topic, stamp] of Object.entries(hubs)) {
     assert.equal(insightTopicLastModified(topic), stamp, topic);
     assert.equal(
@@ -593,7 +596,7 @@ test("third striking-distance batch renders one FAQPage from the rewritten FAQ",
   };
 
   const byLoc = new Map(sitemap().map((entry) => [entry.url, entry]));
-  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-26T00:00:00.000Z");
+  assert.equal(byLoc.get("https://collegiateagency.com/insights").lastModified.toISOString(), "2026-11-27T00:00:00.000Z");
   assert.equal(
     byLoc.get("https://collegiateagency.com/services/events").lastModified.toISOString(),
     `${loadTs("lib/route-updated.ts").STATIC_ROUTE_UPDATED["/services/events"]}T00:00:00.000Z`,
