@@ -1,6 +1,6 @@
 # SEO Keyword Map
 
-Last updated: 2026-11-25
+Last updated: 2026-11-27
 
 Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` sitemap, local MDX articles, the autopublisher state, and public search results for campus marketing, experiential, activation, sampling, and college agency queries on 2026-10-08. Search volume and numeric difficulty tools were not available in this environment, so volume is omitted and difficulty is qualitative marked ESTIMATE. Competing URLs are observed public search results where parseable. Competing URLs are not endorsed sources.
 
@@ -89,6 +89,43 @@ Method: refreshed for brand-buyer inbound after reviewing the live `/insights/` 
 - 2026-11-22 - `college marketing campaigns` - `/insights/college-marketing-campaigns`
 - 2026-11-24 - `college street team marketing` - `/insights/college-street-team-marketing`
 - 2026-11-25 - `college marketing for fashion brands` - `/insights/college-marketing-for-fashion-brands`
+- 2026-11-27 - `college marketing for fitness brands` - `/insights/college-marketing-for-fitness-brands`
+
+## Run 53 research note (2026-11-27)
+
+Primary chosen: `college marketing for fitness brands`.
+
+The term is the open runner-up from the run 52 note. It is outside the 60-day lockout, not on the reserved pillar list, and not already an article. The slug matches the keyword. The title is `College Marketing for Fitness Brands: Rec Centers, Run Clubs, and Claims`, which stays under the duplicate-title threshold against the beauty, beverage, fintech, restaurant, and fashion guides. It is outside the ambassador cluster being consolidated in `content/seo/backlog.md`, and it does not restate the beverage article. Collegiate Agency had no fitness article. The page is a vertical hiring guide: a rec-center yes, a class the center approves, a run club or club-sport host, an intramural office, a pop-up footprint, a claim sheet, and a code the brand already tracks. It links the beverage, on-campus sampling, and pop-up guides instead of restating them. Competitor performance figures are left out. This page is not a price quote beyond the published rates, and it is not legal advice.
+
+The money-page link uses the anchor `college advertising agency`. `college marketing agency` was used on run 52. `student marketing agency` was used on run 51. The phrase `campus marketing agency` links to `/services`. The ambassador-hiring link uses `college brand ambassador agency` and points at `/services/brand-ambassadors`.
+
+`next_run_at` was 2026-11-27T02:54:32-06:00. Drafting began earlier that morning. The publish log time is at or after that clock, and the next run advances from the live check so the cadence does not publish early or burst a second article.
+
+Dated pages cited in the article, re-opened 2026-11-27:
+
+- Marshall University Campus Recreation, "Marshall Recreation Center Operations Manual 2025-2026" (https://www.marshall.edu/wp-content/uploads/sites/830/2026/07/COMPLIANT_FY26-Operations-Manual.pdf). The manual covers that one center. Priority of use is campus recreation programs, then student organizations registered with Student Life, then university departments, then non-university groups. A reservation needs a Facility Reservation Request form at least two weeks ahead. A rental for a fitness or wellness activity must use Marshall Recreation Center staff. A group may not sell, or contract an outside vendor to sell, unless otherwise permitted. Solicitation is prohibited inside the center and directly outside it. Photography and video need approval from the Coordinator of Marketing and Outreach and member permission. Third-party training, including personal training, coaching, fitness classes, and swim lessons, is prohibited unless approved. Approved instruction in the fitness studios needs a general liability policy. Food is consumed on the lobby side of the Welcome Desk. Activity areas allow only drinks in a spill-proof, unbreakable container unless staff approve otherwise. Hourly rates in the manual were not copied. It is not a rule for every campus.
+- College Marketing Co., "Campus Rec Center Fitness Activation," date listed as January 2026 (https://collegemarketing.co/portfolio/campus-fitness-activation). The page describes sampling stations near gym entrances, workout challenges, protein bars, sports drinks, fitness accessories, and a mobile app challenge. Markets listed are the University of Texas, the University of Wisconsin, Indiana University, and Virginia Tech. The sample total on the page was not copied. It is not a Collegiate Agency result.
+- U.S. Food and Drug Administration, "Dietary Supplement Labeling Guide: Chapter VI. Claims," April 2005 (https://www.fda.gov/food/dietary-supplements-guidance-documents-regulatory-information/dietary-supplement-labeling-guide-chapter-vi-claims). The page says it contains nonbinding recommendations. A health claim describes reducing the risk of or preventing a disease. The page's example is "calcium may reduce the risk of osteoporosis." A health claim needs FDA evaluation and authorization before use. A structure/function claim describes the role of a substance intended to maintain the structure or function of the body and does not require preapproval. A structure/function statement in labeling needs substantiation that it is truthful and not misleading, the disclaimer, and notice to FDA no later than 30 days after first marketing. The disclaimer wording may not be modified. The singular line is "This statement has not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease."
+- Federal Trade Commission, "Guides Concerning the Use of Endorsements and Testimonials in Advertising," Federal Register, July 26, 2023, effective that day (https://www.govinfo.gov/content/pkg/FR-2023-07-26/html/2023-14795.htm). A connection that might materially affect the weight or credibility of an endorsement, and that the audience would not reasonably expect, must be disclosed clearly and conspicuously. Material connections can include monetary payment, free or discounted products, or the possibility of winning a prize. A material connection needs to be disclosed when a significant minority of the audience does not understand or expect it. Clear and conspicuous means difficult to miss and easily understandable by ordinary consumers. For online disclosures to be effective, they must be unavoidable. A disclosure only on a profile page is not clear and conspicuous. A disclosure behind a "more" control is an example of one people can miss. Example 9 describes a college student who earns points for posts and can exchange them for prizes such as concert tickets or electronics.
+
+Read the same day and not cited. Performance lines on these pages were not copied. Pages without a publication date were not used as article sources:
+
+- Raptor, "Gymshark U On Campus Student Campaign Case Study" (https://www.raptoragency.com/work/gymshark). No publication date on the fetched page. The page describes a collegiate program at NYU, UT Austin, and U Miami, with run clubs, pilates classes, pop-up fitness challenges, and campus club partnerships. No result line was copied.
+- Home From College, "How Barebells Drove an 81% Lift in Brand Awareness on Campus" (https://homefromcollege.com/resources/case-studies/barebells-campus-case-study). No publication date on the fetched page. The page describes sampling, including a Roy's Run Club recovery stop. The lift and sample totals were not copied.
+- Youth Marketing Connection, "Under Armour College Ambassador Program" (https://youthmarketing.com/case-study/under-armour-campus-ambassadors/) and "Beyond Yoga Campus Pop-Up Events" (https://youthmarketing.com/case-study/beyond-yoga-campus-pop-up-events/). No article date on the fetched pages. Result lines and the quoted student line were not copied.
+- College Marketing Co., "Health & Wellness Campus Marketing: Reaching Students in 2026" (https://collegemarketing.co/blog/health-wellness-campus-marketing-2026). No publication date on the fetched page. Its questions were not reused.
+- AnyRoad, "Campus Recreation Marketing Trends 2026: Experiential Guide," March 13, 2026, last updated March 4, 2026 (https://www.anyroad.com/blog/campus-rec-experiential-marketing-2026). The page is a vendor trends piece for recreation departments. Its percentages were not copied.
+
+Promo Social's Celsius sampling page and an MOGXP Optimum Nutrition page were named in the assignment as AI-answer citations. They were not re-opened this run and are not cited. Drink sampling stays on the beverage guide.
+
+Runner-ups, not locked:
+
+- `college marketing for gaming/esports brands`. College Marketing Co. has an industry page (https://collegemarketing.co/industries/gaming-esports) and Uconnect's homepage (https://uconnect.app/) presents collegiate gaming activations. Both were visible on 2026-11-27. No Collegiate page. Figures on those pages were not copied. Not chosen.
+- `college marketing for wellness brands`. Adjacent to fitness. The College Marketing Co. wellness post above has no publication date. Saved for later.
+- `college marketing for tech brands`. It overlaps the published college app marketing article. Not chosen.
+- `welcome week brand activation`. Next in `keyword-queue.json`, and it overlaps `/insights/back-to-school-campus-activation` and the activations cluster. Not chosen.
+
+Photo supply: 3 owned photos were free under the 4-article window (`beatbox-attendees-venue-pair.jpg`, `beatbox-premiere-step-and-repeat.jpg`, `nutrl-koozies-sunglasses-giveaway.jpg`). That is a low-photo-supply warning. The run still publishes. Hero is the two attendees with BEATBOX cartons. Inline frames are the NUTRL koozies and sunglasses on a cart, and the film premiere step-and-repeat. The slug does not contain `agency`, so the premiere frame is allowed. The previous article's hero, `beatbox-performer-on-stage.jpg`, was not reused.
 
 ## Run 52 research note (2026-11-25)
 
